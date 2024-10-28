@@ -1,0 +1,14 @@
+{
+  "name": "sipe-design-system",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@biomejs/biome": "catalog:",
+    "@changesets/cli": "^2.27.9",
+    "@tsconfig/strictest": "^2.0.5",
+    "@types/node": "^22.8.1",
+    "knip": "catalog:",
+    "typescript": "catalog:"
+  },
+  "packageManager": "pnpm@9.7.1"
+}
