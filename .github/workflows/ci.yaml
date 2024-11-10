@@ -10,7 +10,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        fetch-depth: 2
+        fetch-depth: 0
+        ref: ${{ github.event.pull_request.head.sha }}
     - name: pnpm 설치
       uses: pnpm/action-setup@v4
       with:
@@ -23,10 +24,10 @@ jobs:
     - name: 의존성 설치
       run: pnpm install
     - name: 린트
-      run: pnpm --filter=[origin/main] lint
+      run: pnpm --filter="...[origin/${{ github.base_ref }}]" lint
     - name: 테스트
-      run: pnpm --filter=[origin/main] test
+      run: pnpm --filter="...[origin/${{ github.base_ref }}]" test
     - name: 빌드
-      run: pnpm --filter=[origin/main] build
+      run: pnpm --filter="...[origin/${{ github.base_ref }}]" build
     - name: 타입 체크
-      run: pnpm --filter=[origin/main] typecheck
+      run: pnpm --filter="...[origin/${{ github.base_ref }}]" typecheck
