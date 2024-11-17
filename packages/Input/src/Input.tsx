@@ -40,7 +40,7 @@ const Input = forwardRef<InputFieldElement, InputProps>(
           type={type}
           spellCheck="false"
           ref={composeRefs(inputRef, forwardedRef)}
-          className={styles['input']}
+          className={styles.input}
           style={{
           '--font-size': `${fontSize}px`,
           '--font-weight': `${Weight[fontWeight]}`,

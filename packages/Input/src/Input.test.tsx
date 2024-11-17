@@ -38,18 +38,18 @@ describe('Input 컴포넌트', () => {
         expect(screen.getByRole('textbox')).toHaveAttribute('spellCheck', 'false');
       });
 
-      test('기본 폰트 사이즈, 폰트 웨이트 적용된다.'), () => {
-          render(<Input name="test" />);
-          let wrapper = screen.getByRole('test-wrapper');
-          expect(wrapper).toHaveStyle({
-            '--font-size': '16px',
-            '--font-weight': '400'
-          });
-      }
+      test('기본 폰트 사이즈, 폰트 웨이트 적용된다.', () => {
+        render(<Input />);
+        const input = screen.getByRole('textbox');
+        expect(input).toHaveStyle({
+          '--font-size': '16px',
+          '--font-weight': '400'
+        })
+      });
       
       test('변경 폰트 사이즈, 폰트 웨이트 적용된다.', () => {
         render(<Input fontSize={24} fontWeight='semiBold' />);
-        let input = screen.getByRole('textbox');
+        const input = screen.getByRole('textbox');
           expect(input).toHaveStyle({
           '--font-size': '24px',
           '--font-weight': '600'
