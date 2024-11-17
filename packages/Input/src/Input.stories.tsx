@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import {Input, Action} from './Input';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
+import { Action, Input } from './Input';
 
 const meta = {
   component: Input,
