@@ -19,6 +19,9 @@
     "typecheck": "tsc",
     "prepack": "pnpm run build"
   },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.1.0"
+  },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
     "@storybook/addon-essentials": "catalog:",
@@ -28,6 +31,8 @@
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@storybook/test": "catalog:",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
     "@types/react": "^18.3.12",
     "happy-dom": "catalog:",
     "react": "^18.3.1",
