@@ -3,11 +3,11 @@ import { forwardRef, useRef, type ComponentPropsWithoutRef, type CSSProperties, 
 
 import { Slot } from '@radix-ui/react-slot';
 
-import { composeRefs } from '../utils/compose-refs';
+import { composeRefs } from './utils/compose-refs';
 
-import { colors } from '../constants/colors';
-import { spacing } from '../constants/spacing';
-import { Weight, type FontSize, type FontWeight } from '../constants/typhography';
+import { colors } from './constants/colors';
+import { spacing } from './constants/spacing';
+import { Weight, type FontSize, type FontWeight } from './constants/typhography';
 import styles from './Input.module.css';
 
 type AllowedInputTypes = "email" | "password" | "search" | "tel" | "text" | "url"
