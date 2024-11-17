@@ -1,0 +1,81 @@
+.input-wrapper {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  font-style: normal;
+  text-align: start;
+  
+  padding: var(--input-padding);
+  border-radius: var(--input-border-radius);
+  outline: 1px solid var(--input-ring-color);
+
+  @supports selector(:has(*)) {
+    &:where(:has(.input:focus)) {
+      outline: 2px solid var(--input-ring-color);
+      outline-offset: -1px;
+    }
+
+    &:where(:has(.input:disabled)) {
+      background-color: var(--input-disabled-color); 
+    }
+  }
+  @supports not selector(:has(*)) {
+    &:where(:focus-within) {
+      outline: 2px solid var(--input-ring-color);
+      outline-offset: -1px;
+    }
+  }
+}
+
+.input {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: inherit;
+
+  outline: 1px solid transparent;
+  border: none;
+
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+
+  /* 기본 취소 버튼 제거 */
+  &::-webkit-search-cancel-button {
+    appearance: none;
+  }
+
+  @supports selector(:has(*)) {
+    &:where(:autofill, [data-com-onepassword-filled]) {
+      background-clip: text;
+      -webkit-text-fill-color: var(--gray-12);
+    }
+  }
+
+  @supports selector(:has(*)) {
+    &:where(:disabled) {
+      background-color: transparent;
+    }
+  }
+}
+
+
+
+.input-action {
+  all: unset;
+
+  width: var(--action-size);
+  height: var(--action-size);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--input-border-radius);
+
+  @supports selector(:has(*)) {
+
+    &:focus {
+    outline: 2px solid var(--input-ring-color);
+    outline-offset: 3px;
+    }
+  }
+}
