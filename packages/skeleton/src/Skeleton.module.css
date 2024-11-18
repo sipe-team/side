@@ -1,0 +1,19 @@
+@keyframes fadeInOut {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+.skeleton{
+  animation: fadeInOut 1.5s infinite;
+  width: var(--width);
+  height: var(--height);
+  background-color: rgb(155, 155, 155);
+}
