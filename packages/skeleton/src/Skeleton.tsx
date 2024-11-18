@@ -7,12 +7,6 @@ import {
 } from 'react';
 import styles from './Skeleton.module.css';
 
-const DEFAUT_SIZE = {
-  WIDTH: 100,
-  HEIGHT: 20,
-  RADIUS: 4,
-} as const;
-
 type Variant = 'circle' | 'rectangular';
 
 interface SkeletonProps extends ComponentProps<'div'> {
@@ -31,10 +25,9 @@ export const Skeleton = forwardRef(function Skeleton(
   const Component = asChild ? Slot : 'div';
 
   const style = {
-    '--width': props.width ? `${props.width}px` : `${DEFAUT_SIZE.WIDTH}px`,
-    '--height': props.height ? `${props.height}px` : `${DEFAUT_SIZE.HEIGHT}px`,
-    borderRadius:
-      props.variant === 'circle' ? '50%' : `${DEFAUT_SIZE.RADIUS}px`,
+    '--width': props.width ? `${props.width}px` : 'auto',
+    '--height': props.height ? `${props.height}px` : 'auto',
+    borderRadius: props.variant === 'circle' ? '50%' : '4px',
   } as CSSProperties;
 
   return (

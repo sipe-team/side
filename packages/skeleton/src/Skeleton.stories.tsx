@@ -64,7 +64,5 @@ export const SkeletonWithChildren: Story = {
     asChild: true,
     children: <button type="button">Loading...</button>,
     variant: 'rectangular',
-    width: 120,
-    height: 50,
   },
 };
