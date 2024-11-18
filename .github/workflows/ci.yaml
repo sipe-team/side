@@ -27,7 +27,7 @@ jobs:
       run: pnpm --filter="...[origin/${{ github.base_ref }}]" lint
     - name: 테스트
       run: pnpm --filter="...[origin/${{ github.base_ref }}]" test
-    - name: 빌드
-      run: pnpm --filter="...[origin/${{ github.base_ref }}]" build
     - name: 타입 체크
       run: pnpm --filter="...[origin/${{ github.base_ref }}]" typecheck
+    - name: 빌드
+      run: pnpm --filter="...[origin/${{ github.base_ref }}]" build
