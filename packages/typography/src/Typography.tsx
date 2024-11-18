@@ -1,4 +1,5 @@
 import { Slot } from '@radix-ui/react-slot';
+import { clsx as cx } from 'clsx';
 import {
   type CSSProperties,
   type ComponentProps,
@@ -23,8 +24,11 @@ export interface TypographyProps extends ComponentProps<'p'> {
 export const Typography = forwardRef(function Typography(
   {
     asChild,
+    className,
+    color,
     lineHeight = 'regular',
     size = 14,
+    style: _style,
     weight = 'regular',
     ...props
   }: TypographyProps,
@@ -34,6 +38,8 @@ export const Typography = forwardRef(function Typography(
   const numericLineHeight = getNumericLineHeight(lineHeight);
   const numericWeight = getNumericWeight(weight);
   const style = {
+    ..._style,
+    '--font-color': color,
     '--font-size': `${size}px`,
     '--font-weight': numericWeight,
     '--line-height': numericLineHeight,
@@ -41,7 +47,7 @@ export const Typography = forwardRef(function Typography(
 
   return (
     <Component
-      className={styles.typography}
+      className={cx(styles.typography, className)}
       ref={ref}
       style={style}
       {...props}
