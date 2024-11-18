@@ -1,6 +1,6 @@
 {
-  "name": "@sipe-team/typography",
-  "description": "Typography component for Sipe Design System",
+  "name": "@sipe-team/skeleton",
+  "description": "Skeleton component for Sipe Design System",
   "version": "0.0.0",
   "license": "MIT",
   "repository": {
@@ -9,9 +9,7 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
