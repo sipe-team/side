@@ -9,7 +9,9 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
@@ -28,6 +30,8 @@
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@storybook/test": "catalog:",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
     "@types/react": "^18.3.12",
     "happy-dom": "catalog:",
     "react": "^18.3.1",
@@ -54,5 +58,8 @@
       }
     }
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.1.0"
+  }
 }
