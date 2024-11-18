@@ -12,8 +12,19 @@
 
 
 .skeleton{
-  animation: fadeInOut 1.5s infinite;
+  animation: fadeInOut 1.5s infinite !important;
   width: var(--width);
   height: var(--height);
   background-color: rgb(155, 155, 155);
+
+  background-image: none !important;
+  background-clip: border-box !important;
+  border: none !important;
+  box-shadow: none !important;
+  box-decoration-break: clone !important;
+  color: transparent !important;
+  outline: none !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  cursor: default !important;
 }
