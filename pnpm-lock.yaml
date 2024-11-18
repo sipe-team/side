@@ -129,6 +129,9 @@ importers:
       '@biomejs/biome':
         specifier: 'catalog:'
         version: 1.9.4
+      '@faker-js/faker':
+        specifier: ^9.2.0
+        version: 9.2.0
       '@storybook/addon-essentials':
         specifier: 'catalog:'
         version: 8.3.6(storybook@8.3.6)

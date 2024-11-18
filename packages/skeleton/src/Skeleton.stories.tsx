@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 // Skeleton.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
 import { Skeleton } from './Skeleton';
@@ -71,14 +72,7 @@ export const SkeletonWithText: Story = {
   args: {
     loading: true,
     asChild: true,
-    children: (
-      <span>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis enim
-        labore quibusdam in officia id veniam assumenda ut, accusamus, officiis
-        consectetur minima dolorum facere minus, corrupti corporis. Esse, dolor
-        magni?
-      </span>
-    ),
+    children: <span>{faker.lorem.lines(2)}</span>,
     variant: 'rectangular',
   },
 };
