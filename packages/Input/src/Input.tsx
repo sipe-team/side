@@ -1,96 +1,111 @@
 import classNames from 'classnames';
-import { forwardRef, useRef, type ComponentPropsWithoutRef, type CSSProperties, type ElementRef } from 'react';
+import {
+  type CSSProperties,
+  type ComponentPropsWithoutRef,
+  type ElementRef,
+  forwardRef,
+} from 'react';
 
 import { Slot } from '@radix-ui/react-slot';
 
-import { composeRefs } from './utils/compose-refs';
-
+import styles from './Input.module.css';
 import { colors } from './constants/colors';
 import { spacing } from './constants/spacing';
-import { Weight, type FontSize, type FontWeight } from './constants/typhography';
-import styles from './Input.module.css';
+import {
+  type FontSize,
+  type FontWeight,
+  Weight,
+  defaultFontSize,
+  defaultFontWeight,
+} from './constants/typhography';
 
-type AllowedInputTypes = "email" | "password" | "search" | "tel" | "text" | "url"
+type AllowedInputTypes =
+  | 'email'
+  | 'password'
+  | 'search'
+  | 'tel'
+  | 'text'
+  | 'url';
 type InputFieldElement = ElementRef<'input'>;
 interface InputProps extends Omit<ComponentPropsWithoutRef<'input'>, 'type'> {
-  type?: AllowedInputTypes
-  fontSize?: FontSize
-  fontWeight?: FontWeight
+  type?: AllowedInputTypes;
+  fontSize?: FontSize;
+  fontWeight?: FontWeight;
 }
 
 const Input = forwardRef<InputFieldElement, InputProps>(
   (props, forwardedRef) => {
-    const inputRef = useRef<HTMLInputElement>(null);
-    const { children, type = 'text', fontWeight = 'regular' , fontSize = 16 ,className, name, style, ...inputProps} = props
-    
+    const {
+      children,
+      type = 'text',
+      fontWeight = defaultFontWeight,
+      fontSize = defaultFontSize,
+      className,
+      name,
+      ...inputProps
+    } = props;
+
     return (
       <div
-        role={`${name ?? 'input'}-wrapper`}
+        role="presentation"
         className={classNames(styles['input-wrapper'], className)}
-        style={{
-          '--input-padding': `${spacing.defaultInputPadding}`,    
-          '--input-border-radius': `${spacing.defaultBorderRadius}`,
-          '--input-ring-color': `${colors.defaultInputOutline}`,
-          '--input-disabled-color': `${colors.disabledBackground}`,
-          '--action-size': `${spacing.defaultActionSize}`,
-        } as CSSProperties}
+        style={
+          {
+            '--input-padding': `${spacing.defaultInputPadding}`,
+            '--input-border-radius': `${spacing.defaultBorderRadius}`,
+            '--input-ring-color': `${colors.defaultInputOutline}`,
+            '--input-disabled-color': `${colors.disabledBackground}`,
+            '--action-size': `${spacing.defaultActionSize}`,
+            '--font-size': `${fontSize}px`,
+            '--font-weight': `${Weight[fontWeight]}`,
+          } as CSSProperties
+        }
       >
         <input
           name={name}
           type={type}
           spellCheck="false"
-          ref={composeRefs(inputRef, forwardedRef)}
+          ref={forwardedRef}
           className={styles.input}
-          style={{
-          '--font-size': `${fontSize}px`,
-          '--font-weight': `${Weight[fontWeight]}`,
-          ...style
-          }as CSSProperties}
           {...inputProps}
         />
         {children}
       </div>
     );
-  }
+  },
 );
 Input.displayName = 'Input';
-
 
 // * ****************************************
 // *               Input Action
 // * ****************************************
 
 type InputFieldActionElement = ElementRef<'button'>;
-type InputFieldActionType = 'button' | 'reset'
+type InputFieldActionType = 'button' | 'reset';
 
-interface InputFieldActionProps extends Omit<ComponentPropsWithoutRef<'button'>, 'type'> {
+interface InputFieldActionProps
+  extends Omit<ComponentPropsWithoutRef<'button'>, 'type'> {
   asChild?: boolean;
-  type?: InputFieldActionType
+  type?: InputFieldActionType;
 }
-    
-const InputFieldAction = forwardRef<InputFieldActionElement, InputFieldActionProps>(
-  (props, forwardedRef) => {
-    const { className, asChild, type = 'button',  ...slotProps } = props;
 
-    const Comp = asChild ? Slot : 'button'
-    return (
-      <Comp
+const InputFieldAction = forwardRef<
+  InputFieldActionElement,
+  InputFieldActionProps
+>((props, forwardedRef) => {
+  const { className, asChild, type = 'button', ...slotProps } = props;
+
+  const Comp = asChild ? Slot : 'button';
+  return (
+    <Comp
       ref={forwardedRef}
       className={classNames(styles['input-action'], className)}
       {...slotProps}
-      />
-    );
-  }
-);
+    />
+  );
+});
 InputFieldAction.displayName = 'Input.Action';
 
+export { InputFieldAction as Action, Input };
 
-export {
-  InputFieldAction as Action, Input
-};
-
-  export type {
-    InputProps,
-    InputFieldActionProps as SlotProps
-  };
-
+export type { InputProps, InputFieldActionProps as SlotProps };
