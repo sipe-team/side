@@ -66,3 +66,19 @@ export const SkeletonWithChildren: Story = {
     variant: 'rectangular',
   },
 };
+
+export const SkeletonWithText: Story = {
+  args: {
+    loading: true,
+    asChild: true,
+    children: (
+      <span>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis enim
+        labore quibusdam in officia id veniam assumenda ut, accusamus, officiis
+        consectetur minima dolorum facere minus, corrupti corporis. Esse, dolor
+        magni?
+      </span>
+    ),
+    variant: 'rectangular',
+  },
+};
