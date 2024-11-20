@@ -36,7 +36,8 @@
     "storybook": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "@sipe-team/typography": "workspace:*"
   },
   "peerDependencies": {
     "react": ">= 18"

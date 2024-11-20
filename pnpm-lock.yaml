@@ -125,6 +125,9 @@ importers:
       '@biomejs/biome':
         specifier: 'catalog:'
         version: 1.9.4
+      '@sipe-team/typography':
+        specifier: workspace:*
+        version: link:../typography
       '@storybook/addon-essentials':
         specifier: 'catalog:'
         version: 8.3.6(storybook@8.3.6)
