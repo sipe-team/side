@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
 import { Divider } from './Divider';
-import styles from './divider.module.css';
+import styles from './Divider.module.css';
 
 describe('Divider', () => {
   test('orientation 속성이 없으면 가로 방향으로 그린다.', () => {
