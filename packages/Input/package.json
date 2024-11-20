@@ -1,0 +1,67 @@
+{
+  "name": "@sipe-team/component",
+  "description": "component for Sipe Design System",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sipe-team/3-1_sds"
+  },
+  "type": "module",
+  "exports": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "build:storybook": "storybook build",
+    "dev:storybook": "storybook dev -p 6006",
+    "lint": "biome lint .",
+    "test": "vitest",
+    "typecheck": "tsc",
+    "prepack": "pnpm run build"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.1.0",
+    "classnames": "^2.5.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "catalog:",
+    "@storybook/addon-essentials": "catalog:",
+    "@storybook/addon-interactions": "catalog:",
+    "@storybook/addon-links": "catalog:",
+    "@storybook/blocks": "catalog:",
+    "@storybook/react": "catalog:",
+    "@storybook/react-vite": "catalog:",
+    "@storybook/test": "catalog:",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/react": "^18.3.12",
+    "happy-dom": "catalog:",
+    "react": "^18.3.1",
+    "storybook": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "react": ">= 18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.js"
+        },
+        "require": {
+          "types": "./dist/index.d.cts",
+          "default": "./dist/index.cjs"
+        }
+      }
+    }
+  },
+  "sideEffects": false
+}

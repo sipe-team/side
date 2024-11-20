@@ -4,6 +4,7 @@
     "enabled": true,
     "indentStyle": "space"
   },
+  
   "organizeImports": {
     "enabled": true
   },
@@ -20,5 +21,8 @@
     "formatter": {
       "quoteStyle": "single"
     }
+  },
+  "files": {
+    "ignore": ["dist/*.*"]
   }
 }
