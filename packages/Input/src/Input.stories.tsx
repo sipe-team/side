@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { Action, Input } from './Input';
 
 const meta = {
+  title: 'Input',
   component: Input,
   parameters: {
     layout: 'centered',

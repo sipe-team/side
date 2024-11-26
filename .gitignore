@@ -174,4 +174,6 @@ dist
 # Finder (MacOS) folder config
 .DS_Store
 
+# Storybook
 *storybook.log
+storybook-static

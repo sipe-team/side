@@ -1,0 +1,28 @@
+name: Chromatic
+
+on:
+  push:
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: pnpm 설치
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - name: Node.js 환경 설정
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+          node-version-file: .nvmrc
+      - name: 의존성 설치
+        run: pnpm install
+      - name: Run Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
