@@ -4,7 +4,6 @@
     "enabled": true,
     "indentStyle": "space"
   },
-  
   "organizeImports": {
     "enabled": true
   },
@@ -12,6 +11,9 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "a11y": {
+        "useSemanticElements": "warn"
+      },
       "suspicious": {
         "noExplicitAny": "warn"
       }
