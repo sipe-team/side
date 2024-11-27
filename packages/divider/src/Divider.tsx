@@ -1,17 +1,22 @@
-import type { CSSProperties } from 'react';
+import { clsx as cx } from 'clsx';
+import { type ComponentProps, forwardRef } from 'react';
 import styles from './Divider.module.css';
 
-interface DividerProps {
+interface DividerProps extends ComponentProps<'hr'> {
   orientation?: 'horizontal' | 'vertical';
-  style?: CSSProperties;
 }
 
-export function Divider({ orientation = 'horizontal', style }: DividerProps) {
+export const Divider = forwardRef(function Divider({
+  orientation = 'horizontal',
+  ...props
+}: DividerProps) {
   return (
     <hr
+      {...props}
       aria-orientation={orientation}
-      className={`${styles[orientation]} ${styles.divider}`}
-      style={style}
+      className={cx(styles[orientation], styles.divider, props.className)}
     />
   );
-}
+});
+
+Divider.displayName = 'Divider';
