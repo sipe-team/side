@@ -2,12 +2,26 @@
   "name": "sipe-design-system",
   "private": true,
   "type": "module",
+  "scripts": {
+    "build:storybook": "storybook build",
+    "dev:storybook": "storybook dev -p 6006"
+  },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
     "@changesets/cli": "^2.27.9",
+    "@storybook/addon-essentials": "catalog:",
+    "@storybook/addon-interactions": "catalog:",
+    "@storybook/addon-links": "catalog:",
+    "@storybook/blocks": "catalog:",
+    "@storybook/react": "catalog:",
+    "@storybook/react-vite": "catalog:",
+    "@storybook/test": "catalog:",
     "@tsconfig/strictest": "^2.0.5",
     "@types/node": "^22.8.1",
+    "chromatic": "^11.19.0",
     "knip": "catalog:",
+    "sanitize.css": "^13.0.0",
+    "storybook": "catalog:",
     "typescript": "catalog:"
   },
   "packageManager": "pnpm@9.7.1"
