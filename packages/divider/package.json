@@ -9,7 +9,9 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
@@ -21,6 +23,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
+    "@sipe-team/typography": "workspace:*",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
     "@storybook/addon-links": "catalog:",
@@ -36,8 +39,7 @@
     "storybook": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:",
-    "@sipe-team/typography": "workspace:*"
+    "vitest": "catalog:"
   },
   "peerDependencies": {
     "react": ">= 18"
@@ -57,5 +59,8 @@
       }
     }
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "clsx": "^2.1.1"
+  }
 }
