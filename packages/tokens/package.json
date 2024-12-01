@@ -1,0 +1,51 @@
+{
+  "name": "@sipe-team/tokens",
+  "description": "Design tokens for Sipe Design System",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sipe-team/3-1_sds"
+  },
+  "type": "module",
+  "exports": "./src/index.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "build:storybook": "storybook build",
+    "dev:storybook": "storybook dev -p 6006",
+    "lint": "biome lint .",
+    "typecheck": "tsc",
+    "prepack": "pnpm run build"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "catalog:",
+    "@faker-js/faker": "^9.2.0",
+    "@sipe-team/typography": "workspace:*",
+    "@storybook/addon-essentials": "catalog:",
+    "@storybook/react": "catalog:",
+    "@storybook/react-vite": "catalog:",
+    "@types/react": "^18.3.12",
+    "react": "^18.3.1",
+    "storybook": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com",
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.js"
+        },
+        "require": {
+          "types": "./dist/index.d.cts",
+          "default": "./dist/index.cjs"
+        }
+      }
+    }
+  },
+  "sideEffects": false
+}
