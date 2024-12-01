@@ -22,6 +22,10 @@ export default {
       description: '툴팁에 적용할 클래스명',
     },
     gap: { control: 'number', description: '툴팁과 트리거 사이의 간격' },
+    asChild: {
+      control: { type: 'boolean' },
+      description: '`true`일 경우, 자식 요소를 그대로 사용합니다.',
+    },
   },
 } as Meta<TooltipProps>;
 
@@ -51,7 +55,7 @@ Default.args = {
 export const ClickTrigger = Template.bind({});
 ClickTrigger.args = {
   tooltipContent: 'Click to toggle this tooltip',
-  placement: 'top',
+  placement: 'bottom',
   trigger: 'click',
   tooltipStyle: {
     backgroundColor: '#000',
@@ -76,3 +80,62 @@ CustomStyles.args = {
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
   },
 };
+
+export const AsChildExample = () => (
+  <div
+    style={{
+      display: 'flex',
+      gap: '20px',
+      padding: '50px',
+      textAlign: 'center',
+    }}
+  >
+    <Tooltip tooltipContent="This is a tooltip" asChild placement="top">
+      <h1>Hover me (H1 element)</h1>
+    </Tooltip>
+    <Tooltip tooltipContent="Styled Tooltip" asChild placement="bottom">
+      <button type="button" style={{ color: 'red', fontSize: '16px' }}>
+        Hover me (Styled Button)
+      </button>
+    </Tooltip>
+  </div>
+);
+
+export const AllPlacements = () => (
+  <div
+    style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      gap: '20px',
+      padding: '50px',
+    }}
+  >
+    <Tooltip tooltipContent="Top" placement="top">
+      <button type="button">Top</button>
+    </Tooltip>
+    <Tooltip tooltipContent="Top" placement="top" asChild={false}>
+      <button type="button">Top</button>
+    </Tooltip>
+
+    <Tooltip tooltipContent="Left" placement="left">
+      <h1>Left</h1>
+    </Tooltip>
+    <Tooltip tooltipContent="Left" placement="left" asChild={false}>
+      <h1>Left</h1>
+    </Tooltip>
+
+    <Tooltip tooltipContent="Right" placement="right">
+      <button type="button">Right</button>
+    </Tooltip>
+    <Tooltip tooltipContent="Right" placement="right" asChild={false}>
+      <button type="button">Right</button>
+    </Tooltip>
+
+    <Tooltip tooltipContent="Bottom" placement="bottom">
+      <button type="button">Bottom</button>
+    </Tooltip>
+    <Tooltip tooltipContent="Bottom" placement="bottom" asChild={false}>
+      <button type="button">Bottom</button>
+    </Tooltip>
+  </div>
+);

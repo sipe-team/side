@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useEffect, useState } from 'react';
 import { describe, expect, test } from 'vitest';
@@ -221,5 +221,77 @@ describe('Tooltip 비동기 데이터 테스트', () => {
 
     await new Promise((resolve) => setTimeout(resolve, 500));
     expect(screen.getByText('Fetched Content')).toBeInTheDocument();
+  });
+});
+
+describe('Tooltip asChild 속성 테스트', () => {
+  test('asChild가 true일 경우 자식 요소의 태그가 유지된다.', async () => {
+    render(
+      <Tooltip tooltipContent="This is a tooltip" asChild={true}>
+        <h1>Hover me</h1>
+      </Tooltip>,
+    );
+
+    const childElement = screen.getByText('Hover me');
+    expect(childElement).toHaveProperty('tagName', 'H1');
+
+    await userEvent.hover(childElement);
+    const tooltip = await screen.findByText('This is a tooltip');
+    expect(tooltip).toBeInTheDocument();
+  });
+
+  test('asChild 속성을 주지 않았을 경우, 기본 값으로 동작한다.', async () => {
+    render(
+      <Tooltip tooltipContent="This is a tooltip">
+        <h1>Hover me</h1>
+      </Tooltip>,
+    );
+
+    const childElement = screen.getByText('Hover me');
+    expect(childElement).toHaveProperty('tagName', 'H1');
+
+    await userEvent.hover(childElement);
+    const tooltip = await screen.findByText('This is a tooltip');
+    expect(tooltip).toBeInTheDocument();
+
+    await userEvent.unhover(childElement);
+    await waitFor(() => {
+      expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
+    });
+  });
+
+  test('asChild가 false일 경우 기본 div로 감싸진다.', async () => {
+    render(
+      <Tooltip tooltipContent="This is a tooltip" asChild={false}>
+        <button type="button">Hover me</button>
+      </Tooltip>,
+    );
+
+    const wrapperElement = screen.getByRole('tooltip');
+    expect(wrapperElement.tagName).toBe('DIV');
+
+    const childElement = screen.getByText('Hover me');
+    await userEvent.hover(childElement);
+    const tooltip = await screen.findByText('This is a tooltip');
+    expect(tooltip).toBeInTheDocument();
+  });
+
+  test('asChild가 true일 경우 이벤트 핸들러가 자식 요소에 적용된다.', async () => {
+    render(
+      <Tooltip tooltipContent="This is a tooltip" asChild={true}>
+        <button type="button">Hover me</button>
+      </Tooltip>,
+    );
+
+    const childElement = screen.getByText('Hover me');
+
+    await userEvent.hover(childElement);
+    const tooltip = await screen.findByText('This is a tooltip');
+    expect(tooltip).toBeInTheDocument();
+
+    await userEvent.unhover(childElement);
+    await waitFor(() => {
+      expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
+    });
   });
 });

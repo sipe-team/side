@@ -1,3 +1,5 @@
+import { Slot } from '@radix-ui/react-slot';
+
 import clsx from 'clsx';
 import {
   type CSSProperties,
@@ -9,13 +11,14 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './Tooltip.module.css';
-import { useTooltip } from './hooks/useTooltip/useTooltip';
+import { useTooltip } from './hooks/useTooltip';
 
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
 
 export interface TooltipProps extends ComponentProps<'div'> {
   tooltipContent: ReactNode;
   placement?: TooltipPosition;
+  asChild?: boolean;
   trigger?: 'hover' | 'click';
   tooltipStyle?: CSSProperties;
   tooltipClassName?: string;
@@ -27,6 +30,7 @@ export const Tooltip = forwardRef(function Tooltip(
     tooltipContent,
     placement = 'top',
     trigger = 'hover',
+    asChild = true,
     children,
     tooltipStyle,
     tooltipClassName,
@@ -49,22 +53,28 @@ export const Tooltip = forwardRef(function Tooltip(
 
   useImperativeHandle(ref, () => wrapperRef.current as HTMLElement);
 
+  const Component = asChild ? Slot : 'div';
+
   return (
-    <div
-      ref={wrapperRef}
-      role="tooltip"
-      className={styles.wrapper}
-      onMouseEnter={trigger === 'hover' ? () => toggleTooltip(true) : undefined}
-      onMouseLeave={
-        trigger === 'hover' ? () => toggleTooltip(false) : undefined
-      }
-      onClick={
-        trigger === 'click' ? () => toggleTooltip(!isVisible) : undefined
-      }
-      onKeyDown={handleKeyDown}
-      tabIndex={trigger === 'click' ? 0 : undefined}
-    >
-      {children}
+    <>
+      <Component
+        ref={wrapperRef}
+        role="tooltip"
+        onMouseEnter={
+          trigger === 'hover' ? () => toggleTooltip(true) : undefined
+        }
+        onMouseLeave={
+          trigger === 'hover' ? () => toggleTooltip(false) : undefined
+        }
+        onClick={
+          trigger === 'click' ? () => toggleTooltip(!isVisible) : undefined
+        }
+        onKeyDown={handleKeyDown}
+        tabIndex={trigger === 'click' ? 0 : undefined}
+        className={clsx(styles.trigger, { [styles.asChild]: asChild })}
+      >
+        {children}
+      </Component>
       {isVisible &&
         createPortal(
           <div
@@ -81,6 +91,6 @@ export const Tooltip = forwardRef(function Tooltip(
           </div>,
           document.body,
         )}
-    </div>
+    </>
   );
 });

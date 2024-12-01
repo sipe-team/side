@@ -5,8 +5,7 @@ import {
   useRef,
   useState,
 } from 'react';
-
-export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
+import type { TooltipPosition } from '../../Tooltip';
 
 interface useTooltipProps {
   placement: TooltipPosition;
