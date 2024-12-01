@@ -110,6 +110,13 @@ export const AllPlacements = () => (
       padding: '50px',
     }}
   >
+    <Tooltip tooltipContent="Top Left" placement="top-left">
+      <button type="button">Top Left</button>
+    </Tooltip>
+    <Tooltip tooltipContent="Top Left" placement="top-left" asChild={false}>
+      <button type="button">Top Left</button>
+    </Tooltip>
+
     <Tooltip tooltipContent="Top" placement="top">
       <button type="button">Top</button>
     </Tooltip>
@@ -117,11 +124,18 @@ export const AllPlacements = () => (
       <button type="button">Top</button>
     </Tooltip>
 
+    <Tooltip tooltipContent="Top Right" placement="top-right">
+      <button type="button">Top Right</button>
+    </Tooltip>
+    <Tooltip tooltipContent="Top Right" placement="top-right" asChild={false}>
+      <button type="button">Top Right</button>
+    </Tooltip>
+
     <Tooltip tooltipContent="Left" placement="left">
-      <h1>Left</h1>
+      <button type="button">Left</button>
     </Tooltip>
     <Tooltip tooltipContent="Left" placement="left" asChild={false}>
-      <h1>Left</h1>
+      <button type="button">Left</button>
     </Tooltip>
 
     <Tooltip tooltipContent="Right" placement="right">
@@ -131,11 +145,33 @@ export const AllPlacements = () => (
       <button type="button">Right</button>
     </Tooltip>
 
+    <Tooltip tooltipContent="Bottom Left" placement="bottom-left">
+      <button type="button">Bottom Left</button>
+    </Tooltip>
+    <Tooltip
+      tooltipContent="Bottom Left"
+      placement="bottom-left"
+      asChild={false}
+    >
+      <button type="button">Bottom Left</button>
+    </Tooltip>
+
     <Tooltip tooltipContent="Bottom" placement="bottom">
       <button type="button">Bottom</button>
     </Tooltip>
     <Tooltip tooltipContent="Bottom" placement="bottom" asChild={false}>
       <button type="button">Bottom</button>
+    </Tooltip>
+
+    <Tooltip tooltipContent="Bottom Right" placement="bottom-right">
+      <button type="button">Bottom Right</button>
+    </Tooltip>
+    <Tooltip
+      tooltipContent="Bottom Right"
+      placement="bottom-right"
+      asChild={false}
+    >
+      <button type="button">Bottom Right</button>
     </Tooltip>
   </div>
 );

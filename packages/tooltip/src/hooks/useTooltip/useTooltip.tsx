@@ -124,13 +124,29 @@ function calculateTooltipPosition({
   let left = 0;
 
   switch (placement) {
+    case 'top-left':
+      top = wrapperRect.top - tooltipRect.height - gap;
+      left = wrapperRect.left;
+      break;
     case 'top':
       top = wrapperRect.top - tooltipRect.height - gap;
       left = wrapperRect.left + wrapperRect.width / 2 - tooltipRect.width / 2;
       break;
+    case 'top-right':
+      top = wrapperRect.top - tooltipRect.height - gap;
+      left = wrapperRect.right - tooltipRect.width;
+      break;
+    case 'bottom-left':
+      top = wrapperRect.bottom + gap;
+      left = wrapperRect.left;
+      break;
     case 'bottom':
       top = wrapperRect.bottom + gap;
       left = wrapperRect.left + wrapperRect.width / 2 - tooltipRect.width / 2;
+      break;
+    case 'bottom-right':
+      top = wrapperRect.bottom + gap;
+      left = wrapperRect.right - tooltipRect.width;
       break;
     case 'left':
       top = wrapperRect.top + wrapperRect.height / 2 - tooltipRect.height / 2;
@@ -142,8 +158,14 @@ function calculateTooltipPosition({
       break;
   }
 
-  top = Math.max(top, gap);
-  left = Math.max(left, gap);
+  top = Math.max(
+    gap,
+    Math.min(top, window.innerHeight - tooltipRect.height - gap),
+  );
+  left = Math.max(
+    gap,
+    Math.min(left, window.innerWidth - tooltipRect.width - gap),
+  );
 
   return { top, left };
 }

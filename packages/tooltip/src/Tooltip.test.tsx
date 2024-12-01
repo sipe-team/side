@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useEffect, useState } from 'react';
 import { describe, expect, test } from 'vitest';
-import { Tooltip } from './Tooltip';
+import { Tooltip, type TooltipPosition } from './Tooltip';
 
 describe('Tooltip 기본 동작 테스트', () => {
   test('Tooltip은 초기 상태에서 보이지 않아야 한다.', () => {
@@ -82,14 +82,9 @@ describe('Tooltip 기본 동작 테스트', () => {
 });
 
 describe('Tooltip 위치 테스트', () => {
-  test.each([
-    ['top', 'top'],
-    ['bottom', 'bottom'],
-    ['left', 'left'],
-    ['right', 'right'],
-  ])('Tooltip이 %s 위치에 렌더링된다.', async (placement, expectedClass) => {
+  test('Tooltip이 기본적으로 top 위치에 렌더링된다.', async () => {
     render(
-      <Tooltip tooltipContent="This is a tooltip" placement={placement as any}>
+      <Tooltip tooltipContent="This is a tooltip">
         <button type="button">Hover me</button>
       </Tooltip>,
     );
@@ -97,8 +92,36 @@ describe('Tooltip 위치 테스트', () => {
     const trigger = screen.getByText('Hover me');
     await userEvent.hover(trigger);
 
-    const tooltip = screen.getByText('This is a tooltip');
-    expect(tooltip.className).toContain(expectedClass);
+    const tooltip = await screen.findByText('This is a tooltip');
+    expect(tooltip).toBeInTheDocument();
+    expect(tooltip.className).toContain('top');
+  });
+
+  test.each([
+    ['top-left'],
+    ['top'],
+    ['top-right'],
+    ['bottom-left'],
+    ['bottom'],
+    ['bottom-right'],
+    ['left'],
+    ['right'],
+  ])('Tooltip이 %s 위치에 올바르게 렌더링된다.', async (placement) => {
+    render(
+      <Tooltip
+        tooltipContent="Tooltip content"
+        placement={placement as TooltipPosition}
+      >
+        <button type="button">Trigger</button>
+      </Tooltip>,
+    );
+
+    const trigger = screen.getByText('Trigger');
+    await userEvent.hover(trigger);
+
+    const tooltip = await screen.findByText('Tooltip content');
+    expect(tooltip).toBeInTheDocument();
+    expect(tooltip.className).toContain(placement as string);
   });
 });
 
@@ -191,37 +214,37 @@ describe('Tooltip 스타일 테스트', () => {
   });
 });
 
-describe('Tooltip 비동기 데이터 테스트', () => {
-  test('Tooltip이 비동기 데이터로 업데이트된다.', async () => {
-    const fetchTooltipContent = (): Promise<string> =>
-      new Promise((resolve) =>
-        setTimeout(() => resolve('Fetched Content'), 500),
-      );
+test('Tooltip이 비동기 데이터로 업데이트된다.', async () => {
+  const fetchMockData = async () => {
+    return new Promise<string>((resolve) =>
+      setTimeout(() => resolve('Fetched Content'), 500),
+    );
+  };
 
-    const AsyncTooltip = () => {
-      const [content, setContent] = useState('Loading...');
+  const AsyncTooltip = () => {
+    const [content, setContent] = useState('Loading...');
+    useEffect(() => {
+      fetchMockData().then((data) => setContent(data));
+    }, []);
 
-      useEffect(() => {
-        fetchTooltipContent().then((data) => setContent(data as string));
-      }, []);
+    return (
+      <Tooltip tooltipContent={content}>
+        <button type="button">Hover me</button>
+      </Tooltip>
+    );
+  };
 
-      return (
-        <Tooltip tooltipContent={content}>
-          <button type="button">Hover me</button>
-        </Tooltip>
-      );
-    };
+  render(<AsyncTooltip />);
 
-    render(<AsyncTooltip />);
+  const trigger = screen.getByText('Hover me');
 
-    const trigger = screen.getByText('Hover me');
-    await userEvent.hover(trigger);
+  await userEvent.hover(trigger);
 
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
+  const loadingTooltip = await screen.findByText('Loading...');
+  expect(loadingTooltip).toBeInTheDocument();
 
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    expect(screen.getByText('Fetched Content')).toBeInTheDocument();
-  });
+  const updatedTooltip = await screen.findByText('Fetched Content');
+  expect(updatedTooltip).toBeInTheDocument();
 });
 
 describe('Tooltip asChild 속성 테스트', () => {

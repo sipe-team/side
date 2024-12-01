@@ -13,7 +13,15 @@ import { createPortal } from 'react-dom';
 import styles from './Tooltip.module.css';
 import { useTooltip } from './hooks/useTooltip';
 
-export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
+export type TooltipPosition =
+  | 'top-left'
+  | 'top'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom'
+  | 'bottom-right'
+  | 'left'
+  | 'right';
 
 export interface TooltipProps extends ComponentProps<'div'> {
   tooltipContent: ReactNode;
