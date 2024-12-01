@@ -1,7 +1,7 @@
 {
-  "name": "@sipe-team/typography",
-  "description": "Typography component for Sipe Design System",
-  "version": "0.0.1",
+  "name": "@sipe-team/tokens",
+  "description": "Design tokens for Sipe Design System",
+  "version": "0.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -15,37 +15,21 @@
     "build:storybook": "storybook build",
     "dev:storybook": "storybook dev -p 6006",
     "lint": "biome lint .",
-    "test": "vitest",
     "typecheck": "tsc",
     "prepack": "pnpm run build"
-  },
-  "dependencies": {
-    "@radix-ui/react-slot": "^1.1.0",
-    "@sipe-team/tokens": "workspace:^",
-    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
     "@faker-js/faker": "^9.2.0",
+    "@sipe-team/typography": "workspace:*",
     "@storybook/addon-essentials": "catalog:",
-    "@storybook/addon-interactions": "catalog:",
-    "@storybook/addon-links": "catalog:",
-    "@storybook/blocks": "catalog:",
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
-    "@storybook/test": "catalog:",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.0.1",
     "@types/react": "^18.3.12",
-    "happy-dom": "catalog:",
     "react": "^18.3.1",
     "storybook": "catalog:",
     "tsup": "catalog:",
-    "typescript": "catalog:",
-    "vitest": "catalog:"
-  },
-  "peerDependencies": {
-    "react": ">= 18"
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "access": "public",

@@ -1,4 +1,9 @@
 import { Slot } from '@radix-ui/react-slot';
+import {
+  fontSize as fontSizeToken,
+  fontWeight as fontWeightToken,
+  lineHeight as lineHeightToken,
+} from '@sipe-team/tokens';
 import { clsx as cx } from 'clsx';
 import {
   type CSSProperties,
@@ -8,11 +13,11 @@ import {
 } from 'react';
 import styles from './Typography.module.css';
 
-export type FontSize = 12 | 14 | 16 | 18 | 20 | 24 | 28 | 32 | 36 | 48;
+export type FontSize = keyof typeof fontSizeToken;
 
-export type FontWeight = 'regular' | 'medium' | 'semiBold' | 'bold';
+export type FontWeight = keyof typeof fontWeightToken;
 
-export type LineHeight = 'regular' | 'compact';
+export type LineHeight = keyof typeof lineHeightToken;
 
 export interface TypographyProps extends ComponentProps<'p'> {
   asChild?: boolean;
@@ -35,14 +40,12 @@ export const Typography = forwardRef(function Typography(
   ref: ForwardedRef<any>,
 ) {
   const Component = asChild ? Slot : 'p';
-  const numericLineHeight = getNumericLineHeight(lineHeight);
-  const numericWeight = getNumericWeight(weight);
   const style = {
     ..._style,
     '--font-color': color,
-    '--font-size': `${size}px`,
-    '--font-weight': numericWeight,
-    '--line-height': numericLineHeight,
+    '--font-size': `${fontSizeToken[size]}px`,
+    '--font-weight': fontWeightToken[weight],
+    '--line-height': lineHeightToken[lineHeight],
   } as CSSProperties;
 
   return (
@@ -54,23 +57,3 @@ export const Typography = forwardRef(function Typography(
     />
   );
 });
-
-function getNumericLineHeight(lineHeight: LineHeight) {
-  const lineHeightMap = {
-    regular: 1.5,
-    compact: 1.3,
-  };
-
-  return lineHeightMap[lineHeight];
-}
-
-function getNumericWeight(weight: FontWeight) {
-  const weightMap = {
-    regular: 400,
-    medium: 500,
-    semiBold: 600,
-    bold: 700,
-  };
-
-  return weightMap[weight];
-}
