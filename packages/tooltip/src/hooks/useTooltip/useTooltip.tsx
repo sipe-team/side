@@ -46,7 +46,7 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
     if (!isVisible) return;
 
     const handleGlobalKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.code === 'Escape') {
         setIsVisible(false);
       }
     };
