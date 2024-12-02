@@ -158,6 +158,9 @@ function calculateTooltipPosition({
       top = wrapperRect.top + wrapperRect.height / 2 - tooltipRect.height / 2;
       left = wrapperRect.right + gap;
       break;
+    default:
+      console.error(`Invalid placement value: ${placement}`);
+      return { top: 0, left: 0 };
   }
 
   top = Math.max(
