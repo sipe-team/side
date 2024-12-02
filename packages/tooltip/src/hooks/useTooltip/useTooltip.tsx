@@ -5,12 +5,12 @@ import {
   useRef,
   useState,
 } from 'react';
-import type { TooltipPosition } from '../../Tooltip';
+import type { TooltipPosition, TooltipTrigger } from '../../Tooltip';
 
 interface useTooltipProps {
   placement: TooltipPosition;
   gap: number;
-  trigger: 'hover' | 'click';
+  trigger: TooltipTrigger;
 }
 
 export function useTooltip({ placement, gap, trigger }: useTooltipProps) {

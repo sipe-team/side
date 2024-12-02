@@ -23,11 +23,13 @@ export type TooltipPosition =
   | 'left'
   | 'right';
 
+export type TooltipTrigger = 'hover' | 'click';
+
 export interface TooltipProps extends ComponentProps<'div'> {
   tooltipContent: ReactNode;
   placement?: TooltipPosition;
   asChild?: boolean;
-  trigger?: 'hover' | 'click';
+  trigger?: TooltipTrigger;
   tooltipStyle?: CSSProperties;
   tooltipClassName?: string;
   gap?: number;
