@@ -19,6 +19,34 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    if (isVisible) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
+
+    return () => {};
+  }, [isVisible]);
+
+  useEffect(() => {
+    const handleGlobalKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsVisible(false);
+      }
+    };
+
+    if (isVisible) {
+      document.addEventListener('keydown', handleGlobalKeyDown);
+      return () => {
+        document.removeEventListener('keydown', handleGlobalKeyDown);
+      };
+    }
+
+    return () => {};
+  }, [isVisible]);
+
   const handlePosition = () => {
     const wrapper = wrapperRef.current;
     const tooltip = tooltipRef.current;
@@ -63,40 +91,14 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
   };
 
   const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
-    if ((event.key === 'Enter' || event.key === ' ') && trigger === 'click') {
+    if (
+      (event.code === 'Enter' || event.code === 'space') &&
+      trigger === 'click'
+    ) {
       event.preventDefault();
       toggleTooltip(!isVisible);
     }
   };
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(() => {
-    if (isVisible) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }
-
-    return () => {};
-  }, [isVisible]);
-
-  useEffect(() => {
-    const handleGlobalKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsVisible(false);
-      }
-    };
-
-    if (isVisible) {
-      document.addEventListener('keydown', handleGlobalKeyDown);
-      return () => {
-        document.removeEventListener('keydown', handleGlobalKeyDown);
-      };
-    }
-
-    return () => {};
-  }, [isVisible]);
 
   return {
     isVisible,
