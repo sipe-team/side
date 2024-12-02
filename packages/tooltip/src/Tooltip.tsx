@@ -85,22 +85,18 @@ export const Tooltip = forwardRef(function Tooltip(
       >
         {children}
       </Component>
-      {isVisible &&
-        createPortal(
-          <div
-            ref={tooltipRef}
-            className={clsx(
-              styles.tooltip,
-              styles[placement],
-              tooltipClassName,
-              { [styles.visible]: isVisible },
-            )}
-            style={{ ...tooltipStyles, ...tooltipStyle }}
-          >
-            {tooltipContent}
-          </div>,
-          document.body,
-        )}
+      {createPortal(
+        <div
+          ref={tooltipRef}
+          className={clsx(styles.tooltip, styles[placement], tooltipClassName, {
+            [styles.visible]: isVisible,
+          })}
+          style={{ ...tooltipStyles, ...tooltipStyle }}
+        >
+          {tooltipContent}
+        </div>,
+        document.body,
+      )}
     </>
   );
 });

@@ -15,9 +15,6 @@
   transform: scale(0.95);
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
-
-  top: -9999px;
-  left: -9999px;
 }
 
 .tooltip.visible {
