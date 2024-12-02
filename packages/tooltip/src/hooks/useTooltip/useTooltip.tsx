@@ -20,74 +20,73 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
   const tooltipRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isVisible) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }
+    if (!isVisible) return;
 
-    return () => {};
+    const handleClickOutside = (event: MouseEvent) => {
+      const wrapper = wrapperRef.current;
+      const tooltip = tooltipRef.current;
+
+      if (
+        wrapper &&
+        !wrapper.contains(event.target as Node) &&
+        tooltip &&
+        !tooltip.contains(event.target as Node)
+      ) {
+        setIsVisible(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, [isVisible]);
 
   useEffect(() => {
+    if (!isVisible) return;
+
     const handleGlobalKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setIsVisible(false);
       }
     };
 
-    if (isVisible) {
-      document.addEventListener('keydown', handleGlobalKeyDown);
-      return () => {
-        document.removeEventListener('keydown', handleGlobalKeyDown);
-      };
-    }
-
-    return () => {};
+    document.addEventListener('keydown', handleGlobalKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleGlobalKeyDown);
+    };
   }, [isVisible]);
 
-  const handlePosition = () => {
-    const wrapper = wrapperRef.current;
-    const tooltip = tooltipRef.current;
+  useEffect(() => {
+    if (!isVisible) return;
 
-    if (!wrapper || !tooltip) return;
+    const handlePosition = () => {
+      const wrapper = wrapperRef.current;
+      const tooltip = tooltipRef.current;
 
-    const wrapperRect = wrapper.getBoundingClientRect();
-    const tooltipRect = tooltip.getBoundingClientRect();
-    const { top, left } = calculateTooltipPosition({
-      wrapperRect,
-      tooltipRect,
-      placement,
-      gap,
-    });
+      if (!wrapper || !tooltip) return;
 
-    setTooltipStyles({
-      top: `${top}px`,
-      left: `${left}px`,
-      position: 'fixed',
-    });
-  };
+      const wrapperRect = wrapper.getBoundingClientRect();
+      const tooltipRect = tooltip.getBoundingClientRect();
+      const { top, left } = calculateTooltipPosition({
+        wrapperRect,
+        tooltipRect,
+        placement,
+        gap,
+      });
+
+      setTooltipStyles({
+        top: `${top}px`,
+        left: `${left}px`,
+        position: 'fixed',
+      });
+    };
+
+    handlePosition();
+  }, [isVisible, gap, placement]);
 
   const toggleTooltip = (visible: boolean) => {
     setIsVisible(visible);
-    if (visible) {
-      requestAnimationFrame(handlePosition);
-    }
-  };
-
-  const handleClickOutside = (event: MouseEvent) => {
-    const wrapper = wrapperRef.current;
-    const tooltip = tooltipRef.current;
-
-    if (
-      wrapper &&
-      !wrapper.contains(event.target as Node) &&
-      tooltip &&
-      !tooltip.contains(event.target as Node)
-    ) {
-      setIsVisible(false);
-    }
   };
 
   const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
