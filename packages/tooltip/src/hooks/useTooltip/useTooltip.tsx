@@ -20,8 +20,6 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
   const tooltipRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!isVisible) return;
-
     const handleClickOutside = (event: MouseEvent) => {
       const wrapper = wrapperRef.current;
       const tooltip = tooltipRef.current;
@@ -36,25 +34,17 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    if (isVisible) document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isVisible]);
 
   useEffect(() => {
-    if (!isVisible) return;
-
     const handleGlobalKeyDown = (event: KeyboardEvent) => {
-      if (event.code === 'Escape') {
-        setIsVisible(false);
-      }
+      if (event.code === 'Escape') setIsVisible(false);
     };
 
-    document.addEventListener('keydown', handleGlobalKeyDown);
-    return () => {
-      document.removeEventListener('keydown', handleGlobalKeyDown);
-    };
+    if (isVisible) document.addEventListener('keydown', handleGlobalKeyDown);
+    return () => document.removeEventListener('keydown', handleGlobalKeyDown);
   }, [isVisible]);
 
   useEffect(() => {
