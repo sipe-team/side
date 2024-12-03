@@ -1,6 +1,7 @@
 ![](./public/assets/og-image.png)
 
-# Sipe Design System - [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/toss/slash/blob/main/LICENSE) ![Package Manager](https://img.shields.io/badge/pnpm-9.7.1-orange?logo=pnpm) [![Storybook](https://img.shields.io/badge/Storybook-8.4.5-ff4785?logo=storybook)](https://67417e47644abe8d4e63f82f-xvhdismwhu.chromatic.com/?path=/story/input--default) ![Tests](https://img.shields.io/badge/Vitest-2.1.4-green?logo=vitest)   <img alt="Github Stars" src="https://badgen.net/github/stars/sipe-team/3-1_sds" />
+# Sipe Design System 
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/toss/slash/blob/main/LICENSE) ![Package Manager](https://img.shields.io/badge/pnpm-9.7.1-orange?logo=pnpm) [![Storybook](https://img.shields.io/badge/Storybook-8.4.5-ff4785?logo=storybook)](https://67417e47644abe8d4e63f82f-xvhdismwhu.chromatic.com/?path=/story/input--default) ![Tests](https://img.shields.io/badge/Vitest-2.1.4-green?logo=vitest) [![codecov](https://codecov.io/github/sipe-team/3-1_sds/graph/badge.svg?token=1TNLVUFPXC)](https://codecov.io/github/sipe-team/3-1_sds) <img alt="Github Stars" src="https://badgen.net/github/stars/sipe-team/3-1_sds" /> 
 
 Sipe Design System is a monorepo-based component library built to modernize and standardize the official Sipe website. Drawing inspiration from our existing design patterns, we're creating a robust, type-safe, and accessible component system that can be used across all Sipe projects.
 
