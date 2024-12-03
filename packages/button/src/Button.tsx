@@ -1,6 +1,6 @@
 import { Slot } from '@radix-ui/react-slot';
 import { clsx as cx } from 'clsx';
-import { type ComponentProps, type CSSProperties, type ReactNode } from 'react';
+import type { ComponentProps, CSSProperties, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import styles from './Button.module.css';
 

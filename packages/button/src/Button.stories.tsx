@@ -32,7 +32,7 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     children: 'Button',
-    color: "black"
+    color: "primary"
   },
 };
 
