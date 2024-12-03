@@ -1,0 +1,76 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border-radius: 8px;
+  height: 40px;
+  font-size: 22px;
+  line-height: 30.8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Colors - CSS 변수 정의 */
+.primary {
+  --button-bg: var(--primary-color);
+  --button-color: var(--black);
+  --button-hover-bg: #00d2d2;
+  --button-hover-color: var(--black);
+}
+
+.black {
+  --button-bg: var(--black);
+  --button-color: var(--white);
+  --button-hover-bg: #2d3748;
+  --button-hover-color: var(--white);
+}
+
+.white {
+  --button-bg: var(--white);
+  --button-color: var(--black);
+  --button-hover-bg: #cbd5e0;
+  --button-hover-color: var(--black);
+}
+
+.filled {
+  background-color: var(--button-bg);
+  color: var(--button-color);
+  border: none;
+
+  &:hover:not(:disabled) {
+    background-color: var(--button-hover-bg);
+    color: var(--button-hover-color);
+  }
+}
+
+.outline {
+  background-color: transparent;
+  border: 1px solid var(--button-bg);
+  color: var(--button-bg);
+
+  &:hover:not(:disabled) {
+    background-color: var(--button-bg);
+    color: var(--button-color);
+  }
+}
+
+.weak {
+  background-color: transparent;
+  border: none;
+  color: var(--button-bg);
+
+  &:hover:not(:disabled) {
+    background-color: var(--button-bg);
+    opacity: 0.1;
+    color: var(--button-bg);
+  }
+}
+
+/* States */
+.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
