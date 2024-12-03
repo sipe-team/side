@@ -28,10 +28,12 @@
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@storybook/test": "catalog:",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@types/react": "^18.3.12",
     "happy-dom": "catalog:",
     "react": "^18.3.1",
+    "sanitize.css": "^13.0.0",
     "storybook": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
@@ -58,6 +60,7 @@
   },
   "sideEffects": false,
   "dependencies": {
+    "@sipe-team/typography": "workspace:*",
     "@radix-ui/react-slot": "^1.1.0",
     "clsx": "^2.1.1"
   }
