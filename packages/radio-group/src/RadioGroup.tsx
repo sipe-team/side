@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useId } from 'react';
 import type { PropsWithChildren } from 'react';
 import styles from './RadioGroup.module.css';
 
@@ -36,8 +36,12 @@ export function RadioGroup({
   size = 'medium',
   disabled = false,
   children,
+  name: propName,
   ...rest
 }: RadioGroupProps) {
+  const fallbackId = useId();
+  const name = propName ?? fallbackId;
+
   return (
     <fieldset
       className={styles.radioGroup}
@@ -46,7 +50,7 @@ export function RadioGroup({
     >
       <legend>{labelText}</legend>
 
-      <RadioGroupContext.Provider value={{ ...rest, disabled, size }}>
+      <RadioGroupContext.Provider value={{ ...rest, disabled, size, name }}>
         {children}
       </RadioGroupContext.Provider>
     </fieldset>
