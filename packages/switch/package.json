@@ -1,6 +1,6 @@
 {
-  "name": "@sipe-team/component",
-  "description": "component for Sipe Design System",
+  "name": "@sipe-team/switch",
+  "description": "Switch component for Sipe Design System",
   "version": "0.0.0",
   "license": "MIT",
   "repository": {
@@ -54,5 +54,10 @@
       }
     }
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.1.0",
+    "@sipe-team/tokens": "workspace:^",
+    "clsx": "^2.1.1"
+  }
 }
