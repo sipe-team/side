@@ -12,8 +12,10 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
+export const Default: Story = {
   args: {
-    children: '사이프',
+    children: <span style={{ fontSize: '20px' }}>Card</span>,
+    ratio: 'rectangle',
+    variant: 'filled',
   },
 };
