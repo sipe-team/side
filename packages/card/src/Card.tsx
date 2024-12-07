@@ -10,7 +10,7 @@ import {
 import styles from './Card.module.css';
 
 type CardRatio = 'rectangle' | 'square' | 'wide' | 'portrait';
-type CardVariant = 'filled' | 'outline' | 'weak';
+type CardVariant = 'filled' | 'outline';
 
 export interface CardProps extends ComponentProps<'div'> {
   ratio?: CardRatio;
@@ -21,7 +21,6 @@ export interface CardProps extends ComponentProps<'div'> {
 export const Card = forwardRef(function Badge(
   {
     className,
-    children,
     ratio = 'rectangle',
     style: _style,
     variant = 'filled',
@@ -31,17 +30,24 @@ export const Card = forwardRef(function Badge(
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   const style = {
-    ..._style,
+    '--padding': '20px',
     '--background-color': getBackgroundColor(variant),
-    '--border': variant === 'outline' ? '1px solid #00FFFF' : undefined,
+    '--border':
+      variant === 'outline'
+        ? '1px solid #00FFFF'
+        : `1px solid ${color.gray200}`,
     '--aspect-ratio': getAspectRatio(ratio),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    ..._style,
   } as CSSProperties;
 
   const Comp = asChild ? Slot : 'div';
 
   return (
     <Comp
-      className={cx(styles.root, className)}
+      className={cx(styles.card, className)}
       ref={ref}
       role="presentation"
       style={style}
@@ -53,9 +59,11 @@ export const Card = forwardRef(function Badge(
 function getBackgroundColor(variant: CardVariant) {
   switch (variant) {
     case 'outline':
-      return 'transparent';
-    default:
       return color.gray50;
+    case 'filled':
+      return color.gray100;
+    default:
+      return color.gray100;
   }
 }
 
@@ -70,6 +78,6 @@ function getAspectRatio(ratio: CardRatio) {
     case 'portrait':
       return '3 / 4';
     default:
-      return '16 / 9'; // 기본값
+      return '16 / 9';
   }
 }
