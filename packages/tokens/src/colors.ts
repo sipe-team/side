@@ -89,7 +89,7 @@ export const color = {
   cyan50: '#ecfeff',
   cyan100: '#cffafe',
   cyan200: '#a5f3fc',
-  cyan300: '#67e8f9',
+  cyan300: '#00ffff',
   cyan400: '#22d3ee',
   cyan500: '#06b6d4',
   cyan600: '#0891b2',
