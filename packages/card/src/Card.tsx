@@ -56,15 +56,13 @@ export const Card = forwardRef(function Card(
   );
 });
 
+const backgroundColors: Record<CardVariant, string> = {
+  outline: color.gray50,
+  filled: color.gray100,
+};
+
 function getBackgroundColor(variant: CardVariant) {
-  switch (variant) {
-    case 'outline':
-      return color.gray50;
-    case 'filled':
-      return color.gray100;
-    default:
-      return color.gray100;
-  }
+  return backgroundColors[variant] ?? color.gray100;
 }
 
 function getAspectRatio(ratio: CardRatio) {
