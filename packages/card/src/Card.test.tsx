@@ -13,12 +13,12 @@ test('children으로 넘어간 요소를 반환한다. ', () => {
   expect(screen.getByText('Card')).toBeInTheDocument();
 });
 
-test('Card는 기본적으로 padding(20px)을 갖는다.', () => {
+test('Card는 default로 padding(20px)을 갖는다.', () => {
   render(<Card>Card</Card>);
   expect(screen.getByText('Card')).toHaveStyle({ padding: '20px' });
 });
 
-test('Card는 기본적으로 요소를 중앙정렬을 한다.', () => {
+test('Card는 default로 요소를 중앙정렬을 한다.', () => {
   render(<Card>Card</Card>);
   expect(screen.getByText('Card')).toHaveStyle({
     display: 'flex',
@@ -44,7 +44,9 @@ test('variant는 default로 filled를 적용한다.', () => {
   });
 });
 
-test('variant가 outline으로 넣으면 border(#00FFFF) 색상을 적용한다.', () => {
+test(`variant가 outline으로 넣으면 border(${color.cyan300}) 색상을 적용한다.`, () => {
   render(<Card variant="outline">Card</Card>);
-  expect(screen.getByText('Card')).toHaveStyle({ border: '1px solid #00FFFF' });
+  expect(screen.getByText('Card')).toHaveStyle({
+    border: `1px solid ${color.cyan300}`,
+  });
 });
