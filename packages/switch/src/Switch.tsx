@@ -57,41 +57,20 @@ export const Switch = forwardRef(function Switch(
 
   const state = checked ? 'checked' : 'unchecked';
 
-  const dataAttributes = getDataAttributes({
-    disabled,
-  });
-
   return (
     <label className={cx(styles['switch-wrapper'], className)} style={style}>
       <input
         ref={ref}
         type="checkbox"
         className={styles['switch-input']}
-        aria-checked={checked}
         checked={checked}
         disabled={disabled}
         onChange={handleChange}
         {...props}
       />
-      <span
-        className={styles['switch-track']}
-        data-state={state}
-        {...dataAttributes}
-      >
+      <span className={styles['switch-track']} data-state={state}>
         <span className={styles['switch-thumb']} data-state={state} />
       </span>
     </label>
   );
 });
-
-function getDataAttributes(props: Record<string, boolean | undefined>) {
-  return Object.entries(props)
-    .filter(([_, value]) => value === true)
-    .reduce(
-      (acc, [key]) =>
-        Object.assign(acc, {
-          [`data-${key}`]: '',
-        }),
-      {} as Record<string, string>,
-    );
-}
