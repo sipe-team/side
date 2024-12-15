@@ -9,9 +9,6 @@ const meta = {
   },
   args: {
     defaultChecked: false,
-    checked: false,
-    disabled: false,
-    size: 'md',
   },
   argTypes: {
     size: {
@@ -30,30 +27,23 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    size: 'md',
-  },
-};
+export const Default: Story = {};
 
 export const DefaultChecked: Story = {
   args: {
     defaultChecked: true,
-    size: 'md',
   },
 };
 
 export const Checked: Story = {
   args: {
     checked: true,
-    size: 'md',
   },
 };
 
 export const Disabled: Story = {
   args: {
     disabled: true,
-    size: 'md',
   },
 };
 
