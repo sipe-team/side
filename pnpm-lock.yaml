@@ -33,6 +33,9 @@ catalogs:
     happy-dom:
       specifier: ^15.7.4
       version: 15.7.4
+    knip:
+      specifier: ^5.34.1
+      version: 5.34.1
     storybook:
       specifier: ^8.4.5
       version: 8.4.6
@@ -412,6 +415,9 @@ importers:
       '@biomejs/biome':
         specifier: 'catalog:'
         version: 1.9.4
+      '@faker-js/faker':
+        specifier: ^9.2.0
+        version: 9.2.0
       '@storybook/addon-essentials':
         specifier: 'catalog:'
         version: 8.4.6(@types/react@18.3.12)(storybook@8.4.6(prettier@2.8.8))
@@ -433,6 +439,15 @@ importers:
       '@storybook/test':
         specifier: 'catalog:'
         version: 8.4.6(storybook@8.4.6(prettier@2.8.8))
+      '@testing-library/jest-dom':
+        specifier: ^6.6.3
+        version: 6.6.3
+      '@testing-library/react':
+        specifier: ^16.0.1
+        version: 16.0.1(@testing-library/dom@10.4.0)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@testing-library/user-event':
+        specifier: ^14.5.2
+        version: 14.5.2(@testing-library/dom@10.4.0)
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.12
