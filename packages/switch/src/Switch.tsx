@@ -7,7 +7,7 @@ import {
   forwardRef,
 } from 'react';
 import styles from './Switch.module.css';
-import { type SwitchSize, switchSize } from './constants/size';
+import { type SwitchSize, switchHeight, switchWidth } from './constants/size';
 import useCheckedController from './hooks/useCheckedController';
 
 export interface SwitchProps extends Omit<ComponentProps<'input'>, 'size'> {
@@ -38,9 +38,9 @@ export const Switch = forwardRef(function Switch(
     });
 
   const style = {
-    '--switch-width': `${switchSize[size].width}px`,
-    '--switch-height': `${switchSize[size].height}px`,
-    '--switch-diff': `${switchSize[size].width - switchSize[size].height}px`,
+    '--switch-width': `${switchWidth[size]}px`,
+    '--switch-height': `${switchHeight[size]}px`,
+    '--switch-diff': `${switchWidth[size] - switchHeight[size]}px`,
     '--switch-border-radius': '100px',
     '--switch-thumb-color': `${color.white}`,
     '--switch-background-color': `${color.gray300}`,
