@@ -5,10 +5,10 @@ import {
   type ComponentProps,
   type ForwardedRef,
   forwardRef,
-  useState,
 } from 'react';
 import styles from './Switch.module.css';
 import { type SwitchSize, switchSize } from './constants/size';
+import useCheckedController from './hooks/useCheckedController';
 
 export interface SwitchProps extends Omit<ComponentProps<'input'>, 'size'> {
   defaultChecked?: boolean;
@@ -22,7 +22,7 @@ export const Switch = forwardRef(function Switch(
   {
     className,
     defaultChecked,
-    checked: checkedProp,
+    checked,
     disabled,
     onChange,
     size = 'md',
@@ -30,19 +30,12 @@ export const Switch = forwardRef(function Switch(
   }: SwitchProps,
   ref: ForwardedRef<HTMLInputElement>,
 ) {
-  const [internalChecked, setInternalChecked] = useState(
-    defaultChecked ?? false,
-  );
-
-  const isControlled = checkedProp !== undefined;
-  const checked = isControlled ? checkedProp : internalChecked;
-
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    if (!isControlled) {
-      setInternalChecked(event.target.checked);
-    }
-    onChange?.(event);
-  };
+  const { checked: overrideChecked, onChange: overrideOnChange } =
+    useCheckedController({
+      defaultChecked,
+      checked,
+      onChange,
+    });
 
   const style = {
     '--switch-width': `${switchSize[size].width}px`,
@@ -55,20 +48,26 @@ export const Switch = forwardRef(function Switch(
     '--switch-shadow': `0px 2px 4px color-mix(in srgb, ${color.gray900} 10%, transparent), 0px 0px 1px color-mix(in srgb, ${color.gray900} 30%, transparent)`,
   } as CSSProperties;
 
-  const state = checked ? 'checked' : 'unchecked';
+  const state = overrideChecked ? 'checked' : 'unchecked';
 
   return (
-    <label className={cx(styles['switch-wrapper'], className)} style={style}>
+    <label className={styles['switch-wrapper']} style={style}>
       <input
         ref={ref}
         type="checkbox"
-        className={styles['switch-input']}
-        checked={checked}
+        role="switch"
+        aria-checked={overrideChecked}
+        className={cx(styles['switch-input'], className)}
+        checked={overrideChecked}
         disabled={disabled}
-        onChange={handleChange}
+        onChange={overrideOnChange}
         {...props}
       />
-      <span className={styles['switch-track']} data-state={state}>
+      <span
+        className={styles['switch-track']}
+        data-disabled={disabled}
+        data-state={state}
+      >
         <span className={styles['switch-thumb']} data-state={state} />
       </span>
     </label>
