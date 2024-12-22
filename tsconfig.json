@@ -11,5 +11,6 @@
     "noEmit": true,
     "target": "ESNext",
     "verbatimModuleSyntax": true
-  }
+  },
+  "include": ["packages/**/*.ts", "packages/**/*.tsx"]
 }
