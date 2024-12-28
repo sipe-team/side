@@ -1,0 +1,7 @@
+.card {
+  background-color: var(--background-color);
+  border: var(--border);
+  border-radius: 12px;
+  padding: var(--padding);
+  aspect-ratio: var(--aspect-ratio);
+}
