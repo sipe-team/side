@@ -5,4 +5,7 @@ export default defineConfig({
   clean: true,
   dts: true,
   format: ['esm', 'cjs'],
+  loader: {
+    '.css': 'local-css',
+  },
 });
