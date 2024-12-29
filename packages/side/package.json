@@ -1,0 +1,54 @@
+{
+  "name": "@sipe-team/side",
+  "description": "Sipe Design System",
+  "version": "0.0.1-next.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sipe-team/3-1_sds"
+  },
+  "type": "module",
+  "exports": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "prepack": "pnpm run build"
+  },
+  "dependencies": {
+    "@sipe-team/badge": "workspace:*",
+    "@sipe-team/card": "workspace:*",
+    "@sipe-team/divider": "workspace:*",
+    "@sipe-team/input": "workspace:*",
+    "@sipe-team/radio-group": "workspace:*",
+    "@sipe-team/skeleton": "workspace:*",
+    "@sipe-team/switch": "workspace:*",
+    "@sipe-team/tokens": "workspace:*",
+    "@sipe-team/tooltip": "workspace:*",
+    "@sipe-team/typography": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "catalog:",
+    "typescript": "catalog:"
+  },
+  "peerDependencies": {
+    "react": ">= 18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.js"
+        },
+        "require": {
+          "types": "./dist/index.d.cts",
+          "default": "./dist/index.cjs"
+        }
+      }
+    }
+  },
+  "sideEffects": false
+}
