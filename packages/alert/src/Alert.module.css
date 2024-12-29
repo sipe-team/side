@@ -1,0 +1,10 @@
+.root {
+  background-color: #1a202c;
+  border: 1px solid #2d3748;
+  border-radius: 12px;
+  padding: 20px;
+
+  align-items: center;
+  display: flex;
+  gap: 20px;
+}
