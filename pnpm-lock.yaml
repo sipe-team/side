@@ -478,6 +478,49 @@ importers:
         specifier: 'catalog:'
         version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)
 
+  packages/side:
+    dependencies:
+      '@sipe-team/badge':
+        specifier: workspace:*
+        version: link:../badge
+      '@sipe-team/card':
+        specifier: workspace:*
+        version: link:../card
+      '@sipe-team/divider':
+        specifier: workspace:*
+        version: link:../divider
+      '@sipe-team/input':
+        specifier: workspace:*
+        version: link:../Input
+      '@sipe-team/radio-group':
+        specifier: workspace:*
+        version: link:../radio-group
+      '@sipe-team/skeleton':
+        specifier: workspace:*
+        version: link:../skeleton
+      '@sipe-team/switch':
+        specifier: workspace:*
+        version: link:../switch
+      '@sipe-team/tokens':
+        specifier: workspace:*
+        version: link:../tokens
+      '@sipe-team/tooltip':
+        specifier: workspace:*
+        version: link:../tooltip
+      '@sipe-team/typography':
+        specifier: workspace:*
+        version: link:../typography
+      react:
+        specifier: '>= 18'
+        version: 18.3.1
+    devDependencies:
+      tsup:
+        specifier: 'catalog:'
+        version: 8.3.5(jiti@2.4.1)(postcss@8.4.49)(typescript@5.7.2)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.7.2
+
   packages/skeleton:
     dependencies:
       '@radix-ui/react-slot':
