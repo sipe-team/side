@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build:storybook": "storybook build",
-    "dev:storybook": "storybook dev -p 6006"
+    "dev:storybook": "storybook dev -p 6006",
+    "create:component": "tsx .script/createComponent.ts create"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
