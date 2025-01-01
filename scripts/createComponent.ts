@@ -1,7 +1,7 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { intro, outro, spinner, text } from '@clack/prompts';
+import { intro, isCancel, outro, spinner, text } from '@clack/prompts';
 import { Cli, Command, Option } from 'clipanion';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -79,6 +79,7 @@ class CreateComponentCommand extends Command {
 
       const kebabCaseName = (await text({
         message: '생성할 컴포넌트 이름을 입력해주세요 (kebab-case)',
+        placeholder: 'ESC를 눌러 취소할 수 있습니다.',
         validate: (value) => {
           if (!value) return '컴포넌트 이름은 필수입니다';
           if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value)) {
@@ -88,46 +89,44 @@ class CreateComponentCommand extends Command {
         },
       })) as string;
 
-      const pascalCaseName = this.kebabToPascal(kebabCaseName);
+      if (isCancel(kebabCaseName)) {
+        outro('취소되었습니다.');
+        return 0;
+      }
 
+      const pascalCaseName = this.kebabToPascal(kebabCaseName);
       loading.start('템플릿 파일을 복사하는 중...');
 
       const templateDir = path.join(__dirname, '../.templates/component');
       const targetDir = path.join(process.cwd(), 'packages', kebabCaseName);
 
-      try {
-        const templateExists = await fs
-          .access(templateDir)
-          .then(() => true)
-          .catch(() => false);
+      await fs
+        .access(templateDir)
+        .then(() => true)
+        .catch(() => {
+          throw new Error(`템플릿 디렉토리를 찾을 수 없습니다: ${templateDir}`);
+        });
 
-        if (!templateExists) {
-          throw new Error(
-            `.templates 디렉토리를 찾을 수 없습니다. 경로: ${templateDir}`,
-          );
-        }
+      await this.copyRecursive(
+        templateDir,
+        targetDir,
+        kebabCaseName,
+        pascalCaseName,
+      );
 
-        await this.copyRecursive(
-          templateDir,
-          targetDir,
-          kebabCaseName,
-          pascalCaseName,
-        );
+      loading.stop('템플릿 복사 완료! ✨');
+      outro(`${pascalCaseName}컴포넌트가 성공적으로 생성되었습니다! 🎉`);
 
-        loading.stop('템플릿 복사 완료! ✨');
-        outro('컴포넌트가 성공적으로 생성되었습니다! 🎉');
-
-        return 0;
-      } catch (error) {
-        throw new Error(
-          `파일 처리 중 오류 발생: ${error instanceof Error ? error.message : String(error)}`,
-        );
-      }
+      return 0;
     } catch (error) {
       loading.stop('오류 발생');
-      console.error(
-        `Error: ${error instanceof Error ? error.message : String(error)}`,
-      );
+
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : '알 수 없는 오류가 발생했습니다';
+
+      console.error(`Error: ${errorMessage}`);
       return 1;
     }
   }
