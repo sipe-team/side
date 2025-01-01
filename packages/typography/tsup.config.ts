@@ -1,11 +1,3 @@
-import { defineConfig } from 'tsup';
+import defaultConfig from '../../tsup.config';
 
-export default defineConfig({
-  entry: ['src/index.ts'],
-  clean: true,
-  dts: true,
-  format: ['esm', 'cjs'],
-  loader: {
-    '.css': 'local-css',
-  },
-});
+export default defaultConfig;

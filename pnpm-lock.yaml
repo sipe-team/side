@@ -76,7 +76,7 @@ importers:
         version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: 'catalog:'
-        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))
       '@storybook/test':
         specifier: 'catalog:'
         version: 8.4.6(storybook@8.4.6(prettier@2.8.8))
@@ -88,7 +88,7 @@ importers:
         version: 22.10.1
       '@vitest/coverage-v8':
         specifier: 2.1.4
-        version: 2.1.4(vitest@2.1.8(@types/node@22.10.1)(happy-dom@15.11.7))
+        version: 2.1.4(vitest@2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2))
       chromatic:
         specifier: ^11.19.0
         version: 11.19.0
@@ -101,12 +101,15 @@ importers:
       storybook:
         specifier: 'catalog:'
         version: 8.4.6(prettier@2.8.8)
+      tsup:
+        specifier: 'catalog:'
+        version: 8.3.5(jiti@2.4.1)(postcss@8.4.49)(typescript@5.7.2)
       typescript:
         specifier: 'catalog:'
         version: 5.7.2
       vitest:
         specifier: ^2.1.8
-        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)
+        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2)
 
   .templates/component:
     devDependencies:
@@ -130,7 +133,7 @@ importers:
         version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: 'catalog:'
-        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))
       '@storybook/test':
         specifier: 'catalog:'
         version: 8.4.6(storybook@8.4.6(prettier@2.8.8))
@@ -154,7 +157,7 @@ importers:
         version: 5.7.2
       vitest:
         specifier: 'catalog:'
-        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)
+        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2)
 
   packages/Input:
     dependencies:
@@ -185,7 +188,7 @@ importers:
         version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: 'catalog:'
-        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))
       '@storybook/test':
         specifier: 'catalog:'
         version: 8.4.6(storybook@8.4.6(prettier@2.8.8))
@@ -218,7 +221,7 @@ importers:
         version: 5.7.2
       vitest:
         specifier: 'catalog:'
-        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)
+        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2)
 
   packages/badge:
     dependencies:
@@ -249,7 +252,7 @@ importers:
         version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: 'catalog:'
-        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))
       '@storybook/test':
         specifier: 'catalog:'
         version: 8.4.6(storybook@8.4.6(prettier@2.8.8))
@@ -264,7 +267,7 @@ importers:
         version: 18.3.13
       '@vitest/coverage-v8':
         specifier: 2.1.4
-        version: 2.1.4(vitest@2.1.8(@types/node@22.10.1)(happy-dom@15.11.7))
+        version: 2.1.4(vitest@2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2))
       happy-dom:
         specifier: 'catalog:'
         version: 15.11.7
@@ -285,7 +288,7 @@ importers:
         version: 5.7.2
       vitest:
         specifier: 'catalog:'
-        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)
+        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2)
 
   packages/card:
     dependencies:
@@ -319,7 +322,7 @@ importers:
         version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: 'catalog:'
-        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))
       '@storybook/test':
         specifier: 'catalog:'
         version: 8.4.6(storybook@8.4.6(prettier@2.8.8))
@@ -334,7 +337,7 @@ importers:
         version: 18.3.13
       '@vitest/coverage-v8':
         specifier: 2.1.4
-        version: 2.1.4(vitest@2.1.8(@types/node@22.10.1)(happy-dom@15.11.7))
+        version: 2.1.4(vitest@2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2))
       happy-dom:
         specifier: 'catalog:'
         version: 15.11.7
@@ -355,7 +358,7 @@ importers:
         version: 5.7.2
       vitest:
         specifier: 'catalog:'
-        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)
+        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2)
 
   packages/divider:
     dependencies:
@@ -386,7 +389,7 @@ importers:
         version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: 'catalog:'
-        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))
       '@storybook/test':
         specifier: 'catalog:'
         version: 8.4.6(storybook@8.4.6(prettier@2.8.8))
@@ -416,7 +419,7 @@ importers:
         version: 5.7.2
       vitest:
         specifier: 'catalog:'
-        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)
+        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2)
 
   packages/radio-group:
     devDependencies:
@@ -440,7 +443,7 @@ importers:
         version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: 'catalog:'
-        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))
       '@storybook/test':
         specifier: 'catalog:'
         version: 8.4.6(storybook@8.4.6(prettier@2.8.8))
@@ -476,7 +479,7 @@ importers:
         version: 5.7.2
       vitest:
         specifier: 'catalog:'
-        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)
+        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2)
 
   packages/side:
     dependencies:
@@ -550,7 +553,7 @@ importers:
         version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: 'catalog:'
-        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))
       '@storybook/test':
         specifier: 'catalog:'
         version: 8.4.6(storybook@8.4.6(prettier@2.8.8))
@@ -580,7 +583,7 @@ importers:
         version: 5.7.2
       vitest:
         specifier: 'catalog:'
-        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)
+        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2)
 
   packages/switch:
     dependencies:
@@ -614,7 +617,7 @@ importers:
         version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: 'catalog:'
-        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))
       '@storybook/test':
         specifier: 'catalog:'
         version: 8.4.6(storybook@8.4.6(prettier@2.8.8))
@@ -647,7 +650,7 @@ importers:
         version: 5.7.2
       vitest:
         specifier: 'catalog:'
-        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)
+        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2)
 
   packages/tokens:
     devDependencies:
@@ -668,7 +671,7 @@ importers:
         version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: 'catalog:'
-        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.13
@@ -726,7 +729,7 @@ importers:
         version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: 'catalog:'
-        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))
       '@storybook/test':
         specifier: 'catalog:'
         version: 8.4.6(storybook@8.4.6(prettier@2.8.8))
@@ -756,7 +759,7 @@ importers:
         version: 5.7.2
       vitest:
         specifier: 'catalog:'
-        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)
+        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2)
 
   packages/typography:
     dependencies:
@@ -793,7 +796,7 @@ importers:
         version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: 'catalog:'
-        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))
       '@storybook/test':
         specifier: 'catalog:'
         version: 8.4.6(storybook@8.4.6(prettier@2.8.8))
@@ -823,7 +826,7 @@ importers:
         version: 5.7.2
       vitest:
         specifier: 'catalog:'
-        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)
+        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2)
 
 packages:
 
@@ -2005,6 +2008,11 @@ packages:
     resolution: {integrity: sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==}
     engines: {node: '>=8'}
 
+  detect-libc@1.0.3:
+    resolution: {integrity: sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==}
+    engines: {node: '>=0.10'}
+    hasBin: true
+
   dir-glob@3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
@@ -2349,6 +2357,70 @@ packages:
     peerDependencies:
       '@types/node': '>=18'
       typescript: '>=5.0.4'
+
+  lightningcss-darwin-arm64@1.28.2:
+    resolution: {integrity: sha512-/8cPSqZiusHSS+WQz0W4NuaqFjquys1x+NsdN/XOHb+idGHJSoJ7SoQTVl3DZuAgtPZwFZgRfb/vd1oi8uX6+g==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [darwin]
+
+  lightningcss-darwin-x64@1.28.2:
+    resolution: {integrity: sha512-R7sFrXlgKjvoEG8umpVt/yutjxOL0z8KWf0bfPT3cYMOW4470xu5qSHpFdIOpRWwl3FKNMUdbKtMUjYt0h2j4g==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [darwin]
+
+  lightningcss-freebsd-x64@1.28.2:
+    resolution: {integrity: sha512-l2qrCT+x7crAY+lMIxtgvV10R8VurzHAoUZJaVFSlHrN8kRLTvEg9ObojIDIexqWJQvJcVVV3vfzsEynpiuvgA==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [freebsd]
+
+  lightningcss-linux-arm-gnueabihf@1.28.2:
+    resolution: {integrity: sha512-DKMzpICBEKnL53X14rF7hFDu8KKALUJtcKdFUCW5YOlGSiwRSgVoRjM97wUm/E0NMPkzrTi/rxfvt7ruNK8meg==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm]
+    os: [linux]
+
+  lightningcss-linux-arm64-gnu@1.28.2:
+    resolution: {integrity: sha512-nhfjYkfymWZSxdtTNMWyhFk2ImUm0X7NAgJWFwnsYPOfmtWQEapzG/DXZTfEfMjSzERNUNJoQjPAbdqgB+sjiw==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [linux]
+
+  lightningcss-linux-arm64-musl@1.28.2:
+    resolution: {integrity: sha512-1SPG1ZTNnphWvAv8RVOymlZ8BDtAg69Hbo7n4QxARvkFVCJAt0cgjAw1Fox0WEhf4PwnyoOBaVH0Z5YNgzt4dA==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [linux]
+
+  lightningcss-linux-x64-gnu@1.28.2:
+    resolution: {integrity: sha512-ZhQy0FcO//INWUdo/iEdbefntTdpPVQ0XJwwtdbBuMQe+uxqZoytm9M+iqR9O5noWFaxK+nbS2iR/I80Q2Ofpg==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [linux]
+
+  lightningcss-linux-x64-musl@1.28.2:
+    resolution: {integrity: sha512-alb/j1NMrgQmSFyzTbN1/pvMPM+gdDw7YBuQ5VSgcFDypN3Ah0BzC2dTZbzwzaMdUVDszX6zH5MzjfVN1oGuww==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [linux]
+
+  lightningcss-win32-arm64-msvc@1.28.2:
+    resolution: {integrity: sha512-WnwcjcBeAt0jGdjlgbT9ANf30pF0C/QMb1XnLnH272DQU8QXh+kmpi24R55wmWBwaTtNAETZ+m35ohyeMiNt+g==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [win32]
+
+  lightningcss-win32-x64-msvc@1.28.2:
+    resolution: {integrity: sha512-3piBifyT3avz22o6mDKywQC/OisH2yDK+caHWkiMsF82i3m5wDBadyCjlCQ5VNgzYkxrWZgiaxHDdd5uxsi0/A==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [win32]
+
+  lightningcss@1.28.2:
+    resolution: {integrity: sha512-ePLRrbt3fgjXI5VFZOLbvkLD5ZRuxGKm+wJ3ujCqBtL3NanDHPo/5zicR5uEKAPiIjBYF99BM4K4okvMznjkVA==}
+    engines: {node: '>= 12.0.0'}
 
   lilconfig@3.1.3:
     resolution: {integrity: sha512-/vlFKAoH5Cgt3Ie+JLhRbwOsCQePABiU3tJ1egGvyQ+33R/vcwM2Zl2QR/LzjsBeItPt3oSVXapn+m4nQDvpzw==}
@@ -3501,11 +3573,11 @@ snapshots:
 
   '@istanbuljs/schema@0.1.3': {}
 
-  '@joshwooding/vite-plugin-react-docgen-typescript@0.4.2(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))':
+  '@joshwooding/vite-plugin-react-docgen-typescript@0.4.2(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))':
     dependencies:
       magic-string: 0.27.0
       react-docgen-typescript: 2.2.2(typescript@5.7.2)
-      vite: 5.4.11(@types/node@22.10.1)
+      vite: 5.4.11(@types/node@22.10.1)(lightningcss@1.28.2)
     optionalDependencies:
       typescript: 5.7.2
 
@@ -3750,13 +3822,13 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@storybook/builder-vite@8.4.6(storybook@8.4.6(prettier@2.8.8))(vite@5.4.11(@types/node@22.10.1))':
+  '@storybook/builder-vite@8.4.6(storybook@8.4.6(prettier@2.8.8))(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))':
     dependencies:
       '@storybook/csf-plugin': 8.4.6(storybook@8.4.6(prettier@2.8.8))
       browser-assert: 1.2.1
       storybook: 8.4.6(prettier@2.8.8)
       ts-dedent: 2.2.0
-      vite: 5.4.11(@types/node@22.10.1)
+      vite: 5.4.11(@types/node@22.10.1)(lightningcss@1.28.2)
 
   '@storybook/components@8.4.6(storybook@8.4.6(prettier@2.8.8))':
     dependencies:
@@ -3818,11 +3890,11 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       storybook: 8.4.6(prettier@2.8.8)
 
-  '@storybook/react-vite@8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))':
+  '@storybook/react-vite@8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))':
     dependencies:
-      '@joshwooding/vite-plugin-react-docgen-typescript': 0.4.2(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
+      '@joshwooding/vite-plugin-react-docgen-typescript': 0.4.2(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))
       '@rollup/pluginutils': 5.1.3(rollup@4.28.0)
-      '@storybook/builder-vite': 8.4.6(storybook@8.4.6(prettier@2.8.8))(vite@5.4.11(@types/node@22.10.1))
+      '@storybook/builder-vite': 8.4.6(storybook@8.4.6(prettier@2.8.8))(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))
       '@storybook/react': 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)
       find-up: 5.0.0
       magic-string: 0.30.14
@@ -3832,7 +3904,7 @@ snapshots:
       resolve: 1.22.8
       storybook: 8.4.6(prettier@2.8.8)
       tsconfig-paths: 4.2.0
-      vite: 5.4.11(@types/node@22.10.1)
+      vite: 5.4.11(@types/node@22.10.1)(lightningcss@1.28.2)
     transitivePeerDependencies:
       - '@storybook/test'
       - rollup
@@ -3967,7 +4039,7 @@ snapshots:
 
   '@types/uuid@9.0.8': {}
 
-  '@vitest/coverage-v8@2.1.4(vitest@2.1.8(@types/node@22.10.1)(happy-dom@15.11.7))':
+  '@vitest/coverage-v8@2.1.4(vitest@2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
@@ -3981,7 +4053,7 @@ snapshots:
       std-env: 3.7.0
       test-exclude: 7.0.1
       tinyrainbow: 1.2.0
-      vitest: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)
+      vitest: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -3999,13 +4071,13 @@ snapshots:
       chai: 5.1.2
       tinyrainbow: 1.2.0
 
-  '@vitest/mocker@2.1.8(vite@5.4.11(@types/node@22.10.1))':
+  '@vitest/mocker@2.1.8(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))':
     dependencies:
       '@vitest/spy': 2.1.8
       estree-walker: 3.0.3
       magic-string: 0.30.14
     optionalDependencies:
-      vite: 5.4.11(@types/node@22.10.1)
+      vite: 5.4.11(@types/node@22.10.1)(lightningcss@1.28.2)
 
   '@vitest/pretty-format@2.0.5':
     dependencies:
@@ -4221,6 +4293,9 @@ snapshots:
   dequal@2.0.3: {}
 
   detect-indent@6.1.0: {}
+
+  detect-libc@1.0.3:
+    optional: true
 
   dir-glob@3.0.1:
     dependencies:
@@ -4599,6 +4674,52 @@ snapshots:
       typescript: 5.7.2
       zod: 3.23.8
       zod-validation-error: 3.4.0(zod@3.23.8)
+
+  lightningcss-darwin-arm64@1.28.2:
+    optional: true
+
+  lightningcss-darwin-x64@1.28.2:
+    optional: true
+
+  lightningcss-freebsd-x64@1.28.2:
+    optional: true
+
+  lightningcss-linux-arm-gnueabihf@1.28.2:
+    optional: true
+
+  lightningcss-linux-arm64-gnu@1.28.2:
+    optional: true
+
+  lightningcss-linux-arm64-musl@1.28.2:
+    optional: true
+
+  lightningcss-linux-x64-gnu@1.28.2:
+    optional: true
+
+  lightningcss-linux-x64-musl@1.28.2:
+    optional: true
+
+  lightningcss-win32-arm64-msvc@1.28.2:
+    optional: true
+
+  lightningcss-win32-x64-msvc@1.28.2:
+    optional: true
+
+  lightningcss@1.28.2:
+    dependencies:
+      detect-libc: 1.0.3
+    optionalDependencies:
+      lightningcss-darwin-arm64: 1.28.2
+      lightningcss-darwin-x64: 1.28.2
+      lightningcss-freebsd-x64: 1.28.2
+      lightningcss-linux-arm-gnueabihf: 1.28.2
+      lightningcss-linux-arm64-gnu: 1.28.2
+      lightningcss-linux-arm64-musl: 1.28.2
+      lightningcss-linux-x64-gnu: 1.28.2
+      lightningcss-linux-x64-musl: 1.28.2
+      lightningcss-win32-arm64-msvc: 1.28.2
+      lightningcss-win32-x64-msvc: 1.28.2
+    optional: true
 
   lilconfig@3.1.3: {}
 
@@ -5125,13 +5246,13 @@ snapshots:
 
   uuid@9.0.1: {}
 
-  vite-node@2.1.8(@types/node@22.10.1):
+  vite-node@2.1.8(@types/node@22.10.1)(lightningcss@1.28.2):
     dependencies:
       cac: 6.7.14
       debug: 4.3.7
       es-module-lexer: 1.5.4
       pathe: 1.1.2
-      vite: 5.4.11(@types/node@22.10.1)
+      vite: 5.4.11(@types/node@22.10.1)(lightningcss@1.28.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -5143,7 +5264,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.4.11(@types/node@22.10.1):
+  vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.49
@@ -5151,11 +5272,12 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.10.1
       fsevents: 2.3.3
+      lightningcss: 1.28.2
 
-  vitest@2.1.8(@types/node@22.10.1)(happy-dom@15.11.7):
+  vitest@2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(lightningcss@1.28.2):
     dependencies:
       '@vitest/expect': 2.1.8
-      '@vitest/mocker': 2.1.8(vite@5.4.11(@types/node@22.10.1))
+      '@vitest/mocker': 2.1.8(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.28.2))
       '@vitest/pretty-format': 2.1.8
       '@vitest/runner': 2.1.8
       '@vitest/snapshot': 2.1.8
@@ -5171,8 +5293,8 @@ snapshots:
       tinyexec: 0.3.1
       tinypool: 1.0.2
       tinyrainbow: 1.2.0
-      vite: 5.4.11(@types/node@22.10.1)
-      vite-node: 2.1.8(@types/node@22.10.1)
+      vite: 5.4.11(@types/node@22.10.1)(lightningcss@1.28.2)
+      vite-node: 2.1.8(@types/node@22.10.1)(lightningcss@1.28.2)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.10.1
