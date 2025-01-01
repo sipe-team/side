@@ -1,9 +1,11 @@
-import { defineConfig } from 'vitest/config';
+import { defineProject, mergeConfig } from 'vitest/config';
+import defaultConfig from '../../vitest.config';
 
-export default defineConfig({
-  test: {
-    environment: 'happy-dom',
-    passWithNoTests: true,
-    watch: false,
-  },
-});
+export default mergeConfig(
+  defaultConfig,
+  defineProject({
+    test: {
+      setupFiles: './vitest.setup.ts',
+    },
+  }),
+);

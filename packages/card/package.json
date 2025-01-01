@@ -38,7 +38,6 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@types/react": "^18.3.12",
-    "@vitest/coverage-v8": "2.1.4",
     "happy-dom": "catalog:",
     "react": "^18.3.1",
     "sanitize.css": "^13.0.0",
