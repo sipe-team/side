@@ -11,6 +11,8 @@ class CreateComponentCommand extends Command {
   static override paths = [['create']];
   name = Option.String({ required: false });
 
+  private excludePatterns = ['node_modules', '.git', '.DS_Store'];
+
   private kebabToPascal(str: string): string {
     return str
       .split('-')
@@ -25,7 +27,13 @@ class CreateComponentCommand extends Command {
     } as const;
   }
 
-  private excludePatterns = ['node_modules', '.git', '.DS_Store'];
+  private async validateTemplateDir(templateDir: string): Promise<void> {
+    try {
+      await fs.access(templateDir);
+    } catch {
+      throw new Error(`템플릿 디렉토리를 찾을 수 없습니다: ${templateDir}`);
+    }
+  }
 
   async copyRecursive(
     source: string,
@@ -100,13 +108,7 @@ class CreateComponentCommand extends Command {
       const templateDir = path.join(__dirname, '../.templates/component');
       const targetDir = path.join(process.cwd(), 'packages', kebabCaseName);
 
-      await fs
-        .access(templateDir)
-        .then(() => true)
-        .catch(() => {
-          throw new Error(`템플릿 디렉토리를 찾을 수 없습니다: ${templateDir}`);
-        });
-
+      await this.validateTemplateDir(templateDir);
       await this.copyRecursive(
         templateDir,
         targetDir,
@@ -115,18 +117,14 @@ class CreateComponentCommand extends Command {
       );
 
       loading.stop('템플릿 복사 완료! ✨');
-      outro(`${pascalCaseName}컴포넌트가 성공적으로 생성되었습니다! 🎉`);
+      outro(`${pascalCaseName} 컴포넌트가 성공적으로 생성되었습니다! 🎉`);
 
       return 0;
     } catch (error) {
       loading.stop('오류 발생');
-
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : '알 수 없는 오류가 발생했습니다';
-
-      console.error(`Error: ${errorMessage}`);
+      console.error(
+        `Error: ${error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다'}`,
+      );
       return 1;
     }
   }
