@@ -9,19 +9,17 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
     "dev:storybook": "storybook dev -p 6006",
-    "lint": "biome lint .",
+    "lint:biome": "biome lint",
+    "lint:eslint": "eslint --flag unstable_ts_config",
     "typecheck": "tsc",
     "prepack": "pnpm run build"
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:",
     "@faker-js/faker": "^9.2.0",
     "@sipe-team/typography": "workspace:*",
     "@storybook/addon-essentials": "catalog:",

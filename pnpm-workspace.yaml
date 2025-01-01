@@ -3,7 +3,6 @@ packages:
   - packages/*
 
 catalog:
-  '@biomejs/biome': ^1.9.4
   '@storybook/addon-essentials': ^8.4.5
   '@storybook/addon-interactions': ^8.4.5
   '@storybook/addon-links': ^8.4.5

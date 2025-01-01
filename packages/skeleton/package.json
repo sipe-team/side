@@ -14,13 +14,13 @@
     "build": "tsup",
     "build:storybook": "storybook build",
     "dev:storybook": "storybook dev -p 6006",
-    "lint": "biome lint .",
+    "lint:biome": "biome lint",
+    "lint:eslint": "eslint --flag unstable_ts_config",
     "test": "vitest",
     "typecheck": "tsc",
     "prepack": "pnpm run build"
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:",
     "@faker-js/faker": "^9.2.0",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
