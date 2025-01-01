@@ -1,6 +1,6 @@
 # @sipe-team/divider
 
-## 0.0.1-next.0
+## 0.0.1
 
 ### Patch Changes
 

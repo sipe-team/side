@@ -1,10 +1,13 @@
 # @sipe-team/badge
 
-## 0.0.2-next.1
+## 0.0.2
 
 ### Patch Changes
 
 - e6f76c0: fix: css module bundle
+- Updated dependencies [e6f76c0]
+  - @sipe-team/typography@0.0.3
+
 
 ## 0.0.2-next.0
 
