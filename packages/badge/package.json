@@ -1,7 +1,7 @@
 {
   "name": "@sipe-team/badge",
   "description": "Badge component for Sipe Design System",
-  "version": "0.0.1",
+  "version": "0.0.2-next.0",
   "license": "MIT",
   "repository": {
     "type": "git",

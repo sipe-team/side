@@ -1,7 +1,7 @@
 {
   "name": "@sipe-team/typography",
   "description": "Typography component for Sipe Design System",
-  "version": "0.0.2",
+  "version": "0.0.3-next.0",
   "license": "MIT",
   "repository": {
     "type": "git",
