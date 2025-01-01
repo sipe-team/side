@@ -12,9 +12,11 @@
     "@sipe-team/switch": "0.0.0",
     "@sipe-team/tokens": "0.1.0",
     "@sipe-team/tooltip": "0.0.1",
-    "@sipe-team/typography": "0.0.2"
+    "@sipe-team/typography": "0.0.2",
+    "@sipe-team/side": "0.0.1"
   },
   "changesets": [
-    "eight-kiwis-fix"
+    "eight-kiwis-fix",
+    "real-oranges-compete"
   ]
 }
