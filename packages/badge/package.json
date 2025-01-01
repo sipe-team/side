@@ -1,7 +1,7 @@
 {
   "name": "@sipe-team/badge",
   "description": "Badge component for Sipe Design System",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -16,7 +16,8 @@
     "build": "tsup",
     "build:storybook": "storybook build",
     "dev:storybook": "storybook dev -p 6006",
-    "lint": "biome lint .",
+    "lint:biome": "pnpm exec biome lint",
+    "lint:eslint": "pnpm exec eslint --flag unstable_ts_config",
     "test": "vitest",
     "typecheck": "tsc",
     "prepack": "pnpm run build"
@@ -26,7 +27,6 @@
     "clsx": "^2.1.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
     "@storybook/addon-links": "catalog:",
@@ -37,7 +37,6 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@types/react": "^18.3.12",
-    "@vitest/coverage-v8": "2.1.4",
     "happy-dom": "catalog:",
     "react": "^18.3.1",
     "sanitize.css": "^13.0.0",

@@ -1,5 +1,19 @@
 # @sipe-team/typography
 
+## 0.0.3
+
+### Patch Changes
+
+- e6f76c0: fix(typography): css module bundle
+  - @sipe-team/tokens@0.1.0
+
+## 0.0.3-next.0
+
+### Patch Changes
+
+- 1885991: fix(typography): css module bundle
+  - @sipe-team/tokens@0.1.0
+
 ## 0.0.2
 
 ### Patch Changes

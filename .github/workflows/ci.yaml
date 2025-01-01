@@ -24,7 +24,7 @@ jobs:
     - name: 의존성 설치
       run: pnpm install
     - name: 린트
-      run: pnpm --filter="...[origin/${{ github.base_ref }}]" lint
+      run: pnpm --filter="...[origin/${{ github.base_ref }}]" "/lint:*/"
     - name: 테스트
       run: pnpm --filter="...[origin/${{ github.base_ref }}]" test
     - name: 타입 체크

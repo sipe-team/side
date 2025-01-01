@@ -1,5 +1,4 @@
-import { createContext, useId } from 'react';
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren, createContext, useId } from 'react';
 import styles from './RadioGroup.module.css';
 
 /**
