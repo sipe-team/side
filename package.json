@@ -23,6 +23,7 @@
     "knip": "catalog:",
     "sanitize.css": "^13.0.0",
     "storybook": "catalog:",
+    "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "^2.1.8"
   },
