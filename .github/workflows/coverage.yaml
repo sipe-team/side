@@ -23,7 +23,7 @@ jobs:
       - name: 의존성 설치
         run: pnpm install
       - name: 테스트
-        run: pnpm vitest --coverage
+        run: pnpm run test --coverage
       - name: 코드커버리지 업로드
         uses: codecov/codecov-action@v5
         with:
