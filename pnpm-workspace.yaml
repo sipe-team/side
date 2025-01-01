@@ -10,6 +10,8 @@ catalog:
   '@storybook/react': ^8.4.5
   '@storybook/react-vite': ^8.4.5
   '@storybook/test': ^8.4.5
+  '@testing-library/jest-dom': ^6.6.3
+  '@testing-library/react': ^16.0.1
   '@vitest/coverage-v8': ^2.1.8
   happy-dom: ^15.7.4
   knip: ^5.34.1

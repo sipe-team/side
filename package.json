@@ -5,11 +5,13 @@
   "scripts": {
     "build:storybook": "storybook build",
     "dev:storybook": "storybook dev -p 6006",
+    "create:component": "tsx scripts/createComponent.ts create",
     "test": "vitest"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@changesets/cli": "^2.27.9",
+    "@clack/prompts": "^0.9.0",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
     "@storybook/addon-links": "catalog:",
@@ -22,10 +24,12 @@
     "@typescript-eslint/parser": "^8.19.0",
     "@vitest/coverage-v8": "catalog:",
     "chromatic": "^11.19.0",
+    "clipanion": "4.0.0-rc.4",
     "eslint": "^9.17.0",
     "knip": "catalog:",
     "sanitize.css": "^13.0.0",
     "storybook": "catalog:",
+    "tsx": "^4.19.2",
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
