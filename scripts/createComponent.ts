@@ -2,14 +2,13 @@ import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { intro, outro, spinner, text } from '@clack/prompts';
-import { Command, Option } from 'clipanion';
-import { Cli } from 'clipanion';
+import { Cli, Command, Option } from 'clipanion';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 class CreateComponentCommand extends Command {
-  static paths = [['create']];
+  static override paths = [['create']];
   name = Option.String({ required: false });
 
   private kebabToPascal(str: string): string {
@@ -50,7 +49,7 @@ class CreateComponentCommand extends Command {
       for (const entry of entries) {
         if (!this.excludePatterns.includes(entry.name)) {
           const sourcePath = path.join(source, entry.name);
-          const newName = entry.name.replace(/Component/g, pascalCaseName);
+          const newName = entry.name.replaceAll('Component', pascalCaseName);
           const targetPath = path.join(target, newName);
           await this.copyRecursive(
             sourcePath,
@@ -85,6 +84,7 @@ class CreateComponentCommand extends Command {
           if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value)) {
             return '컴포넌트 이름은 kebab-case로 입력해주세요 (예: my-component)';
           }
+          return undefined;
         },
       })) as string;
 
@@ -119,11 +119,15 @@ class CreateComponentCommand extends Command {
 
         return 0;
       } catch (error) {
-        throw new Error(`파일 처리 중 오류 발생: ${error.message}`);
+        throw new Error(
+          `파일 처리 중 오류 발생: ${error instanceof Error ? error.message : String(error)}`,
+        );
       }
     } catch (error) {
       loading.stop('오류 발생');
-      console.error(`Error: ${error.message}`);
+      console.error(
+        `Error: ${error instanceof Error ? error.message : String(error)}`,
+      );
       return 1;
     }
   }
