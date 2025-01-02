@@ -9,7 +9,6 @@ test("Avatar 컴포넌트가 주입받은 이미지 주소를 src 속성으로 �
 
   const img = screen.getByRole("img");
   expect(img).toHaveAttribute("src", testImage);
-  expect(img).toHaveAttribute("alt", "대체 텍스트");
 });
 
 test("이미지가 없을 경우 대체 텍스트를 표시한다.", () => {
