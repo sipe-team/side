@@ -1,6 +1,6 @@
 {
   "name": "@sipe-team/component",
-  "description": "component for Sipe Design System",
+  "description": "Avatar component for Sipe Design System",
   "version": "0.0.0",
   "license": "MIT",
   "repository": {
@@ -9,7 +9,9 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
@@ -37,7 +39,7 @@
     "@storybook/test": "catalog:",
     "@types/react": "^18.3.12",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react":  "^16.0.1",
+    "@testing-library/react": "^16.0.1",
     "happy-dom": "catalog:",
     "react": "^18.3.1",
     "storybook": "catalog:",
