@@ -4,6 +4,22 @@ import type { GenerateResult } from '../types';
 import { optimizeSvg } from './optimize-svg';
 import { PATHS } from './paths';
 
+function validateFileName(fileName: string): void {
+  const isKebabCase = /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(fileName);
+
+  if (!isKebabCase) {
+    throw new Error(
+      `Invalid file name: ${fileName}. File names must be in kebab-case (e.g., my-icon)`
+    );
+  }
+}
+
+function validateSvgContent(content: string, fileName: string): void {
+  if (!content.includes('viewBox')) {
+    throw new Error(`Missing viewBox in ${fileName}`);
+  }
+}
+
 function toComponentName(fileName: string): string {
   const pascalCase = fileName
     .split('-')
@@ -43,11 +59,16 @@ export async function generateComponents(): Promise<GenerateResult[]> {
       const componentName = toComponentName(fileName);
 
       try {
+        validateFileName(fileName);
+
         // Read and optimize SVG
         const svgContent = await fs.readFile(
           path.join(PATHS.ICONS_DIR, file),
           'utf-8'
         );
+
+        validateSvgContent(svgContent, fileName);
+
         const optimizedSvg = await optimizeSvg(svgContent);
 
         // Generate component
