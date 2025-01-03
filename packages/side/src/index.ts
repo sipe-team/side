@@ -5,5 +5,6 @@ export * from '@sipe-team/input';
 export * from '@sipe-team/radio-group';
 export * from '@sipe-team/skeleton';
 export * from '@sipe-team/switch';
+export * from '@sipe-team/tokens';
 export * from '@sipe-team/tooltip';
 export * from '@sipe-team/typography';
