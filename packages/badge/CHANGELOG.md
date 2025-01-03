@@ -1,5 +1,12 @@
 # @sipe-team/badge
 
+## 0.0.3-next.1
+
+### Patch Changes
+
+- Updated dependencies
+  - @sipe-team/typography@0.0.4-next.1
+
 ## 0.0.3-next.0
 
 ### Patch Changes

@@ -16,6 +16,7 @@
     "@sipe-team/typography": "0.0.3"
   },
   "changesets": [
+    "fifty-jeans-own",
     "nice-pillows-repeat"
   ]
 }

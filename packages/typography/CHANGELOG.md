@@ -1,5 +1,12 @@
 # @sipe-team/typography
 
+## 0.0.4-next.1
+
+### Patch Changes
+
+- fix: exports
+  - @sipe-team/tokens@0.1.0
+
 ## 0.0.4-next.0
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @sipe-team/skeleton
 
+## 0.0.2-next.1
+
+### Patch Changes
+
+- fix: exports
+
 ## 0.0.2-next.0
 
 ### Patch Changes

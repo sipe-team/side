@@ -1,7 +1,7 @@
 {
   "name": "@sipe-team/skeleton",
   "description": "Skeleton component for Sipe Design System",
-  "version": "0.0.2-next.0",
+  "version": "0.0.2-next.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -57,9 +57,9 @@
           "types": "./dist/index.d.cts",
           "default": "./dist/index.cjs"
         }
-      }
-    },
-    "./styles.css": "./dist/index.css"
+      },
+      "./styles.css": "./dist/index.css"
+    }
   },
   "sideEffects": false,
   "dependencies": {
