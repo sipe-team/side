@@ -5,14 +5,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sipe-team/3-1_sds"
+    "url": "https://github.com/sipe-team/3-2_side"
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist",
-    "styles.css"
-  ],
+  "files": ["dist", "styles.css"],
   "scripts": {
     "build": "tsup",
     "prepack": "pnpm run build"
