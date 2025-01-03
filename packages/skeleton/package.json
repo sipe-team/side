@@ -1,7 +1,7 @@
 {
   "name": "@sipe-team/skeleton",
   "description": "Skeleton component for Sipe Design System",
-  "version": "0.0.0",
+  "version": "0.0.2-next.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -9,18 +9,20 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
     "dev:storybook": "storybook dev -p 6006",
-    "lint": "biome lint .",
+    "lint:biome": "pnpm exec biome lint",
+    "lint:eslint": "pnpm exec eslint --flag unstable_ts_config",
     "test": "vitest",
     "typecheck": "tsc",
     "prepack": "pnpm run build"
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:",
     "@faker-js/faker": "^9.2.0",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
@@ -55,7 +57,8 @@
           "types": "./dist/index.d.cts",
           "default": "./dist/index.cjs"
         }
-      }
+      },
+      "./styles.css": "./dist/index.css"
     }
   },
   "sideEffects": false,

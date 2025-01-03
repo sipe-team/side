@@ -1,0 +1,7 @@
+# git commit -m 명령어를 사용할 때는 스킵
+if [ -z "${2}" ]; then
+  exec < /dev/tty && pnpm cz --hook || {
+    echo "\nCommit has been cancelled."
+    exit 1
+  }
+fi 

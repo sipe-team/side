@@ -1,0 +1,30 @@
+name: Run tests and upload coverage
+
+on:
+  pull_request:
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: pnpm 설치
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - name: Node.js 환경 설정
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+          node-version-file: .nvmrc
+      - name: 의존성 설치
+        run: pnpm install
+      - name: 테스트
+        run: pnpm run test --coverage
+      - name: 코드커버리지 업로드
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

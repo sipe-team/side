@@ -3,5 +3,8 @@
   "editor.codeActionsOnSave": {
     "quickfix.biome": "explicit",
     "source.organizeImports.biome": "explicit"
+  },
+  "eslint.options": {
+    "flags": ["unstable_ts_config"]
   }
 }
