@@ -45,7 +45,6 @@ export const AllIcons: StoryObj = {
                 ...checkerboardStyle
               }}
             >
-              {/* @ts-ignore */}
               <Icon size={24} />
               <span style={{ fontSize: '12px' }}>{name}</span>
             </div>
