@@ -1,7 +1,7 @@
 {
   "name": "@sipe-team/card",
   "description": "Card component for Sipe Design System",
-  "version": "0.0.1",
+  "version": "0.0.2-next.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -9,7 +9,9 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
