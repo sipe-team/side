@@ -94,18 +94,15 @@ export async function generateComponents(): Promise<GenerateResult[]> {
 
   // 4. Generate index file with successful components
   const successfulResults = results.filter(r => r.success);
-  const exports = successfulResults.map(
-    r => `export { ${r.componentName} } from './components/${r.fileName}';`
-  );
+  const componentExports = successfulResults
+    .map(r => `export { ${r.componentName} } from './components/${r.fileName}';`)
+    .join('\n');
 
   const indexContent = `\
- import type { IconProps } from './types';
+export type { IconProps } from './types';
 
- export type { IconProps };
-
- ${exports.join('\n')}
- `;
-
+${componentExports}
+`;
   await fs.writeFile(
     path.join(PATHS.COMPONENTS_DIR, '../index.ts'),
     indexContent
