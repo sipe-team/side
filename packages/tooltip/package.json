@@ -1,7 +1,7 @@
 {
   "name": "@sipe-team/tooltip",
   "description": "Tooltip component for Sipe Design System",
-  "version": "0.0.2",
+  "version": "0.0.3-next.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -64,7 +64,8 @@
           "types": "./dist/index.d.cts",
           "default": "./dist/index.cjs"
         }
-      }
+      },
+      "./styles.css": "./dist/index.css"
     }
   },
   "sideEffects": false

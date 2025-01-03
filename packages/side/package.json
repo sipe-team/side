@@ -1,7 +1,7 @@
 {
   "name": "@sipe-team/side",
   "description": "Sipe Design System",
-  "version": "0.0.2",
+  "version": "0.0.3-next.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,7 +10,8 @@
   "type": "module",
   "exports": "./src/index.ts",
   "files": [
-    "dist"
+    "dist",
+    "styles.css"
   ],
   "scripts": {
     "build": "tsup",
@@ -47,7 +48,8 @@
           "types": "./dist/index.d.cts",
           "default": "./dist/index.cjs"
         }
-      }
+      },
+      "./styles.css": "./styles.css"
     }
   },
   "sideEffects": false
