@@ -9,9 +9,7 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist", "styles.css"],
   "scripts": {
     "build": "tsup",
     "prepack": "pnpm run build"
@@ -47,7 +45,8 @@
           "types": "./dist/index.d.cts",
           "default": "./dist/index.cjs"
         }
-      }
+      },
+      "./styles.css": "./styles.css"
     }
   },
   "sideEffects": false

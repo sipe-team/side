@@ -9,9 +9,7 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
@@ -65,7 +63,8 @@
           "default": "./dist/index.cjs"
         }
       }
-    }
+    },
+    "./styles.css": "./dist/index.css"
   },
   "sideEffects": false
 }
