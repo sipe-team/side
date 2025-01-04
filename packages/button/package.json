@@ -20,7 +20,6 @@
     "prepack": "pnpm run build"
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
     "@storybook/addon-links": "catalog:",
