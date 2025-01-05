@@ -5,7 +5,7 @@ We love your input! We want to make contributing to this project as easy and tra
 ## Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/your-username/3-1_sds.git`
+2. Clone your fork: `git clone https://github.com/your-username/3-2_side.git`
 3. Install dependencies: `pnpm install`
 
 ## Creating a New Component
