@@ -1,5 +1,13 @@
 # @sipe-team/switch
 
+## 0.0.2
+
+### Patch Changes
+
+- f425309: fix: exports
+- f425309: fix: styles.css
+  - @sipe-team/tokens@0.1.0
+
 ## 0.0.2-next.1
 
 ### Patch Changes

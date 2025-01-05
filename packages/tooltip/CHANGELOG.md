@@ -1,5 +1,12 @@
 # @sipe-team/tooltip
 
+## 0.0.3
+
+### Patch Changes
+
+- f425309: fix: exports
+- f425309: fix: styles.css
+
 ## 0.0.3-next.1
 
 ### Patch Changes
