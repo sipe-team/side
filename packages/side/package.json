@@ -1,7 +1,7 @@
 {
   "name": "@sipe-team/side",
   "description": "Sipe Design System",
-  "version": "0.0.3-next.1",
+  "version": "0.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -9,7 +9,10 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": ["dist", "styles.css"],
+  "files": [
+    "dist",
+    "styles.css"
+  ],
   "scripts": {
     "build": "tsup",
     "prepack": "pnpm run build"
