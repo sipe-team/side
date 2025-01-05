@@ -31,7 +31,8 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     children: 'Button',
-    color: "primary"
+    color: 'primary',
+    variant: 'filled',
   },
 };
 
@@ -41,9 +42,15 @@ export const Colors: Story = {
   },
   render: (args) => (
     <div style={{ display: 'flex', gap: '8px' }}>
-      <Button {...args} color="primary">Primary</Button>
-      <Button {...args} color="black">Black</Button>
-      <Button {...args} color="white">White</Button>
+      <Button {...args} color="primary">
+        Primary
+      </Button>
+      <Button {...args} color="black">
+        Black
+      </Button>
+      <Button {...args} color="white">
+        White
+      </Button>
     </div>
   ),
 };
@@ -55,9 +62,15 @@ export const Variants: Story = {
   },
   render: (args) => (
     <div style={{ display: 'flex', gap: '8px' }}>
-      <Button {...args} variant="filled">Filled</Button>
-      <Button {...args} variant="outline">Outline</Button>
-      <Button {...args} variant="weak">Weak</Button>
+      <Button {...args} variant="filled">
+        Filled
+      </Button>
+      <Button {...args} variant="outline">
+        Outline
+      </Button>
+      <Button {...args} variant="weak">
+        Weak
+      </Button>
     </div>
   ),
 };
@@ -70,7 +83,9 @@ export const States: Story = {
   render: (args) => (
     <div style={{ display: 'flex', gap: '8px' }}>
       <Button {...args}>Normal</Button>
-      <Button {...args} disabled>Disabled</Button>
+      <Button {...args} disabled>
+        Disabled
+      </Button>
     </div>
   ),
 };
