@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@sipe-team/badge": "workspace:*",
+    "@sipe-team/button": "workspace:*",
     "@sipe-team/card": "workspace:*",
     "@sipe-team/divider": "workspace:*",
     "@sipe-team/input": "workspace:*",

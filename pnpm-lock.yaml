@@ -577,6 +577,9 @@ importers:
       '@sipe-team/badge':
         specifier: workspace:*
         version: link:../badge
+      '@sipe-team/button':
+        specifier: workspace:*
+        version: link:../button
       '@sipe-team/card':
         specifier: workspace:*
         version: link:../card
