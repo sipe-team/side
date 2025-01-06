@@ -1,17 +1,17 @@
-import { Slot } from "@radix-ui/react-slot";
-import { clsx as cx } from "clsx";
+import { Slot } from '@radix-ui/react-slot';
+import { clsx as cx } from 'clsx';
 import {
-  forwardRef,
+  type CSSProperties,
   type ComponentProps,
   type ForwardedRef,
-  type CSSProperties,
-} from "react";
-import styles from "./Avatar.module.css";
+  forwardRef,
+} from 'react';
+import styles from './Avatar.module.css';
 
-type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
-type AvatarShape = "circle" | "rounded" | "square";
+type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type AvatarShape = 'circle' | 'rounded' | 'square';
 
-export interface AvatarProps extends ComponentProps<"div"> {
+export interface AvatarProps extends ComponentProps<'div'> {
   asChild?: boolean;
   src?: string;
   alt?: string;
@@ -26,18 +26,18 @@ export const Avatar = forwardRef(function Avatar(
     className,
     src,
     alt,
-    size = "md",
-    shape = "circle",
+    size = 'md',
+    shape = 'circle',
     fallback,
     ...props
   }: AvatarProps,
-  ref: ForwardedRef<any>
+  ref: ForwardedRef<any>,
 ) {
-  const Component = asChild ? Slot : "div";
+  const Component = asChild ? Slot : 'div';
 
   const style = {
-    "--avatar-size": size,
-    "--avatar-shape": shape,
+    '--avatar-size': size,
+    '--avatar-shape': shape,
   } as CSSProperties;
 
   return (
@@ -65,28 +65,28 @@ export const Avatar = forwardRef(function Avatar(
 
 function getAvatarSize(size: AvatarSize) {
   switch (size) {
-    case "xs":
-      return "24px";
-    case "sm":
-      return "32px";
-    case "md":
-      return "40px";
-    case "lg":
-      return "70px";
-    case "xl":
-      return "96px";
+    case 'xs':
+      return '24px';
+    case 'sm':
+      return '32px';
+    case 'md':
+      return '40px';
+    case 'lg':
+      return '70px';
+    case 'xl':
+      return '96px';
     default:
-      return "40px";
+      return '40px';
   }
 }
 
 function getAvatarShape(shape: AvatarShape) {
   switch (shape) {
-    case "rounded":
-      return "4px";
-    case "square":
-      return "0px";
+    case 'rounded':
+      return '4px';
+    case 'square':
+      return '0px';
     default:
-      return "50%";
+      return '50%';
   }
 }
