@@ -574,6 +574,9 @@ importers:
       '@sipe-team/divider':
         specifier: workspace:*
         version: link:../divider
+      '@sipe-team/flex':
+        specifier: workspace:*
+        version: link:../flex
       '@sipe-team/input':
         specifier: workspace:*
         version: link:../Input

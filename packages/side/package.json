@@ -9,9 +9,7 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "prepack": "pnpm run build"
@@ -26,7 +24,8 @@
     "@sipe-team/switch": "workspace:*",
     "@sipe-team/tokens": "workspace:*",
     "@sipe-team/tooltip": "workspace:*",
-    "@sipe-team/typography": "workspace:*"
+    "@sipe-team/typography": "workspace:*",
+    "@sipe-team/flex": "workspace:*"
   },
   "devDependencies": {
     "tsup": "catalog:",
