@@ -1,13 +1,13 @@
 export type { IconProps } from './types';
 
-export { AccordionArrowIcon } from './components/accordion-arrow';
-export { CheckCircleIcon } from './components/check-circle';
-export { EmailIcon } from './components/email';
-export { GithubIcon } from './components/github';
-export { InstagramIcon } from './components/instagram';
-export { KakaoIcon } from './components/kakao';
-export { LinkIcon } from './components/link';
-export { LinkedinIcon } from './components/linkedin';
-export { OrganizerIcon } from './components/organizer';
-export { UserIcon } from './components/user';
-export { YoutubeIcon } from './components/youtube';
+export { AccordionArrowIcon } from './components/AccordionArrowIcon';
+export { CheckCircleIcon } from './components/CheckCircleIcon';
+export { EmailIcon } from './components/EmailIcon';
+export { GithubIcon } from './components/GithubIcon';
+export { InstagramIcon } from './components/InstagramIcon';
+export { KakaoIcon } from './components/KakaoIcon';
+export { LinkIcon } from './components/LinkIcon';
+export { LinkedinIcon } from './components/LinkedinIcon';
+export { OrganizerIcon } from './components/OrganizerIcon';
+export { UserIcon } from './components/UserIcon';
+export { YoutubeIcon } from './components/YoutubeIcon';

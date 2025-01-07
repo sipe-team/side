@@ -76,7 +76,7 @@ export async function generateComponents(): Promise<GenerateResult[]> {
 
         // Write component file
         await fs.writeFile(
-          path.join(PATHS.COMPONENTS_DIR, `${fileName}.tsx`),
+          path.join(PATHS.COMPONENTS_DIR, `${componentName}.tsx`),
           componentContent
         );
 
@@ -95,7 +95,7 @@ export async function generateComponents(): Promise<GenerateResult[]> {
   // 4. Generate index file with successful components
   const successfulResults = results.filter(r => r.success);
   const componentExports = successfulResults
-    .map(r => `export { ${r.componentName} } from './components/${r.fileName}';`)
+    .map(r => `export { ${r.componentName} } from './components/${r.componentName}';`)
     .join('\n');
 
   const indexContent = `\
