@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import * as Icons from './';
+import * as Icons from '.';
 
 export default {
   title: 'Icons',

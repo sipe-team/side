@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { describe, expect, it } from 'vitest';
-import * as Icons from './';
+import * as Icons from '.';
 
 describe('Icon Components', () => {
   const iconEntries = Object.entries(Icons);

@@ -5,13 +5,13 @@ React icon components for Sipe Design System.
 ## Installation
 
 ```bash
-pnpm add @sipe-team/icons
+pnpm add @sipe-team/icon
 ```
 
 ## Usage
 
 ```tsx
-import { ArrowRightIcon } from '@sipe-team/icons';
+import { ArrowRightIcon } from '@sipe-team/icon';
 
 function Example() {
   return (
@@ -43,7 +43,7 @@ function Example() {
 
 ### Adding new icons
 
-1. Add SVG file to `src/icons` directory
+1. Add SVG file to `icons` directory
 2. Run generation script:
 ```bash
 pnpm generate-icons
