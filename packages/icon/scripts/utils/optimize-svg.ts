@@ -17,19 +17,15 @@ export const optimizeSvg = async (svg: string): Promise<string> => {
     );
 
     // Preserve fill="none" and handle other fill/stroke attributes
-    optimizedSvg = optimizedSvg
-      .replace(/fill="(none|[^"]+)"/g, (_, value) =>
+    optimizedSvg = optimizedSvg.replace(
+      /(fill|stroke)="(none|[^"]+)"/g,
+      (_, attr, value) =>
         value === 'none'
-          ? 'fill="none"'
+          ? `${attr}="none"`
           : value === 'currentColor'
-            ? 'fill={color}'
-            : `fill={color || "${value}"}`)
-      .replace(/stroke="(none|[^"]+)"/g, (_, value) =>
-        value === 'none'
-          ? 'stroke="none"'
-          : value === 'currentColor'
-            ? 'stroke={color}'
-            : `stroke={color || "${value}"}`)
+            ? `${attr}={color}`
+            : `${attr}={color || "${value}"}`
+    );
 
     // Inject SVG props
     optimizedSvg = optimizedSvg.replace(
