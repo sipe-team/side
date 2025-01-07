@@ -6,6 +6,7 @@ export default {
   parameters: {
     layout: 'centered',
   },
+  component: Icons.AccordionArrowIcon,
 } satisfies Meta;
 
 const CHECKERBOARD_COLOR = '#cccccc';
@@ -37,6 +38,14 @@ const IconWrapper = ({ children }: { children: React.ReactNode }) => (
     {children}
   </div>
 );
+
+export const Default: StoryObj = {
+  render: () => (
+    <IconWrapper>
+      <Icons.AccordionArrowIcon />
+    </IconWrapper>
+  ),
+};
 
 export const AllIcons: StoryObj = {
   render: () => (
