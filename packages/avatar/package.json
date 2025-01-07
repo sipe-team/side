@@ -1,11 +1,11 @@
 {
-  "name": "@sipe-team/component",
+  "name": "@sipe-team/avatar",
   "description": "Avatar component for Sipe Design System",
   "version": "0.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sipe-team/3-1_sds"
+    "url": "https://github.com/sipe-team/3-2_side"
   },
   "type": "module",
   "exports": "./src/index.ts",
