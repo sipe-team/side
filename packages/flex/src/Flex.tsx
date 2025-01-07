@@ -1,9 +1,14 @@
 import { Slot } from '@radix-ui/react-slot';
 import { clsx as cx } from 'clsx';
-import { type CSSProperties, type ForwardedRef, forwardRef } from 'react';
+import {
+  type CSSProperties,
+  type ComponentProps,
+  type ForwardedRef,
+  forwardRef,
+} from 'react';
 import styles from './Flex.module.css';
 
-export interface FlexProps {
+export interface FlexProps extends ComponentProps<'div'> {
   align?: CSSProperties['alignItems'];
   justify?: CSSProperties['justifyContent'];
   wrap?: CSSProperties['flexWrap'];
