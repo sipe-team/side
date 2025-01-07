@@ -448,7 +448,7 @@ importers:
         specifier: 'catalog:'
         version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)
 
-  packages/icons:
+  packages/icon:
     devDependencies:
       '@storybook/addon-essentials':
         specifier: 'catalog:'
