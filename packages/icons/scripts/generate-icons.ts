@@ -1,5 +1,5 @@
 import { performance } from 'node:perf_hooks';
-import { generateComponents } from './generate-components';
+import { generateComponents } from './utils/generate-components';
 
 async function main() {
   const startTime = performance.now();

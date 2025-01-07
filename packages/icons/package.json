@@ -19,7 +19,7 @@
     "test": "vitest",
     "typecheck": "tsc",
     "prepack": "pnpm run build",
-    "generate-icons": "tsx src/utils/generate-icons.ts"
+    "generate-icons": "tsx scripts/generate-icons.ts"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "catalog:",

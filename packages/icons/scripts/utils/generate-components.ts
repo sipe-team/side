@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import type { GenerateResult } from '../types';
+import type { GenerateResult } from '../../src/types';
 import { optimizeSvg } from './optimize-svg';
 import { PATHS } from './paths';
 

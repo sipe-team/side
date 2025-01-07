@@ -4,7 +4,7 @@ export const PATHS = {
   /**
    * SVG source files
    * */
-  ICONS_DIR: path.join(process.cwd(), 'src/icons'),
+  ICONS_DIR: path.join(process.cwd(), 'icons'),
   /**
    * Generated files
    * */
