@@ -1,0 +1,11 @@
+.flex {
+  display: var(--flex-display, flex);
+  flex-direction: var(--flex-direction);
+  align-items: var(--flex-align);
+  justify-content: var(--flex-justify);
+  flex-wrap: var(--flex-wrap);
+  gap: var(--flex-gap);
+  flex-basis: var(--flex-basis);
+  flex-grow: var(--flex-grow);
+  flex-shrink: var(--flex-shrink);
+}

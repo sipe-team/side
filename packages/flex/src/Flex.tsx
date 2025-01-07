@@ -1,4 +1,7 @@
+import { Slot } from '@radix-ui/react-slot';
+import { clsx as cx } from 'clsx';
 import { type CSSProperties, type ForwardedRef, forwardRef } from 'react';
+import styles from './Flex.module.css';
 
 export interface FlexProps {
   align?: CSSProperties['alignItems'];
@@ -11,8 +14,9 @@ export interface FlexProps {
   inline?: boolean;
   gap?: CSSProperties['gap'];
   className?: string;
-  css?: CSSProperties;
+  style?: CSSProperties;
   children?: React.ReactNode;
+  asChild?: boolean;
 }
 
 export const Flex = forwardRef(function Flex(
@@ -27,31 +31,36 @@ export const Flex = forwardRef(function Flex(
     inline,
     gap,
     className,
-    css,
+    style,
     children,
+    asChild,
     ...rest
   }: FlexProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<any>,
 ) {
+  const Component = asChild ? Slot : 'div';
+
+  const flexStyle = {
+    '--flex-display': inline ? 'inline-flex' : 'flex',
+    '--flex-direction': direction,
+    '--flex-align': align,
+    '--flex-justify': justify,
+    '--flex-wrap': wrap,
+    '--flex-gap': gap,
+    '--flex-basis': basis,
+    '--flex-grow': grow,
+    '--flex-shrink': shrink,
+    ...style,
+  } as React.CSSProperties;
+
   return (
-    <div
+    <Component
       ref={ref}
-      className={className}
-      style={{
-        display: inline ? 'inline-flex' : 'flex',
-        alignItems: align,
-        justifyContent: justify,
-        flexWrap: wrap,
-        flexDirection: direction,
-        flexBasis: basis,
-        flexGrow: grow,
-        flexShrink: shrink,
-        gap,
-        ...css,
-      }}
+      className={cx(styles.flex, className)}
+      style={flexStyle}
       {...rest}
     >
       {children}
-    </div>
+    </Component>
   );
 });

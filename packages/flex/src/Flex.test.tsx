@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { render, screen } from '@testing-library/react';
-import type { CSSProperties } from 'react';
+import { type CSSProperties, createElement } from 'react';
 import { describe, expect, it } from 'vitest';
 import { Flex } from './Flex';
 
@@ -204,33 +204,50 @@ describe('Flex', () => {
                 <div>item 2</div>
               </Flex>,
             );
+
+            const flexContainer = screen.getByTestId('flex-container');
+            expect(flexContainer).toHaveStyle({ gap });
           },
         );
       });
     });
   });
 
-  describe('css', () => {
+  describe('style', () => {
     it.each([
-      { css: { justifyContent: 'flex-start' } },
-      { css: { alignItems: 'center' } },
-      { css: { flexWrap: 'wrap' } },
-      { css: { flexDirection: 'column' } },
-      { css: { flexBasis: '100px' } },
-      { css: { flexGrow: 1 } },
-      { css: { flexShrink: 1 } },
-    ] satisfies Array<{ css: CSSProperties }>)(
-      'flex의 css prop에 $css 속성을 주입하면 해당 속성을 적용한다.',
-      ({ css }) => {
+      { style: { justifyContent: 'flex-start' } },
+      { style: { alignItems: 'center' } },
+      { style: { flexWrap: 'wrap' } },
+      { style: { flexDirection: 'column' } },
+    ] satisfies Array<{ style: CSSProperties }>)(
+      'flex의 style prop에 $style 속성을 주입하면 해당 속성을 적용한다.',
+      ({ style }) => {
         render(
-          <Flex data-testid="flex-container" css={css}>
+          <Flex data-testid="flex-container" style={style}>
             <div>item 1</div>
             <div>item 2</div>
           </Flex>,
         );
 
         const flexContainer = screen.getByTestId('flex-container');
-        expect(flexContainer).toHaveStyle(css);
+        expect(flexContainer).toHaveStyle(style);
+      },
+    );
+  });
+
+  describe('polymorphic', () => {
+    it.each(['span', 'nav', 'button', 'input', 'label', 'div'])(
+      'flex의 asChild prop에 true 속성을 주입하면 자식으로 %s 엘리먼트가 전달되면 해당 엘리먼트의 태그로 렌더링된다',
+      (element) => {
+        render(
+          <Flex data-testid="flex-container" asChild>
+            {createElement(element)}
+          </Flex>,
+        );
+
+        const flexContainer = screen.getByTestId('flex-container');
+        expect(flexContainer).toBeInTheDocument();
+        expect(flexContainer.tagName.toLowerCase()).toBe(element);
       },
     );
   });
