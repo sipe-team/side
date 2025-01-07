@@ -8,13 +8,15 @@ export default {
   },
 } satisfies Meta;
 
+const CHECKERBOARD_COLOR = '#cccccc';
+
 const checkerboardStyle = {
   backgroundColor: '#e0e0e0',
   backgroundImage: `
-    linear-gradient(45deg, #cccccc 25%, transparent 25%),
-    linear-gradient(-45deg, #cccccc 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #cccccc 75%),
-    linear-gradient(-45deg, transparent 75%, #cccccc 75%)
+  linear-gradient(45deg, ${CHECKERBOARD_COLOR} 25%, transparent 25%),
+  linear-gradient(-45deg, ${CHECKERBOARD_COLOR} 25%, transparent 25%),
+  linear-gradient(45deg, transparent 75%, ${CHECKERBOARD_COLOR} 75%),
+  linear-gradient(-45deg, transparent 75%, ${CHECKERBOARD_COLOR} 75%)
   `,
   backgroundSize: '20px 20px',
   backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
