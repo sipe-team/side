@@ -25,5 +25,12 @@ export const SVGO_CONFIG: Config = {
     {
       name: 'removeXMLNS'
     },
+    {
+      name: 'removeAttrs',
+      params: {
+        attrs: '(data-.*)' // This regex matches all data-* attributes
+      }
+    },
+
   ]
 };
