@@ -9,7 +9,9 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
@@ -21,8 +23,8 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
-    "@sipe-team/typography": "workspace:*",
-    "@sipe-team/tokens": "workspace:^",
+    "@sipe-team/typography": "workspace:^",
+    "@sipe-team/tokens": "workspace:*",
     "clsx": "^2.1.1"
   },
   "devDependencies": {
