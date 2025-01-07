@@ -20,39 +20,44 @@ const checkerboardStyle = {
   backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
 };
 
+const IconWrapper = ({ children }: { children: React.ReactNode }) => (
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '8px',
+      padding: '12px',
+      borderRadius: '8px',
+      ...checkerboardStyle,
+    }}
+  >
+    {children}
+  </div>
+);
+
 export const AllIcons: StoryObj = {
-  render: () => {
-    return (
-      <div style={{
+  render: () => (
+    <div
+      style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
         gap: '20px',
         padding: '20px',
-      }}>
-        {Object.entries(Icons).map(([name, Icon]) => {
-          if (name === 'IconProps') return null;
-          return (
-            <div
-              key={name}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '12px',
-                border: '1px solid #eee',
-                borderRadius: '8px',
-                ...checkerboardStyle
-              }}
-            >
-              <Icon size={24} />
-              <span style={{ fontSize: '12px' }}>{name}</span>
-            </div>
-          );
-        })}
-      </div>
-    );
-  },
+        width: '800px',
+      }}
+    >
+      {Object.entries(Icons).map(([name, Icon]) => {
+        if (name === 'IconProps') return null;
+        return (
+          <IconWrapper key={name}>
+            <Icon size={24} />
+            <span style={{ fontSize: '12px' }}>{name}</span>
+          </IconWrapper>
+        );
+      })}
+    </div>
+  ),
 };
 
 export const Sizes: StoryObj = {
@@ -63,18 +68,10 @@ export const Sizes: StoryObj = {
     return (
       <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
         {sizes.map(size => (
-          <div
-            key={size}
-            style={{
-              textAlign: 'center',
-              padding: '12px',
-              borderRadius: '8px',
-              ...checkerboardStyle
-            }}
-          >
+          <IconWrapper key={size}>
             <IconComponent size={size} />
             <div style={{ fontSize: '12px', marginTop: '8px' }}>{size}px</div>
-          </div>
+          </IconWrapper>
         ))}
       </div>
     );
@@ -89,18 +86,10 @@ export const Colors: StoryObj = {
     return (
       <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
         {colors.map(color => (
-          <div
-            key={color}
-            style={{
-              textAlign: 'center',
-              padding: '12px',
-              borderRadius: '8px',
-              ...checkerboardStyle
-            }}
-          >
+          <IconWrapper key={color}>
             <IconComponent size={24} color={color} />
             <div style={{ fontSize: '12px', marginTop: '8px' }}>{color}</div>
-          </div>
+          </IconWrapper>
         ))}
       </div>
     );
