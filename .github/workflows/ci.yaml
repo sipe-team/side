@@ -12,22 +12,22 @@ jobs:
       with:
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
-    - name: pnpm 설치
+    - name: Install pnpm
       uses: pnpm/action-setup@v4
       with:
         run_install: false
-    - name: Node.js 환경 설정
+    - name: Setup Node.js environment
       uses: actions/setup-node@v4
       with:
         cache: pnpm
         node-version-file: .nvmrc
-    - name: 의존성 설치
+    - name: Install dependencies
       run: pnpm install
-    - name: 린트
+    - name: Lint
       run: pnpm --filter="...[origin/${{ github.base_ref }}]" "/lint:*/"
-    - name: 테스트
+    - name: Test
       run: pnpm --filter="...[origin/${{ github.base_ref }}]" test
-    - name: 타입 체크
+    - name: Type check
       run: pnpm --filter="...[origin/${{ github.base_ref }}]" typecheck
-    - name: 빌드
+    - name: Build
       run: pnpm --filter="...[origin/${{ github.base_ref }}]" build
