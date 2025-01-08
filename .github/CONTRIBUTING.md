@@ -23,12 +23,6 @@ Install the necessary dependencies:
 pnpm install
 ```
 
-### Run Development Server
-Run the development server to verify the setup:
-```sh
-pnpm dev
-```
-
 ---
 
 ## Developing
