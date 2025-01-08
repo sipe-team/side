@@ -9,3 +9,4 @@ export * from '@sipe-team/switch';
 export * from '@sipe-team/tokens';
 export * from '@sipe-team/tooltip';
 export * from '@sipe-team/typography';
+export * from '@sipe-team/flex';

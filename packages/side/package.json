@@ -28,7 +28,8 @@
     "@sipe-team/switch": "workspace:*",
     "@sipe-team/tokens": "workspace:*",
     "@sipe-team/tooltip": "workspace:*",
-    "@sipe-team/typography": "workspace:*"
+    "@sipe-team/typography": "workspace:*",
+    "@sipe-team/flex": "workspace:*"
   },
   "devDependencies": {
     "tsup": "catalog:",
