@@ -18,9 +18,6 @@ export interface FlexProps extends ComponentProps<'div'> {
   shrink?: CSSProperties['flexShrink'];
   inline?: boolean;
   gap?: CSSProperties['gap'];
-  className?: string;
-  style?: CSSProperties;
-  children?: React.ReactNode;
   asChild?: boolean;
 }
 
