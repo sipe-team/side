@@ -46,7 +46,7 @@ pnpm test
 ### Storybook
 We use **Storybook** for visual testing of components.  
 All components must include Storybook documentation.  
-Run the following command to view your components at `localhost:6006`:
+Run the following command to view your components at `http://localhost:6006`:
 ```sh
 pnpm dev:storybook
 ```
