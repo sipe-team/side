@@ -65,10 +65,28 @@ Before proposing changes, please **open an issue** to discuss the bug or feature
    ```
 
 2. **Commit Changes**  
-   Write meaningful commit messages:
+   Write meaningful commit messages using the [Conventional Commits](https://www.conventionalcommits.org/) format:
    ```sh
-   git commit -m "feat: description"
+   git commit -m "<type>(<scope>): <subject>"
    ```
+   We recommend following the Conventional Commits standard for clear and consistent commit messages. Below is the suggested structure:
+ 
+
+   - `<type>` (Required)
+     - Indicates the purpose or type of the commit.
+     - Examples: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+
+   - `<scope>` (Optional)
+     - Specifies the scope of the changes, such as the module, file name, or functionality affected. 
+     - Limited to a maximum of 20 characters. 
+     
+   - `<subject>` (Required)
+     - A brief summary of the changes made. 
+     - Limited to 50 characters. 
+     - Starts with a lowercase letter. 
+     - Do not end with a period(.). 
+     - Written in English.
+
 
 3. **Push Changes**  
    Push the branch to your forked repository:
