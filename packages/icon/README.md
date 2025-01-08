@@ -1,4 +1,4 @@
-# @sipe-team/icons
+# @sipe-team/icon
 
 React icon components for Sipe Design System.
 
