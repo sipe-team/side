@@ -1,6 +1,6 @@
 # Get the current branch name
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-BRANCH_REGEX='^(feature|fix|hotfix|chore|refactor|release|test|docs|ci|build)\/[a-z0-9-]+$'
+BRANCH_REGEX='^(feat|fix|hotfix|chore|refactor|release|test|docs|ci|build)\/[a-z0-9-]+$'
 
 # Check if the branch name matches the defined regex
 if ! [[ $BRANCH_NAME =~ $BRANCH_REGEX ]]; then
