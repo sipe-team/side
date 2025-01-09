@@ -72,16 +72,3 @@ describe("Avatar 컴포넌트", () => {
     }
   );
 });
-
-// test('기본 크기는 40px이다.', () => {
-//   render(<Avatar src={testImage} />);
-//   expect(screen.getByRole('img')).toHaveStyle({
-//     width: '40px',
-//     height: '40px',
-//   });
-// });
-
-// test('원형 형태로 표시한다.', () => {
-//   render(<Avatar src={testImage} shape="circle" />);
-//   expect(screen.getByRole('img')).toHaveStyle({ borderRadius: '50%' });
-// });
