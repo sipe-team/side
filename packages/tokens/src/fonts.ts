@@ -11,6 +11,10 @@ export const fontSize = {
   48: 48,
 } as const;
 
+/**
+ * Font weights following MDN guidelines
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight
+ */
 export const fontWeight = {
   regular: 400,
   medium: 500,
