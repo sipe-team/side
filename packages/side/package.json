@@ -1,7 +1,7 @@
 {
   "name": "@sipe-team/side",
   "description": "Sipe Design System",
-  "version": "0.0.3-next.1",
+  "version": "0.2.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -9,13 +9,17 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": ["dist", "styles.css"],
+  "files": [
+    "dist",
+    "styles.css"
+  ],
   "scripts": {
     "build": "tsup",
     "prepack": "pnpm run build"
   },
   "dependencies": {
     "@sipe-team/badge": "workspace:*",
+    "@sipe-team/button": "workspace:*",
     "@sipe-team/card": "workspace:*",
     "@sipe-team/divider": "workspace:*",
     "@sipe-team/input": "workspace:*",
@@ -24,7 +28,8 @@
     "@sipe-team/switch": "workspace:*",
     "@sipe-team/tokens": "workspace:*",
     "@sipe-team/tooltip": "workspace:*",
-    "@sipe-team/typography": "workspace:*"
+    "@sipe-team/typography": "workspace:*",
+    "@sipe-team/flex": "workspace:*"
   },
   "devDependencies": {
     "tsup": "catalog:",

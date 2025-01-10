@@ -1,5 +1,14 @@
 # @sipe-team/badge
 
+## 0.0.3
+
+### Patch Changes
+
+- f425309: fix: styles.css
+- Updated dependencies [f425309]
+- Updated dependencies [f425309]
+  - @sipe-team/typography@0.0.4
+
 ## 0.0.3-next.1
 
 ### Patch Changes

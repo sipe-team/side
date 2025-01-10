@@ -1,5 +1,12 @@
 # @sipe-team/divider
 
+## 0.0.2
+
+### Patch Changes
+
+- f425309: fix: exports
+- f425309: fix: styles.css
+
 ## 0.0.2-next.1
 
 ### Patch Changes
