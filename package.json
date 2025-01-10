@@ -54,7 +54,8 @@
     "*.{ts,tsx}": [
       "biome lint --write",
       "eslint --fix --flag unstable_ts_config"
-    ]
+    ],
+    "*.{json,css,md,yml,yaml}": ["biome format --write"]
   },
   "config": {
     "commitizen": {
