@@ -1,5 +1,13 @@
 # @sipe-team/side
 
+## 0.2.1
+
+### Patch Changes
+
+- dcafff3: fix(flex,side): flex style export issue
+- Updated dependencies [dcafff3]
+  - @sipe-team/flex@0.1.1
+
 ## 0.2.0
 
 ### Minor Changes
