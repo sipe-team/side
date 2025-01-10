@@ -1,3 +1,8 @@
+name: "Component Design"
+about: "Define and design a new component"
+
+---
+
 ## Component Function Definition
 <!-- Please describe the main functions and use cases of this component. -->
 
