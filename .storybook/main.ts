@@ -14,4 +14,7 @@ export default {
     name: '@storybook/react-vite',
     options: {},
   },
+  managerHead: (head) =>
+    `${head}
+      <link rel="shortcut icon" href="../public/assets/favicon.ico" type="image/ico">`,
 } satisfies StorybookConfig;
