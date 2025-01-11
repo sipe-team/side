@@ -2,6 +2,7 @@ import type { StorybookConfig } from '@storybook/react-vite';
 
 export default {
   stories: [
+    '../docs/*.mdx',
     '../packages/**/*.mdx',
     '../packages/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
@@ -16,5 +17,9 @@ export default {
   },
   managerHead: (head) =>
     `${head}
-      <link rel="shortcut icon" href="../public/assets/favicon.ico" type="image/ico">`,
+<link rel="shortcut icon" href="../public/assets/favicon.ico" type="image/ico">
+      
+<style>
+  .sidebar .sidebar__add-button { display: none; }
+</style>`,
 } satisfies StorybookConfig;
