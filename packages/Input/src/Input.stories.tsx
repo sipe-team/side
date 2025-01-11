@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { Action, Input } from './Input';
 
 const meta = {
-  title: 'Input',
+  title: 'Components/Input',
   component: Input,
   parameters: {
     layout: 'centered',
