@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import * as Icons from '.';
 
 export default {
-  title: 'Icons',
+  title: 'Components/Icons',
   parameters: {
     layout: 'centered',
   },
@@ -78,7 +78,7 @@ export const Sizes: StoryObj = {
 
     return (
       <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-        {sizes.map(size => (
+        {sizes.map((size) => (
           <IconWrapper key={size}>
             <IconComponent size={size} />
             <div style={{ fontSize: '12px', marginTop: '8px' }}>{size}px</div>
@@ -96,7 +96,7 @@ export const Colors: StoryObj = {
 
     return (
       <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-        {colors.map(color => (
+        {colors.map((color) => (
           <IconWrapper key={color}>
             <IconComponent size={24} color={color} />
             <div style={{ fontSize: '12px', marginTop: '8px' }}>{color}</div>
