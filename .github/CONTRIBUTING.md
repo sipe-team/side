@@ -1,8 +1,8 @@
 # Contributing to Sipe Design System
 
-Welcome to our project! We want to make contributing to this project as easy and transparent as possible.
-This document provides a clear guide on **how to contribute to Side(Sipe Design System)**.
-We've outlined the process to ensure contributing is as easy and transparent as possible.
+Welcome to our project!
+We want to make contributing to **Side (Sipe Design System)** as straightforward and transparent as possible.
+This document provides a clear guide to help you get started and contribute effectively.
 
 ### What is Side?
 Side refers to the Sipe Design System, our primary UI component library aimed at creating consistent and reusable interfaces.
