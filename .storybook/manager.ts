@@ -9,8 +9,8 @@ addons.setConfig({
     brandUrl: 'https://sipe.team/',
     brandTarget: '_self',
     textColor: '#999999',
-    colorSecondary: '#00FF99',
-    barSelectedColor: '#00FF99',
+    colorSecondary: '#007043',
+    barSelectedColor: '#007043',
     barHoverColor: '#00CC7A',
   }),
 });
