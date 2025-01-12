@@ -39,9 +39,13 @@ pnpm create:component
 ### Testing
 We use **Vitest** for testing.  
 All new features or changes must include **relevant test cases**.
+
 ```sh
 pnpm test
 ```
+**Minimum Testing Requirements:**
+- Cover all primary use cases.
+- Ensure edge cases are tested.
 
 ### Storybook
 We use **Storybook** for visual testing of components.  
