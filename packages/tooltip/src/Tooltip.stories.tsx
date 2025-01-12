@@ -2,7 +2,7 @@ import type { Meta, StoryFn } from '@storybook/react';
 import { Tooltip, type TooltipProps } from './Tooltip';
 
 export default {
-  title: 'Tooltip',
+  title: 'Components/Tooltip',
   component: Tooltip,
   argTypes: {
     tooltipContent: { control: 'text', description: '툴팁에 표시될 내용' },

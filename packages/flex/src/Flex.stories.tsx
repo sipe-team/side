@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Flex } from './Flex';
 
 const meta = {
-  title: 'Flex',
+  title: 'Components/Flex',
   component: Flex,
   tags: ['autodocs'],
   argTypes: {

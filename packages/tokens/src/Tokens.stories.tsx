@@ -5,7 +5,7 @@ import { color } from './colors';
 import { fontSize, fontWeight, lineHeight } from './fonts';
 
 const meta = {
-  title: 'Tokens',
+  title: 'Components/Tokens',
 } satisfies Meta;
 export default meta;
 
