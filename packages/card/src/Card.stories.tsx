@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: <span style={{ fontSize: '20px' }}>Card</span>,
-    ratio: 'rectangle',
+    ratio: 'portrait',
     variant: 'filled',
   },
 };
