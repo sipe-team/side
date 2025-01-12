@@ -1,7 +1,6 @@
 import eslint from '@eslint/js';
 import reactPlugin from 'eslint-plugin-react';
 import storybook from 'eslint-plugin-storybook';
-import unusedImports from 'eslint-plugin-unused-imports';
 import tseslint from 'typescript-eslint';
 
 // @ts-ignore
@@ -26,21 +25,10 @@ export default tseslint.config(
     plugins: {
       react: reactPlugin,
       'react-hooks': hooksPlugin,
-      'unused-imports': unusedImports,
     },
     rules: {
       ...reactPlugin.configs['jsx-runtime'].rules,
       ...hooksPlugin.configs.recommended.rules,
-      'unused-imports/no-unused-imports': 'error',
-      'unused-imports/no-unused-vars': [
-        'error',
-        {
-          vars: 'all',
-          varsIgnorePattern: '^_',
-          args: 'after-used',
-          argsIgnorePattern: '^_',
-        },
-      ],
     },
     settings: {
       react: {

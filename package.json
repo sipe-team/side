@@ -37,7 +37,6 @@
     "eslint-plugin-react": "^7.37.3",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-storybook": "^0.11.2",
-    "eslint-plugin-unused-imports": "^4.1.4",
     "husky": "^9.1.7",
     "knip": "catalog:",
     "lint-staged": "^15.3.0",
@@ -55,7 +54,7 @@
       "biome lint --write",
       "eslint --fix --flag unstable_ts_config"
     ],
-    "*.{json,css,md,yml,yaml}": ["biome format --write"]
+    "*.{json,css,md,yml,yaml}": ["biome format --write", "biome lint --write"]
   },
   "config": {
     "commitizen": {
