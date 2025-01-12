@@ -1,6 +1,6 @@
+---
 name: "Component Design"
 about: "Define and design a new component"
-
 ---
 
 ## Component Function Definition
