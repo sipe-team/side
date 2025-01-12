@@ -5,6 +5,7 @@
   "scripts": {
     "prepare": "husky",
     "cz": "cz",
+    "lint": "eslint . --flag unstable_ts_config",
     "build:storybook": "storybook build",
     "dev:storybook": "storybook dev -p 6006",
     "create:component": "tsx scripts/createComponent.ts create",
@@ -38,6 +39,9 @@
     "clipanion": "4.0.0-rc.4",
     "commitizen": "^4.3.1",
     "eslint": "^9.17.0",
+    "eslint-plugin-react": "^7.37.3",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-storybook": "^0.11.2",
     "husky": "^9.1.7",
     "knip": "catalog:",
     "lint-staged": "^15.3.0",
@@ -46,14 +50,16 @@
     "tsup": "catalog:",
     "tsx": "^4.19.2",
     "typescript": "catalog:",
+    "typescript-eslint": "^8.19.1",
     "vitest": "catalog:"
   },
   "packageManager": "pnpm@9.7.1",
   "lint-staged": {
-    "packages/*/src/**/*.{ts,tsx}": [
-      "biome lint --apply",
+    "*.{ts,tsx}": [
+      "biome lint --write",
       "eslint --fix --flag unstable_ts_config"
-    ]
+    ],
+    "*.{json,css,md,yml,yaml}": ["biome format --write", "biome lint --write"]
   },
   "config": {
     "commitizen": {
