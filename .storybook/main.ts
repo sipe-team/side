@@ -17,5 +17,5 @@ export default {
   },
   managerHead: (head) =>
     `${head}
-<link rel="shortcut icon" href="https://github.com/sipe-team/3-2_side/raw/main/public/assets/favicon.ico" type="image/ico">`,
+<link rel="shortcut icon" href="../public/assets/favicon.ico" type="image/ico">`,
 } satisfies StorybookConfig;
