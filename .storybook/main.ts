@@ -17,9 +17,5 @@ export default {
   },
   managerHead: (head) =>
     `${head}
-<link rel="shortcut icon" href="../public/assets/favicon.ico" type="image/ico">
-      
-<style>
-  .sidebar .sidebar__add-button { display: none; }
-</style>`,
+<link rel="shortcut icon" href="../public/assets/favicon.ico" type="image/ico">`,
 } satisfies StorybookConfig;
