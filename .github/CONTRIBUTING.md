@@ -59,10 +59,23 @@ Before proposing changes, please **open an issue** to discuss the bug or feature
 ### Create a Pull Request
 
 1. **Create a Branch**  
-   Follow the branch naming convention: `<type>/<subject>`
+   Follow the branch naming convention: `<CATEGORY>/<ISSUENUMBER>-<SUBJECT>` (`ISSUENUMBER` is optional)
    ```sh
-   git checkout -b feat/your-feature
-   ```
+   git checkout -b your-branch
+    ```
+
+    | **Category** | **Description**                                     |
+    |--------------|-----------------------------------------------------|
+    | **feat**     | Developing a new feature                            |
+    | **fix**      | Fixing a bug                                        |
+    | **hotfix**   | Emergency fixes for immediate release               |
+    | **chore**    | Maintenance tasks or minor updates                  |
+    | **refactor** | Code refactoring without functional changes         |
+    | **release**  | Preparing for a new release version                 |
+    | **test**     | Writing or modifying test cases                     |
+    | **docs**     | Documentation updates or additions                  |
+    | **ci**       | CI/CD pipeline updates                              |
+    | **build**    | Changes to the build system or dependencies         |
 
 2. **Commit Changes**  
    Write meaningful commit messages using the [Conventional Commits](https://www.conventionalcommits.org/) format:
@@ -71,21 +84,12 @@ Before proposing changes, please **open an issue** to discuss the bug or feature
    ```
    We recommend following the Conventional Commits standard for clear and consistent commit messages. Below is the suggested structure:
  
+   | Element      | Requirement  | Description                                                                                                                                                            |
+   |--------------|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+   | `<type>`     | **Required** | Describes the purpose of the commit. Examples: `feat`, `fix`, `docs`, `style`, `refactor`, `test`.                                                                     |
+   | `<scope>`    | **Optional** | Specifies the affected module, file, or functionality. Limited to **20 characters** (e.g., `auth`, `header`).                                                          |
+   | `<subject>`  | **Required** | A concise summary of the changes:<br/> - Starts with a lowercase letter.<br/> - Avoid ending with a period (`.`).<br/> - Limited to **50 characters**. - Written in **English**. |
 
-   - `<type>` (Required)
-     - Indicates the purpose or type of the commit.
-     - Examples: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
-
-   - `<scope>` (Optional)
-     - Specifies the scope of the changes, such as the module, file name, or functionality affected. 
-     - Limited to a maximum of 20 characters. 
-     
-   - `<subject>` (Required)
-     - A brief summary of the changes made. 
-     - Limited to 50 characters. 
-     - Starts with a lowercase letter. 
-     - Do not end with a period(.). 
-     - Written in English.
 
 
 3. **Push Changes**  
