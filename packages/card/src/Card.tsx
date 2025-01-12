@@ -21,7 +21,7 @@ export interface CardProps extends ComponentProps<'div'> {
 export const Card = forwardRef(function Card(
   {
     className,
-    ratio = 'rectangle',
+    ratio = 'custom',
     style: _style,
     variant = 'filled',
     asChild,
@@ -78,6 +78,6 @@ function getAspectRatio(ratio: CardRatio) {
     case 'custom':
       return 'auto';
     default:
-      return '16 / 9';
+      return 'auto';
   }
 }
