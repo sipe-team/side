@@ -1,0 +1,25 @@
+name: Auto Assign PR Creator
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  auto-assign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const repository = context.payload.repository;
+            await github.rest.issues.addAssignees({
+              owner: repository.owner.login,
+              repo: repository.name,
+              issue_number: pr.number,
+              assignees: [pr.user.login]
+            });
