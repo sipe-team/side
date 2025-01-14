@@ -1,0 +1,24 @@
+.grid {
+  display: grid;
+  grid-template-columns: var(--grid-template-columns);
+  grid-template-rows: var(--grid-template-rows);
+  grid-template-areas: var(--grid-template-areas);
+  gap: var(--grid-gap);
+  grid-auto-flow: var(--grid-auto-flow);
+  align-items: var(--grid-align-items);
+  justify-items: var(--grid-justify-items);
+  align-content: var(--grid-align-content);
+  justify-content: var(--grid-justify-content);
+}
+
+.grid-item {
+  grid-column: var(--grid-column);
+  grid-row: var(--grid-row);
+  grid-area: var(--grid-area);
+  justify-self: var(--grid-justify-self);
+  align-self: var(--grid-align-self);
+  grid-column-start: var(--grid-column-start);
+  grid-column-end: var(--grid-column-end);
+  grid-row-start: var(--grid-row-start);
+  grid-row-end: var(--grid-row-end);
+}

@@ -33,15 +33,9 @@ catalogs:
     '@testing-library/react':
       specifier: ^16.0.1
       version: 16.0.1
-    '@vitest/coverage-v8':
-      specifier: ^2.1.8
-      version: 2.1.8
     happy-dom:
       specifier: ^15.7.4
       version: 15.11.7
-    knip:
-      specifier: ^5.34.1
-      version: 5.39.2
     storybook:
       specifier: ^8.4.5
       version: 8.4.6
@@ -530,6 +524,70 @@ importers:
       '@sipe-team/card':
         specifier: workspace:^
         version: link:../card
+      '@storybook/addon-essentials':
+        specifier: 'catalog:'
+        version: 8.4.6(@types/react@18.3.13)(storybook@8.4.6(prettier@2.8.8))
+      '@storybook/addon-interactions':
+        specifier: 'catalog:'
+        version: 8.4.6(storybook@8.4.6(prettier@2.8.8))
+      '@storybook/addon-links':
+        specifier: 'catalog:'
+        version: 8.4.6(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))
+      '@storybook/blocks':
+        specifier: 'catalog:'
+        version: 8.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))
+      '@storybook/react':
+        specifier: 'catalog:'
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)
+      '@storybook/react-vite':
+        specifier: 'catalog:'
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.4.6(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.4.6(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
+      '@storybook/test':
+        specifier: 'catalog:'
+        version: 8.4.6(storybook@8.4.6(prettier@2.8.8))
+      '@testing-library/jest-dom':
+        specifier: 'catalog:'
+        version: 6.6.3
+      '@testing-library/react':
+        specifier: 'catalog:'
+        version: 16.0.1(@testing-library/dom@10.4.0)(@types/react-dom@18.3.1)(@types/react@18.3.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/react':
+        specifier: ^18.3.12
+        version: 18.3.13
+      happy-dom:
+        specifier: 'catalog:'
+        version: 15.11.7
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      storybook:
+        specifier: 'catalog:'
+        version: 8.4.6(prettier@2.8.8)
+      tsup:
+        specifier: 'catalog:'
+        version: 8.3.5(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.7.2
+      vitest:
+        specifier: 'catalog:'
+        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)
+
+  packages/grid:
+    dependencies:
+      '@radix-ui/react-slot':
+        specifier: ^1.1.0
+        version: 1.1.0(@types/react@18.3.13)(react@18.3.1)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+    devDependencies:
+      '@faker-js/faker':
+        specifier: ^9.2.0
+        version: 9.2.0
+      '@sipe-team/card':
+        specifier: ^0.0.2
+        version: 0.0.2(@types/react@18.3.13)(react@18.3.1)
       '@storybook/addon-essentials':
         specifier: 'catalog:'
         version: 8.4.6(@types/react@18.3.13)(storybook@8.4.6(prettier@2.8.8))
@@ -1960,6 +2018,14 @@ packages:
     resolution: {integrity: sha512-Bvno2/aZT6usSa7lRDL2+hMjVAGjuqaymF1ApZm31JXzniR/hvr14jpU+/z4X6Gt5BPlzosscyJZGUvguXIqeQ==}
     cpu: [x64]
     os: [win32]
+
+  '@sipe-team/card@0.0.2':
+    resolution: {integrity: sha512-c4PGAi4fgyeGTnLvd/z/W0owoAsr5I9kj9mfy+RisSjGtRMi43NhrvdOZwOuKYqFQHgZ9Ij2d7WFwSSfTYurdQ==, tarball: https://npm.pkg.github.com/download/@sipe-team/card/0.0.2/b896be2201e2e4b128df3ef7f25a13458f1dd263}
+    peerDependencies:
+      react: '>= 18'
+
+  '@sipe-team/tokens@0.1.0':
+    resolution: {integrity: sha512-ZrR6S1sigyemBpmU4eTkPW6tvjg/aRlk8NvPun2yNzz0FnKLCcXoTg1RujUPdTjn1U/t+i6WiDshUkAegHG/0g==, tarball: https://npm.pkg.github.com/download/@sipe-team/tokens/0.1.0/04d76be75e09b4ac26971f4c39916b3556e3859e}
 
   '@snyk/github-codeowners@1.1.0':
     resolution: {integrity: sha512-lGFf08pbkEac0NYgVf4hdANpAgApRjNByLXB+WBip3qj1iendOIyAwP2GKkKbQMNVy2r1xxDf0ssfWscoiC+Vw==}
@@ -5247,6 +5313,17 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.28.0':
     optional: true
+
+  '@sipe-team/card@0.0.2(@types/react@18.3.13)(react@18.3.1)':
+    dependencies:
+      '@radix-ui/react-slot': 1.1.0(@types/react@18.3.13)(react@18.3.1)
+      '@sipe-team/tokens': 0.1.0
+      clsx: 2.1.1
+      react: 18.3.1
+    transitivePeerDependencies:
+      - '@types/react'
+
+  '@sipe-team/tokens@0.1.0': {}
 
   '@snyk/github-codeowners@1.1.0':
     dependencies:
