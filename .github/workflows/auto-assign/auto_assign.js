@@ -2,22 +2,18 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const github = require('@actions/github');
 
+async function getOctokitAndContext() {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) throw new Error('GITHUB_TOKEN is not provided');
+  return { octokit: github.getOctokit(token), context: github.context };
+}
+
 async function run() {
   try {
-    const token = process.env.GITHUB_TOKEN;
-    if (!token) {
-      throw new Error('GITHUB_TOKEN is not provided');
-    }
+    const { octokit, context } = await getOctokitAndContext();
+    const { pull_request: pr, repository } = context.payload;
 
-    const octokit = github.getOctokit(token);
-    const context = github.context;
-
-    const pr = context.payload.pull_request;
-    const repository = context.payload.repository;
-
-    if (!pr) {
-      throw new Error('This action only runs on pull request events.');
-    }
+    if (!pr) throw new Error('This action only runs on pull request events.');
 
     await octokit.rest.issues.addAssignees({
       owner: repository.owner.login,
