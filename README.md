@@ -1,7 +1,7 @@
 ![](./public/assets/og-image.png)
 
 # Sipe Design System 
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/sipe-team/3-2_side/blob/main/LICENSE) ![Package Manager](https://img.shields.io/badge/pnpm-9.7.1-orange?logo=pnpm) [![Storybook](https://img.shields.io/badge/Storybook-8.4.7-ff4785?logo=storybook)](https://67417e47644abe8d4e63f82f-ggwavglffa.chromatic.com) ![Tests](https://img.shields.io/badge/Vitest-2.1.4-green?logo=vitest) [![codecov](https://codecov.io/gh/sipe-team/3-2_side/branch/changeset-release%2Fmain/graph/badge.svg?token=1TNLVUFPXC)](https://codecov.io/gh/sipe-team/3-2_side) <img alt="Github Stars" src="https://badgen.net/github/stars/sipe-team/3-2_side" /> 
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/sipe-team/3-2_side/blob/main/LICENSE) ![Package Manager](https://img.shields.io/badge/pnpm-9.7.1-orange?logo=pnpm) [![Storybook](https://img.shields.io/badge/Storybook-8.4.7-ff4785?logo=storybook)](https://67417e47644abe8d4e63f82f-lynsfaiqst.chromatic.com) ![Tests](https://img.shields.io/badge/Vitest-2.1.4-green?logo=vitest) [![codecov](https://codecov.io/gh/sipe-team/3-2_side/branch/changeset-release%2Fmain/graph/badge.svg?token=1TNLVUFPXC)](https://codecov.io/gh/sipe-team/3-2_side) <img alt="Github Stars" src="https://badgen.net/github/stars/sipe-team/3-2_side" /> 
 
 Sipe Design System is a monorepo-based component library built to modernize and standardize the official Sipe website. Drawing inspiration from our existing design patterns, we're creating a robust, type-safe, and accessible component system that can be used across all Sipe projects.
 
