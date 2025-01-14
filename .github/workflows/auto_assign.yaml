@@ -6,25 +6,32 @@ on:
 
 permissions:
   pull-requests: write
+  contents: read
 
 jobs:
   auto-assign:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v7
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
-          script: |
-            const pr = context.payload.pull_request;
-            const repository = context.payload.repository;
-            try {
-              await github.rest.issues.addAssignees({
-                owner: repository.owner.login,
-                repo: repository.name,
-                issue_number: pr.number,
-                assignees: [pr.user.login]
-              });
-              console.log(`Successfully assigned ${pr.user.login} to PR #${pr.number}`);
-            } catch (error) {
-              console.error('Failed to assign PR creator:', error);
-              core.setFailed(error.message);
-            }
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies for auto-assign
+        run: |
+          cd .github/workflows/auto-assign
+          npm ci
+
+      - name: Run Auto Assign Script
+        run: node auto_assign.js
+        working-directory: .github/workflows/auto-assign
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
