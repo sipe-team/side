@@ -1,5 +1,13 @@
 # @sipe-team/side
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [9903559]
+  - @sipe-team/card@0.1.0
+  - @sipe-team/flex@0.1.1
+
 ## 0.2.1
 
 ### Patch Changes
