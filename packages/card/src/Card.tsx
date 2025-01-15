@@ -9,7 +9,7 @@ import {
 } from 'react';
 import styles from './Card.module.css';
 
-export type CardRatio = 'rectangle' | 'square' | 'wide' | 'portrait';
+export type CardRatio = 'rectangle' | 'square' | 'wide' | 'portrait' | 'auto';
 export type CardVariant = 'filled' | 'outline';
 
 export interface CardProps extends ComponentProps<'div'> {
@@ -76,6 +76,6 @@ function getAspectRatio(ratio: CardRatio) {
     case 'portrait':
       return '3 / 4';
     default:
-      return '16 / 9';
+      return 'auto';
   }
 }

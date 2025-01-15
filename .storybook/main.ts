@@ -2,6 +2,7 @@ import type { StorybookConfig } from '@storybook/react-vite';
 
 export default {
   stories: [
+    '../docs/*.mdx',
     '../packages/**/*.mdx',
     '../packages/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
@@ -14,4 +15,7 @@ export default {
     name: '@storybook/react-vite',
     options: {},
   },
+  managerHead: (head) =>
+    `${head}
+<link rel="shortcut icon" href="https://github.com/sipe-team/3-2_side/raw/main/public/assets/favicon.ico" type="image/ico">`,
 } satisfies StorybookConfig;

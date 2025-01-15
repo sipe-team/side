@@ -37,6 +37,21 @@ test('ratio에 wide로 넣으면 aspect-ratio는 21/9로 반환한다.', () => {
   expect(screen.getByText('Card')).toHaveStyle('aspect-ratio: 21 / 9');
 });
 
+test('ratio에 square로 넣으면 aspect-ratio는 1/1로 반환한다.', () => {
+  render(<Card ratio="square">Card</Card>);
+  expect(screen.getByText('Card')).toHaveStyle('aspect-ratio: 1 / 1');
+});
+
+test('ratio에 portrait로 넣으면 aspect-ratio는 3/4로 반환한다.', () => {
+  render(<Card ratio="portrait">Card</Card>);
+  expect(screen.getByText('Card')).toHaveStyle('aspect-ratio: 3 / 4');
+});
+
+test('ratio에 auto로 넣으면 aspect-ratio는 auto로 반환한다.', () => {
+  render(<Card ratio="auto">Card</Card>);
+  expect(screen.getByText('Card')).toHaveStyle('aspect-ratio: auto');
+});
+
 test('variant는 default로 filled를 적용한다.', () => {
   render(<Card>Card</Card>);
   expect(screen.getByText('Card')).toHaveStyle({
@@ -48,5 +63,19 @@ test(`variant가 outline으로 넣으면 border(${color.cyan300}) 색상을 적�
   render(<Card variant="outline">Card</Card>);
   expect(screen.getByText('Card')).toHaveStyle({
     border: `1px solid ${color.cyan300}`,
+  });
+});
+
+test(`variant가 filled일 때 배경색이 ${color.gray100}이다.`, () => {
+  render(<Card variant="filled">Card</Card>);
+  expect(screen.getByText('Card')).toHaveStyle({
+    backgroundColor: color.gray100,
+  });
+});
+
+test(`variant가 outline일 때 배경색이 ${color.gray50}이다.`, () => {
+  render(<Card variant="outline">Card</Card>);
+  expect(screen.getByText('Card')).toHaveStyle({
+    backgroundColor: color.gray50,
   });
 });

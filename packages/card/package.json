@@ -1,11 +1,11 @@
 {
   "name": "@sipe-team/card",
   "description": "Card component for Sipe Design System",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sipe-team/3-1_sds"
+    "url": "https://github.com/sipe-team/3-2_side"
   },
   "type": "module",
   "exports": "./src/index.ts",
@@ -62,7 +62,8 @@
           "types": "./dist/index.d.cts",
           "default": "./dist/index.cjs"
         }
-      }
+      },
+      "./styles.css": "./dist/index.css"
     }
   },
   "sideEffects": false

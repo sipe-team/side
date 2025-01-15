@@ -3,7 +3,7 @@ import { Component } from './Component';
 
 const meta = {
   component: Component,
-  title: 'Component',
+  title: 'Components/Component',
   parameters: {
     layout: 'centered',
   },

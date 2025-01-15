@@ -10,9 +10,13 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "correctness": {
+        "noUnusedImports": "error"
+      },
       "recommended": true,
       "a11y": {
-        "useSemanticElements": "warn"
+        "useSemanticElements": "warn",
+        "noSvgWithoutTitle": "off"
       },
       "suspicious": {
         "noExplicitAny": "warn"

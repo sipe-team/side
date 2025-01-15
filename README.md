@@ -1,7 +1,7 @@
 ![](./public/assets/og-image.png)
 
 # Sipe Design System 
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/toss/slash/blob/main/LICENSE) ![Package Manager](https://img.shields.io/badge/pnpm-9.7.1-orange?logo=pnpm) [![Storybook](https://img.shields.io/badge/Storybook-8.4.5-ff4785?logo=storybook)](https://67417e47644abe8d4e63f82f-xvhdismwhu.chromatic.com/?path=/story/input--default) ![Tests](https://img.shields.io/badge/Vitest-2.1.4-green?logo=vitest) [![codecov](https://codecov.io/github/sipe-team/3-1_sds/graph/badge.svg?token=1TNLVUFPXC)](https://codecov.io/github/sipe-team/3-1_sds) <img alt="Github Stars" src="https://badgen.net/github/stars/sipe-team/3-1_sds" /> 
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/sipe-team/3-2_side/blob/main/LICENSE) ![Package Manager](https://img.shields.io/badge/pnpm-9.7.1-orange?logo=pnpm) [![Storybook](https://img.shields.io/badge/Storybook-8.4.7-ff4785?logo=storybook)](https://67417e47644abe8d4e63f82f-lynsfaiqst.chromatic.com) ![Tests](https://img.shields.io/badge/Vitest-2.1.4-green?logo=vitest) [![codecov](https://codecov.io/gh/sipe-team/3-2_side/branch/changeset-release%2Fmain/graph/badge.svg?token=1TNLVUFPXC)](https://codecov.io/gh/sipe-team/3-2_side) <img alt="Github Stars" src="https://badgen.net/github/stars/sipe-team/3-2_side" /> 
 
 Sipe Design System is a monorepo-based component library built to modernize and standardize the official Sipe website. Drawing inspiration from our existing design patterns, we're creating a robust, type-safe, and accessible component system that can be used across all Sipe projects.
 
@@ -17,12 +17,12 @@ This design system is built with:
 
 We maintain our component development roadmap in our [GitHub Project Board](https://github.com/orgs/sipe-team/projects/4). Before contributing, please check:
 
-We warmly welcome contributions from the community, whether you're a Sipe team member or not! Your input helps make this design system better for everyone please read [contributing guidelines](https://github.com/sipe-team/3-1_sds/tree/main/.github/CONTRIBUTING.md) for more details.
+We warmly welcome contributions from the community, whether you're a Sipe team member or not! Your input helps make this design system better for everyone please read [contributing guidelines](https://github.com/sipe-team/3-2_side/tree/main/.github/CONTRIBUTING.md) for more details.
 
 ## Contributors
 
-<a href="https://github.com/sipe-team/3-1_sds/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=sipe-team/3-1_sds" />
+<a href="https://github.com/sipe-team/3-2_side/graphs/contributors">
+  <img alt="Sipe Design System 기여자 목록" src="https://contrib.rocks/image?repo=sipe-team/3-2_side" />
 </a>
 
 ## License
