@@ -11,6 +11,7 @@ export interface CheckboxProps
     extends Omit<ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>, 'asChild'> {
   label?: string;
   size?: CheckboxSize;
+  value?: string;
 }
 
 export interface CheckboxGroupProps {
@@ -98,8 +99,8 @@ Checkbox.displayName = 'Checkbox';
 
 export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
     ({ children, name, onChange, value }, ref) => {
-      const handleCheckedChange = (checked: boolean, itemValue: string | undefined) => {
-        if (!onChange || !itemValue) return;
+      const handleCheckedChange = (checked: CheckboxPrimitive.CheckedState, itemValue: string | undefined) => {
+        if (!onChange || !itemValue || typeof checked !== 'boolean') return;
 
         const newValues = checked
             ? [...(value || []), itemValue]
@@ -109,15 +110,18 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
       };
 
       const mappedChildren = Children.map(children, (child) => {
-        if (!isValidElement(child)) return child;
+        if (!isValidElement<CheckboxProps>(child)) return child;
 
-        const checked = value?.includes(child.props.value);
+        const checked = value?.includes(child.props.value || '') || false;
 
         return cloneElement(child, {
           checked,
           name,
-          onCheckedChange: (checked: boolean) => handleCheckedChange(checked, child.props.value),
-        });
+          onCheckedChange: (state: CheckboxPrimitive.CheckedState) => {
+            handleCheckedChange(state, child.props.value);
+            child.props.onCheckedChange?.(state);
+          },
+        } as Partial<CheckboxProps>);
       });
 
       return (
