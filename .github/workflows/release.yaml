@@ -28,7 +28,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          version: pnpm changeset version
+          version: pnpm changeset version --ignore @sipe-team/package-name
           publish: pnpm changeset publish
           commit: "chore(release): version packages"
         env:
