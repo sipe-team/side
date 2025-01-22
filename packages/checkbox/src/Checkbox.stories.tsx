@@ -125,7 +125,7 @@ export const CheckboxGroup: Story = {
           <Checkbox
             key={item}
             label={item}
-            checked={checkedItems[index]}
+            checked={checkedItems[index] || false}
             onCheckedChange={(checked) => updateCheckedItems(index, checked)}
           />
         ))}
@@ -161,8 +161,6 @@ export const Indeterminate: Story = {
       updateParentState(newChildChecked);
     };
 
-    console.log('parent indeterminate 확인: ', parentIndeterminate);
-
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <Checkbox
@@ -174,12 +172,12 @@ export const Indeterminate: Story = {
         <div style={{ marginLeft: '1.5rem' }}>
           <Checkbox
             label="Child Checkbox 1"
-            checked={childChecked[0]}
+            checked={childChecked[0] || false}
             onCheckedChange={(checked) => handleChildChange(0, checked)}
           />
           <Checkbox
             label="Child Checkbox 2"
-            checked={childChecked[1]}
+            checked={childChecked[1] || false}
             onCheckedChange={(checked) => handleChildChange(1, checked)}
           />
         </div>
