@@ -70,6 +70,7 @@ export const Checkbox = forwardRef<
               '--checked-border-color': color.cyan300,
               '--checked-background-color': color.cyan300,
               '--indicator-color': color.white,
+              '--focus-border-color': color.cyan500,
               ...style,
             } as React.CSSProperties
           }

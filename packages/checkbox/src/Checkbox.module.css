@@ -25,6 +25,11 @@
   cursor: pointer;
 }
 
+.checkbox:focus-visible {
+  border-color: var(--focus-border-color);
+  outline: none;
+}
+
 .checkbox[data-disabled] {
   cursor: not-allowed;
   opacity: 0.4;
