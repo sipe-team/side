@@ -5,7 +5,11 @@
   "scripts": {
     "prepare": "husky",
     "cz": "cz",
-    "lint": "eslint . --flag unstable_ts_config",
+    "format": "pnpm /^format:.*/",
+    "format:biome": "biome format --write",
+    "lint": "pnpm /^lint:.*/",
+    "lint:biome": "biome lint --write",
+    "lint:eslint": "eslint --fix --flag unstable_ts_config",
     "build:storybook": "storybook build",
     "dev:storybook": "storybook dev -p 6006",
     "create:component": "tsx scripts/createComponent.ts create",
@@ -55,14 +59,8 @@
   },
   "packageManager": "pnpm@9.7.1",
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "biome lint --write",
-      "eslint --fix --flag unstable_ts_config"
-    ],
-    "*.{json,css,js,ts,yml,yaml}": [
-      "biome format --write",
-      "biome lint --write"
-    ]
+    "*.{ts,tsx}": ["pnpm format", "pnpm lint"],
+    "*.{json,css,js}": ["pnpm format:biome", "pnpm lint:biome"]
   },
   "config": {
     "commitizen": {
