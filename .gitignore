@@ -177,3 +177,6 @@ dist
 # Storybook
 *storybook.log
 storybook-static
+
+# Docusaurus
+build/
