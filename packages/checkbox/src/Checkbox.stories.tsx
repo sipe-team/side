@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Checkbox } from './Checkbox';
 import { useCheckboxGroup } from './hooks/useCheckboxGroup';
-import CheckboxIcon from './images/checkbox-icon.svg';
 
 const meta = {
   title: 'Checkbox',
@@ -75,13 +74,9 @@ export const customStyles: Story = {
     label: 'Custom Styled Checkbox',
     style: {
       padding: '20px',
-      border: '2px solid #007bff',
+      border: '2px solid #f8f',
       borderRadius: '10px',
       backgroundColor: '#f8f9fa',
-      // backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E")`,
-      // backgroundSize: '75%',
-      // backgroundPosition: 'center',
-      // backgroundRepeat: 'no-repeat',
     },
     value: 'test',
     name: 'test',
@@ -165,6 +160,8 @@ export const Indeterminate: Story = {
       setChildChecked(newChildChecked);
       updateParentState(newChildChecked);
     };
+
+    console.log('parent indeterminate 확인: ', parentIndeterminate);
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>

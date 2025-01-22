@@ -13,17 +13,8 @@
   border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius);
   background-color: var(--background-color);
-
 }
 
-.checkbox-input:checked {
-  background-color: var(--checked-color);
-  border-color: var(--checked-color);
-  background-image: var(--background-image);
-  background-size: var(--background-size);
-  background-position: var(--background-position);
-  background-repeat: var(--background-repeat);
-}
 
 .checkbox-input:disabled {
   background-color: var(--disabled-color);
@@ -40,11 +31,18 @@
   opacity: 0.6;
 }
 
-.checkbox-input:indeterminate {
+.checkbox-input:is(:checked, :indeterminate) {
   background-color: var(--checked-color);
   border-color: var(--checked-color);
-  background-image: var(--background-image);
   background-size: var(--background-size);
   background-position: var(--background-position);
   background-repeat: var(--background-repeat);
+}
+
+.checkbox-input:checked {
+  background-image: var(--checked-icon);
+}
+
+.checkbox-input:indeterminate {
+  background-image: var(--indeterminate-icon);
 }

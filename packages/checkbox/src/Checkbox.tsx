@@ -10,11 +10,10 @@ import {
 
 import styles from './Checkbox.module.css';
 import {
-  CHECKBOX_SIZES,
-  type CheckboxSize,
-  type CheckboxStyleConfig,
-  DEFAULT_CHECKBOX_STYLE,
-} from './constants/size';
+  type CheckStyleConfig,
+  DEFAULT_CHECK_STYLE,
+} from './constants/checkStyle';
+import { CHECKBOX_SIZES, type CheckboxSize } from './constants/size';
 import { generateId } from './utils/generateId';
 
 // ////////////////////////////////////////////////////////////////////////////////
@@ -32,7 +31,7 @@ export interface CheckboxProps extends ComponentProps<'div'> {
   asChild?: boolean;
   innerRef?: React.RefObject<HTMLDivElement>;
   children?: ReactNode;
-  styleConfig?: Partial<CheckboxStyleConfig>;
+  checkStyleConfig?: Partial<CheckStyleConfig>;
 }
 
 // ////////////////////////////////////////////////////////////////////////////////
@@ -52,7 +51,7 @@ export const Checkbox = ({
   children,
   style: _style,
   innerRef,
-  styleConfig = {},
+  checkStyleConfig = {},
   ...props
 }: CheckboxProps) => {
   const localRef = useRef<HTMLDivElement>(null);
@@ -74,7 +73,7 @@ export const Checkbox = ({
   };
 
   const sizeConfig = CHECKBOX_SIZES[size];
-  const mergedStyleConfig = { ...DEFAULT_CHECKBOX_STYLE, ...styleConfig };
+  const mergedStyleConfig = { ...DEFAULT_CHECK_STYLE, ...checkStyleConfig };
 
   const style = {
     '--checkbox-size': `${sizeConfig.checkboxSize}px`,
@@ -88,7 +87,8 @@ export const Checkbox = ({
     '--checked-color': mergedStyleConfig.checkedColor,
     '--disabled-color': mergedStyleConfig.disabledColor,
     '--hover-color': mergedStyleConfig.hoverColor,
-    '--background-image': mergedStyleConfig.backgroundImage,
+    '--checked-icon': `url(${mergedStyleConfig.checkedIcon})`,
+    '--indeterminate-icon': `url(${mergedStyleConfig.indeterminateIcon})`,
     '--background-size': mergedStyleConfig.backgroundSize,
     '--background-position': mergedStyleConfig.backgroundPosition,
     '--background-repeat': mergedStyleConfig.backgroundRepeat,
