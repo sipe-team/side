@@ -23,7 +23,6 @@ export interface CheckboxProps extends ComponentProps<'div'> {
   value?: string;
   size?: CheckboxSize;
   checked?: boolean;
-  defaultChecked?: boolean;
   indeterminate?: boolean;
   disabled?: boolean;
   label?: string;
@@ -44,7 +43,6 @@ export const Checkbox = ({
   asChild = true,
   size = 'medium',
   checked,
-  defaultChecked,
   indeterminate = false,
   disabled = false,
   onCheckedChange,
@@ -119,7 +117,6 @@ export const Checkbox = ({
         name={name}
         value={value}
         checked={checked}
-        defaultChecked={defaultChecked}
         disabled={disabled}
         onChange={handleChange}
         className={styles['checkbox-input']}

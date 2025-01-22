@@ -100,7 +100,6 @@ export const Controlled: Story = {
 export const Uncontrolled: Story = {
   args: {
     label: 'Uncontrolled Checkbox',
-    defaultChecked: true,
     value: 'test',
     name: 'test',
   },
