@@ -4,7 +4,7 @@ import { expect, test } from 'vitest';
 import { useState } from 'react';
 import { Checkbox, CheckboxGroup } from './Checkbox';
 
-test('체크박스를 클릭하면 상태가 변경된다.', async () => {
+test('체크박스를 클릭하면 체크 상태가 활성화된다.', async () => {
     const user = userEvent.setup();
     render(<Checkbox label="테스트" />);
 
@@ -15,7 +15,7 @@ test('체크박스를 클릭하면 상태가 변경된다.', async () => {
     expect(checkbox).toBeChecked();
 });
 
-test('disabled 상태의 체크박스는 클릭할 수 없다.', async () => {
+test('disabled 상태의 체크박스를 클릭해도 체크 상태가 바뀌지 않는다.', async () => {
     const user = userEvent.setup();
     render(<Checkbox disabled label="테스트" />);
 
