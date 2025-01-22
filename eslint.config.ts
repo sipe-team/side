@@ -17,6 +17,14 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'off',
 
       'no-duplicate-imports': 'off',
+      'no-unused-expressions': ['error', {
+        allowShortCircuit: false,
+        allowTernary: true
+      }],
+      '@typescript-eslint/no-unused-expressions': ['error', {
+        allowShortCircuit: false,
+        allowTernary: true
+      }]
     },
   },
 
