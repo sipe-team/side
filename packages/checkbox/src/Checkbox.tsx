@@ -1,5 +1,5 @@
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
-import { color, fontSize } from '@sipe-team/tokens';
+import { fontSize } from '@sipe-team/tokens';
 import { Typography } from '@sipe-team/typography';
 import { Check } from 'lucide-react';
 import { type ComponentPropsWithoutRef, type ElementRef, forwardRef, useId, Children, isValidElement, cloneElement } from 'react';
@@ -61,17 +61,9 @@ export const Checkbox = forwardRef<
           className={styles.root}
           style={
             {
-              '--margin': '4px',
-              '--border-radius': '4px',
               '--padding': padding,
               '--size': checkboxSize,
               '--indicator-size': indicatorSize,
-              '--border-color': color.gray400,
-              '--background-color': color.white,
-              '--checked-border-color': color.cyan300,
-              '--checked-background-color': color.cyan300,
-              '--indicator-color': color.white,
-              '--focus-border-color': color.cyan500,
               ...style,
             } as React.CSSProperties
           }
