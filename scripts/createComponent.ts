@@ -79,6 +79,17 @@ class CreateComponentCommand extends Command {
     }
   }
 
+  private async updatePackageJson(targetDir: string): Promise<void> {
+    const packageJsonPath = path.join(targetDir, 'package.json');
+    const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf-8'));
+
+    const { private: _, ...newPackageJson } = packageJson;
+    await fs.writeFile(
+      packageJsonPath,
+      JSON.stringify(newPackageJson, null, 2),
+    );
+  }
+
   async execute() {
     const loading = spinner();
 
@@ -115,6 +126,8 @@ class CreateComponentCommand extends Command {
         kebabCaseName,
         pascalCaseName,
       );
+
+      await this.updatePackageJson(targetDir);
 
       loading.stop('템플릿 복사 완료! ✨');
       outro(`${pascalCaseName} 컴포넌트가 성공적으로 생성되었습니다! 🎉`);

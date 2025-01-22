@@ -58,5 +58,6 @@
       "./styles.css": "./dist/index.css"
     }
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "private": true
 }
