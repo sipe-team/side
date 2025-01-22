@@ -2,7 +2,17 @@ import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import { fontSize } from '@sipe-team/tokens';
 import { Typography } from '@sipe-team/typography';
 import { Check } from 'lucide-react';
-import { type ComponentPropsWithoutRef, type ElementRef, forwardRef, useId, Children, isValidElement, cloneElement } from 'react';
+import {
+  type ComponentPropsWithoutRef,
+  type ElementRef,
+  type ReactNode,
+  type CSSProperties,
+  Children,
+  cloneElement,
+  forwardRef,
+  isValidElement,
+  useId,
+} from 'react';
 import styles from './Checkbox.module.css';
 
 export type CheckboxSize = 'sm' | 'md' | 'lg';
@@ -15,7 +25,7 @@ export interface CheckboxProps
 }
 
 export interface CheckboxGroupProps {
-  children: React.ReactNode;
+  children: ReactNode;
   defaultValue?: string[];
   name?: string;
   onChange?: (value: string[]) => void;
@@ -53,38 +63,31 @@ export const Checkbox = forwardRef<
     CheckboxProps
 >(({ className, size = 'md', label, style, id: providedId, ...props }, ref) => {
   const generatedId = useId();
-  const id = providedId || generatedId;
+  const id = providedId ?? generatedId;
   const { checkboxSize, indicatorSize, fontSize, padding } = getSizeStyles(size);
 
   return (
       <div
           className={styles.root}
-          style={
-            {
-              '--padding': padding,
-              '--size': checkboxSize,
-              '--indicator-size': indicatorSize,
-              ...style,
-            } as React.CSSProperties
-          }
+          style={{
+            '--padding': padding,
+            '--size': checkboxSize,
+            '--indicator-size': indicatorSize,
+            ...style,
+          } as CSSProperties}
       >
-        <CheckboxPrimitive.Root
-            className={styles.checkbox}
-            ref={ref}
-            id={id}
-            {...props}
-        >
+        <CheckboxPrimitive.Root className={styles.checkbox} ref={ref} id={id} {...props}>
           <CheckboxPrimitive.Indicator className={styles.indicator}>
             <Check size={indicatorSize} />
           </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
-        {label && (
+        {label ? (
             <Typography asChild size={fontSize}>
               <label htmlFor={id} className={styles.label}>
                 {label}
               </label>
             </Typography>
-        )}
+        ) : null}
       </div>
   );
 });
@@ -93,20 +96,27 @@ Checkbox.displayName = 'Checkbox';
 
 export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
     ({ children, name, onChange, value }, ref) => {
-      const handleCheckedChange = (checked: CheckboxPrimitive.CheckedState, itemValue: string | undefined) => {
-        if (!onChange || !itemValue || typeof checked !== 'boolean') return;
+      const handleCheckedChange = (
+          checked: CheckboxPrimitive.CheckedState,
+          itemValue: string | undefined,
+      ) => {
+        if (!onChange || !itemValue || typeof checked !== 'boolean') {
+          return;
+        }
 
         const newValues = checked
-            ? [...(value || []), itemValue]
-            : (value || []).filter((v) => v !== itemValue);
+            ? [...(value ?? []), itemValue]
+            : (value ?? []).filter((v) => v !== itemValue);
 
         onChange(newValues);
       };
 
       const mappedChildren = Children.map(children, (child) => {
-        if (!isValidElement<CheckboxProps>(child)) return child;
+        if (!isValidElement<CheckboxProps>(child)) {
+          return child;
+        }
 
-        const checked = value?.includes(child.props.value || '') || false;
+        const checked = value?.includes(child.props.value ?? '') ?? false;
 
         return cloneElement(child, {
           checked,
@@ -115,7 +125,7 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
             handleCheckedChange(state, child.props.value);
             child.props.onCheckedChange?.(state);
           },
-        } as Partial<CheckboxProps>);
+        });
       });
 
       return (
@@ -123,7 +133,7 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
             {mappedChildren}
           </div>
       );
-    }
+    },
 );
 
 CheckboxGroup.displayName = 'CheckboxGroup';
