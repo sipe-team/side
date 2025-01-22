@@ -91,7 +91,7 @@ test('체크박스 그룹에서 value prop으로 선택된 항목을 제어할 �
     const checkbox2 = screen.getByRole('checkbox', { name: '항목 2' });
     const checkbox3 = screen.getByRole('checkbox', { name: '항목 3' });
 
-    expect(checkbox1).toHaveAttribute('data-state', 'checked');
-    expect(checkbox2).toHaveAttribute('data-state', 'unchecked');
-    expect(checkbox3).toHaveAttribute('data-state', 'checked');
+    expect(checkbox1).toBeChecked();
+    expect(checkbox2).not.toBeChecked();
+    expect(checkbox3).toBeChecked();
 });
