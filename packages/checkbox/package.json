@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.0.4",
-    "@radix-ui/react-slot": "^1.0.2",
     "@sipe-team/tokens": "workspace:^",
     "@sipe-team/typography": "workspace:^",
     "clsx": "^2.1.1",
