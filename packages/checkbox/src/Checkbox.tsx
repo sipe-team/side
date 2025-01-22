@@ -62,6 +62,7 @@ export const Checkbox = forwardRef<
           style={
             {
               '--margin': '4px',
+              '--border-radius': '4px',
               '--padding': padding,
               '--size': checkboxSize,
               '--indicator-size': indicatorSize,

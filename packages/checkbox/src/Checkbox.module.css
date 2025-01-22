@@ -16,7 +16,7 @@
   all: unset;
   width: var(--size);
   height: var(--size);
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   border: 2px solid var(--border-color);
   background-color: var(--background-color);
   display: flex;
