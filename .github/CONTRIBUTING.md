@@ -88,11 +88,11 @@ Before proposing changes, please **open an issue** to discuss the bug or feature
    ```
    We recommend following the Conventional Commits standard for clear and consistent commit messages. Below is the suggested structure:
  
-   | Element      | Requirement  | Description                                                                                                                                                            |
-   |--------------|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-   | `<type>`     | **Required** | Describes the purpose of the commit. Examples: `feat`, `fix`, `docs`, `style`, `refactor`, `test`.                                                                     |
-   | `<scope>`    | **Optional** | Specifies the affected module, file, or functionality. Limited to **20 characters** (e.g., `auth`, `header`).                                                          |
-   | `<subject>`  | **Required** | A concise summary of the changes:<br/> - Starts with a lowercase letter.<br/> - Avoid ending with a period (`.`).<br/> - Limited to **50 characters**. - Written in **English**. |
+   | Element      | Requirement  | Description                                                                                                                                                                      |
+   |--------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+   | `<type>`     | **Required** | Describes the purpose of the commit. Examples: `feat`, `fix`, `docs`, `style`, `refactor`, `test`. Cannot be empty.                                                                              |
+   | `<scope>`    | **Optional** | Specifies the affected module, file, or functionality. Limited to **20 characters** (e.g., `auth`, `header`).                                                                    |
+   | `<subject>`  | **Required** | A concise summary of the changes<br/> - Starts with a lowercase letter<br/> - Avoid ending with a period (.)<br/> - Limited to **50 characters**<br/> - Must contain only English characters, numbers, and basic punctuation (!@#$%^&*(),.?":{}|<>_-)<br/> - Cannot be empty |
 
 
 
