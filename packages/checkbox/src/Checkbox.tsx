@@ -16,8 +16,6 @@ import {
 import { CHECKBOX_SIZES, type CheckboxSize } from './constants/size';
 import { generateId } from './utils/generateId';
 
-// ////////////////////////////////////////////////////////////////////////////////
-
 export interface CheckboxProps extends ComponentProps<'div'> {
   name?: string;
   value?: string;
@@ -32,8 +30,6 @@ export interface CheckboxProps extends ComponentProps<'div'> {
   children?: ReactNode;
   checkStyleConfig?: Partial<CheckStyleConfig>;
 }
-
-// ////////////////////////////////////////////////////////////////////////////////
 
 export const Checkbox = ({
   className,
