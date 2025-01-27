@@ -44,32 +44,14 @@ export const Disabled: Story = {
 export const Sizes: Story = {
   render: () => (
     <div>
-      <Checkbox
-        label="Small Checkbox"
-        size="small"
-        name={'test1'}
-        value={'test1'}
-        style={{ marginBottom: '1rem' }}
-      />
-      <Checkbox
-        label="Medium Checkbox"
-        size="medium"
-        name={'test2'}
-        value={'test2'}
-        style={{ marginBottom: '1rem' }}
-      />
-      <Checkbox
-        label="Large Checkbox"
-        size="large"
-        name={'test3'}
-        value={'test3'}
-        style={{ marginBottom: '1rem' }}
-      />
+      <Checkbox label="Small Checkbox" size="small" name={'test1'} value={'test1'} style={{ marginBottom: '1rem' }} />
+      <Checkbox label="Medium Checkbox" size="medium" name={'test2'} value={'test2'} style={{ marginBottom: '1rem' }} />
+      <Checkbox label="Large Checkbox" size="large" name={'test3'} value={'test3'} style={{ marginBottom: '1rem' }} />
     </div>
   ),
 };
 
-export const customStyles: Story = {
+export const CustomStyles: Story = {
   args: {
     label: 'Custom Styled Checkbox',
     style: {
@@ -87,13 +69,7 @@ export const Controlled: Story = {
   render: () => {
     const [isChecked, setIsChecked] = useState(false);
 
-    return (
-      <Checkbox
-        label="Controlled Checkbox"
-        checked={isChecked}
-        onCheckedChange={setIsChecked}
-      />
-    );
+    return <Checkbox label="Controlled Checkbox" checked={isChecked} onCheckedChange={setIsChecked} />;
   },
 };
 
@@ -108,18 +84,13 @@ export const Uncontrolled: Story = {
 export const CheckboxGroup: Story = {
   render: () => {
     const items = ['Item 1', 'Item 2', 'Item 3'];
-    const { checkedItems, updateCheckedItems, setAllChecked, allChecked } =
-      useCheckboxGroup({
-        total: items.length,
-      });
+    const { checkedItems, updateCheckedItems, setAllChecked, allChecked } = useCheckboxGroup({
+      total: items.length,
+    });
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <Checkbox
-          label="Select All"
-          checked={allChecked}
-          onCheckedChange={setAllChecked}
-        />
+        <Checkbox label="Select All" checked={allChecked} onCheckedChange={setAllChecked} />
         {items.map((item, index) => (
           <Checkbox
             key={item}
@@ -141,9 +112,7 @@ export const Indeterminate: Story = {
 
     const updateParentState = (newChildChecked: boolean[]) => {
       const checkedCount = newChildChecked.filter(Boolean).length;
-      setParentIndeterminate(
-        checkedCount > 0 && checkedCount < newChildChecked.length,
-      );
+      setParentIndeterminate(checkedCount > 0 && checkedCount < newChildChecked.length);
       setParentChecked(checkedCount === newChildChecked.length);
     };
 
