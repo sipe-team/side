@@ -1,20 +1,10 @@
 import { Slot } from '@radix-ui/react-slot';
 import { clsx as cx } from 'clsx';
-import {
-  type CSSProperties,
-  type ComponentProps,
-  type ReactNode,
-  useEffect,
-  useRef,
-} from 'react';
+import { type CSSProperties, type ComponentProps, type ReactNode, useEffect, useId, useRef } from 'react';
 
 import styles from './Checkbox.module.css';
-import {
-  type CheckStyleConfig,
-  DEFAULT_CHECK_STYLE,
-} from './constants/checkStyle';
+import { type CheckStyleConfig, DEFAULT_CHECK_STYLE } from './constants/checkStyle';
 import { CHECKBOX_SIZES, type CheckboxSize } from './constants/size';
-import { generateId } from './utils/generateId';
 
 export interface CheckboxProps extends ComponentProps<'div'> {
   name?: string;
@@ -50,7 +40,7 @@ export const Checkbox = ({
 }: CheckboxProps) => {
   const localRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const inputId = useRef(generateId('checkbox'));
+  const inputId = useId();
 
   useEffect(() => {
     if (inputRef.current) {
@@ -109,7 +99,7 @@ export const Checkbox = ({
       <input
         ref={inputRef}
         type="checkbox"
-        id={inputId.current}
+        id={inputId}
         name={name}
         value={value}
         checked={checked}
@@ -118,11 +108,7 @@ export const Checkbox = ({
         className={styles['checkbox-input']}
       />
       {label && (
-        <label
-          htmlFor={inputId.current}
-          className={styles['checkbox-label']}
-          style={{ fontSize: sizeConfig.labelSize }}
-        >
+        <label htmlFor={inputId} className={styles['checkbox-label']} style={{ fontSize: sizeConfig.labelSize }}>
           {label}
         </label>
       )}
