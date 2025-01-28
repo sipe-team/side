@@ -1,4 +1,3 @@
-import { Card } from '@sipe-team/card';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Flex } from './Flex';
 
@@ -19,14 +18,7 @@ const meta = {
     },
     justify: {
       control: 'select',
-      options: [
-        'flex-start',
-        'flex-end',
-        'center',
-        'space-between',
-        'space-around',
-        'space-evenly',
-      ],
+      options: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly'],
       description: 'Justify content',
     },
     wrap: {
@@ -48,14 +40,31 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const Box = ({ style, children }: { style?: React.CSSProperties; children?: React.ReactNode }) => (
+  <div
+    style={{
+      width: '100%',
+      height: '100%',
+      minHeight: '5rem',
+      backgroundClip: 'padding-box',
+      backgroundImage: `url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.2' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E")`,
+      backgroundRepeat: 'repeat',
+      borderWidth: '1px',
+      backgroundColor: '#e4e4e7',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      ...style,
+    }}
+  >
+    {children}
+  </div>
+);
+
 export const Basic: Story = {
   args: {
     gap: '1rem',
-    children: [
-      <Card key="1" style={{ height: '20px', width: '100%' }} />,
-      <Card key="2" style={{ height: '20px', width: '100%' }} />,
-      <Card key="3" style={{ height: '20px', width: '100%' }} />,
-    ],
+    children: [<Box key="1" />, <Box key="2" />, <Box key="3" />],
   },
 };
 
@@ -64,38 +73,7 @@ export const Direction: Story = {
     direction: 'column',
     gap: '1rem',
     style: { width: '100%' },
-    children: [
-      <Card
-        key="1"
-        style={{
-          padding: '0px',
-          height: '60px',
-          width: '100%',
-        }}
-      >
-        1
-      </Card>,
-      <Card
-        key="2"
-        style={{
-          padding: '0px',
-          height: '60px',
-          width: '100%',
-        }}
-      >
-        2
-      </Card>,
-      <Card
-        key="3"
-        style={{
-          padding: '0px',
-          height: '60px',
-          width: '100%',
-        }}
-      >
-        3
-      </Card>,
-    ],
+    children: [<Box key="1" />, <Box key="2" />, <Box key="3" />],
   },
 };
 
@@ -105,18 +83,9 @@ export const Align: Story = {
     gap: '1rem',
     style: { width: '100%' },
     children: [
-      <Card
-        key="1"
-        style={{ padding: '0px', height: '36px', width: '100%' }}
-      />,
-      <Card
-        key="2"
-        style={{ padding: '0px', height: '48px', width: '100%' }}
-      />,
-      <Card
-        key="3"
-        style={{ padding: '0px', height: '60px', width: '100%' }}
-      />,
+      <Box key="1" style={{ height: '5rem' }} />,
+      <Box key="2" style={{ height: '7rem' }} />,
+      <Box key="3" style={{ height: '9rem' }} />,
     ],
   },
 };
@@ -125,34 +94,34 @@ export const Justify: Story = {
   render: () => (
     <Flex direction="column" gap="2rem">
       <Flex justify="flex-start" gap="1rem">
-        <Card style={{ minWidth: '150px', height: '30px' }} />
-        <Card style={{ minWidth: '150px', height: '30px' }}>flex-start</Card>
-        <Card style={{ minWidth: '150px', height: '30px' }} />
+        <Box style={{ width: '150px' }} />
+        <Box style={{ width: '150px' }}>flex-start</Box>
+        <Box style={{ width: '150px' }} />
       </Flex>
       <Flex justify="center" gap="1rem">
-        <Card style={{ width: '150px', height: '30px' }} />
-        <Card style={{ width: '150px', height: '30px' }}>center</Card>
-        <Card style={{ width: '150px', height: '30px' }} />
+        <Box style={{ width: '150px' }} />
+        <Box style={{ width: '150px' }}>center</Box>
+        <Box style={{ width: '150px' }} />
       </Flex>
       <Flex justify="flex-end" gap="1rem">
-        <Card style={{ width: '150px', height: '30px' }} />
-        <Card style={{ width: '150px', height: '30px' }}>flex-end</Card>
-        <Card style={{ width: '150px', height: '30px' }} />
+        <Box style={{ width: '150px' }} />
+        <Box style={{ width: '150px' }}>flex-end</Box>
+        <Box style={{ width: '150px' }} />
       </Flex>
       <Flex justify="space-between" gap="1rem">
-        <Card style={{ width: '150px', height: '30px' }} />
-        <Card style={{ width: '150px', height: '30px' }}>space-between</Card>
-        <Card style={{ width: '150px', height: '30px' }} />
+        <Box style={{ width: '150px' }} />
+        <Box style={{ width: '150px' }}>space-between</Box>
+        <Box style={{ width: '150px' }} />
       </Flex>
       <Flex justify="space-around" gap="1rem">
-        <Card style={{ width: '150px', height: '30px' }} />
-        <Card style={{ width: '150px', height: '30px' }}>space-around</Card>
-        <Card style={{ width: '150px', height: '30px' }} />
+        <Box style={{ width: '150px' }} />
+        <Box style={{ width: '150px' }}>space-around</Box>
+        <Box style={{ width: '150px' }} />
       </Flex>
       <Flex justify="space-evenly" gap="1rem">
-        <Card style={{ width: '150px', height: '30px' }} />
-        <Card style={{ width: '150px', height: '30px' }}>space-evenly</Card>
-        <Card style={{ width: '150px', height: '30px' }} />
+        <Box style={{ width: '150px' }} />
+        <Box style={{ width: '150px' }}>space-evenly</Box>
+        <Box style={{ width: '150px' }} />
       </Flex>
     </Flex>
   ),
@@ -164,9 +133,9 @@ export const Wrap: Story = {
     gap: '1rem',
     style: { maxWidth: '400px' },
     children: [
-      <Card key="1" style={{ width: '150px' }} />,
-      <Card key="2" style={{ width: '150px' }} />,
-      <Card key="3" style={{ width: '150px' }} />,
+      <Box key="1" style={{ width: '150px' }} />,
+      <Box key="2" style={{ width: '150px' }} />,
+      <Box key="3" style={{ width: '150px' }} />,
     ],
   },
 };
