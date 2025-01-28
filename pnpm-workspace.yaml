@@ -1,6 +1,7 @@
 packages:
   - .templates/*
   - packages/*
+  - www
 
 catalog:
   '@storybook/addon-essentials': ^8.4.5

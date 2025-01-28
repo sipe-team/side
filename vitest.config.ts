@@ -9,7 +9,7 @@ export default defineConfig({
     watch: false,
     coverage: {
       include: ['**/src'],
-      exclude: ['.templates', '**/src/*.stories.tsx', '**/src/index.ts'],
+      exclude: ['.templates', '**/src/*.stories.tsx', '**/src/index.ts', 'www/**'],
     },
   },
 });
