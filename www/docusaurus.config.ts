@@ -43,8 +43,14 @@ export default {
       items: [
         {
           type: 'docSidebar',
-          label: 'Component',
-          sidebarId: 'component',
+          label: 'Overview',
+          sidebarId: 'overview',
+          position: 'left',
+        },
+        {
+          type: 'docSidebar',
+          label: 'Components',
+          sidebarId: 'components',
           position: 'left',
         },
         {
