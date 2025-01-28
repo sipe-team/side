@@ -31,6 +31,14 @@ echo "@sipe-team:registry=https://npm.pkg.github.com/" >> .npmrc
 ```
 
 
+:::warning
+
+Important: Make sure to add .npmrc to your .gitignore file to prevent committing your token.
+For CI/CD environments, use secrets management to store your GitHub token as a secret environment variable.
+
+:::
+
+
 ### `.npmrc` configuration for global
 
 ```sh
