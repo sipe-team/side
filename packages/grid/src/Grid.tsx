@@ -13,15 +13,10 @@ export interface GridProps extends ComponentProps<'div'> {
   templateRows?: CSSProperties['gridTemplateRows'];
   templateAreas?: CSSProperties['gridTemplateAreas'];
   gap?: CSSProperties['gap'];
-  rowGap?: CSSProperties['rowGap'];
-  columnGap?: CSSProperties['columnGap'];
   autoFlow?: CSSProperties['gridAutoFlow'];
   autoRows?: CSSProperties['gridAutoRows'];
   autoColumns?: CSSProperties['gridAutoColumns'];
-  alignItems?: CSSProperties['alignItems'];
-  justifyItems?: CSSProperties['justifyItems'];
-  alignContent?: CSSProperties['alignContent'];
-  justifyContent?: CSSProperties['justifyContent'];
+  inline?: boolean;
   style?: CSSProperties;
   asChild?: boolean;
 }
@@ -31,12 +26,11 @@ export const Grid = forwardRef(function Grid(
     templateColumns,
     templateRows,
     templateAreas,
-    gap,
     autoFlow,
-    alignItems,
-    justifyItems,
-    alignContent,
-    justifyContent,
+    autoRows,
+    autoColumns,
+    gap,
+    inline,
     style,
     className,
     children,
@@ -48,15 +42,14 @@ export const Grid = forwardRef(function Grid(
   const Component = asChild ? Slot : 'div';
 
   const gridStyle = {
+    '--grid-display': inline ? 'inline-grid' : 'grid',
     '--grid-template-columns': templateColumns,
     '--grid-template-rows': templateRows,
     '--grid-template-areas': templateAreas,
-    '--grid-gap': gap,
+    '--grid-auto-columns': autoColumns,
+    '--grid-auto-rows': autoRows,
     '--grid-auto-flow': autoFlow,
-    '--grid-align-items': alignItems,
-    '--grid-justify-items': justifyItems,
-    '--grid-align-content': alignContent,
-    '--grid-justify-content': justifyContent,
+    '--grid-gap': gap,
     ...style,
   } as React.CSSProperties;
 
@@ -80,52 +73,78 @@ export interface GridItemProps extends ComponentProps<'div'> {
   area?: CSSProperties['gridArea'];
   justifySelf?: CSSProperties['justifySelf'];
   alignSelf?: CSSProperties['alignSelf'];
-  columnStart?: CSSProperties['gridColumnStart'];
-  columnEnd?: CSSProperties['gridColumnEnd'];
-  rowStart?: CSSProperties['gridRowStart'];
-  rowEnd?: CSSProperties['gridRowEnd'];
+  colSpan?: number;
+  rowSpan?: number;
+  colStart?: number | 'auto';
+  colEnd?: number | 'auto';
+  rowStart?: number | 'auto';
+  rowEnd?: number | 'auto';
   style?: CSSProperties;
   asChild?: boolean;
 }
 
 export const GridItem = forwardRef(function GridItem(
   {
-    children,
     column,
     row,
     area,
     justifySelf,
     alignSelf,
-    columnStart,
-    columnEnd,
+    colSpan,
+    rowSpan,
+    colStart,
+    colEnd,
     rowStart,
     rowEnd,
     style,
     className,
     asChild,
+    children,
     ...props
   }: GridItemProps,
   ref: ForwardedRef<any>,
 ) {
   const Component = asChild ? Slot : 'div';
 
+  const getGridColumn = () => {
+    if (column) return column;
+    if (colSpan) return `span ${colSpan}`;
+    if (colStart || colEnd)
+      return `${colStart ?? 'auto'} / ${colEnd ?? 'auto'}`;
+    return undefined;
+  };
+
+  const getGridRow = () => {
+    if (row) return row;
+    if (rowSpan) return `span ${rowSpan}`;
+    if (rowStart || rowEnd)
+      return `${rowStart ?? 'auto'} / ${rowEnd ?? 'auto'}`;
+    return undefined;
+  };
+
+  const gridItemClasses = cx(
+    styles['grid-item'],
+    {
+      [styles['grid-item-column']]: getGridColumn(),
+      [styles['grid-item-row']]: getGridRow(),
+      [styles['grid-item-area']]: area,
+    },
+    className,
+  );
+
   const gridItemStyle = {
-    '--grid-column': column,
-    '--grid-row': row,
     '--grid-area': area,
+    '--grid-column': getGridColumn(),
+    '--grid-row': getGridRow(),
     '--grid-justify-self': justifySelf,
     '--grid-align-self': alignSelf,
-    '--grid-column-start': columnStart,
-    '--grid-column-end': columnEnd,
-    '--grid-row-start': rowStart,
-    '--grid-row-end': rowEnd,
     ...style,
-  } as React.CSSProperties;
+  };
 
   return (
     <Component
       ref={ref}
-      className={cx(styles['grid-item'], className)}
+      className={gridItemClasses}
       style={gridItemStyle}
       {...props}
     >

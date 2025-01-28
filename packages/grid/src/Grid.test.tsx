@@ -53,26 +53,6 @@ describe('Grid', () => {
         style: 'gridAutoFlow',
         values: ['row', 'column', 'row dense', 'column dense'],
       },
-      {
-        prop: 'alignItems',
-        style: 'alignItems',
-        values: ['start', 'end', 'center', 'stretch'],
-      },
-      {
-        prop: 'justifyItems',
-        style: 'justifyItems',
-        values: ['start', 'end', 'center', 'stretch'],
-      },
-      {
-        prop: 'alignContent',
-        style: 'alignContent',
-        values: ['start', 'end', 'center', 'space-between', 'space-around'],
-      },
-      {
-        prop: 'justifyContent',
-        style: 'justifyContent',
-        values: ['start', 'end', 'center', 'space-between', 'space-around'],
-      },
     ];
 
     for (const { prop, style, values } of gridProperties) {
@@ -122,42 +102,63 @@ describe('Grid', () => {
         values: ['start', 'end', 'center', 'stretch'],
       },
       {
-        prop: 'columnStart',
-        style: 'gridColumnStart',
-        values: ['1', '2', 'auto'],
+        prop: 'colSpan',
+        style: 'gridColumn',
+        values: [1, 2, 3],
+        expectedValues: ['span 1', 'span 2', 'span 3'],
       },
       {
-        prop: 'columnEnd',
-        style: 'gridColumnEnd',
-        values: ['1', '2', 'auto'],
+        prop: 'rowSpan',
+        style: 'gridRow',
+        values: [1, 2, 3],
+        expectedValues: ['span 1', 'span 2', 'span 3'],
+      },
+      {
+        prop: 'colStart',
+        style: 'gridColumn',
+        values: [1, 2, 3],
+        expectedValues: ['1 / auto', '2 / auto', '3 / auto'],
+      },
+      {
+        prop: 'colEnd',
+        style: 'gridColumn',
+        values: [1, 2, 3],
+        expectedValues: ['auto / 1', 'auto / 2', 'auto / 3'],
       },
       {
         prop: 'rowStart',
-        style: 'gridRowStart',
-        values: ['1', '2', 'auto'],
+        style: 'gridRow',
+        values: [1, 2, 3],
+        expectedValues: ['1 / auto', '2 / auto', '3 / auto'],
       },
       {
         prop: 'rowEnd',
-        style: 'gridRowEnd',
-        values: ['1', '2', 'auto'],
+        style: 'gridRow',
+        values: [1, 2, 3],
+        expectedValues: ['auto / 1', 'auto / 2', 'auto / 3'],
       },
     ];
 
-    for (const { prop, style, values } of gridItemProperties) {
+    for (const { prop, style, values, expectedValues } of gridItemProperties) {
       describe(prop, () => {
-        it.each(values.map((value) => ({ [prop]: value })))(
+        it.each(
+          values.map((value, index) => ({
+            [prop]: value,
+            expectedValue: expectedValues?.[index] ?? value,
+          })),
+        )(
           `should apply ${style} when ${prop} prop is $${prop}`,
-          (propValue) => {
+          ({ [prop]: value, expectedValue }) => {
             render(
               <Grid.Root>
-                <Grid.Item data-testid="grid-item" {...propValue}>
+                <Grid.Item data-testid="grid-item" {...{ [prop]: value }}>
                   item 1
                 </Grid.Item>
               </Grid.Root>,
             );
 
             const gridItem = screen.getByTestId('grid-item');
-            expect(gridItem).toHaveStyle({ [style]: propValue[prop] });
+            expect(gridItem).toHaveStyle({ [style]: expectedValue });
           },
         );
       });

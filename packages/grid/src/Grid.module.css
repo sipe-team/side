@@ -1,5 +1,5 @@
 .grid {
-  display: grid;
+  display: var(--grid-display);
   grid-template-columns: var(--grid-template-columns);
   grid-template-rows: var(--grid-template-rows);
   grid-template-areas: var(--grid-template-areas);
@@ -12,13 +12,18 @@
 }
 
 .grid-item {
-  grid-column: var(--grid-column);
-  grid-row: var(--grid-row);
-  grid-area: var(--grid-area);
-  justify-self: var(--grid-justify-self);
   align-self: var(--grid-align-self);
-  grid-column-start: var(--grid-column-start);
-  grid-column-end: var(--grid-column-end);
-  grid-row-start: var(--grid-row-start);
-  grid-row-end: var(--grid-row-end);
+  justify-self: var(--grid-justify-self);
+}
+
+.grid-item-area {
+  grid-area: var(--grid-area);
+}
+
+.grid-item-column {
+  grid-column: var(--grid-column);
+}
+
+.grid-item-row {
+  grid-row: var(--grid-row);
 }
