@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { Flex } from './Flex';
 
 describe('Flex', () => {
-  it('flex 컴포넌트는 기본적으로 flex 속성을 가지고 있다.', () => {
+  it('flex 컴포넌트는 props를 전달하지 않으면 flex의 기본값으로 설정된다.', () => {
     render(
       <Flex data-testid="flex-container">
         <div>item 1</div>
@@ -15,7 +15,13 @@ describe('Flex', () => {
 
     const flexContainer = screen.getByTestId('flex-container');
     expect(flexContainer).toBeInTheDocument();
-    expect(flexContainer).toHaveStyle({ display: 'flex' });
+    expect(flexContainer).toHaveStyle({
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'normal',
+      justifyContent: 'normal',
+      flexWrap: 'nowrap',
+    });
   });
 
   it('flex 컴포넌트에 className을 주입하면 추가로 전달한다.', () => {
@@ -73,24 +79,19 @@ describe('Flex', () => {
     });
 
     describe('wrap', () => {
-      it.each([
-        { wrap: 'wrap' },
-        { wrap: 'nowrap' },
-        { wrap: 'wrap-reverse' },
-      ] satisfies Array<{ wrap: CSSProperties['flexWrap'] }>)(
-        'flex의 wrap prop에 $wrap 속성을 주입하면 해당 속성을 적용한다.',
-        ({ wrap }) => {
-          render(
-            <Flex data-testid="flex-container" wrap={wrap}>
-              <div>item 1</div>
-              <div>item 2</div>
-            </Flex>,
-          );
+      it.each([{ wrap: 'wrap' }, { wrap: 'nowrap' }, { wrap: 'wrap-reverse' }] satisfies Array<{
+        wrap: CSSProperties['flexWrap'];
+      }>)('flex의 wrap prop에 $wrap 속성을 주입하면 해당 속성을 적용한다.', ({ wrap }) => {
+        render(
+          <Flex data-testid="flex-container" wrap={wrap}>
+            <div>item 1</div>
+            <div>item 2</div>
+          </Flex>,
+        );
 
-          const flexContainer = screen.getByTestId('flex-container');
-          expect(flexContainer).toHaveStyle({ flexWrap: wrap });
-        },
-      );
+        const flexContainer = screen.getByTestId('flex-container');
+        expect(flexContainer).toHaveStyle({ flexWrap: wrap });
+      });
     });
 
     describe('direction', () => {
@@ -124,58 +125,49 @@ describe('Flex', () => {
           { basis: 'content' },
         ] satisfies Array<{
           basis: CSSProperties['flexBasis'];
-        }>)(
-          'flex의 basis prop에 $basis 속성을 주입하면 해당 속성을 적용한다.',
-          ({ basis }) => {
-            render(
-              <Flex data-testid="flex-container" basis={basis}>
-                <div>item 1</div>
-                <div>item 2</div>
-              </Flex>,
-            );
+        }>)('flex의 basis prop에 $basis 속성을 주입하면 해당 속성을 적용한다.', ({ basis }) => {
+          render(
+            <Flex data-testid="flex-container" basis={basis}>
+              <div>item 1</div>
+              <div>item 2</div>
+            </Flex>,
+          );
 
-            const flexContainer = screen.getByTestId('flex-container');
-            expect(flexContainer).toHaveStyle({ flexBasis: basis });
-          },
-        );
+          const flexContainer = screen.getByTestId('flex-container');
+          expect(flexContainer).toHaveStyle({ flexBasis: basis });
+        });
       });
 
       describe('grow', () => {
         it.each([{ grow: 0 }, { grow: 1 }, { grow: 2 }] satisfies Array<{
           grow: CSSProperties['flexGrow'];
-        }>)(
-          'flex의 grow prop에 $grow 속성을 주입하면 해당 속성을 적용한다.',
-          ({ grow }) => {
-            render(
-              <Flex data-testid="flex-container" grow={grow}>
-                <div>item 1</div>
-                <div>item 2</div>
-              </Flex>,
-            );
+        }>)('flex의 grow prop에 $grow 속성을 주입하면 해당 속성을 적용한다.', ({ grow }) => {
+          render(
+            <Flex data-testid="flex-container" grow={grow}>
+              <div>item 1</div>
+              <div>item 2</div>
+            </Flex>,
+          );
 
-            const flexContainer = screen.getByTestId('flex-container');
-            expect(flexContainer).toHaveStyle({ flexGrow: grow });
-          },
-        );
+          const flexContainer = screen.getByTestId('flex-container');
+          expect(flexContainer).toHaveStyle({ flexGrow: grow });
+        });
       });
 
       describe('shrink', () => {
         it.each([{ shrink: 0 }, { shrink: 1 }, { shrink: 2 }] satisfies Array<{
           shrink: CSSProperties['flexShrink'];
-        }>)(
-          'flex의 shrink prop에 $shrink 속성을 주입하면 해당 속성을 적용한다.',
-          ({ shrink }) => {
-            render(
-              <Flex data-testid="flex-container" shrink={shrink}>
-                <div>item 1</div>
-                <div>item 2</div>
-              </Flex>,
-            );
+        }>)('flex의 shrink prop에 $shrink 속성을 주입하면 해당 속성을 적용한다.', ({ shrink }) => {
+          render(
+            <Flex data-testid="flex-container" shrink={shrink}>
+              <div>item 1</div>
+              <div>item 2</div>
+            </Flex>,
+          );
 
-            const flexContainer = screen.getByTestId('flex-container');
-            expect(flexContainer).toHaveStyle({ flexShrink: shrink });
-          },
-        );
+          const flexContainer = screen.getByTestId('flex-container');
+          expect(flexContainer).toHaveStyle({ flexShrink: shrink });
+        });
       });
 
       describe('inline', () => {
@@ -195,20 +187,17 @@ describe('Flex', () => {
       describe('gap', () => {
         it.each([{ gap: '10px' }, { gap: '1rem' }] satisfies Array<{
           gap: CSSProperties['gap'];
-        }>)(
-          'flex의 gap prop에 $gap 속성을 주입하면 해당 속성을 적용한다.',
-          ({ gap }) => {
-            render(
-              <Flex data-testid="flex-container" gap={gap}>
-                <div>item 1</div>
-                <div>item 2</div>
-              </Flex>,
-            );
+        }>)('flex의 gap prop에 $gap 속성을 주입하면 해당 속성을 적용한다.', ({ gap }) => {
+          render(
+            <Flex data-testid="flex-container" gap={gap}>
+              <div>item 1</div>
+              <div>item 2</div>
+            </Flex>,
+          );
 
-            const flexContainer = screen.getByTestId('flex-container');
-            expect(flexContainer).toHaveStyle({ gap });
-          },
-        );
+          const flexContainer = screen.getByTestId('flex-container');
+          expect(flexContainer).toHaveStyle({ gap });
+        });
       });
     });
   });
