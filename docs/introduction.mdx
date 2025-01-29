@@ -1,23 +1,29 @@
 import { Meta } from '@storybook/addon-docs';
+import { Typography } from '../packages/typography/src';
 
-<Meta title="Intro/Introduction" />
+<Meta title="What is Side?" />
 
 <div style={{ margin: '0 auto', maxWidth: '800px', padding: '20px' }}>
   <div style={{ textAlign: 'start' }}>
-    <h1 style={{ 
-      fontSize: '72px',
-      fontWeight: '800',
-      background: 'linear-gradient(45deg,#00FFFF,#00FF99)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      letterSpacing: '-2px',
-      textShadow: '0 2px 10px rgba(0,0,0,0.1)'
-    }}>
-      <span style={{ fontSize: '50px' }}>Sipe Design System</span>
-    </h1>
+        <Typography asChild size={48} style={{
+        background: 'linear-gradient(45deg,#00FFFF,#00FF99)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        letterSpacing: '-2px',
+        textShadow: '0 2px 10px rgba(0,0,0,0.1)',
+      }}>
+          <h1>Sipe Design System</h1>
+        </Typography> 
   </div>
 
-  <div style={{ display: 'flex', justifyContent: 'center' }}>
+  <div style={{ marginBottom: '32px' }}>
+    <Typography size={20}>
+       Side is the SIPE Design System. This design system was initially built by the front-end team of the third cohort of SIPE to create a design system unique to the Sipe community. 
+      The ultimate goal is to ensure compatibility and reusability for use in the SIPE website and future projects, while keeping it open-source to allow contributions from others.
+    </Typography>
+  </div>
+
+  <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '32px' }}>
     <img 
       src="../public/assets/og-image.png" 
       alt="Sipe Design System Logo" 
@@ -29,4 +35,45 @@ import { Meta } from '@storybook/addon-docs';
     />
   </div>
 
+  <div style={{ marginBottom: '32px' }}>
+    <Typography asChild size={24} style={{ marginBottom: '16px' }}>
+      <h2>Core Principles</h2>
+    </Typography>
+    <ul style={{ listStyle: 'none', padding: 0 }}>
+      <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <Typography size={16}>
+          🤝 <strong>Community-Driven:</strong> Built by developers, for developers
+        </Typography>
+      </li>
+      <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <Typography size={16}>
+          🎯 <strong>Growth-Focused:</strong> Supporting individual and collective development
+        </Typography>
+      </li>
+      <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <Typography size={16}>
+          🌟 <strong>Modern Architecture:</strong> Leveraging TypeScript and modern build tools
+        </Typography>
+      </li>
+      <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <Typography size={16}>
+          📚 <strong>Well-Documented:</strong> Comprehensive guides and examples
+        </Typography>
+      </li>
+      <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <Typography size={16}>
+          🔍 <strong>Quality-First:</strong> Rigorous testing and accessibility standards
+        </Typography>
+      </li>
+    </ul>
+  </div>
+
+  <div style={{ marginTop: '32px' }}>
+    <Typography asChild size={24} style={{ marginBottom: '16px' }}>
+      <h2>Join Our Journey</h2>
+    </Typography>
+    <Typography size={16} color="#666">
+      Whether you're a SIPE member or part of the broader developer community, your contributions help shape the future of our design system. Together, we're building more than components - we're creating a foundation for meaningful technical growth and collaboration. Check out our <a href="https://github.com/sipe-team/3-2_side/tree/main/.github/CONTRIBUTING.md" style={{ color: '#00BFFF' }}>contributing guidelines</a> to start your journey with us.
+    </Typography>
+  </div>
 </div>
