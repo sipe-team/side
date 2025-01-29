@@ -89,7 +89,9 @@ Ensures proper viewport height handling and stacking context:
 ```css
 body {
   min-height: 100vh;
-  min-height: 100dvh; /* Dynamic viewport height */
+  @supports (min-height: 100dvh) {
+    min-height: 100dvh;
+  }
 }
 
 #root {
@@ -140,14 +142,55 @@ Implements smooth scrolling with motion preferences consideration:
 
 ## Installation
 
+Using npm:
 ```bash
 npm install @sipe-team/reset
 ```
 
+Using pnpm:
+```bash
+pnpm add @sipe-team/reset
+```
+
 ## Usage
 
+### Global Reset
+Import the CSS file in your application:
 ```javascript
-import '@sipe-team/reset';
+import '@sipe-team/reset/style.css';
+```
+
+### Component Reset
+For component-level reset:
+```tsx
+import { Reset } from '@sipe-team/reset';
+
+// Basic usage
+function App() {
+  return (
+    <Reset>
+      <div>Your content here</div>
+    </Reset>
+  );
+}
+
+// With custom class name
+function CustomApp() {
+  return (
+    <Reset className="custom-class">
+      <div>Your content here</div>
+    </Reset>
+  );
+}
+
+// As a different element
+function MainApp() {
+  return (
+    <Reset asChild>
+      <main>Your content here</main>
+    </Reset>
+  );
+}
 ```
 
 ---
@@ -241,7 +284,9 @@ th {
 ```css
 body {
   min-height: 100vh;
-  min-height: 100dvh; /* 동적 뷰포트 높이 */
+  @supports (min-height: 100dvh) {
+    min-height: 100dvh;
+  }
 }
 
 #root {
@@ -292,16 +337,53 @@ a {
 
 ## 설치 방법
 
-다음 명령어로 패키지를 설치할 수 있습니다:
-
+npm 사용:
 ```bash
-pnpm install @sipe-team/reset
+npm install @sipe-team/reset
+```
+
+pnpm 사용:
+```bash
+pnpm add @sipe-team/reset
 ```
 
 ## 사용 방법
 
-프로젝트에서 다음과 같이 임포트하여 사용할 수 있습니다:
-
+### 전역 리셋
+애플리케이션에 CSS 파일을 임포트해 주세요:
 ```javascript
-import '@sipe-team/reset';
+import '@sipe-team/reset/style.css';
+```
+
+### 컴포넌트 리셋
+컴포넌트 레벨의 리셋이 필요한 경우:
+```tsx
+import { Reset } from '@sipe-team/reset';
+
+// 기본 사용법
+function App() {
+  return (
+    <Reset>
+      <div>컨텐츠</div>
+    </Reset>
+  );
+}
+
+// 커스텀 클래스명 사용
+function CustomApp() {
+  return (
+    <Reset className="custom-class">
+      <div>컨텐츠</div>
+    </Reset>
+  );
+}
+
+// 다른 요소로 렌더링
+function MainApp() {
+  return (
+    <Reset asChild>
+      <main>컨텐츠</main>
+    </Reset>
+  );
+}
 ```
