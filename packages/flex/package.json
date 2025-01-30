@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^9.2.0",
-    "@sipe-team/card": "workspace:^",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
     "@storybook/addon-links": "catalog:",
