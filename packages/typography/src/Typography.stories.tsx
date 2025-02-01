@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Typography } from './Typography';
 
 const meta = {
-  title: 'Typography',
+  title: 'Components/Typography',
   component: Typography,
   parameters: {
     layout: 'centered',
@@ -19,15 +19,9 @@ export const Basic: Story = {
         <Typography asChild={true} size={32} weight="bold">
           <h1>Weight</h1>
         </Typography>
-        <Typography weight="regular">
-          [기본 값] regular(400) - 사이프 디자인 시스템
-        </Typography>
-        <Typography weight="medium">
-          medium(500) - 사이프 디자인 시스템
-        </Typography>
-        <Typography weight="semiBold">
-          semiBold(600) - 사이프 디자인 시스템
-        </Typography>
+        <Typography weight="regular">[기본 값] regular(400) - 사이프 디자인 시스템</Typography>
+        <Typography weight="medium">medium(500) - 사이프 디자인 시스템</Typography>
+        <Typography weight="semiBold">semiBold(600) - 사이프 디자인 시스템</Typography>
         <Typography weight="bold">bold(700) - 사이프 디자인 시스템</Typography>
 
         <Typography asChild={true} size={32} weight="bold">
@@ -47,12 +41,8 @@ export const Basic: Story = {
         <Typography asChild={true} size={32} weight="bold">
           <h1>Line Height</h1>
         </Typography>
-        <Typography lineHeight="regular">
-          [기본 값] regular(1.5) - 사이프 디자인 시스템
-        </Typography>
-        <Typography lineHeight="compact">
-          compact(1.3) - 사이프 디자인 시스템
-        </Typography>
+        <Typography lineHeight="regular">[기본 값] regular(1.5) - 사이프 디자인 시스템</Typography>
+        <Typography lineHeight="compact">compact(1.3) - 사이프 디자인 시스템</Typography>
       </section>
     );
   },

@@ -35,12 +35,7 @@ class CreateComponentCommand extends Command {
     }
   }
 
-  async copyRecursive(
-    source: string,
-    target: string,
-    kebabCaseName: string,
-    pascalCaseName: string,
-  ) {
+  async copyRecursive(source: string, target: string, kebabCaseName: string, pascalCaseName: string) {
     const currentFolder = path.basename(source);
 
     if (this.excludePatterns.includes(currentFolder)) {
@@ -59,24 +54,26 @@ class CreateComponentCommand extends Command {
           const sourcePath = path.join(source, entry.name);
           const newName = entry.name.replaceAll('Component', pascalCaseName);
           const targetPath = path.join(target, newName);
-          await this.copyRecursive(
-            sourcePath,
-            targetPath,
-            kebabCaseName,
-            pascalCaseName,
-          );
+          await this.copyRecursive(sourcePath, targetPath, kebabCaseName, pascalCaseName);
         }
       }
     } else {
       const content = await fs.readFile(source, 'utf-8');
       const updatedContent = Object.entries(patterns).reduce(
-        (content, [search, replace]) =>
-          content.replace(new RegExp(search, 'g'), replace),
+        (content, [search, replace]) => content.replace(new RegExp(search, 'g'), replace),
         content,
       );
 
       await fs.writeFile(target, updatedContent);
     }
+  }
+
+  private async updatePackageJson(targetDir: string): Promise<void> {
+    const packageJsonPath = path.join(targetDir, 'package.json');
+    const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf-8'));
+
+    const { private: _, ...newPackageJson } = packageJson;
+    await fs.writeFile(packageJsonPath, JSON.stringify(newPackageJson, null, 2));
   }
 
   async execute() {
@@ -109,12 +106,9 @@ class CreateComponentCommand extends Command {
       const targetDir = path.join(process.cwd(), 'packages', kebabCaseName);
 
       await this.validateTemplateDir(templateDir);
-      await this.copyRecursive(
-        templateDir,
-        targetDir,
-        kebabCaseName,
-        pascalCaseName,
-      );
+      await this.copyRecursive(templateDir, targetDir, kebabCaseName, pascalCaseName);
+
+      await this.updatePackageJson(targetDir);
 
       loading.stop('템플릿 복사 완료! ✨');
       outro(`${pascalCaseName} 컴포넌트가 성공적으로 생성되었습니다! 🎉`);
@@ -122,9 +116,7 @@ class CreateComponentCommand extends Command {
       return 0;
     } catch (error) {
       loading.stop('오류 발생');
-      console.error(
-        `Error: ${error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다'}`,
-      );
+      console.error(`Error: ${error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다'}`);
       return 1;
     }
   }

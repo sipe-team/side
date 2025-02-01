@@ -1,6 +1,7 @@
 packages:
   - .templates/*
   - packages/*
+  - www
 
 catalog:
   '@storybook/addon-essentials': ^8.4.5
@@ -15,7 +16,7 @@ catalog:
   '@vitest/coverage-v8': ^2.1.8
   happy-dom: ^15.7.4
   knip: ^5.34.1
-  storybook: ^8.4.5
+  storybook: ^8.4.7
   tsup: ^8.3.5
   typescript: ^5.6.3
   vitest: ^2.1.8

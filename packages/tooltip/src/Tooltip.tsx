@@ -48,20 +48,17 @@ export const Tooltip = forwardRef(function Tooltip(
   }: TooltipProps,
   ref: ForwardedRef<HTMLElement>,
 ) {
+  const { isVisible, toggleTooltip, tooltipStyles, wrapperRef, tooltipRef, handleKeyDown } = useTooltip({
+    placement,
+    gap,
+    trigger,
+  });
+
+  useImperativeHandle(ref, () => wrapperRef.current as HTMLElement);
+
   if (!tooltipContent) {
     return <>{children}</>;
   }
-
-  const {
-    isVisible,
-    toggleTooltip,
-    tooltipStyles,
-    wrapperRef,
-    tooltipRef,
-    handleKeyDown,
-  } = useTooltip({ placement, gap, trigger });
-
-  useImperativeHandle(ref, () => wrapperRef.current as HTMLElement);
 
   const Component = asChild ? Slot : 'div';
 
@@ -70,15 +67,9 @@ export const Tooltip = forwardRef(function Tooltip(
       <Component
         ref={wrapperRef}
         role="tooltip"
-        onMouseEnter={
-          trigger === 'hover' ? () => toggleTooltip(true) : undefined
-        }
-        onMouseLeave={
-          trigger === 'hover' ? () => toggleTooltip(false) : undefined
-        }
-        onClick={
-          trigger === 'click' ? () => toggleTooltip(!isVisible) : undefined
-        }
+        onMouseEnter={trigger === 'hover' ? () => toggleTooltip(true) : undefined}
+        onMouseLeave={trigger === 'hover' ? () => toggleTooltip(false) : undefined}
+        onClick={trigger === 'click' ? () => toggleTooltip(!isVisible) : undefined}
         onKeyDown={handleKeyDown}
         tabIndex={trigger === 'click' ? 0 : undefined}
         className={clsx(styles.trigger, { [styles.asChild]: asChild })}
@@ -89,12 +80,7 @@ export const Tooltip = forwardRef(function Tooltip(
         createPortal(
           <div
             ref={tooltipRef}
-            className={clsx(
-              styles.tooltip,
-              styles[placement],
-              tooltipClassName,
-              { [styles.visible]: isVisible },
-            )}
+            className={clsx(styles.tooltip, styles[placement], tooltipClassName, { [styles.visible]: isVisible })}
             style={{ ...tooltipStyles, ...tooltipStyle }}
           >
             {tooltipContent}

@@ -1,0 +1,68 @@
+{
+  "name": "@sipe-team/avatar",
+  "description": "Avatar component for Sipe Design System",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sipe-team/3-2_side"
+  },
+  "type": "module",
+  "exports": "./src/index.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "build:storybook": "storybook build",
+    "dev:storybook": "storybook dev -p 6006",
+    "lint": "biome lint .",
+    "test": "vitest",
+    "typecheck": "tsc",
+    "prepack": "pnpm run build"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.1.0",
+    "@sipe-team/typography": "workspace:^",
+    "@sipe-team/tokens": "workspace:*",
+    "clsx": "^2.1.1"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^9.2.0",
+    "@storybook/addon-essentials": "catalog:",
+    "@storybook/addon-interactions": "catalog:",
+    "@storybook/addon-links": "catalog:",
+    "@storybook/blocks": "catalog:",
+    "@storybook/react": "catalog:",
+    "@storybook/react-vite": "catalog:",
+    "@storybook/test": "catalog:",
+    "@types/react": "^18.3.12",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "happy-dom": "catalog:",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "storybook": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "react": ">= 18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com",
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.js"
+        },
+        "require": {
+          "types": "./dist/index.d.cts",
+          "default": "./dist/index.cjs"
+        }
+      }
+    }
+  },
+  "sideEffects": false
+}

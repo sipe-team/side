@@ -1,3 +1,9 @@
+---
+name: "Component Design"
+about: "Define and design a new component"
+labels: "enhancement"
+---
+
 ## Component Function Definition
 <!-- Please describe the main functions and use cases of this component. -->
 

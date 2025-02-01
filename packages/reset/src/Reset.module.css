@@ -1,0 +1,86 @@
+/*************************
+ * Box Model Reset
+ *************************/
+.reset *,
+.reset *::before,
+.reset *::after,
+.reset *::backdrop {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  border-style: solid;
+}
+
+/*************************
+ * Typography Reset
+ *************************/
+.reset :where(p, h1, h2, h3, h4, h5, h6) {
+  overflow-wrap: break-word;
+}
+
+/*************************
+ * Form Elements Reset
+ *************************/
+.reset :where(button, input, select, textarea) {
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+}
+
+.reset :where(button, [type="button"], [type="reset"], [type="submit"]) {
+  -webkit-appearance: button;
+  cursor: pointer;
+  user-select: none;
+}
+
+.reset :where(textarea) {
+  resize: vertical;
+}
+
+.reset ::placeholder {
+  opacity: 1;
+}
+
+/*************************
+ * Table Reset
+ *************************/
+.reset :where(table) {
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-indent: 0;
+}
+
+.reset :where(th) {
+  text-align: inherit;
+}
+
+/*************************
+ * Semantic Elements Reset
+ *************************/
+.reset :where(article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, main) {
+  display: block;
+}
+
+/*************************
+ * Media Elements Reset
+ *************************/
+.reset :where(img, picture, video, canvas, svg) {
+  display: block;
+  max-width: 100%;
+}
+
+/*************************
+ * Lists & Links Reset
+ *************************/
+.reset :where(ol, ul) {
+  list-style: none;
+}
+
+.reset :where(a) {
+  color: inherit;
+  text-decoration: none;
+}

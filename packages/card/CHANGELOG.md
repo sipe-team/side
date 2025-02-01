@@ -1,5 +1,11 @@
 # @sipe-team/card
 
+## 0.1.0
+
+### Minor Changes
+
+- 9903559: add custom ratio in card component
+
 ## 0.0.2
 
 ### Patch Changes

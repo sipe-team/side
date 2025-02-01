@@ -1,17 +1,13 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 
 export default {
-  stories: [
-    '../packages/**/*.mdx',
-    '../packages/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-  ],
-  addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    '@storybook/addon-links',
-  ],
+  stories: ['../docs/*.mdx', '../packages/**/*.mdx', '../packages/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  addons: ['@storybook/addon-essentials', '@storybook/addon-interactions', '@storybook/addon-links'],
   framework: {
     name: '@storybook/react-vite',
     options: {},
   },
+  managerHead: (head) =>
+    `${head}
+<link rel="shortcut icon" href="../public/assets/favicon.ico" type="image/ico">`,
 } satisfies StorybookConfig;

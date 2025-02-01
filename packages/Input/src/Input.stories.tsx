@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { Action, Input } from './Input';
 
 const meta = {
-  title: 'Input',
+  title: 'Components/Input',
   component: Input,
   parameters: {
     layout: 'centered',
@@ -35,26 +35,14 @@ export const Default: Story = {
 
   render: (args) => {
     const [value, setValue] = useState('value');
-    return (
-      <Input
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        {...args}
-      />
-    );
+    return <Input value={value} onChange={(e) => setValue(e.target.value)} {...args} />;
   },
 };
 
 export const disabled: Story = {
   render: (args) => {
     const [value, setValue] = useState(args.value);
-    return (
-      <Input
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        {...args}
-      />
-    );
+    return <Input value={value} onChange={(e) => setValue(e.target.value)} {...args} />;
   },
   args: {
     disabled: true,

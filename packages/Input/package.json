@@ -9,15 +9,13 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
     "dev:storybook": "storybook dev -p 6006",
     "lint:biome": "pnpm exec biome lint",
-    "lint:eslint": "pnpm exec eslint --flag unstable_ts_config",
+    "lint:eslint": "pnpm exec eslint",
     "test": "vitest",
     "typecheck": "tsc",
     "prepack": "pnpm run build"
@@ -40,6 +38,7 @@
     "@types/react": "^18.3.12",
     "happy-dom": "catalog:",
     "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "storybook": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",

@@ -4,7 +4,7 @@ import { Radio } from './Radio';
 import { RadioGroup } from './RadioGroup';
 
 const meta = {
-  title: 'RadioGroup',
+  title: 'Components/RadioGroup',
   component: RadioGroup,
   parameters: {
     layout: 'centered',
@@ -70,11 +70,7 @@ export const Controlled: Story = {
 
     return (
       <div>
-        <RadioGroup
-          labelText="제어 컴포넌트"
-          value={selectedValue}
-          onChangeValue={setSelectedValue}
-        >
+        <RadioGroup labelText="제어 컴포넌트" value={selectedValue} onChangeValue={setSelectedValue}>
           <Radio value="option1">옵션 1</Radio>
           <Radio value="option2">옵션 2</Radio>
           <Radio value="option3">옵션 3</Radio>

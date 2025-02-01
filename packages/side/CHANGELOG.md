@@ -1,5 +1,28 @@
 # @sipe-team/side
 
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [6883355]
+  - @sipe-team/flex@0.1.2
+
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [9903559]
+  - @sipe-team/card@0.1.0
+  - @sipe-team/flex@0.1.1
+
+## 0.2.1
+
+### Patch Changes
+
+- dcafff3: fix(flex,side): flex style export issue
+- Updated dependencies [dcafff3]
+  - @sipe-team/flex@0.1.1
+
 ## 0.2.0
 
 ### Minor Changes

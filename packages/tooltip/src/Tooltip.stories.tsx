@@ -2,7 +2,7 @@ import type { Meta, StoryFn } from '@storybook/react';
 import { Tooltip, type TooltipProps } from './Tooltip';
 
 export default {
-  title: 'Tooltip',
+  title: 'Components/Tooltip',
   component: Tooltip,
   argTypes: {
     tooltipContent: { control: 'text', description: '툴팁에 표시될 내용' },
@@ -148,11 +148,7 @@ export const AllPlacements = () => (
     <Tooltip tooltipContent="Bottom Left" placement="bottom-left">
       <button type="button">Bottom Left</button>
     </Tooltip>
-    <Tooltip
-      tooltipContent="Bottom Left"
-      placement="bottom-left"
-      asChild={false}
-    >
+    <Tooltip tooltipContent="Bottom Left" placement="bottom-left" asChild={false}>
       <button type="button">Bottom Left</button>
     </Tooltip>
 
@@ -166,11 +162,7 @@ export const AllPlacements = () => (
     <Tooltip tooltipContent="Bottom Right" placement="bottom-right">
       <button type="button">Bottom Right</button>
     </Tooltip>
-    <Tooltip
-      tooltipContent="Bottom Right"
-      placement="bottom-right"
-      asChild={false}
-    >
+    <Tooltip tooltipContent="Bottom Right" placement="bottom-right" asChild={false}>
       <button type="button">Bottom Right</button>
     </Tooltip>
   </div>
