@@ -1,11 +1,6 @@
 import { Slot } from '@radix-ui/react-slot';
 import { clsx as cx } from 'clsx';
-import {
-  type CSSProperties,
-  type ComponentProps,
-  type ForwardedRef,
-  forwardRef,
-} from 'react';
+import { type CSSProperties, type ComponentProps, type ForwardedRef, forwardRef, useMemo } from 'react';
 import styles from './Grid.module.css';
 
 export interface GridProps extends ComponentProps<'div'> {
@@ -43,23 +38,18 @@ export const Grid = forwardRef(function Grid(
 
   const gridStyle = {
     '--grid-display': inline ? 'inline-grid' : 'grid',
-    '--grid-template-columns': templateColumns,
-    '--grid-template-rows': templateRows,
-    '--grid-template-areas': templateAreas,
-    '--grid-auto-columns': autoColumns,
-    '--grid-auto-rows': autoRows,
-    '--grid-auto-flow': autoFlow,
-    '--grid-gap': gap,
+    '--grid-template-columns': templateColumns ?? 'auto',
+    '--grid-template-rows': templateRows ?? 'auto',
+    '--grid-template-areas': templateAreas ?? 'auto',
+    '--grid-auto-columns': autoColumns ?? 'auto',
+    '--grid-auto-rows': autoRows ?? 'auto',
+    '--grid-auto-flow': autoFlow ?? 'row',
+    '--grid-gap': gap ?? '0',
     ...style,
   } as React.CSSProperties;
 
   return (
-    <Component
-      ref={ref}
-      className={cx(styles.grid, className)}
-      style={gridStyle}
-      {...props}
-    >
+    <Component ref={ref} className={cx(styles.grid, className)} style={gridStyle} {...props}>
       {children}
     </Component>
   );
@@ -106,27 +96,25 @@ export const GridItem = forwardRef(function GridItem(
 ) {
   const Component = asChild ? Slot : 'div';
 
-  const getGridColumn = () => {
+  const getGridColumn = useMemo(() => {
     if (column) return column;
     if (colSpan) return `span ${colSpan}`;
-    if (colStart || colEnd)
-      return `${colStart ?? 'auto'} / ${colEnd ?? 'auto'}`;
+    if (colStart || colEnd) return `${colStart ?? 'auto'} / ${colEnd ?? 'auto'}`;
     return undefined;
-  };
+  }, [column, colSpan, colStart, colEnd]);
 
-  const getGridRow = () => {
+  const getGridRow = useMemo(() => {
     if (row) return row;
     if (rowSpan) return `span ${rowSpan}`;
-    if (rowStart || rowEnd)
-      return `${rowStart ?? 'auto'} / ${rowEnd ?? 'auto'}`;
+    if (rowStart || rowEnd) return `${rowStart ?? 'auto'} / ${rowEnd ?? 'auto'}`;
     return undefined;
-  };
+  }, [row, rowSpan, rowStart, rowEnd]);
 
   const gridItemClasses = cx(
     styles['grid-item'],
     {
-      [styles['grid-item-column']]: getGridColumn(),
-      [styles['grid-item-row']]: getGridRow(),
+      [styles['grid-item-column']]: getGridColumn,
+      [styles['grid-item-row']]: getGridRow,
       [styles['grid-item-area']]: area,
     },
     className,
@@ -134,20 +122,15 @@ export const GridItem = forwardRef(function GridItem(
 
   const gridItemStyle = {
     '--grid-area': area,
-    '--grid-column': getGridColumn(),
-    '--grid-row': getGridRow(),
+    '--grid-column': getGridColumn,
+    '--grid-row': getGridRow,
     '--grid-justify-self': justifySelf,
     '--grid-align-self': alignSelf,
     ...style,
   };
 
   return (
-    <Component
-      ref={ref}
-      className={gridItemClasses}
-      style={gridItemStyle}
-      {...props}
-    >
+    <Component ref={ref} className={gridItemClasses} style={gridItemStyle} {...props}>
       {children}
     </Component>
   );
