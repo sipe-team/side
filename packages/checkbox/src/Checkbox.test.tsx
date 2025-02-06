@@ -58,22 +58,17 @@ describe('Checkbox 스타일 테스트', () => {
     expect(checkbox.disabled).toBe(true);
   });
 
-  test.each(['small', 'medium', 'large'])(
-    'size로 %s주입시 해당 크기로 checkbox의 크기를 설정한다.',
-    (size) => {
-      render(<Checkbox size={size as CheckboxSize} label="Test Checkbox" />);
-      const checkbox = screen.getByLabelText('Test Checkbox').parentElement;
-      const expectedSize = CHECKBOX_SIZES[size as CheckboxSize].checkboxSize;
-      expect(checkbox).toHaveStyle(`--checkbox-size: ${expectedSize}px`);
-    },
-  );
+  test.each(['small', 'medium', 'large'])('size로 %s주입시 해당 크기로 checkbox의 크기를 설정한다.', (size) => {
+    render(<Checkbox size={size as CheckboxSize} label="Test Checkbox" />);
+    const checkbox = screen.getByLabelText('Test Checkbox').parentElement;
+    const expectedSize = CHECKBOX_SIZES[size as CheckboxSize].checkboxSize;
+    expect(checkbox).toHaveStyle(`--checkbox-size: ${expectedSize}px`);
+  });
 
   test('size를 주입하지 않으면 기본 값 medium로 크기를 설정한다.', () => {
     render(<Checkbox label="Test Checkbox" />);
     const checkbox = screen.getByLabelText('Test Checkbox').parentElement;
-    expect(checkbox).toHaveStyle(
-      `--checkbox-size: ${CHECKBOX_SIZES.medium.checkboxSize}px`,
-    );
+    expect(checkbox).toHaveStyle(`--checkbox-size: ${CHECKBOX_SIZES.medium.checkboxSize}px`);
   });
 });
 

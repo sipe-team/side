@@ -15,7 +15,6 @@
   background-color: var(--background-color);
 }
 
-
 .checkbox-input:disabled {
   background-color: var(--disabled-color);
   border-color: var(--disabled-color);

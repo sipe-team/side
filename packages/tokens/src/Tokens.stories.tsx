@@ -19,18 +19,7 @@ export const Colors: Story = {
           색상
         </Typography>
         <section style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-          {[
-            'gray',
-            'red',
-            'pink',
-            'purple',
-            'cyan',
-            'blue',
-            'teal',
-            'green',
-            'yellow',
-            'orange',
-          ].map((name) => (
+          {['gray', 'red', 'pink', 'purple', 'cyan', 'blue', 'teal', 'green', 'yellow', 'orange'].map((name) => (
             <ColorCardGroup key={name} groupName={name} />
           ))}
         </section>
@@ -119,9 +108,7 @@ export const Fonts: Story = {
               <Typography>
                 {key} / {value}
               </Typography>
-              <Typography lineHeight={key as keyof typeof lineHeight}>
-                {faker.lorem.paragraphs(4)}
-              </Typography>
+              <Typography lineHeight={key as keyof typeof lineHeight}>{faker.lorem.paragraphs(4)}</Typography>
             </div>
           ))}
         </section>
