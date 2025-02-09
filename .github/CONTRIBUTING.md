@@ -12,9 +12,9 @@ Side refers to the Sipe Design System, our primary UI component library aimed at
 ## Getting Started
 
 ### Fork and Clone the Repository
-First, fork the [repository](https://github.com/sipe-team/3-2_side) and then clone it locally:
+First, fork the [repository](https://github.com/sipe-team/side) and then clone it locally:
 ```sh
-git clone https://github.com/your-username/3-2_side.git
+git clone https://github.com/your-username/side.git
 ```
 
 ### Install Dependencies
