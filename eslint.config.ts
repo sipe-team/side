@@ -1,48 +1,66 @@
+import { FlatCompat } from '@eslint/eslintrc';
 import eslint from '@eslint/js';
 import reactPlugin from 'eslint-plugin-react';
-import storybook from 'eslint-plugin-storybook';
+import hooksPlugin from 'eslint-plugin-react-hooks';
+import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-// @ts-ignore
-import hooksPlugin from 'eslint-plugin-react-hooks';
+const compat = new FlatCompat();
 
 // ? https://typescript-eslint.io/getting-started#step-2-configuration
 export default tseslint.config(
+  // * Base ESLint recommended configuration
   eslint.configs.recommended,
+  // * TypeScript ESLint recommended configuration
   tseslint.configs.recommended,
+  // * Custom rules configuration
   {
     rules: {
       '@typescript-eslint/ban-ts-comment': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
-
       'no-duplicate-imports': 'off',
     },
   },
 
+  // * React plugin configuration
   {
-    files: ['**/*.ts', '**/*.tsx'],
+    files: ['**/*.{ts,tsx}'],
     plugins: {
       react: reactPlugin,
+    },
+    languageOptions: {
+      globals: {
+        ...globals.serviceworker,
+        ...globals.browser,
+      },
+    },
+    rules: {
+      ...reactPlugin.configs.recommended.rules,
+      'react/react-in-jsx-scope': 'off',
+    },
+  },
+
+  // * React Hooks plugin configuration
+  ...compat.extends('plugin:react-hooks/recommended'),
+  {
+    files: ['**/*.{ts,tsx}'],
+    plugins: {
       'react-hooks': hooksPlugin,
     },
     rules: {
-      ...reactPlugin.configs['jsx-runtime'].rules,
       ...hooksPlugin.configs.recommended.rules,
     },
-    settings: {
-      react: {
-        version: 'detect',
-      },
-    },
   },
 
-  ...(storybook.configs['flat/recommended'] as any),
+  // * Storybook plugin configuration
+  ...compat.extends('plugin:storybook/recommended'),
   {
     files: ['**/*.stories.@(ts|tsx|js|jsx|mjs|cjs)'],
+    rules: {},
   },
 
-  // ignore files
+  // Ignore files configuration
   {
     ignores: ['**/*/dist/', '**/node_modules/', '*.config.*'],
   },
