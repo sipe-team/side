@@ -4,7 +4,7 @@ import { Checkbox } from './Checkbox';
 import { useCheckboxGroup } from './hooks/useCheckboxGroup';
 
 const meta = {
-  title: 'Checkbox',
+  title: 'Components/Checkbox',
   component: Checkbox,
   parameters: {
     layout: 'centered',

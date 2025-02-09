@@ -20,6 +20,14 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       'no-duplicate-imports': 'off',
+      'no-unused-expressions': 'off',
+      '@typescript-eslint/no-unused-expressions': [
+        'error',
+        {
+          allowShortCircuit: false,
+          allowTernary: true,
+        },
+      ],
     },
   },
 
@@ -38,6 +46,7 @@ export default tseslint.config(
     rules: {
       ...reactPlugin.configs.recommended.rules,
       'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
     },
   },
 

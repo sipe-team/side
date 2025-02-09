@@ -2,20 +2,11 @@ import { useCallback, useState } from 'react';
 
 interface UseCheckboxGroupProps {
   total: number;
-  onChange?: (
-    checkedItems: boolean[],
-    allChecked: boolean,
-    indeterminate: boolean,
-  ) => void;
+  onChange?: (checkedItems: boolean[], allChecked: boolean, indeterminate: boolean) => void;
 }
 
-export const useCheckboxGroup = ({
-  total,
-  onChange,
-}: UseCheckboxGroupProps) => {
-  const [checkedItems, setCheckedItems] = useState<boolean[]>(
-    new Array(total).fill(false),
-  );
+export const useCheckboxGroup = ({ total, onChange }: UseCheckboxGroupProps) => {
+  const [checkedItems, setCheckedItems] = useState<boolean[]>(new Array(total).fill(false));
 
   const updateCheckedItems = useCallback(
     (index: number, checked: boolean) => {

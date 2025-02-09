@@ -1,0 +1,66 @@
+# Installation Guide
+
+To get started with the Side Design System, follow these steps. Note that Side Component packages require configuration to use the GitHub Package Registry. Please follow this guide before proceeding with the installation.
+
+if you didn't you might entercount error as below
+
+```
+@sipe-team/side is not in the npm registry, or you have no permission to fetch it
+```
+
+## Prerequisites
+
+Make sure you have the following installed on your machine:
+- [Node.js](https://nodejs.org/) (version 22 or higher)
+
+### Create Github Token ( classic )
+
+1. [Go to developer setting](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization#restricting-access-by-personal-access-tokens)  
+
+2. make sure grant `package` related permission for `Github token`
+
+![gh](https://i.ibb.co/y4xpqCM/Screenshot-2025-01-28-at-23-43-25.png)
+
+
+### `.npmrc` configuration for project
+
+```sh
+touch .npmrc
+echo "//npm.pkg.github.com/:_authToken=<YOUR_GITHUB_TOKEN>" > .npmrc
+echo "@sipe-team:registry=https://npm.pkg.github.com/" >> .npmrc
+```
+
+
+:::warning
+
+Important: Make sure to add .npmrc to your .gitignore file to prevent committing your token.
+For CI/CD environments, use secrets management to store your GitHub token as a secret environment variable.
+
+:::
+
+
+### `.npmrc` configuration for global
+
+```sh
+npm adduser --scope @sipe-team --registry https://npm.pkg.github.com --auth-type legacy
+```
+
+- Username: Your GitHub username
+- Password: Your GitHub token
+- Email: Your email address
+
+### `.yarnrc.yml` configuration for yarn project
+
+1. add `npmScopes` in `.yarnrc.yml`
+
+```yaml
+npmScopes:
+  sipe-team:
+    npmRegistryServer: 'https://npm.pkg.github.com'
+```
+
+2. login npm with `yarn`
+
+```sh
+yarn npm login --scope sipe-team
+```

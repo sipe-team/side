@@ -1,5 +1,12 @@
 # @sipe-team/side
 
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [6883355]
+  - @sipe-team/flex@0.1.2
+
 ## 0.2.2
 
 ### Patch Changes
