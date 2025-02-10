@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sipe-team/3-2_side"
+    "url": "https://github.com/sipe-team/side"
   },
   "type": "module",
   "exports": "./src/index.ts",

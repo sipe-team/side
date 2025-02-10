@@ -9,7 +9,7 @@ export default {
   url: 'https://sipe.team',
   baseUrl: '/',
   organizationName: 'sipe-team',
-  projectName: '3-2_side',
+  projectName: 'side',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   i18n: {
@@ -22,7 +22,7 @@ export default {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/sipe-team/3-2_side/tree/main/www/',
+          editUrl: 'https://github.com/sipe-team/side/tree/main/www/',
         },
         blog: false,
         theme: {
@@ -54,7 +54,7 @@ export default {
           position: 'left',
         },
         {
-          href: 'https://github.com/sipe-team/3-2_side',
+          href: 'https://github.com/sipe-team/side',
           label: 'GitHub',
           position: 'right',
         },
