@@ -1,5 +1,11 @@
 # @sipe-team/flex
 
+## 0.1.3
+
+### Patch Changes
+
+- 235be5d: fix: add react-dom into peerDependencies
+
 ## 0.1.2
 
 ### Patch Changes

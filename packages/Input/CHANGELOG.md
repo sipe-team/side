@@ -1,5 +1,11 @@
 # @sipe-team/input
 
+## 0.0.4
+
+### Patch Changes
+
+- 235be5d: fix: add react-dom into peerDependencies
+
 ## 0.0.3
 
 ### Patch Changes

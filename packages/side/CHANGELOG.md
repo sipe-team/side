@@ -1,5 +1,24 @@
 # @sipe-team/side
 
+## 0.2.4
+
+### Patch Changes
+
+- 235be5d: fix: add react-dom into peerDependencies
+- Updated dependencies [235be5d]
+  - @sipe-team/radio-group@0.0.3
+  - @sipe-team/typography@0.0.5
+  - @sipe-team/skeleton@0.0.3
+  - @sipe-team/divider@0.0.3
+  - @sipe-team/tooltip@0.0.4
+  - @sipe-team/button@0.0.2
+  - @sipe-team/switch@0.0.3
+  - @sipe-team/input@0.0.4
+  - @sipe-team/badge@0.0.4
+  - @sipe-team/card@0.1.1
+  - @sipe-team/flex@0.1.3
+  - @sipe-team/tokens@0.1.0
+
 ## 0.2.3
 
 ### Patch Changes
