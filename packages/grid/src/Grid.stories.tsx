@@ -63,14 +63,7 @@ export const Basic: Story = {
   args: {
     templateColumns: 'repeat(3, 1fr)',
     gap: '1rem',
-    children: [
-      <Box key="1" />,
-      <Box key="2" />,
-      <Box key="3" />,
-      <Box key="4" />,
-      <Box key="5" />,
-      <Box key="6" />,
-    ],
+    children: [<Box key="1" />, <Box key="2" />, <Box key="3" />, <Box key="4" />, <Box key="5" />, <Box key="6" />],
   },
 };
 
@@ -104,11 +97,7 @@ export const GridTemplateAreas: Story = {
 
 export const SpanningColumns: Story = {
   render: () => (
-    <Grid.Root
-      templateColumns="repeat(4, 1fr)"
-      templateRows="repeat(2, 1fr)"
-      gap="1rem"
-    >
+    <Grid.Root templateColumns="repeat(4, 1fr)" templateRows="repeat(2, 1fr)" gap="1rem">
       <Grid.Item rowSpan={2}>
         <Box>rowSpan 2</Box>
       </Grid.Item>

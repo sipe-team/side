@@ -20,9 +20,7 @@ describe('Grid', () => {
 
   it('should apply additional className when provided', () => {
     const customClassName = faker.word.noun();
-    render(
-      <Grid.Root data-testid="grid-container" className={customClassName} />,
-    );
+    render(<Grid.Root data-testid="grid-container" className={customClassName} />);
     expect(screen.getByTestId('grid-container')).toHaveClass(customClassName);
   });
 
@@ -146,21 +144,18 @@ describe('Grid', () => {
             [prop]: value,
             expectedValue: expectedValues?.[index] ?? value,
           })),
-        )(
-          `should apply ${style} when ${prop} prop is $${prop}`,
-          ({ [prop]: value, expectedValue }) => {
-            render(
-              <Grid.Root>
-                <Grid.Item data-testid="grid-item" {...{ [prop]: value }}>
-                  item 1
-                </Grid.Item>
-              </Grid.Root>,
-            );
+        )(`should apply ${style} when ${prop} prop is $${prop}`, ({ [prop]: value, expectedValue }) => {
+          render(
+            <Grid.Root>
+              <Grid.Item data-testid="grid-item" {...{ [prop]: value }}>
+                item 1
+              </Grid.Item>
+            </Grid.Root>,
+          );
 
-            const gridItem = screen.getByTestId('grid-item');
-            expect(gridItem).toHaveStyle({ [style]: expectedValue });
-          },
-        );
+          const gridItem = screen.getByTestId('grid-item');
+          expect(gridItem).toHaveStyle({ [style]: expectedValue });
+        });
       });
     }
   });
