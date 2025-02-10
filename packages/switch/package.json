@@ -20,6 +20,10 @@
     "typecheck": "tsc",
     "prepack": "pnpm run build"
   },
+  "dependencies": {
+    "@sipe-team/tokens": "workspace:^",
+    "clsx": "^2.1.1"
+  },
   "devDependencies": {
     "@faker-js/faker": "^9.2.0",
     "@storybook/addon-essentials": "catalog:",
@@ -42,7 +46,8 @@
     "vitest": "catalog:"
   },
   "peerDependencies": {
-    "react": ">= 18"
+    "react": ">= 18",
+    "react-dom": ">= 18"
   },
   "publishConfig": {
     "access": "public",
@@ -60,9 +65,5 @@
       "./styles.css": "./dist/index.css"
     }
   },
-  "sideEffects": false,
-  "dependencies": {
-    "@sipe-team/tokens": "workspace:^",
-    "clsx": "^2.1.1"
-  }
+  "sideEffects": false
 }
