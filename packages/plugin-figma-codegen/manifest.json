@@ -1,0 +1,9 @@
+{
+  "name": "@sipe-team/plugin-figma-codegen",
+  "api": "1.0.0",
+  "capabilities": ["codegen", "vscode"],
+  "codegenLanguages": [{ "label": "React", "value": "react" }],
+  "editorType": ["dev"],
+  "id": "1477931843428059075",
+  "main": "dist/index.js"
+}
