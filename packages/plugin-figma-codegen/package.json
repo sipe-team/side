@@ -1,0 +1,36 @@
+{
+  "name": "@sipe-team/plugin-figma-codegen",
+  "description": "Figma codegen plugin for Sipe Design System",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sipe-team/side"
+  },
+  "type": "module",
+  "exports": "./src/index.ts",
+  "files": ["dist", "manifest.json"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "pnpm build --watch",
+    "lint": "biome lint .",
+    "typecheck": "tsc",
+    "prepack": "pnpm run build"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.108.0",
+    "tsup": "catalog:",
+    "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "sideEffects": false
+}

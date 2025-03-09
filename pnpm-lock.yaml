@@ -888,6 +888,18 @@ importers:
         specifier: 'catalog:'
         version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(terser@5.37.0)
 
+  packages/plugin-figma-codegen:
+    devDependencies:
+      '@figma/plugin-typings':
+        specifier: ^1.108.0
+        version: 1.108.0
+      tsup:
+        specifier: 'catalog:'
+        version: 8.3.5(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.6.3)(yaml@2.6.1)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.6.3
+
   packages/radio-group:
     devDependencies:
       '@storybook/addon-essentials':
@@ -3195,6 +3207,9 @@ packages:
   '@faker-js/faker@9.2.0':
     resolution: {integrity: sha512-ulqQu4KMr1/sTFIYvqSdegHT8NIkt66tFAkugGnHA+1WAfEn6hMzNR+svjXGFRVLnapxvej67Z/LwchFrnLBUg==}
     engines: {node: '>=18.0.0', npm: '>=9.0.0'}
+
+  '@figma/plugin-typings@1.108.0':
+    resolution: {integrity: sha512-hZocQwkMUfQZSa/6H9qkSkIKMDC70OOcV8U7hBocAsD/bWEZh13uj+aP6IHHmStscoavo9Ir5pU7NWEUUcXLug==}
 
   '@hapi/hoek@9.3.0':
     resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
@@ -11685,6 +11700,8 @@ snapshots:
       levn: 0.4.1
 
   '@faker-js/faker@9.2.0': {}
+
+  '@figma/plugin-typings@1.108.0': {}
 
   '@hapi/hoek@9.3.0': {}
 
