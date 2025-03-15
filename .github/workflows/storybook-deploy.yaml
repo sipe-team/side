@@ -1,0 +1,38 @@
+name: Deploy Storybook
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**/*.stories.@(js|jsx|ts|tsx)'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: pandoc/latex
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install mustache (to update the date)
+        run: apk add ruby && gem install mustache
+      - name: creates output
+        run: sh ./build.sh
+      - name: Copy .storybook folder
+        run: cp -r .storybook output/
+      - name: Pushes to another repository
+        id: push_directory
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.GH_TOKEN }}
+          DESTINATION_USERNAME: "froggy1014"
+          DESTINATION_REPO: "side-storybook"
+        with:
+          source-directory: "output"
+          destination-github-username: ${{ env.DESTINATION_USERNAME }}
+          destination-repository-name: ${{ env.DESTINATION_REPO }}
+          user-email: ${{ secrets.EMAIL }}
+          commit-message: ${{ github.event.commits[0].message || 'Manual deployment via workflow_dispatch' }}
+          target-branch: main
+      - name: Test get variable exported by push-to-another-repository
+        run: echo $DESTINATION_CLONED_DIRECTORY
