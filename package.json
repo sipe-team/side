@@ -10,8 +10,9 @@
     "lint": "pnpm /^lint:.*/",
     "lint:biome": "biome lint --write",
     "lint:eslint": "eslint --fix",
-    "build:storybook": "storybook build",
-    "dev:storybook": "storybook dev -p 6006",
+    "dev:storybook": "storybook dev -p 6006 public",
+    "build:storybook": "storybook build public",
+    "serve:storybook": "serve storybook-static -p 6006",
     "create:component": "tsx scripts/createComponent.ts create",
     "test": "vitest"
   },
