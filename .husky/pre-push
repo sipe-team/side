@@ -10,6 +10,8 @@ if ! [[ $BRANCH_NAME =~ $BRANCH_REGEX ]]; then
    echo "git branch -m <CATEGORY>/<SUBJECT> or git branch -m <CATEGORY>/<ISSUENUMBER>-<SUBJECT>"
    echo 
    echo "CATEGORY: feat, fix, hotfix, chore, refactor, release, test, docs, ci, build"
+   echo "SUBJECT: Use only lowercase letters(a-z), numbers(0-9), and hyphens(-)"
+   echo "ISSUENUMBER: Use only numbers(0-9)"
    echo
    exit 1
 fi
