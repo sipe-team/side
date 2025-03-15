@@ -1,4 +1,4 @@
-![](./public/assets/og-image.png)
+![](./public/og-image.png)
 
 # Sipe Design System 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/sipe-team/side/blob/main/LICENSE) ![Package Manager](https://img.shields.io/badge/pnpm-9.7.1-orange?logo=pnpm) [![Storybook](https://img.shields.io/badge/Storybook-8.4.7-ff4785?logo=storybook)](https://67417e47644abe8d4e63f82f-lynsfaiqst.chromatic.com) ![Tests](https://img.shields.io/badge/Vitest-2.1.4-green?logo=vitest) [![codecov](https://codecov.io/gh/sipe-team/side/branch/changeset-release%2Fmain/graph/badge.svg?token=1TNLVUFPXC)](https://codecov.io/gh/sipe-team/side) <img alt="Github Stars" src="https://badgen.net/github/stars/sipe-team/side" /> 

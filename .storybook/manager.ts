@@ -5,7 +5,7 @@ addons.setConfig({
   theme: create({
     base: 'dark',
     brandTitle: 'Sipe Design System',
-    brandImage: '../public/assets/sipe_brand_logo.png',
+    brandImage: './sipe_brand_logo.png',
     brandUrl: 'https://sipe.team/',
     brandTarget: '_self',
     textColor: '#999999',
