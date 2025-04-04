@@ -1,4 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+import { AvatarShape, AvatarSize } from './Avatar';
 
 export const root = style({
   alignItems: 'center',
@@ -8,56 +9,37 @@ export const root = style({
   overflow: 'hidden',
 });
 
-/**
- * Avatar 컴포넌트의 크기 옵션
- * @type {AvatarSize}
- * - xs: 24px
- * - sm: 32px
- * - md: 40px (기본값)
- * - lg: 70px
- */
-export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-
 export const size = styleVariants({
-  xs: {
+  [AvatarSize.xs]: {
     height: 24,
     width: 24,
   },
-  sm: {
+  [AvatarSize.sm]: {
     height: 32,
     width: 32,
   },
-  md: {
+  [AvatarSize.md]: {
     height: 40,
     width: 40,
   },
-  lg: {
+  [AvatarSize.lg]: {
     height: 70,
     width: 70,
   },
-  xl: {
+  [AvatarSize.xl]: {
     height: 96,
     width: 96,
   },
 });
 
-/**
- * Avatar 컴포넌트의 모양 옵션
- * @type {AvatarShape}
- * - circle: 원형 (50% border-radius)
- * - rounded: 둥근 모서리 (4px border-radius)
- * - square: 정사각형 (0px border-radius)
- */
-export type AvatarShape = 'circle' | 'rounded' | 'square';
-
 export const shape = styleVariants({
-  circle: {
+  [AvatarShape.circle]: {
     borderRadius: '50%',
   },
-  rounded: {
+  [AvatarShape.rounded]: {
     borderRadius: 4,
   },
-  square: {
+  [AvatarShape.square]: {
     borderRadius: 0,
   },
 });
