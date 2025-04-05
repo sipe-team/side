@@ -1,8 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { render, screen } from '@testing-library/react';
-import { expect, test, describe, it } from 'vitest';
-import { Avatar } from './Avatar';
-import type { AvatarShape, AvatarSize } from './Avatar';
+import { describe, expect, it, test } from 'vitest';
+import { Avatar, type AvatarShape, type AvatarSize } from './Avatar';
 
 const testImage = faker.image.avatar();
 
