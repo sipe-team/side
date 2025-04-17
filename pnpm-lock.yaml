@@ -70,10 +70,6 @@ catalogs:
 importers:
 
   .:
-    dependencies:
-      '@vanilla-extract/css':
-        specifier: ^1.17.1
-        version: 1.17.1
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
