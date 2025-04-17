@@ -1,5 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { fontSize as fontSizeToken } from '@sipe-team/tokens';
+import { color as colorToken, fontSize as fontSizeToken } from '@sipe-team/tokens';
 
 // Define the types for our component
 export const BadgeSize = {
@@ -51,21 +51,21 @@ export const fontSize = styleVariants({
 // Variant styles
 export const variant = styleVariants({
   [BadgeVariant.filled]: {
-    backgroundColor: '#2D3748',
+    backgroundColor: colorToken.cyan900,
     border: 'none',
   },
   [BadgeVariant.outline]: {
     backgroundColor: 'transparent',
-    border: '2px solid #2D3748',
+    border: `2px solid ${colorToken.cyan900}`,
   },
   [BadgeVariant.weak]: {
-    backgroundColor: '#EDF2F7',
+    backgroundColor: colorToken.gray200,
     border: 'none',
   },
 });
 
 // Text style
 export const text = style({
-  color: '#00FFFF',
+  color: colorToken.cyan300,
   fontWeight: 600,
 });
