@@ -403,6 +403,9 @@ importers:
 
   packages/badge:
     dependencies:
+      '@sipe-team/tokens':
+        specifier: workspace:*
+        version: link:../tokens
       '@sipe-team/typography':
         specifier: workspace:*
         version: link:../typography
@@ -440,6 +443,9 @@ importers:
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.13
+      '@vanilla-extract/css':
+        specifier: 'catalog:'
+        version: 1.17.1
       happy-dom:
         specifier: 'catalog:'
         version: 15.11.7
@@ -9118,7 +9124,7 @@ packages:
     engines: {node: '>= 4'}
 
   utils-merge@1.0.1:
-    resolution: {integrity: sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=}
+    resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
 
   uuid@8.3.2:

@@ -1,16 +1,10 @@
 import { Typography } from '@sipe-team/typography';
 import { clsx as cx } from 'clsx';
-import {
-  type CSSProperties,
-  type ComponentProps,
-  type ForwardedRef,
-  forwardRef,
-} from 'react';
-import styles from './Badge.module.css';
+import { type ComponentProps, type ForwardedRef, forwardRef } from 'react';
+import * as styles from './Badge.css';
 
-type BadgeSize = 'small' | 'medium' | 'large';
-
-type BadgeVariant = 'filled' | 'outline' | 'weak';
+export type BadgeSize = keyof typeof styles.BadgeSize;
+export type BadgeVariant = keyof typeof styles.BadgeVariant;
 
 export interface BadgeProps extends ComponentProps<'div'> {
   size?: BadgeSize;
@@ -18,71 +12,24 @@ export interface BadgeProps extends ComponentProps<'div'> {
 }
 
 export const Badge = forwardRef(function Badge(
-  {
-    className,
-    children,
-    size = 'medium',
-    style: _style,
-    variant = 'filled',
-    ...props
-  }: BadgeProps,
+  { className, children, size = 'medium', variant = 'filled', ...props }: BadgeProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
-  const backgroundColor = getBackgroundColor(variant);
-  const border = variant === 'outline' ? '2px solid #2D3748' : undefined;
-  const padding = getPadding(size);
-  const style = {
-    ..._style,
-    '--background-color': backgroundColor,
-    '--border': border,
-    '--padding': padding,
-  } as CSSProperties;
-
-  const fontSize = getFontSize(size);
-
   return (
     <div
-      className={cx(styles.root, className)}
+      className={cx(styles.root, styles.size[size], styles.variant[variant], className)}
       ref={ref}
       role="status"
-      style={style}
       {...props}
     >
-      <Typography
-        asChild={true}
-        color="#00FFFF"
-        size={fontSize}
-        weight="semiBold"
-      >
+      <Typography asChild={true} className={styles.text} size={getTypographySize(size)} weight="semiBold">
         <span>{children}</span>
       </Typography>
     </div>
   );
 });
 
-function getBackgroundColor(variant: BadgeVariant) {
-  switch (variant) {
-    case 'weak':
-      return '#EDF2F7';
-    case 'outline':
-      return 'transparent';
-    default:
-      return '#2D3748';
-  }
-}
-
-function getPadding(size: BadgeSize) {
-  switch (size) {
-    case 'small':
-      return '4px 8px';
-    case 'large':
-      return '12px 24px';
-    default:
-      return '8px 16px';
-  }
-}
-
-function getFontSize(size: BadgeSize) {
+function getTypographySize(size: BadgeSize): 12 | 14 | 18 {
   switch (size) {
     case 'small':
       return 12;
