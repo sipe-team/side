@@ -1,4 +1,4 @@
-# @sipe-team/radio-group
+# @sipe-team/radio
 
 ## 0.0.3
 

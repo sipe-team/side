@@ -42,16 +42,10 @@ export function RadioGroup({
   const name = propName ?? fallbackId;
 
   return (
-    <fieldset
-      className={styles.radioGroup}
-      disabled={disabled}
-      role={'radiogroup'}
-    >
+    <fieldset className={styles.radioGroup} disabled={disabled} role={'radiogroup'}>
       <legend>{labelText}</legend>
 
-      <RadioGroupContext.Provider value={{ ...rest, disabled, size, name }}>
-        {children}
-      </RadioGroupContext.Provider>
+      <RadioGroupContext.Provider value={{ ...rest, disabled, size, name }}>{children}</RadioGroupContext.Provider>
     </fieldset>
   );
 }
