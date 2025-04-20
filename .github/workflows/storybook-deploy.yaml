@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - '**/*.stories.@(js|jsx|ts|tsx)'
+      - 'packages/**/src/**/*.stories.@(js|jsx|ts|tsx)'
   workflow_dispatch:
 
 jobs:
