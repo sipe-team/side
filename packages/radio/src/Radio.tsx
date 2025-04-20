@@ -1,9 +1,4 @@
-import {
-  type CSSProperties,
-  type ComponentProps,
-  type PropsWithChildren,
-  useContext,
-} from 'react';
+import { type CSSProperties, type ComponentProps, type PropsWithChildren, useContext } from 'react';
 import { RadioGroupContext } from './RadioGroup';
 import styles from './RadioGroup.module.css';
 
@@ -13,12 +8,7 @@ type RadioProps = PropsWithChildren<
   }
 >;
 
-export function Radio({
-  value,
-  defaultChecked,
-  disabled = false,
-  children,
-}: RadioProps) {
+export function Radio({ value, defaultChecked, disabled = false, children }: RadioProps) {
   const groupContext = useContext(RadioGroupContext);
 
   const sizeMap = {
@@ -41,11 +31,7 @@ export function Radio({
         name={groupContext.name}
         defaultChecked={groupContext.defaultValue === value || defaultChecked}
         disabled={groupContext.disabled || disabled}
-        checked={
-          groupContext.value !== undefined
-            ? groupContext.value === value
-            : undefined
-        }
+        checked={groupContext.value !== undefined ? groupContext.value === value : undefined}
         onChange={(e) => groupContext.onChangeValue?.(e.target.value)}
         style={style}
       />

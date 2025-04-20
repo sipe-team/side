@@ -53,30 +53,27 @@ describe('Radio Group Component', () => {
     expect(handleChange).toHaveBeenCalledWith('orange');
   });
 
-  test.each(['small', 'medium', 'large'] as const)(
-    '%s 크기로 RadioGroup 컴포넌트 크기를 결정한다.',
-    (size) => {
-      const { getByRole } = render(
-        <RadioGroup size={size}>
-          <Radio value={'apple'}>사과</Radio>
-          <Radio value={'orange'}>오렌지</Radio>
-          <Radio value={'grape'}>포도</Radio>
-        </RadioGroup>,
-      );
+  test.each(['small', 'medium', 'large'] as const)('%s 크기로 RadioGroup 컴포넌트 크기를 결정한다.', (size) => {
+    const { getByRole } = render(
+      <RadioGroup size={size}>
+        <Radio value={'apple'}>사과</Radio>
+        <Radio value={'orange'}>오렌지</Radio>
+        <Radio value={'grape'}>포도</Radio>
+      </RadioGroup>,
+    );
 
-      const sizeMap = {
-        small: '12px',
-        medium: '16px',
-        large: '20px',
-      };
+    const sizeMap = {
+      small: '12px',
+      medium: '16px',
+      large: '20px',
+    };
 
-      const radio = getByRole('radio', { name: '사과' });
-      expect(radio).toHaveStyle({
-        width: sizeMap[size],
-        height: sizeMap[size],
-      });
-    },
-  );
+    const radio = getByRole('radio', { name: '사과' });
+    expect(radio).toHaveStyle({
+      width: sizeMap[size],
+      height: sizeMap[size],
+    });
+  });
 
   test('RadioGroup이 비활성화(disabled) 상태일 경우 선택할 수 없어야 한다.', () => {
     const handleChange = vi.fn();
