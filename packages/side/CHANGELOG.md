@@ -1,5 +1,13 @@
 # @sipe-team/side
 
+## 0.2.5
+
+### Patch Changes
+
+- a662b09: fix: rename radio-group into radio
+- Updated dependencies [a662b09]
+  - @sipe-team/radio@0.1.0
+
 ## 0.2.4
 
 ### Patch Changes
