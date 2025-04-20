@@ -1,6 +1,6 @@
 {
-  "name": "@sipe-team/radio-group",
-  "description": "Radio Group component for Sipe Design System",
+  "name": "@sipe-team/radio",
+  "description": "Radio component for Sipe Design System",
   "version": "0.0.3",
   "license": "MIT",
   "repository": {
@@ -9,9 +9,7 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",

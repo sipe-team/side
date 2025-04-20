@@ -9,10 +9,7 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist",
-    "styles.css"
-  ],
+  "files": ["dist", "styles.css"],
   "scripts": {
     "build": "tsup",
     "prepack": "pnpm run build"
@@ -23,7 +20,7 @@
     "@sipe-team/card": "workspace:*",
     "@sipe-team/divider": "workspace:*",
     "@sipe-team/input": "workspace:*",
-    "@sipe-team/radio-group": "workspace:*",
+    "@sipe-team/radio": "workspace:*",
     "@sipe-team/skeleton": "workspace:*",
     "@sipe-team/switch": "workspace:*",
     "@sipe-team/tokens": "workspace:*",
