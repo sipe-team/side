@@ -1,6 +1,21 @@
-import { recipe } from '@vanilla-extract/recipes';
-import type { RecipeVariants } from '@vanilla-extract/recipes';
 import { color } from '@sipe-team/tokens';
+import { recipe } from '@vanilla-extract/recipes';
+
+export const CardVariant = {
+  filled: 'filled',
+  outline: 'outline',
+} as const;
+
+export const CardRatio = {
+  rectangle: 'rectangle',
+  square: 'square',
+  wide: 'wide',
+  portrait: 'portrait',
+  auto: 'auto',
+} as const;
+
+export type CardVariant = (typeof CardVariant)[keyof typeof CardVariant];
+export type CardRatio = (typeof CardRatio)[keyof typeof CardRatio];
 
 export const card = recipe({
   base: {
@@ -12,37 +27,35 @@ export const card = recipe({
   },
   variants: {
     variant: {
-      filled: {
+      [CardVariant.filled]: {
         backgroundColor: color.gray100,
         border: `1px solid ${color.gray200}`,
       },
-      outline: {
+      [CardVariant.outline]: {
         backgroundColor: color.gray50,
         border: `1px solid ${color.cyan300}`,
       },
     },
     ratio: {
-      square: {
+      [CardRatio.square]: {
         aspectRatio: '1 / 1',
       },
-      rectangle: {
+      [CardRatio.rectangle]: {
         aspectRatio: '16 / 9',
       },
-      wide: {
+      [CardRatio.wide]: {
         aspectRatio: '21 / 9',
       },
-      portrait: {
+      [CardRatio.portrait]: {
         aspectRatio: '3 / 4',
       },
-      auto: {
+      [CardRatio.auto]: {
         aspectRatio: 'auto',
       },
     },
   },
   defaultVariants: {
-    variant: 'filled',
-    ratio: 'rectangle',
+    variant: CardVariant.filled,
+    ratio: CardRatio.rectangle,
   },
 });
-
-export type CardVariants = RecipeVariants<typeof card>;
