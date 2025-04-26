@@ -9,9 +9,7 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
@@ -25,8 +23,8 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
     "@sipe-team/typography": "workspace:*",
-    "clsx": "^2.1.1",
-    "ts-pattern": "^5.6.0"
+    "@vanilla-extract/recipes": "^0.5.5",
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "catalog:",
@@ -39,6 +37,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@types/react": "^18.3.12",
+    "@vanilla-extract/css": "catalog:",
     "happy-dom": "catalog:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
