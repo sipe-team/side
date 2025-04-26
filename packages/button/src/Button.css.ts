@@ -27,7 +27,6 @@ export const button = recipe({
     cursor: 'pointer',
     transition: 'all 0.2s ease-in-out',
   },
-
   variants: {
     color: {
       [ButtonColor.primary]: {},
