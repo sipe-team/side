@@ -5,11 +5,7 @@ import { createRef } from 'react';
 import { describe, expect, test } from 'vitest';
 import { Action, Input } from './Input';
 import { colors } from './constants/colors';
-import {
-  Weight,
-  defaultFontSize,
-  defaultFontWeight,
-} from './constants/typhography';
+import { Weight, defaultFontSize, defaultFontWeight } from './constants/typhography';
 
 describe('Input 컴포넌트', () => {
   describe('렌더링', () => {
@@ -34,9 +30,7 @@ describe('Input 컴포넌트', () => {
       const { container } = render(<Input disabled={true} />);
       const element = container.firstChild as HTMLElement;
       const styles = getComputedStyle(element);
-      expect(styles.getPropertyValue('--input-disabled-color')).toBe(
-        disableColor,
-      );
+      expect(styles.getPropertyValue('--input-disabled-color')).toBe(disableColor);
     });
 
     test('classNames가 올바르게 적용된다', () => {
@@ -46,36 +40,25 @@ describe('Input 컴포넌트', () => {
 
     test('기본적으로 맞춤법 검사가 비활성화된다', () => {
       render(<Input />);
-      expect(screen.getByRole('textbox')).toHaveAttribute(
-        'spellCheck',
-        'false',
-      );
+      expect(screen.getByRole('textbox')).toHaveAttribute('spellCheck', 'false');
     });
 
     test(`fontWeight가 미지정시 ${defaultFontWeight}, fontSize가 미지정시 ${defaultFontSize}px이 기본값으로 적용된다`, () => {
       const { container } = render(<Input />);
       const element = container.firstChild as HTMLElement;
       const styles = getComputedStyle(element);
-      expect(styles.getPropertyValue('--font-size')).toBe(
-        `${defaultFontSize}px`,
-      );
-      expect(styles.getPropertyValue('--font-weight')).toBe(
-        `${Weight[defaultFontWeight]}`,
-      );
+      expect(styles.getPropertyValue('--font-size')).toBe(`${defaultFontSize}px`);
+      expect(styles.getPropertyValue('--font-weight')).toBe(`${Weight[defaultFontWeight]}`);
     });
 
     test('변경 폰트 사이즈, 폰트 웨이트 적용된다.', () => {
       const fontSize = 24;
       const fontWeight = 'semiBold';
-      const { container } = render(
-        <Input fontSize={fontSize} fontWeight={fontWeight} />,
-      );
+      const { container } = render(<Input fontSize={fontSize} fontWeight={fontWeight} />);
       const element = container.firstChild as HTMLElement;
       const styles = getComputedStyle(element);
       expect(styles.getPropertyValue('--font-size')).toBe(`${fontSize}px`);
-      expect(styles.getPropertyValue('--font-weight')).toBe(
-        `${Weight[fontWeight]}`,
-      );
+      expect(styles.getPropertyValue('--font-weight')).toBe(`${Weight[fontWeight]}`);
     });
   });
 

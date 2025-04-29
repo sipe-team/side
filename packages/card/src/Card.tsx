@@ -1,58 +1,19 @@
 import { Slot } from '@radix-ui/react-slot';
-import { color } from '@sipe-team/tokens';
 import { clsx as cx } from 'clsx';
-import { type CSSProperties, type ComponentProps, type ForwardedRef, forwardRef } from 'react';
-import styles from './Card.module.css';
-
-export type CardRatio = 'rectangle' | 'square' | 'wide' | 'portrait' | 'auto';
-export type CardVariant = 'filled' | 'outline';
+import { type ComponentProps, type ForwardedRef, forwardRef } from 'react';
+import { card, type CardVariant, type CardRatio } from './Card.css';
 
 export interface CardProps extends ComponentProps<'div'> {
-  ratio?: CardRatio;
-  variant?: CardVariant;
   asChild?: boolean;
+  variant?: CardVariant;
+  ratio?: CardRatio;
 }
 
 export const Card = forwardRef(function Card(
-  { className, ratio = 'rectangle', style: _style, variant = 'filled', asChild, ...props }: CardProps,
+  { className, variant, ratio, asChild, ...props }: CardProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
-  const style = {
-    '--padding': '20px',
-    '--background-color': getBackgroundColor(variant),
-    '--border': variant === 'outline' ? `1px solid ${color.cyan300}` : `1px solid ${color.gray200}`,
-    '--aspect-ratio': getAspectRatio(ratio),
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    ..._style,
-  } as CSSProperties;
-
   const Comp = asChild ? Slot : 'div';
 
-  return <Comp className={cx(styles.card, className)} ref={ref} role="presentation" style={style} {...props} />;
+  return <Comp className={cx(card({ ratio, variant }), className)} ref={ref} role="presentation" {...props} />;
 });
-
-const backgroundColors: Record<CardVariant, string> = {
-  outline: color.gray50,
-  filled: color.gray100,
-};
-
-function getBackgroundColor(variant: CardVariant) {
-  return backgroundColors[variant] ?? color.gray100;
-}
-
-function getAspectRatio(ratio: CardRatio) {
-  switch (ratio) {
-    case 'square':
-      return '1 / 1';
-    case 'rectangle':
-      return '16 / 9';
-    case 'wide':
-      return '21 / 9';
-    case 'portrait':
-      return '3 / 4';
-    default:
-      return 'auto';
-  }
-}

@@ -1,7 +1,7 @@
 {
-  "name": "@sipe-team/radio-group",
-  "description": "Radio Group component for Sipe Design System",
-  "version": "0.0.3",
+  "name": "@sipe-team/input",
+  "description": "Input component for Sipe Design System",
+  "version": "0.0.4",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -9,9 +9,7 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
@@ -22,6 +20,10 @@
     "typecheck": "tsc",
     "prepack": "pnpm run build"
   },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.1.0",
+    "classnames": "^2.5.1"
+  },
   "devDependencies": {
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
@@ -30,11 +32,10 @@
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@storybook/test": "catalog:",
-    "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
     "happy-dom": "catalog:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -49,6 +50,7 @@
   },
   "publishConfig": {
     "access": "public",
+    "registry": "https://npm.pkg.github.com",
     "exports": {
       ".": {
         "import": {

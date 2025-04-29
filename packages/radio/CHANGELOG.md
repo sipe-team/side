@@ -1,4 +1,10 @@
-# @sipe-team/radio-group
+# @sipe-team/radio
+
+## 0.1.0
+
+### Minor Changes
+
+- a662b09: fix: rename radio-group into radio
 
 ## 0.0.3
 
