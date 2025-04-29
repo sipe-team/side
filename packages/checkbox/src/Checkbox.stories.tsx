@@ -5,151 +5,195 @@ import { useCheckboxGroup } from './hooks/useCheckboxGroup';
 
 const meta = {
   title: 'Components/Checkbox',
-  component: Checkbox,
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Checkbox>;
+  tags: ['autodocs'],
+  argTypes: {
+    size: {
+      control: 'select',
+      options: ['small', 'medium', 'large'],
+    },
+  },
+} satisfies Meta<typeof Checkbox.Root>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+// Basic checkbox with label
 export const Basic: Story = {
-  args: {
-    label: 'Basic Checkbox',
-    value: 'test',
-    name: 'test',
-  },
-};
-
-export const Checked: Story = {
-  args: {
-    label: 'Checked Checkbox',
-    value: 'test',
-    name: 'test',
-    checked: true,
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    label: 'Disabled Checkbox',
-    value: 'test',
-    name: 'test',
-    disabled: true,
-  },
-};
-
-export const Sizes: Story = {
-  render: () => (
-    <div>
-      <Checkbox label="Small Checkbox" size="small" name={'test1'} value={'test1'} style={{ marginBottom: '1rem' }} />
-      <Checkbox label="Medium Checkbox" size="medium" name={'test2'} value={'test2'} style={{ marginBottom: '1rem' }} />
-      <Checkbox label="Large Checkbox" size="large" name={'test3'} value={'test3'} style={{ marginBottom: '1rem' }} />
-    </div>
-  ),
-};
-
-export const CustomStyles: Story = {
-  args: {
-    label: 'Custom Styled Checkbox',
-    style: {
-      padding: '20px',
-      border: '2px solid #f8f',
-      borderRadius: '10px',
-      backgroundColor: '#f8f9fa',
-    },
-    value: 'test',
-    name: 'test',
-  },
-};
-
-export const Controlled: Story = {
   render: () => {
-    const [isChecked, setIsChecked] = useState(false);
-
-    return <Checkbox label="Controlled Checkbox" checked={isChecked} onCheckedChange={setIsChecked} />;
-  },
-};
-
-export const Uncontrolled: Story = {
-  args: {
-    label: 'Uncontrolled Checkbox',
-    value: 'test',
-    name: 'test',
-  },
-};
-
-export const CheckboxGroup: Story = {
-  render: () => {
-    const items = ['Item 1', 'Item 2', 'Item 3'];
-    const { checkedItems, updateCheckedItems, setAllChecked, allChecked } = useCheckboxGroup({
-      total: items.length,
-    });
-
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <Checkbox label="Select All" checked={allChecked} onCheckedChange={setAllChecked} />
-        {items.map((item, index) => (
-          <Checkbox
-            key={item}
-            label={item}
-            checked={checkedItems[index] || false}
-            onCheckedChange={(checked) => updateCheckedItems(index, checked)}
-          />
-        ))}
+      <div>
+        <Checkbox.Root>
+          <Checkbox.Input />
+          <Checkbox.Label>Basic checkbox</Checkbox.Label>
+        </Checkbox.Root>
       </div>
     );
   },
 };
 
+export const Sizes: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '1rem' }}>
+      <Checkbox.Root size="small">
+        <Checkbox.Input />
+        <Checkbox.Label>Small size</Checkbox.Label>
+      </Checkbox.Root>
+      <Checkbox.Root size="medium">
+        <Checkbox.Input />
+        <Checkbox.Label>Medium size</Checkbox.Label>
+      </Checkbox.Root>
+      <Checkbox.Root size="large">
+        <Checkbox.Input />
+        <Checkbox.Label>Large size</Checkbox.Label>
+      </Checkbox.Root>
+    </div>
+  ),
+};
+
+export const Controlled: Story = {
+  render: () => {
+    const [checked, setChecked] = useState(false);
+    return (
+      <div>
+        <Checkbox.Root checked={checked} onCheckboxChange={setChecked}>
+          <Checkbox.Input />
+          <Checkbox.Label>Controlled checkbox</Checkbox.Label>
+        </Checkbox.Root>
+      </div>
+    );
+  },
+};
+
+export const Uncontrolled: Story = {
+  render: () => {
+    return (
+      <Checkbox.Root defaultChecked>
+        <Checkbox.Input />
+        <Checkbox.Label>Uncontrolled checkbox</Checkbox.Label>
+      </Checkbox.Root>
+    );
+  },
+};
+
+// Disabled states
+export const Disabled: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '1rem' }}>
+      <Checkbox.Root disabled>
+        <Checkbox.Input />
+        <Checkbox.Label>Disabled unchecked</Checkbox.Label>
+      </Checkbox.Root>
+      <Checkbox.Root disabled checked>
+        <Checkbox.Input />
+        <Checkbox.Label>Disabled checked</Checkbox.Label>
+      </Checkbox.Root>
+    </div>
+  ),
+};
+
 export const Indeterminate: Story = {
   render: () => {
-    const [parentChecked, setParentChecked] = useState(false);
-    const [parentIndeterminate, setParentIndeterminate] = useState(false);
-    const [childChecked, setChildChecked] = useState([false, false]);
-
-    const updateParentState = (newChildChecked: boolean[]) => {
-      const checkedCount = newChildChecked.filter(Boolean).length;
-      setParentIndeterminate(checkedCount > 0 && checkedCount < newChildChecked.length);
-      setParentChecked(checkedCount === newChildChecked.length);
-    };
-
-    const handleParentChange = (checked: boolean) => {
-      setParentChecked(checked);
-      setParentIndeterminate(false);
-      setChildChecked([checked, checked]);
-    };
-
-    const handleChildChange = (index: number, checked: boolean) => {
-      const newChildChecked = [...childChecked];
-      newChildChecked[index] = checked;
-      setChildChecked(newChildChecked);
-      updateParentState(newChildChecked);
-    };
+    const { checkedItems, updateCheckedItems, setAllChecked, allChecked, indeterminate } = useCheckboxGroup({
+      total: 3,
+    });
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <Checkbox
-          label="Parent Checkbox"
-          checked={parentChecked}
-          indeterminate={parentIndeterminate}
-          onCheckedChange={handleParentChange}
-        />
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <Checkbox.Root checked={allChecked} indeterminate={indeterminate} onCheckboxChange={setAllChecked}>
+          <Checkbox.Input />
+          <Checkbox.Label>Select all options</Checkbox.Label>
+        </Checkbox.Root>
+
         <div style={{ marginLeft: '1.5rem' }}>
-          <Checkbox
-            label="Child Checkbox 1"
-            checked={childChecked[0] || false}
-            onCheckedChange={(checked) => handleChildChange(0, checked)}
-          />
-          <Checkbox
-            label="Child Checkbox 2"
-            checked={childChecked[1] || false}
-            onCheckedChange={(checked) => handleChildChange(1, checked)}
-          />
+          <Checkbox.Root
+            checked={checkedItems[0] || false}
+            onCheckboxChange={(checked) => updateCheckedItems(0, checked)}
+          >
+            <Checkbox.Input />
+            <Checkbox.Label>Option 1</Checkbox.Label>
+          </Checkbox.Root>
+
+          <Checkbox.Root
+            checked={checkedItems[1] || false}
+            onCheckboxChange={(checked) => updateCheckedItems(1, checked)}
+          >
+            <Checkbox.Input />
+            <Checkbox.Label>Option 2</Checkbox.Label>
+          </Checkbox.Root>
+
+          <Checkbox.Root
+            checked={checkedItems[2] || false}
+            onCheckboxChange={(checked) => updateCheckedItems(2, checked)}
+          >
+            <Checkbox.Input />
+            <Checkbox.Label>Option 3</Checkbox.Label>
+          </Checkbox.Root>
         </div>
       </div>
+    );
+  },
+};
+
+// Form integration
+export const WithinForm: Story = {
+  render: () => {
+    const [formData, setFormData] = useState({
+      terms: false,
+      newsletter: false,
+      updates: false,
+    });
+
+    return (
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          console.log('Form submitted:', formData);
+        }}
+        style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+      >
+        <fieldset>
+          <legend>Form example</legend>
+
+          <Checkbox.Root
+            checked={formData.terms}
+            onCheckboxChange={(checked) => setFormData((prev) => ({ ...prev, terms: checked }))}
+          >
+            <Checkbox.Input name="terms" required />
+            <Checkbox.Label>Accept terms (required)</Checkbox.Label>
+          </Checkbox.Root>
+
+          <Checkbox.Root
+            checked={formData.newsletter}
+            onCheckboxChange={(checked) => setFormData((prev) => ({ ...prev, newsletter: checked }))}
+          >
+            <Checkbox.Input name="newsletter" />
+            <Checkbox.Label>Subscribe to newsletter</Checkbox.Label>
+          </Checkbox.Root>
+
+          <Checkbox.Root
+            checked={formData.updates}
+            onCheckboxChange={(checked) => setFormData((prev) => ({ ...prev, updates: checked }))}
+          >
+            <Checkbox.Input name="updates" />
+            <Checkbox.Label>Receive updates</Checkbox.Label>
+          </Checkbox.Root>
+        </fieldset>
+
+        <div>
+          <button type="submit">Submit</button>
+          <button
+            type="reset"
+            onClick={() => setFormData({ terms: false, newsletter: false, updates: false })}
+            style={{ marginLeft: '1rem' }}
+          >
+            Reset
+          </button>
+        </div>
+      </form>
     );
   },
 };

@@ -1,119 +1,168 @@
-import { Slot } from '@radix-ui/react-slot';
-import { clsx as cx } from 'clsx';
-import { type CSSProperties, type ComponentProps, type ReactNode, useEffect, useId, useRef } from 'react';
+import {
+  createContext,
+  forwardRef,
+  useCallback,
+  useContext,
+  useId,
+  type ChangeEventHandler,
+  type CSSProperties,
+  type InputHTMLAttributes,
+  type LabelHTMLAttributes,
+  type MutableRefObject,
+  type ReactNode,
+} from 'react';
+import { container, input, label } from './Checkbox.css';
+import { useControllableState } from './hooks/useControllableState';
+import { useIndeterminateCheckbox } from './hooks/useIndeterminateCheckbox';
 
-import styles from './Checkbox.module.css';
-import { type CheckStyleConfig, DEFAULT_CHECK_STYLE } from './constants/checkStyle';
-import { CHECKBOX_SIZES, type CheckboxSize } from './constants/size';
+export const CheckboxSize = {
+  small: 'small',
+  medium: 'medium',
+  large: 'large',
+} as const;
+export type CheckboxSize = (typeof CheckboxSize)[keyof typeof CheckboxSize];
 
-export interface CheckboxProps extends ComponentProps<'div'> {
+interface CheckboxContextValue {
+  id: string;
+  checked: boolean;
+  disabled: boolean;
+  size: CheckboxSize;
+  onChange: (checked: boolean) => void;
   name?: string;
-  value?: string;
-  size?: CheckboxSize;
-  checked?: boolean;
   indeterminate?: boolean;
-  disabled?: boolean;
-  label?: string;
-  onCheckedChange?: (checked: boolean) => void;
-  asChild?: boolean;
-  innerRef?: React.RefObject<HTMLDivElement>;
-  children?: ReactNode;
-  checkStyleConfig?: Partial<CheckStyleConfig>;
 }
 
-export const Checkbox = ({
-  className,
-  name,
-  value,
-  label,
-  asChild = true,
-  size = 'medium',
-  checked,
-  indeterminate = false,
-  disabled = false,
-  onCheckedChange,
-  children,
-  style: _style,
-  innerRef,
-  checkStyleConfig = {},
-  ...props
-}: CheckboxProps) => {
-  const localRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const inputId = useId();
+const CheckboxContext = createContext<CheckboxContextValue | null>(null);
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.indeterminate = indeterminate;
-    }
-  }, [indeterminate]);
+const useCheckbox = () => {
+  const context = useContext(CheckboxContext);
+  if (!context) {
+    throw new Error('Checkbox compound components must be used within Checkbox.Root');
+  }
+  return context;
+};
 
-  const Component = asChild ? Slot : 'div';
+interface CheckboxRootProps {
+  className?: string;
+  size?: CheckboxSize;
+  checked?: boolean;
+  defaultChecked?: boolean;
+  disabled?: boolean;
+  indeterminate?: boolean;
+  onCheckboxChange?: (checked: boolean) => void;
+  children: ReactNode;
+  name?: string;
+  style?: CSSProperties;
+}
 
-  const handleChange = () => {
-    if (!disabled && onCheckedChange) {
-      onCheckedChange(!checked);
-    }
+const Root = forwardRef<HTMLDivElement, CheckboxRootProps>(
+  (
+    {
+      className = '',
+      size = CheckboxSize.medium,
+      checked,
+      defaultChecked,
+      indeterminate = false,
+      disabled = false,
+      onCheckboxChange,
+      children,
+      name,
+      ...props
+    },
+    ref,
+  ) => {
+    const id = useId();
+
+    const handleChange = (newValue: boolean) => {
+      onCheckboxChange?.(newValue);
+    };
+
+    const [checkedState, setCheckedState] = useControllableState<boolean>({
+      prop: checked,
+      defaultProp: defaultChecked || false,
+      onChange: handleChange,
+    });
+
+    const contextValue: CheckboxContextValue = {
+      id,
+      checked: checkedState === undefined ? false : checkedState,
+      indeterminate,
+      disabled,
+      size,
+      name: name || '',
+      onChange: setCheckedState,
+    };
+
+    return (
+      <div ref={ref} className={container({ size })} {...props}>
+        <CheckboxContext.Provider value={contextValue}>{children}</CheckboxContext.Provider>
+      </div>
+    );
+  },
+);
+
+interface CheckboxInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'checked'> {
+  value?: string;
+}
+
+const Input = forwardRef<HTMLInputElement, CheckboxInputProps>(({ className = '', onChange, ...props }, ref) => {
+  const { id, checked, disabled, size, onChange: onCheckboxChange, name: contextName, indeterminate } = useCheckbox();
+
+  const indeterminateRef = useIndeterminateCheckbox(indeterminate);
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    onCheckboxChange(e.target.checked);
+    onChange?.(e);
   };
 
-  const sizeConfig = CHECKBOX_SIZES[size];
-  const mergedStyleConfig = { ...DEFAULT_CHECK_STYLE, ...checkStyleConfig };
+  const setRefs = useCallback(
+    (node: HTMLInputElement | null) => {
+      indeterminateRef.current = node;
 
-  const style = {
-    '--checkbox-size': `${sizeConfig.checkboxSize}px`,
-    '--label-size': `${sizeConfig.labelSize}px`,
-    '--checkbox-padding': `${sizeConfig.padding}px`,
-    '--checkbox-margin': `${sizeConfig.margin}px`,
-    '--border-radius': `${mergedStyleConfig.borderRadius}px`,
-    '--border-width': `${mergedStyleConfig.borderWidth}px`,
-    '--border-color': mergedStyleConfig.borderColor,
-    '--background-color': mergedStyleConfig.backgroundColor,
-    '--checked-color': mergedStyleConfig.checkedColor,
-    '--disabled-color': mergedStyleConfig.disabledColor,
-    '--hover-color': mergedStyleConfig.hoverColor,
-    '--checked-icon': `url(${mergedStyleConfig.checkedIcon})`,
-    '--indeterminate-icon': `url(${mergedStyleConfig.indeterminateIcon})`,
-    '--background-size': mergedStyleConfig.backgroundSize,
-    '--background-position': mergedStyleConfig.backgroundPosition,
-    '--background-repeat': mergedStyleConfig.backgroundRepeat,
-    ..._style,
-  } as CSSProperties;
-
-  if (!label && children) {
-    return <>{children}</>;
-  }
-
-  const content = (
-    <div
-      className={cx(
-        styles.checkbox,
-        {
-          [styles.indeterminate]: indeterminate,
-          [styles.disabled]: disabled,
-        },
-        className,
-      )}
-      style={style}
-      {...props}
-    >
-      <input
-        ref={inputRef}
-        type="checkbox"
-        id={inputId}
-        name={name}
-        value={value}
-        checked={checked}
-        disabled={disabled}
-        onChange={handleChange}
-        className={styles['checkbox-input']}
-      />
-      {label && (
-        <label htmlFor={inputId} className={styles['checkbox-label']} style={{ fontSize: sizeConfig.labelSize }}>
-          {label}
-        </label>
-      )}
-    </div>
+      if (typeof ref === 'function') {
+        ref(node);
+      } else if (ref) {
+        (ref as MutableRefObject<HTMLInputElement | null>).current = node;
+      }
+    },
+    [ref, indeterminateRef],
   );
 
-  return asChild ? <Component ref={localRef}>{content}</Component> : content;
+  return (
+    <input
+      id={id}
+      ref={setRefs}
+      type="checkbox"
+      name={contextName}
+      checked={checked}
+      disabled={disabled}
+      onChange={handleChange}
+      className={input({ size, checked, disabled, indeterminate })}
+      {...props}
+    />
+  );
+});
+
+interface CheckboxLabelProps extends Omit<LabelHTMLAttributes<HTMLLabelElement>, 'htmlFor'> {
+  children: ReactNode;
+}
+
+const Label = forwardRef<HTMLLabelElement, CheckboxLabelProps>(({ children, className = '', ...props }, ref) => {
+  const { id, disabled, size } = useCheckbox();
+
+  return (
+    <label ref={ref} htmlFor={id} className={label({ size, disabled })} {...props}>
+      {children}
+    </label>
+  );
+});
+
+Root.displayName = 'Checkbox.Root';
+Input.displayName = 'Checkbox.Input';
+Label.displayName = 'Checkbox.Label';
+
+export const Checkbox = {
+  Root,
+  Input,
+  Label,
 };

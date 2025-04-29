@@ -610,15 +610,12 @@ importers:
 
   packages/checkbox:
     dependencies:
-      '@radix-ui/react-slot':
-        specifier: ^1.1.0
-        version: 1.1.0(@types/react@18.3.13)(react@18.3.1)
+      '@sipe-team/tokens':
+        specifier: workspace:*
+        version: link:../tokens
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      nanoid:
-        specifier: ^5.0.9
-        version: 5.0.9
     devDependencies:
       '@storybook/addon-essentials':
         specifier: 'catalog:'
@@ -650,6 +647,12 @@ importers:
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.13
+      '@vanilla-extract/css':
+        specifier: ^1.17.1
+        version: 1.17.1
+      '@vanilla-extract/recipes':
+        specifier: ^0.5.5
+        version: 0.5.5(@vanilla-extract/css@1.17.1)
       happy-dom:
         specifier: 'catalog:'
         version: 15.11.7
@@ -4282,6 +4285,11 @@ packages:
   '@vanilla-extract/private@1.0.6':
     resolution: {integrity: sha512-ytsG/JLweEjw7DBuZ/0JCN4WAQgM9erfSTdS1NQY778hFQSZ6cfCDEZZ0sgVm4k54uNz6ImKB33AYvSR//fjxw==}
 
+  '@vanilla-extract/recipes@0.5.5':
+    resolution: {integrity: sha512-VadU7+IFUwLNLMgks29AHav/K5h7DOEfTU91RItn5vwdPfzduodNg317YbgWCcpm7FSXkuR3B3X8ZOi95UOozA==}
+    peerDependencies:
+      '@vanilla-extract/css': ^1.0.0
+
   '@vanilla-extract/vite-plugin@5.0.1':
     resolution: {integrity: sha512-65IhqaNEAv/KjO1jJ52hSXiKUJqeFPlyY/hpRT71Y6bFoasHhzOcZKIQ/ze4fQovjjDL4US565rEiIn1I2qhFA==}
     peerDependencies:
@@ -7219,11 +7227,6 @@ packages:
   nanoid@3.3.8:
     resolution: {integrity: sha512-WNLf5Sd8oZxOm+TzppcYk8gVOgP+l58xNy58D0nbUnOxOWRWvlcCV4kUF7ltmI6PsrLl/BgKEyS4mqsGChFN0w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
-
-  nanoid@5.0.9:
-    resolution: {integrity: sha512-Aooyr6MXU6HpvvWXKoVoXwKMs/KyVakWwg7xQfv5/S/RIgJMy0Ifa45H9qqYy7pTCszrHzP21Uk4PZq2HpEM8Q==}
-    engines: {node: ^18 || >=20}
     hasBin: true
 
   natural-compare@1.4.0:
@@ -13221,6 +13224,10 @@ snapshots:
 
   '@vanilla-extract/private@1.0.6': {}
 
+  '@vanilla-extract/recipes@0.5.5(@vanilla-extract/css@1.17.1)':
+    dependencies:
+      '@vanilla-extract/css': 1.17.1
+
   '@vanilla-extract/vite-plugin@5.0.1(@types/node@22.10.1)(jiti@2.4.1)(terser@5.37.0)(tsx@4.19.2)(vite@5.4.11(@types/node@22.10.1)(terser@5.37.0))(yaml@2.6.1)':
     dependencies:
       '@vanilla-extract/compiler': 0.1.2(@types/node@22.10.1)(jiti@2.4.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1)
@@ -16964,8 +16971,6 @@ snapshots:
       thenify-all: 1.6.0
 
   nanoid@3.3.8: {}
-
-  nanoid@5.0.9: {}
 
   natural-compare@1.4.0: {}
 
