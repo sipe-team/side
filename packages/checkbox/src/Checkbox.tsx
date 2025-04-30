@@ -51,6 +51,7 @@ interface CheckboxRootProps {
   onCheckboxChange?: (checked: boolean) => void;
   children: ReactNode;
   name?: string;
+  id?: string;
 }
 
 const Root = ({
@@ -63,9 +64,11 @@ const Root = ({
   onCheckboxChange,
   children,
   name,
+  id: externalId,
   ...props
 }: CheckboxRootProps) => {
-  const id = useId();
+  const internalId = useId();
+  const id = externalId || internalId;
 
   const handleChange = (newValue: boolean) => {
     onCheckboxChange?.(newValue);
