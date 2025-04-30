@@ -5,7 +5,6 @@ import {
   useContext,
   useId,
   type ChangeEventHandler,
-  type CSSProperties,
   type InputHTMLAttributes,
   type LabelHTMLAttributes,
   type MutableRefObject,
@@ -52,64 +51,55 @@ interface CheckboxRootProps {
   onCheckboxChange?: (checked: boolean) => void;
   children: ReactNode;
   name?: string;
-  style?: CSSProperties;
 }
 
-const Root = forwardRef<HTMLDivElement, CheckboxRootProps>(
-  (
-    {
-      className = '',
-      size = CheckboxSize.medium,
-      checked,
-      defaultChecked,
-      indeterminate = false,
-      disabled = false,
-      onCheckboxChange,
-      children,
-      name,
-      ...props
-    },
-    ref,
-  ) => {
-    const id = useId();
+const Root = ({
+  className = '',
+  size = CheckboxSize.medium,
+  checked,
+  defaultChecked,
+  indeterminate = false,
+  disabled = false,
+  onCheckboxChange,
+  children,
+  name,
+  ...props
+}: CheckboxRootProps) => {
+  const id = useId();
 
-    const handleChange = (newValue: boolean) => {
-      onCheckboxChange?.(newValue);
-    };
+  const handleChange = (newValue: boolean) => {
+    onCheckboxChange?.(newValue);
+  };
 
-    const [checkedState, setCheckedState] = useControllableState<boolean>({
-      prop: checked,
-      defaultProp: defaultChecked || false,
-      onChange: handleChange,
-    });
+  const [checkedState, setCheckedState] = useControllableState<boolean>({
+    prop: checked,
+    defaultProp: defaultChecked || false,
+    onChange: handleChange,
+  });
 
-    const contextValue: CheckboxContextValue = {
-      id,
-      checked: checkedState === undefined ? false : checkedState,
-      indeterminate,
-      disabled,
-      size,
-      name: name || '',
-      onChange: setCheckedState,
-    };
+  const contextValue: CheckboxContextValue = {
+    id,
+    checked: checkedState === undefined ? false : checkedState,
+    indeterminate,
+    disabled,
+    size,
+    name: name || '',
+    onChange: setCheckedState,
+  };
 
-    return (
-      <div ref={ref} className={container({ size })} {...props}>
-        <CheckboxContext.Provider value={contextValue}>{children}</CheckboxContext.Provider>
-      </div>
-    );
-  },
-);
+  return (
+    <div className={container({ size })} {...props}>
+      <CheckboxContext.Provider value={contextValue}>{children}</CheckboxContext.Provider>
+    </div>
+  );
+};
 
-interface CheckboxInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'checked'> {
-  value?: string;
-}
+type CheckboxInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'checked'>;
 
-const Input = forwardRef<HTMLInputElement, CheckboxInputProps>(({ className = '', onChange, ...props }, ref) => {
+const Input = forwardRef<HTMLInputElement, CheckboxInputProps>(({ onChange, value, ...props }, ref) => {
   const { id, checked, disabled, size, onChange: onCheckboxChange, name: contextName, indeterminate } = useCheckbox();
 
   const indeterminateRef = useIndeterminateCheckbox(indeterminate);
-
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     onCheckboxChange(e.target.checked);
     onChange?.(e);
