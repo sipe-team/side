@@ -415,12 +415,12 @@ importers:
       '@sipe-team/typography':
         specifier: workspace:*
         version: link:../typography
+      '@vanilla-extract/recipes':
+        specifier: ^0.5.5
+        version: 0.5.5(@vanilla-extract/css@1.17.1)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      ts-pattern:
-        specifier: ^5.6.0
-        version: 5.6.0
     devDependencies:
       '@storybook/addon-essentials':
         specifier: 'catalog:'
@@ -452,6 +452,9 @@ importers:
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.13
+      '@vanilla-extract/css':
+        specifier: 'catalog:'
+        version: 1.17.1
       happy-dom:
         specifier: 'catalog:'
         version: 15.11.7
@@ -506,7 +509,7 @@ importers:
         version: 8.4.6(@storybook/test@8.4.6(storybook@8.5.0(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.0(prettier@2.8.8))(typescript@5.6.3)
       '@storybook/react-vite':
         specifier: 'catalog:'
-        version: 8.4.6(@storybook/test@8.4.6(storybook@8.5.0(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.36.0)(storybook@8.5.0(prettier@2.8.8))(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.1)(terser@5.37.0))
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.5.0(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.36.0)(storybook@8.5.0(prettier@2.8.8))(typescript@5.6.3)(vite@6.2.4(@types/node@22.10.1)(jiti@2.4.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1))
       '@storybook/test':
         specifier: 'catalog:'
         version: 8.4.6(storybook@8.5.0(prettier@2.8.8))
@@ -3396,6 +3399,7 @@ packages:
   '@faker-js/faker@9.2.0':
     resolution: {integrity: sha512-ulqQu4KMr1/sTFIYvqSdegHT8NIkt66tFAkugGnHA+1WAfEn6hMzNR+svjXGFRVLnapxvej67Z/LwchFrnLBUg==}
     engines: {node: '>=18.0.0', npm: '>=9.0.0'}
+    deprecated: Please update to a newer version
 
   '@figma/plugin-typings@1.108.0':
     resolution: {integrity: sha512-hZocQwkMUfQZSa/6H9qkSkIKMDC70OOcV8U7hBocAsD/bWEZh13uj+aP6IHHmStscoavo9Ir5pU7NWEUUcXLug==}
@@ -8930,9 +8934,6 @@ packages:
 
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
-
-  ts-pattern@5.6.0:
-    resolution: {integrity: sha512-SL8u60X5+LoEy9tmQHWCdPc2hhb2pKI6I1tU5Jue3v8+iRqZdcT3mWPwKKJy1fMfky6uha82c8ByHAE8PMhKHw==}
 
   tsconfig-paths@4.2.0:
     resolution: {integrity: sha512-NoZ4roiN7LnbKn9QqE1amc9DJfzvZXxF4xDavcOWt1BPkdx+m+0gJuPM+S0vCe7zTJMYUP0R8pO2XMr+Y8oLIg==}
@@ -18828,8 +18829,6 @@ snapshots:
   ts-dedent@2.2.0: {}
 
   ts-interface-checker@0.1.13: {}
-
-  ts-pattern@5.6.0: {}
 
   tsconfig-paths@4.2.0:
     dependencies:
