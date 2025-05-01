@@ -1245,9 +1245,6 @@ importers:
       '@faker-js/faker':
         specifier: ^9.2.0
         version: 9.2.0
-      '@sipe-team/typography':
-        specifier: workspace:*
-        version: link:../typography
       '@storybook/addon-essentials':
         specifier: 'catalog:'
         version: 8.4.6(@types/react@18.3.13)(storybook@8.5.0(prettier@2.8.8))
