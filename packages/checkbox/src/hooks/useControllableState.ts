@@ -1,73 +1,41 @@
-import type { Dispatch } from 'react';
-import type { SetStateAction } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 type UseControllableStateParams<T> = {
-  prop?: T | undefined;
-  defaultProp?: T | undefined;
-  onChange?: (state: T) => void;
+  prop?: T;
+  defaultProp?: T;
+  onChange?: (state: NonNullable<T>) => void;
 };
 
-type SetStateFn<T> = (prevState?: T) => T;
-
-/**
- * A custom React hook that provides a controlled or uncontrolled state management solution.
- *
- * @param prop - The controlled prop value
- * @param defaultProp - The default value for uncontrolled state
- * @param onChange - Callback function triggered when state changes
- * @returns [value, setValue] - The current value and function to update it
- */
 function useControllableState<T>({ prop, defaultProp, onChange = () => {} }: UseControllableStateParams<T>) {
-  const [uncontrolledProp, setUncontrolledProp] = useUncontrolledState({ defaultProp, onChange });
+  const [uncontrolledState, setUncontrolledState] = useState(defaultProp);
   const isControlled = prop !== undefined;
-  const value = isControlled ? prop : uncontrolledProp;
-  const handleChange = useCallbackRef(onChange);
+  const value = isControlled ? prop : uncontrolledState;
 
-  const setValue: Dispatch<SetStateAction<T | undefined>> = useCallback(
-    (nextValue) => {
-      if (isControlled) {
-        const setter = nextValue as SetStateFn<T>;
-        const value = typeof nextValue === 'function' ? setter(prop) : nextValue;
-        if (value !== prop) handleChange(value as T);
-      } else {
-        setUncontrolledProp(nextValue);
-      }
-    },
-    [isControlled, prop, setUncontrolledProp, handleChange],
-  );
-
-  return [value, setValue] as const;
-}
-
-/**
- * A custom hook that implements a callback ref pattern.
- * This ensures we're always working with the latest callback function.
- */
-function useCallbackRef<T>(callback: (value: T) => void): (value: T) => void {
-  const callbackRef = useRef(callback);
-
+  const callbackRef = useRef(onChange);
   useEffect(() => {
-    callbackRef.current = callback;
+    callbackRef.current = onChange;
   });
 
-  return useCallback((value: T) => callbackRef.current(value), []);
-}
+  const setValue = useCallback(
+    (nextValue: T | ((prevValue: T) => T)) => {
+      const newValue = typeof nextValue === 'function' ? (nextValue as (prevValue: T) => T)(value as T) : nextValue;
 
-/**
- * Internal hook for managing uncontrolled state with change notification.
- */
-function useUncontrolledState<T>({ defaultProp, onChange }: Omit<UseControllableStateParams<T>, 'prop'>) {
-  const [value, setValue] = useState<T | undefined>(defaultProp);
+      if (isControlled) {
+        if (newValue !== prop) callbackRef.current(newValue as NonNullable<T>);
+      } else {
+        setUncontrolledState(newValue);
+      }
+    },
+    [isControlled, prop, value],
+  );
+
   const prevValueRef = useRef(value);
-  const handleChange = useCallbackRef(onChange || (() => {}));
-
   useEffect(() => {
-    if (prevValueRef.current !== value) {
-      handleChange(value as T);
+    if (!isControlled && prevValueRef.current !== value) {
+      callbackRef.current(value as NonNullable<T>);
       prevValueRef.current = value;
     }
-  }, [value, handleChange]);
+  }, [value, isControlled]);
 
   return [value, setValue] as const;
 }
