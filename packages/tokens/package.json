@@ -9,9 +9,7 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
@@ -23,7 +21,6 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^9.2.0",
-    "@sipe-team/typography": "workspace:*",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
@@ -32,7 +29,8 @@
     "react-dom": "^18.3.1",
     "storybook": "catalog:",
     "tsup": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@sipe-team/typography": "workspace:*"
   },
   "publishConfig": {
     "access": "public",
