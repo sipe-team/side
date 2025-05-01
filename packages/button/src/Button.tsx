@@ -1,6 +1,6 @@
 import { Slot } from '@radix-ui/react-slot';
 import { clsx as cx } from 'clsx';
-import { type ComponentProps, type ReactNode, forwardRef } from 'react';
+import { type ComponentProps, type ForwardedRef, forwardRef } from 'react';
 import * as styles from './Button.css';
 
 export const ButtonColor = {
@@ -20,30 +20,22 @@ export type ButtonVariant = (typeof ButtonVariant)[keyof typeof ButtonVariant];
 export interface ButtonProps extends ComponentProps<'button'> {
   color?: ButtonColor;
   variant?: ButtonVariant;
-  disabled?: boolean;
-  className?: string;
-  children: ReactNode;
   asChild?: boolean;
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+export const Button = forwardRef(function Button(
   {
     color = ButtonColor.primary,
     variant = ButtonVariant.filled,
     asChild,
     disabled,
     className: _className,
-    children,
-    ...rest
-  },
-  ref,
+    ...props
+  }: ButtonProps,
+  ref: ForwardedRef<HTMLButtonElement>,
 ) {
   const Comp = asChild ? Slot : 'button';
   const className = cx(styles.button({ color, variant }), { [styles.disabled]: disabled }, _className);
 
-  return (
-    <Comp ref={ref} className={className} disabled={disabled} {...rest}>
-      {children}
-    </Comp>
-  );
+  return <Comp ref={ref} className={className} disabled={disabled} {...props} />;
 });
