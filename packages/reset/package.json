@@ -8,38 +8,24 @@
     "url": "https://github.com/sipe-team/side"
   },
   "type": "module",
-  "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./reset.css": "./src/reset.css"
+  },
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
-    "build:storybook": "storybook build",
-    "dev:storybook": "storybook dev -p 6006",
     "lint:biome": "pnpm exec biome lint",
     "lint:eslint": "pnpm exec eslint",
     "test": "vitest",
-    "typecheck": "tsc",
-    "prepack": "pnpm run build"
+    "typecheck": "tsc"
   },
-  "dependencies": {
-    "@radix-ui/react-slot": "^1.1.0",
-    "classnames": "^2.5.1"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@storybook/addon-essentials": "catalog:",
-    "@storybook/addon-interactions": "catalog:",
-    "@storybook/addon-links": "catalog:",
-    "@storybook/blocks": "catalog:",
-    "@storybook/react": "catalog:",
-    "@storybook/react-vite": "catalog:",
-    "@storybook/test": "catalog:",
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
     "@types/react": "^18.3.12",
-    "happy-dom": "catalog:",
     "react": "^18.3.1",
-    "storybook": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
@@ -61,7 +47,8 @@
           "types": "./dist/index.d.cts",
           "default": "./dist/index.cjs"
         }
-      }
+      },
+      "./reset.css": "./dist/reset.css"
     }
   },
   "sideEffects": false
