@@ -1,23 +1,23 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
 import { Reset } from './Reset';
 
 describe('Reset', () => {
-  it('renders children correctly', () => {
-    render(
+  it('renders children correctly', async () => {
+    const screen = render(
       <>
-        <Reset />
+        <Reset/>
         <div>Test Content</div>
       </>,
     );
 
-    expect(screen.getByText('Test Content')).toBeInTheDocument();
+    await expect.element(screen.getByText('Test Content')).toBeInTheDocument();
   });
 
-  it('applies className along with default reset class', () => {
+  it('applies className along with default reset class', async () => {
     const customClassName = 'custom-class';
-    render(
+    const screen = render(
       <>
         <Reset />
         <div className={customClassName}>Content</div>
@@ -25,7 +25,7 @@ describe('Reset', () => {
     );
 
     const element = screen.getByText('Content');
-    expect(element).toHaveClass(customClassName);
+    await expect.element(element).toHaveClass(customClassName);
   });
 
   describe('CSS Reset', () => {
@@ -55,8 +55,8 @@ describe('Reset', () => {
       font: 'inherit',
     };
 
-    it.each(formElements)('applies reset styles to %s element', (_, element) => {
-      render(
+    it.each(formElements)('applies reset styles to %s element',async (_, element) => {
+      const screen = render(
         <>
           <Reset />
           {element}
@@ -64,15 +64,15 @@ describe('Reset', () => {
       );
 
       const testElement = screen.getByTestId('test-element');
-      expect(testElement).toBeInTheDocument();
-      expect(testElement).toHaveStyle(resetStyles);
+      await expect.element(testElement).toBeInTheDocument();
+      await expect.element(testElement).toHaveStyle(resetStyles);
     });
 
     it.each([
       ['unordered list', 'ul'],
       ['ordered list', 'ol'],
-    ])('applies reset styles to %s', (_, type) => {
-      render(
+    ])('applies reset styles to %s', async (_, type) => {
+      const screen = render(
         <>
           <Reset />
           {React.createElement(type, { 'data-testid': 'list' }, <li>Test Item</li>)}
@@ -80,7 +80,7 @@ describe('Reset', () => {
       );
 
       const list = screen.getByTestId('list');
-      expect(list).toHaveStyle({ listStyle: 'none' });
+      await expect.element(list).toHaveStyle({ listStyle: 'none' });
     });
 
     it.each([
@@ -88,8 +88,8 @@ describe('Reset', () => {
       ['svg', 'svg'],
       ['video', 'video'],
       ['canvas', 'canvas'],
-    ])('applies reset styles to %s element', (elementType, testId) => {
-      render(
+    ])('applies reset styles to %s element', async (elementType, testId) => {
+      const screen = render(
         <>
           <Reset />
           {React.createElement(elementType, {
@@ -101,7 +101,7 @@ describe('Reset', () => {
       );
 
       const element = screen.getByTestId(testId);
-      expect(element).toHaveStyle({
+      await expect.element(element).toHaveStyle({
         display: 'block',
         maxWidth: '100%',
       });
@@ -109,8 +109,8 @@ describe('Reset', () => {
 
     it.each(['article', 'section', 'nav', 'aside', 'header', 'footer', 'main'])(
       'applies reset styles to %s element',
-      (elementType) => {
-        render(
+      async (elementType) => {
+        const screen = render(
           <>
             <Reset />
             {React.createElement(
@@ -124,7 +124,7 @@ describe('Reset', () => {
         );
 
         const element = screen.getByTestId('semantic-element');
-        expect(element).toHaveStyle({ display: 'block' });
+        await expect.element(element).toHaveStyle({ display: 'block' });
       },
     );
   });

@@ -1,12 +1,12 @@
 import { faker } from '@faker-js/faker';
-import { render, screen } from '@testing-library/react';
 import { type CSSProperties, createElement } from 'react';
 import { describe, expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
 import { Flex } from './Flex';
 
 describe('Flex', () => {
-  it('flex 컴포넌트는 props를 전달하지 않으면 flex의 기본값으로 설정된다.', () => {
-    render(
+  it('flex 컴포넌트는 props를 전달하지 않으면 flex의 기본값으로 설정된다.', async () => {
+    const screen = render(
       <Flex data-testid="flex-container">
         <div>item 1</div>
         <div>item 2</div>
@@ -14,8 +14,8 @@ describe('Flex', () => {
     );
 
     const flexContainer = screen.getByTestId('flex-container');
-    expect(flexContainer).toBeInTheDocument();
-    expect(flexContainer).toHaveStyle({
+    await expect.element(flexContainer).toBeInTheDocument();
+    await expect.element(flexContainer).toHaveStyle({
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'normal',
@@ -24,10 +24,10 @@ describe('Flex', () => {
     });
   });
 
-  it('flex 컴포넌트에 className을 주입하면 추가로 전달한다.', () => {
+  it('flex 컴포넌트에 className을 주입하면 추가로 전달한다.', async () => {
     const customClassName = faker.word.noun();
-    render(<Flex data-testid="flex-container" className={customClassName} />);
-    expect(screen.getByTestId('flex-container')).toHaveClass(customClassName);
+    const screen = render(<Flex data-testid="flex-container" className={customClassName} />);
+    await expect.element(screen.getByTestId('flex-container')).toHaveClass(customClassName);
   });
 
   describe('flex 속성', () => {
@@ -41,8 +41,8 @@ describe('Flex', () => {
         { justifyContent: 'space-evenly' },
       ] satisfies Array<{ justifyContent: CSSProperties['justifyContent'] }>)(
         'flex의 justify prop에 $justifyContent 속성을 주입하면 해당 속성을 적용한다.',
-        ({ justifyContent }) => {
-          render(
+        async ({ justifyContent }) => {
+          const screen = render(
             <Flex data-testid="flex-container" justify={justifyContent}>
               <div>item 1</div>
               <div>item 2</div>
@@ -50,7 +50,7 @@ describe('Flex', () => {
           );
 
           const flexContainer = screen.getByTestId('flex-container');
-          expect(flexContainer).toHaveStyle({ justifyContent });
+          await expect.element(flexContainer).toHaveStyle({ justifyContent });
         },
       );
     });
@@ -64,8 +64,8 @@ describe('Flex', () => {
         { alignItems: 'stretch' },
       ] satisfies Array<{ alignItems: CSSProperties['alignItems'] }>)(
         'flex의 align prop에 $alignItems 속성을 주입하면 해당 속성을 적용한다.',
-        ({ alignItems }) => {
-          render(
+        async ({ alignItems }) => {
+          const screen = render(
             <Flex data-testid="flex-container" align={alignItems}>
               <div>item 1</div>
               <div>item 2</div>
@@ -73,7 +73,7 @@ describe('Flex', () => {
           );
 
           const flexContainer = screen.getByTestId('flex-container');
-          expect(flexContainer).toHaveStyle({ alignItems });
+          await expect.element(flexContainer).toHaveStyle({ alignItems });
         },
       );
     });
@@ -81,8 +81,8 @@ describe('Flex', () => {
     describe('wrap', () => {
       it.each([{ wrap: 'wrap' }, { wrap: 'nowrap' }, { wrap: 'wrap-reverse' }] satisfies Array<{
         wrap: CSSProperties['flexWrap'];
-      }>)('flex의 wrap prop에 $wrap 속성을 주입하면 해당 속성을 적용한다.', ({ wrap }) => {
-        render(
+      }>)('flex의 wrap prop에 $wrap 속성을 주입하면 해당 속성을 적용한다.', async ({ wrap }) => {
+        const screen = render(
           <Flex data-testid="flex-container" wrap={wrap}>
             <div>item 1</div>
             <div>item 2</div>
@@ -90,7 +90,7 @@ describe('Flex', () => {
         );
 
         const flexContainer = screen.getByTestId('flex-container');
-        expect(flexContainer).toHaveStyle({ flexWrap: wrap });
+        await expect.element(flexContainer).toHaveStyle({ flexWrap: wrap });
       });
     });
 
@@ -103,8 +103,8 @@ describe('Flex', () => {
         { direction: 'column-reverse' },
       ] satisfies Array<{ direction: CSSProperties['flexDirection'] }>)(
         'flex의 direction prop에 $direction 속성을 주입하면 해당 속성을 적용한다.',
-        ({ direction }) => {
-          render(
+        async ({ direction }) => {
+          const screen = render(
             <Flex data-testid="flex-container" direction={direction}>
               <div>item 1</div>
               <div>item 2</div>
@@ -112,7 +112,7 @@ describe('Flex', () => {
           );
 
           const flexContainer = screen.getByTestId('flex-container');
-          expect(flexContainer).toHaveStyle({ flexDirection: direction });
+          await expect.element(flexContainer).toHaveStyle({ flexDirection: direction });
         },
       );
 
@@ -125,8 +125,8 @@ describe('Flex', () => {
           { basis: 'content' },
         ] satisfies Array<{
           basis: CSSProperties['flexBasis'];
-        }>)('flex의 basis prop에 $basis 속성을 주입하면 해당 속성을 적용한다.', ({ basis }) => {
-          render(
+        }>)('flex의 basis prop에 $basis 속성을 주입하면 해당 속성을 적용한다.', async ({ basis }) => {
+          const screen = render(
             <Flex data-testid="flex-container" basis={basis}>
               <div>item 1</div>
               <div>item 2</div>
@@ -134,15 +134,15 @@ describe('Flex', () => {
           );
 
           const flexContainer = screen.getByTestId('flex-container');
-          expect(flexContainer).toHaveStyle({ flexBasis: basis });
+          await expect.element(flexContainer).toHaveStyle({ flexBasis: basis });
         });
       });
 
       describe('grow', () => {
         it.each([{ grow: 0 }, { grow: 1 }, { grow: 2 }] satisfies Array<{
           grow: CSSProperties['flexGrow'];
-        }>)('flex의 grow prop에 $grow 속성을 주입하면 해당 속성을 적용한다.', ({ grow }) => {
-          render(
+        }>)('flex의 grow prop에 $grow 속성을 주입하면 해당 속성을 적용한다.', async ({ grow }) => {
+          const screen = render(
             <Flex data-testid="flex-container" grow={grow}>
               <div>item 1</div>
               <div>item 2</div>
@@ -150,15 +150,15 @@ describe('Flex', () => {
           );
 
           const flexContainer = screen.getByTestId('flex-container');
-          expect(flexContainer).toHaveStyle({ flexGrow: grow });
+          await expect.element(flexContainer).toHaveStyle({ flexGrow: grow });
         });
       });
 
       describe('shrink', () => {
         it.each([{ shrink: 0 }, { shrink: 1 }, { shrink: 2 }] satisfies Array<{
           shrink: CSSProperties['flexShrink'];
-        }>)('flex의 shrink prop에 $shrink 속성을 주입하면 해당 속성을 적용한다.', ({ shrink }) => {
-          render(
+        }>)('flex의 shrink prop에 $shrink 속성을 주입하면 해당 속성을 적용한다.', async ({ shrink }) => {
+          const screen = render(
             <Flex data-testid="flex-container" shrink={shrink}>
               <div>item 1</div>
               <div>item 2</div>
@@ -166,13 +166,13 @@ describe('Flex', () => {
           );
 
           const flexContainer = screen.getByTestId('flex-container');
-          expect(flexContainer).toHaveStyle({ flexShrink: shrink });
+          await expect.element(flexContainer).toHaveStyle({ flexShrink: shrink });
         });
       });
 
       describe('inline', () => {
-        it('flex의 inline prop에 true 속성을 주입하면 해당 속성을 적용한다.', () => {
-          render(
+        it('flex의 inline prop에 true 속성을 주입하면 해당 속성을 적용한다.', async () => {
+          const screen = render(
             <Flex data-testid="flex-container" inline>
               <div>item 1</div>
               <div>item 2</div>
@@ -180,15 +180,15 @@ describe('Flex', () => {
           );
 
           const flexContainer = screen.getByTestId('flex-container');
-          expect(flexContainer).toHaveStyle({ display: 'inline-flex' });
+          await expect.element(flexContainer).toHaveStyle({ display: 'inline-flex' });
         });
       });
 
       describe('gap', () => {
         it.each([{ gap: '10px' }, { gap: '1rem' }] satisfies Array<{
           gap: CSSProperties['gap'];
-        }>)('flex의 gap prop에 $gap 속성을 주입하면 해당 속성을 적용한다.', ({ gap }) => {
-          render(
+        }>)('flex의 gap prop에 $gap 속성을 주입하면 해당 속성을 적용한다.', async ({ gap }) => {
+          const screen = render(
             <Flex data-testid="flex-container" gap={gap}>
               <div>item 1</div>
               <div>item 2</div>
@@ -196,7 +196,7 @@ describe('Flex', () => {
           );
 
           const flexContainer = screen.getByTestId('flex-container');
-          expect(flexContainer).toHaveStyle({ gap });
+          await expect.element(flexContainer).toHaveStyle({ gap });
         });
       });
     });
@@ -210,8 +210,8 @@ describe('Flex', () => {
       { style: { flexDirection: 'column' } },
     ] satisfies Array<{ style: CSSProperties }>)(
       'flex의 style prop에 $style 속성을 주입하면 해당 속성을 적용한다.',
-      ({ style }) => {
-        render(
+      async ({ style }) => {
+        const screen = render(
           <Flex data-testid="flex-container" style={style}>
             <div>item 1</div>
             <div>item 2</div>
@@ -219,7 +219,7 @@ describe('Flex', () => {
         );
 
         const flexContainer = screen.getByTestId('flex-container');
-        expect(flexContainer).toHaveStyle(style);
+        await expect.element(flexContainer).toHaveStyle(style);
       },
     );
   });
@@ -227,16 +227,17 @@ describe('Flex', () => {
   describe('polymorphic', () => {
     it.each(['span', 'nav', 'button', 'input', 'label', 'div'])(
       'flex의 asChild prop에 true 속성을 주입하면 자식으로 %s 엘리먼트가 전달되면 해당 엘리먼트의 태그로 렌더링된다',
-      (element) => {
-        render(
+      async (element) => {
+        const screen = render(
           <Flex data-testid="flex-container" asChild>
             {createElement(element)}
           </Flex>,
         );
 
         const flexContainer = screen.getByTestId('flex-container');
-        expect(flexContainer).toBeInTheDocument();
-        expect(flexContainer.tagName.toLowerCase()).toBe(element);
+
+        await expect.element(flexContainer).toBeInTheDocument();
+        expect(flexContainer.selector.toLowerCase()).toBe(element);
       },
     );
   });

@@ -5,8 +5,6 @@ export default defineConfig({
   plugins: [vanillaExtractPlugin()],
   test: {
     css: true,
-    environment: 'happy-dom',
-    globals: true,
     passWithNoTests: true,
     watch: false,
     coverage: {

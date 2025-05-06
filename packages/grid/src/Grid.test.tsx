@@ -1,12 +1,12 @@
 import { faker } from '@faker-js/faker';
-import { render, screen } from '@testing-library/react';
 import { createElement } from 'react';
 import { describe, expect, it } from 'vitest';
+import { render } from 'vitest-browser-react';
 import * as Grid from './Grid';
 
 describe('Grid', () => {
-  it('should have display grid property by default', () => {
-    render(
+  it('should have display grid property by default', async () => {
+    const screen = render(
       <Grid.Root data-testid="grid-container">
         <div>item 1</div>
         <div>item 2</div>
@@ -14,14 +14,14 @@ describe('Grid', () => {
     );
 
     const gridContainer = screen.getByTestId('grid-container');
-    expect(gridContainer).toBeInTheDocument();
-    expect(gridContainer).toHaveStyle({ display: 'grid' });
+    await expect.element(gridContainer).toBeInTheDocument();
+    await expect.element(gridContainer).toHaveStyle({ display: 'grid' });
   });
 
-  it('should apply additional className when provided', () => {
+  it('should apply additional className when provided', async () => {
     const customClassName = faker.word.noun();
-    render(<Grid.Root data-testid="grid-container" className={customClassName} />);
-    expect(screen.getByTestId('grid-container')).toHaveClass(customClassName);
+    const screen = render(<Grid.Root data-testid="grid-container" className={customClassName} />);
+    await expect.element(screen.getByTestId('grid-container')).toHaveClass(customClassName);
   });
 
   describe('Grid Root Properties', () => {
@@ -57,15 +57,15 @@ describe('Grid', () => {
       describe(prop, () => {
         it.each(values.map((value) => ({ [prop]: value })))(
           `should apply ${style} when ${prop} prop is $${prop}`,
-          (propValue) => {
-            render(
+          async (propValue) => {
+            const screen = render(
               <Grid.Root data-testid="grid-container" {...propValue}>
                 <Grid.Item>item 1</Grid.Item>
               </Grid.Root>,
             );
 
             const gridContainer = screen.getByTestId('grid-container');
-            expect(gridContainer).toHaveStyle({ [style]: propValue[prop] });
+            await expect.element(gridContainer).toHaveStyle({ [style]: propValue[prop] });
           },
         );
       });
@@ -144,8 +144,8 @@ describe('Grid', () => {
             [prop]: value,
             expectedValue: expectedValues?.[index] ?? value,
           })),
-        )(`should apply ${style} when ${prop} prop is $${prop}`, ({ [prop]: value, expectedValue }) => {
-          render(
+        )(`should apply ${style} when ${prop} prop is $${prop}`, async ({ [prop]: value, expectedValue }) => {
+          const screen = render(
             <Grid.Root>
               <Grid.Item data-testid="grid-item" {...{ [prop]: value }}>
                 item 1
@@ -154,33 +154,33 @@ describe('Grid', () => {
           );
 
           const gridItem = screen.getByTestId('grid-item');
-          expect(gridItem).toHaveStyle({ [style]: expectedValue });
+          await expect.element(gridItem).toHaveStyle({ [style]: expectedValue });
         });
       });
     }
   });
 
   describe('style overrides', () => {
-    it('should allow style prop to override default styles', () => {
+    it('should allow style prop to override default styles', async () => {
       const customStyle = {
         backgroundColor: 'red',
         padding: '20px',
       };
 
-      render(
+      const screen = render(
         <Grid.Root data-testid="grid-container" style={customStyle}>
           <Grid.Item>item 1</Grid.Item>
         </Grid.Root>,
       );
 
       const gridContainer = screen.getByTestId('grid-container');
-      expect(gridContainer).toHaveStyle(customStyle);
+      await expect.element(gridContainer).toHaveStyle(customStyle);
     });
   });
 
   describe('nested Grid components', () => {
-    it('should render nested Grid components correctly', () => {
-      render(
+    it('should render nested Grid components correctly', async () => {
+      const screen = render(
         <Grid.Root data-testid="parent-grid" templateColumns="1fr 1fr">
           <Grid.Item>
             <Grid.Root data-testid="child-grid" templateRows="1fr 1fr">
@@ -194,24 +194,24 @@ describe('Grid', () => {
       const parentGrid = screen.getByTestId('parent-grid');
       const childGrid = screen.getByTestId('child-grid');
 
-      expect(parentGrid).toHaveStyle({ '--grid-template-columns': '1fr 1fr' });
-      expect(childGrid).toHaveStyle({ '--grid-template-rows': '1fr 1fr' });
+      await expect.element(parentGrid).toHaveStyle({ '--grid-template-columns': '1fr 1fr' });
+      await expect.element(childGrid).toHaveStyle({ '--grid-template-rows': '1fr 1fr' });
     });
   });
 
   describe('polymorphic behavior', () => {
     it.each(['span', 'nav', 'button', 'input', 'label', 'div'])(
       'should render as %s element when asChild is true',
-      (element) => {
-        render(
+      async (element) => {
+        const screen = render(
           <Grid.Root data-testid="grid-container" asChild>
             {createElement(element)}
           </Grid.Root>,
         );
 
         const gridContainer = screen.getByTestId('grid-container');
-        expect(gridContainer).toBeInTheDocument();
-        expect(gridContainer.tagName.toLowerCase()).toBe(element);
+        await expect.element(gridContainer).toBeInTheDocument();
+        expect(gridContainer.selector.toLowerCase()).toBe(element);
       },
     );
   });
