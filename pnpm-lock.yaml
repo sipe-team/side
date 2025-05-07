@@ -412,12 +412,6 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.0
         version: 1.1.0(@types/react@18.3.13)(react@18.3.1)
-      '@sipe-team/theme':
-        specifier: workspace:*
-        version: link:../theme
-      '@sipe-team/tokens':
-        specifier: workspace:*
-        version: link:../tokens
       '@sipe-team/typography':
         specifier: workspace:*
         version: link:../typography

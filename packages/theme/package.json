@@ -8,7 +8,9 @@
     "url": "https://github.com/sipe-team/side"
   },
   "type": "module",
-  "exports": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "files": ["dist"],
   "scripts": {
     "build": "tsup",

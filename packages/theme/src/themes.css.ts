@@ -1,8 +1,19 @@
 import { createGlobalTheme } from '@vanilla-extract/css';
-import { themeContract, themeLayer } from './contract.css';
-import { color } from '../../tokens/src/colors';
-import { spacing } from '../../tokens/src/spacing';
-import { fontSize, fontWeight, lineHeight } from '../../tokens/src/fonts';
+import { vars, themeLayer } from './themeContract.css';
+import {
+  color,
+  spacing,
+  fontSize,
+  fontWeight,
+  lineHeight,
+  radius,
+  borderStyle,
+  borderWidth,
+  grid,
+  opacity,
+  shadows,
+  zIndex,
+} from '@sipe-team/tokens';
 
 const baseTheme = {
   '@layer': themeLayer,
@@ -30,9 +41,82 @@ const baseTheme = {
       bold: `${fontWeight.bold}`,
     },
   },
+  radius: {
+    none: `${radius.none}px`,
+    sm: `${radius.sm}px`,
+    md: `${radius.md}px`,
+    lg: `${radius.lg}px`,
+    xl: `${radius.xl}px`,
+    full: `${radius.full}px`,
+  },
+  border: {
+    width: {
+      none: `${borderWidth.none}px`,
+      thin: `${borderWidth.thin}px`,
+      medium: `${borderWidth.medium}px`,
+      thick: `${borderWidth.thick}px`,
+    },
+    style: {
+      solid: `${borderStyle.solid}`,
+      dashed: `${borderStyle.dashed}`,
+      dotted: `${borderStyle.dotted}`,
+    },
+  },
+  opacity: {
+    0: `${opacity[0]}`,
+    5: `${opacity[5]}`,
+    10: `${opacity[10]}`,
+    20: `${opacity[20]}`,
+    25: `${opacity[25]}`,
+    30: `${opacity[30]}`,
+    40: `${opacity[40]}`,
+    50: `${opacity[50]}`,
+    60: `${opacity[60]}`,
+    70: `${opacity[70]}`,
+    75: `${opacity[75]}`,
+    80: `${opacity[80]}`,
+    90: `${opacity[90]}`,
+    95: `${opacity[95]}`,
+    100: `${opacity[100]}`,
+  },
+  zIndex: {
+    hide: `${zIndex.hide}`,
+    base: `${zIndex.base}`,
+    dropdown: `${zIndex.dropdown}`,
+    sticky: `${zIndex.sticky}`,
+    fixed: `${zIndex.fixed}`,
+    overlay: `${zIndex.overlay}`,
+    modal: `${zIndex.modal}`,
+    popover: `${zIndex.popover}`,
+    toast: `${zIndex.toast}`,
+    tooltip: `${zIndex.tooltip}`,
+  },
+  shadows: {
+    none: `${shadows.none}`,
+    sm: `${shadows.sm}`,
+    md: `${shadows.md}`,
+    lg: `${shadows.lg}`,
+    xl: `${shadows.xl}`,
+    '2xl': `${shadows['2xl']}`,
+  },
+  grid: {
+    columns: `${grid.columns}`,
+    gutter: {
+      sm: `${grid.gutter.sm}px`,
+      md: `${grid.gutter.md}px`,
+      lg: `${grid.gutter.lg}px`,
+    },
+    container: {
+      sm: `${grid.container.sm}px`,
+      md: `${grid.container.md}px`,
+      lg: `${grid.container.lg}px`,
+      xl: `${grid.container.xl}px`,
+      xxl: `${grid.container.xxl}px`,
+    },
+  },
 };
 
-export const lightTheme = createGlobalTheme(':root', themeContract, {
+export const lightTheme = createGlobalTheme(':root', vars, {
   ...baseTheme,
   color: {
     primary: color.cyan300,
@@ -42,15 +126,10 @@ export const lightTheme = createGlobalTheme(':root', themeContract, {
     black: color.black,
     white: color.white,
   },
-  state: {
-    hover: color.gray800,
-    focus: color.cyan500,
-    active: color.cyan600,
-  },
   mode: 'light',
 });
 
-export const darkTheme = createGlobalTheme('[data-theme="dark"]', themeContract, {
+export const darkTheme = createGlobalTheme('[data-theme="dark"]', vars, {
   ...baseTheme,
   color: {
     primary: color.cyan300,
@@ -59,11 +138,6 @@ export const darkTheme = createGlobalTheme('[data-theme="dark"]', themeContract,
     border: color.gray700,
     black: color.black,
     white: color.white,
-  },
-  state: {
-    hover: color.cyan200,
-    focus: color.cyan500,
-    active: color.cyan600,
   },
   mode: 'dark',
 });

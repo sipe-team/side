@@ -1,2 +1,3 @@
 export { ThemeProvider, useTheme, theme } from './ThemeProvider';
-export { themeContract, themeLayer } from './contract.css';
+export { vars, themeLayer } from './themeContract.css';
+export * from './utils/index';

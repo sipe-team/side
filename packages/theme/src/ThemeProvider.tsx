@@ -2,7 +2,7 @@ import type React from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
 import './themes.css.ts';
 
-import { themeContract } from './contract.css';
+import { vars } from './themeContract.css';
 
 type ThemeMode = 'light' | 'dark';
 
@@ -48,4 +48,4 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, defaultM
   return <ThemeContext.Provider value={{ mode, setMode, toggleMode }}>{children}</ThemeContext.Provider>;
 };
 
-export const theme = themeContract;
+export const theme = vars;
