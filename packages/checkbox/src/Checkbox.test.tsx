@@ -20,17 +20,17 @@ describe('Checkbox', () => {
     expect(checkbox.checked).toBe(true);
   });
 
-  test('should call onCheckChange when label is clicked', () => {
+  test('should call onCheckedChange when label is clicked', () => {
     const handleChange = vi.fn();
-    render(<RenderBasicCheckbox onCheckChange={handleChange} />);
+    render(<RenderBasicCheckbox onCheckedChange={handleChange} />);
     const label = screen.getByText('Test Checkbox');
     fireEvent.click(label);
     expect(handleChange).toHaveBeenCalledWith(true);
   });
 
-  test('should call onCheckChange when checkbox is clicked', () => {
+  test('should call onCheckedChange when checkbox is clicked', () => {
     const handleChange = vi.fn();
-    render(<RenderBasicCheckbox onCheckChange={handleChange} />);
+    render(<RenderBasicCheckbox onCheckedChange={handleChange} />);
     const checkbox = screen.getByLabelText('Test Checkbox') as HTMLInputElement;
     fireEvent.click(checkbox);
     expect(handleChange).toHaveBeenCalledWith(true);
@@ -127,9 +127,9 @@ describe('Checkbox Styling', () => {
 });
 
 describe('Checkbox Event Handling', () => {
-  test('should call onCheckChange when checkbox is clicked', () => {
+  test('should call onCheckedChange when checkbox is clicked', () => {
     const handleChange = vi.fn();
-    render(<RenderBasicCheckbox onCheckChange={handleChange} />);
+    render(<RenderBasicCheckbox onCheckedChange={handleChange} />);
 
     const checkbox = screen.getByLabelText('Test Checkbox') as HTMLInputElement;
     fireEvent.click(checkbox);
@@ -216,7 +216,7 @@ describe('Checkbox Label Connection', () => {
   test('should check checkbox when clicking associated label', () => {
     const handleChange = vi.fn();
 
-    render(<RenderBasicCheckbox onCheckChange={handleChange} />);
+    render(<RenderBasicCheckbox onCheckedChange={handleChange} />);
 
     const label = screen.getByText('Test Checkbox');
     fireEvent.click(label);
@@ -227,7 +227,7 @@ describe('Checkbox Label Connection', () => {
   test('should automatically connect label and input with generated ID', () => {
     const handleChange = vi.fn();
 
-    render(<RenderBasicCheckbox onCheckChange={handleChange} />);
+    render(<RenderBasicCheckbox onCheckedChange={handleChange} />);
 
     const label = screen.getByText('Test Checkbox');
     fireEvent.click(label);

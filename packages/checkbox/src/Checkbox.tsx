@@ -20,11 +20,12 @@ export const CheckboxSize = {
 } as const;
 export type CheckboxSize = (typeof CheckboxSize)[keyof typeof CheckboxSize];
 
-type CheckBoxRootBaseProps = Partial<Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>>;
-interface CheckboxContextValue extends CheckBoxRootBaseProps {
-  size: CheckboxSize;
-  onCheckChange?: (checked: boolean) => void;
+type CheckBoxRootBaseProps = Partial<Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>> & {
+  size?: CheckboxSize;
+  onCheckedChange?: (checked: boolean) => void;
   indeterminate?: boolean;
+};
+interface CheckboxContextValue extends CheckBoxRootBaseProps {
   ref?: Ref<HTMLInputElement> | undefined;
 }
 
@@ -39,9 +40,6 @@ const useCheckbox = () => {
 };
 
 export interface CheckboxRootProps extends CheckBoxRootBaseProps {
-  size?: CheckboxSize;
-  onCheckChange?: (checked: boolean) => void;
-  indeterminate?: boolean;
   children?: ReactNode;
 }
 
@@ -51,7 +49,7 @@ const Root = forwardRef<HTMLInputElement, CheckboxRootProps>(
       className = '',
       size = CheckboxSize.medium,
       indeterminate = false,
-      onCheckChange,
+      onCheckedChange,
       children,
       style,
       checked,
@@ -60,12 +58,12 @@ const Root = forwardRef<HTMLInputElement, CheckboxRootProps>(
     ref,
   ) => {
     const internalId = useId();
-    const id = props.id || internalId;
+    const id = props.id ?? internalId;
 
     const [checkedState, setCheckedState] = useControllableState<boolean | undefined>({
       prop: checked,
       defaultProp: props.defaultChecked || false,
-      onChange: onCheckChange || (() => {}),
+      onChange: onCheckedChange || (() => {}),
     });
 
     const contextValue: CheckboxContextValue = {
@@ -74,7 +72,7 @@ const Root = forwardRef<HTMLInputElement, CheckboxRootProps>(
       ref,
       id,
       size,
-      onCheckChange: setCheckedState,
+      onCheckedChange: setCheckedState,
       checked: checkedState === undefined ? false : checkedState,
     };
 
@@ -86,7 +84,7 @@ const Root = forwardRef<HTMLInputElement, CheckboxRootProps>(
   },
 );
 
-type CheckboxInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'checked'>;
+type CheckboxInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'checked' | 'id'>;
 
 const Input = forwardRef<HTMLInputElement, CheckboxInputProps>(
   ({ onChange, value, name, className, ...props }, ref) => {
@@ -96,7 +94,7 @@ const Input = forwardRef<HTMLInputElement, CheckboxInputProps>(
       disabled,
       size,
       onChange: contextOnChange,
-      onCheckChange,
+      onCheckedChange,
       name: contextName,
       value: contextValue,
       indeterminate,
@@ -114,7 +112,7 @@ const Input = forwardRef<HTMLInputElement, CheckboxInputProps>(
           contextOnChange(e);
         }
 
-        onCheckChange?.(e.target.checked);
+        onCheckedChange?.(e.target.checked);
       } catch (error) {
         console.error('Checkbox onChange error', error);
       }
