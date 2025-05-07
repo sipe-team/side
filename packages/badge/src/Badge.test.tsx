@@ -39,7 +39,7 @@ test('variant가 weak인 경우 배경색 gray200로 형태를 적용한다.', (
   render(<Badge variant="weak">테스트</Badge>);
 
   expect(screen.getByRole('status')).toHaveStyle({
-    backgroundColor: '#e4e4e7',
+    backgroundColor: colorToken.gray200,
   });
 });
 
