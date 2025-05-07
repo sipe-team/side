@@ -6,7 +6,6 @@ import {
   useId,
   type ChangeEventHandler,
   type ComponentProps,
-  type ReactNode,
   type Ref,
 } from 'react';
 import { container, input, label } from './Checkbox.css';
@@ -38,11 +37,7 @@ const useCheckbox = () => {
   return context;
 };
 
-export interface CheckboxRootProps extends CheckBoxRootBaseProps {
-  children?: ReactNode;
-}
-
-const Root = forwardRef<HTMLInputElement, CheckboxRootProps>(
+const Root = forwardRef<HTMLInputElement, CheckBoxRootBaseProps>(
   (
     {
       className = '',
