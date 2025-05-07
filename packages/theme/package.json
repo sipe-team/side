@@ -1,0 +1,54 @@
+{
+  "name": "@sipe-team/theme",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "Sipe Design System Theme Provider",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sipe-team/side"
+  },
+  "type": "module",
+  "exports": "./src/index.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "build:storybook": "storybook build",
+    "dev:storybook": "storybook dev -p 6006",
+    "lint:biome": "pnpm exec biome lint",
+    "lint:eslint": "pnpm exec eslint",
+    "typecheck": "tsc",
+    "prepack": "pnpm run build"
+  },
+  "devDependencies": {
+    "@vanilla-extract/css": "^1.14.1",
+    "@storybook/addon-essentials": "catalog:",
+    "@storybook/react": "catalog:",
+    "@storybook/react-vite": "catalog:",
+    "@types/react": "^18.3.12",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "storybook": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:"
+  },
+  "dependencies": {
+    "@sipe-team/tokens": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com",
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.js"
+        },
+        "require": {
+          "types": "./dist/index.d.cts",
+          "default": "./dist/index.cjs"
+        }
+      }
+    }
+  },
+  "sideEffects": false
+}
