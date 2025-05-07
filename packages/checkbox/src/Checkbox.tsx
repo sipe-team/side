@@ -5,8 +5,7 @@ import {
   useContext,
   useId,
   type ChangeEventHandler,
-  type InputHTMLAttributes,
-  type LabelHTMLAttributes,
+  type ComponentProps,
   type ReactNode,
   type Ref,
 } from 'react';
@@ -20,7 +19,7 @@ export const CheckboxSize = {
 } as const;
 export type CheckboxSize = (typeof CheckboxSize)[keyof typeof CheckboxSize];
 
-type CheckBoxRootBaseProps = Partial<Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>> & {
+type CheckBoxRootBaseProps = Partial<Omit<ComponentProps<'input'>, 'size'>> & {
   size?: CheckboxSize;
   onCheckedChange?: (checked: boolean) => void;
   indeterminate?: boolean;
@@ -84,7 +83,7 @@ const Root = forwardRef<HTMLInputElement, CheckboxRootProps>(
   },
 );
 
-type CheckboxInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'checked' | 'id'>;
+type CheckboxInputProps = Omit<ComponentProps<'input'>, 'size' | 'checked' | 'id'>;
 
 const Input = forwardRef<HTMLInputElement, CheckboxInputProps>(
   ({ onChange, value, name, className, ...props }, ref) => {
@@ -137,11 +136,7 @@ const Input = forwardRef<HTMLInputElement, CheckboxInputProps>(
   },
 );
 
-interface CheckboxLabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
-  children: ReactNode;
-}
-
-const Label = forwardRef<HTMLLabelElement, CheckboxLabelProps>(({ children, className, ...props }, ref) => {
+const Label = forwardRef<HTMLLabelElement, ComponentProps<'label'>>(({ children, className, ...props }, ref) => {
   const { id, disabled, size } = useCheckbox();
 
   return (
