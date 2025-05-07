@@ -6,9 +6,10 @@ import { Reset } from './Reset';
 describe('Reset', () => {
   it('renders children correctly', () => {
     render(
-      <Reset>
+      <>
+        <Reset />
         <div>Test Content</div>
-      </Reset>,
+      </>,
     );
 
     expect(screen.getByText('Test Content')).toBeInTheDocument();
@@ -16,7 +17,12 @@ describe('Reset', () => {
 
   it('applies className along with default reset class', () => {
     const customClassName = 'custom-class';
-    render(<Reset className={customClassName}>Content</Reset>);
+    render(
+      <>
+        <Reset />
+        <div className={customClassName}>Content</div>
+      </>,
+    );
 
     const element = screen.getByText('Content');
     expect(element).toHaveClass(customClassName);
@@ -50,7 +56,12 @@ describe('Reset', () => {
     };
 
     it.each(formElements)('applies reset styles to %s element', (_, element) => {
-      render(<Reset>{element}</Reset>);
+      render(
+        <>
+          <Reset />
+          {element}
+        </>,
+      );
 
       const testElement = screen.getByTestId('test-element');
       expect(testElement).toBeInTheDocument();
@@ -61,7 +72,12 @@ describe('Reset', () => {
       ['unordered list', 'ul'],
       ['ordered list', 'ol'],
     ])('applies reset styles to %s', (_, type) => {
-      render(<Reset>{React.createElement(type, { 'data-testid': 'list' }, <li>Test Item</li>)}</Reset>);
+      render(
+        <>
+          <Reset />
+          {React.createElement(type, { 'data-testid': 'list' }, <li>Test Item</li>)}
+        </>,
+      );
 
       const list = screen.getByTestId('list');
       expect(list).toHaveStyle({ listStyle: 'none' });
@@ -74,13 +90,14 @@ describe('Reset', () => {
       ['canvas', 'canvas'],
     ])('applies reset styles to %s element', (elementType, testId) => {
       render(
-        <Reset>
+        <>
+          <Reset />
           {React.createElement(elementType, {
             'data-testid': testId,
             src: elementType === 'img' ? 'test.jpg' : undefined,
             alt: elementType === 'img' ? 'test' : undefined,
           })}
-        </Reset>,
+        </>,
       );
 
       const element = screen.getByTestId(testId);
@@ -94,7 +111,8 @@ describe('Reset', () => {
       'applies reset styles to %s element',
       (elementType) => {
         render(
-          <Reset>
+          <>
+            <Reset />
             {React.createElement(
               elementType,
               {
@@ -102,7 +120,7 @@ describe('Reset', () => {
               },
               'Content',
             )}
-          </Reset>,
+          </>,
         );
 
         const element = screen.getByTestId('semantic-element');
