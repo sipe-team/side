@@ -82,7 +82,7 @@ export const Controlled: Story = {
 
     return (
       <div>
-        <Checkbox.Root checked={checked} onCheckChange={setChecked}>
+        <Checkbox.Root checked={checked} onCheckedChange={setChecked}>
           <Checkbox.Input />
           <Checkbox.Label>Controlled checkbox</Checkbox.Label>
         </Checkbox.Root>
@@ -129,7 +129,7 @@ export const Indeterminate: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <Checkbox.Root checked={allChecked} indeterminate={indeterminate} onCheckChange={setAllChecked}>
+        <Checkbox.Root checked={allChecked} indeterminate={indeterminate} onCheckedChange={setAllChecked}>
           <Checkbox.Input />
           <Checkbox.Label>Select all options</Checkbox.Label>
         </Checkbox.Root>
@@ -139,7 +139,7 @@ export const Indeterminate: Story = {
             <Checkbox.Root
               key={`${item}-newDate`}
               checked={item}
-              onCheckChange={(checked) => updateCheckedItems(index, checked)}
+              onCheckedChange={(checked) => updateCheckedItems(index, checked)}
             >
               <Checkbox.Input />
               <Checkbox.Label>{`Option ${index + 1}`}</Checkbox.Label>

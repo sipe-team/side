@@ -18,7 +18,7 @@ export const CheckboxSize = {
 } as const;
 export type CheckboxSize = (typeof CheckboxSize)[keyof typeof CheckboxSize];
 
-type CheckBoxRootBaseProps = Partial<Omit<ComponentProps<'input'>, 'size'>> & {
+export type CheckBoxRootBaseProps = Partial<Omit<ComponentProps<'input'>, 'size'>> & {
   size?: CheckboxSize;
   onCheckedChange?: (checked: boolean) => void;
   indeterminate?: boolean;
