@@ -5,7 +5,7 @@ A type-safe theme system built with vanilla-extract for runtime theme switching 
 ## Features
 
 - 🌓 Light and dark mode support 
-- 🎨 CSS variables for colors, typography, spacing and interactive states
+- 🎨 CSS variables for colors, typography, spacing, and more design tokens
 - 🧩 ThemeProvider component with React Context for theme management
 - 🔄 Simple theme toggling and control API
 - 🔒 Type-safe styling with vanilla-extract
@@ -44,23 +44,24 @@ Use the theme contract in your vanilla-extract styles:
 
 ```tsx
 import { style } from '@vanilla-extract/css';
-import { theme } from '@sipe-team/theme';
+import { vars } from '@sipe-team/theme';
 
 export const button = style({
-  backgroundColor: theme.color.primary,
-  color: theme.color.text,
-  border: `1px solid ${theme.color.border}`,
-  padding: `${theme.spacing.sm} ${theme.spacing.md}`,
-  borderRadius: '4px',
-  fontFamily: theme.typography.fontFamily,
-  fontSize: theme.typography.fontSize.medium,
-  fontWeight: theme.typography.fontWeight.medium,
+  backgroundColor: vars.color.primary,
+  color: vars.color.text,
+  border: `1px solid ${vars.color.border}`,
+  padding: `${vars.spacing.sm} ${vars.spacing.md}`,
+  borderRadius: vars.radius.md,
+  fontFamily: vars.typography.fontFamily,
+  fontSize: vars.typography.fontSize.medium,
+  fontWeight: vars.typography.fontWeight.medium,
   cursor: 'pointer',
+  boxShadow: vars.shadows.sm,
   ':hover': {
-    backgroundColor: theme.state.hover,
+    opacity: vars.opacity[90],
   },
   ':focus': {
-    outline: `2px solid ${theme.state.focus}`,
+    outline: `2px solid ${vars.color.primary}`,
   },
 });
 ```
@@ -86,44 +87,30 @@ function ThemeSwitcher() {
 }
 ```
 
-## Available Theme Variables
+## Responsive Styles Utility
 
-The theme contract provides access to the following variables:
+The theme package also includes a utility for creating responsive styles:
 
 ```tsx
-// Colors
-theme.color.primary    // Primary brand color
-theme.color.black      // Black color
-theme.color.white      // White color
-theme.color.background // Background color
-theme.color.text       // Text color
-theme.color.border     // Border color
+import { style } from '@vanilla-extract/css';
+import { responsiveStyle } from '@sipe-team/theme';
 
-// Spacing
-theme.spacing.xs       // Extra small spacing
-theme.spacing.sm       // Small spacing
-theme.spacing.md       // Medium spacing
-theme.spacing.lg       // Large spacing
-theme.spacing.xl       // Extra large spacing
-
-// Typography
-theme.typography.fontFamily                // Base font family
-theme.typography.fontSize.small           // Small font size
-theme.typography.fontSize.medium          // Medium font size 
-theme.typography.fontSize.large           // Large font size
-theme.typography.lineHeight.default       // Default line height
-theme.typography.lineHeight.heading       // Heading line height
-theme.typography.fontWeight.regular       // Regular font weight
-theme.typography.fontWeight.medium        // Medium font weight
-theme.typography.fontWeight.bold          // Bold font weight
-
-// Interactive states
-theme.state.hover      // Hover state color
-theme.state.focus      // Focus state color
-theme.state.active     // Active state color
-
-// Current theme mode
-theme.mode             // Current theme mode ('light' or 'dark')
+export const container = style({
+  ...responsiveStyle({
+    mobile: {
+      padding: '16px',
+      fontSize: '14px',
+    },
+    tablet: {
+      padding: '24px',
+      fontSize: '16px',
+    },
+    desktop: {
+      padding: '32px',
+      fontSize: '18px',
+    },
+  }),
+});
 ```
 
 ## Extending the Theme
