@@ -1207,6 +1207,43 @@ importers:
         specifier: 'catalog:'
         version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(terser@5.37.0)
 
+  packages/theme:
+    dependencies:
+      '@sipe-team/tokens':
+        specifier: workspace:*
+        version: link:../tokens
+    devDependencies:
+      '@storybook/addon-essentials':
+        specifier: 'catalog:'
+        version: 8.4.6(@types/react@18.3.13)(storybook@8.5.0(prettier@2.8.8))
+      '@storybook/react':
+        specifier: 'catalog:'
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.5.0(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.0(prettier@2.8.8))(typescript@5.6.3)
+      '@storybook/react-vite':
+        specifier: 'catalog:'
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.5.0(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.36.0)(storybook@8.5.0(prettier@2.8.8))(typescript@5.6.3)(vite@6.2.4(@types/node@22.10.1)(jiti@2.4.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1))
+      '@types/react':
+        specifier: ^18.3.12
+        version: 18.3.13
+      '@vanilla-extract/css':
+        specifier: ^1.14.1
+        version: 1.17.1
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      storybook:
+        specifier: 'catalog:'
+        version: 8.5.0(prettier@2.8.8)
+      tsup:
+        specifier: 'catalog:'
+        version: 8.4.0(jiti@2.4.1)(postcss@8.5.3)(tsx@4.19.2)(typescript@5.6.3)(yaml@2.6.1)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.6.3
+
   packages/tokens:
     devDependencies:
       '@faker-js/faker':
@@ -4964,10 +5001,6 @@ packages:
   connect-history-api-fallback@2.0.0:
     resolution: {integrity: sha512-U73+6lQFmfiNPrYbXqr6kZ1i1wiRqXnp2nhMsINseWXO8lDau0LGEffJ8kQi4EjLZympVgRdvqjAgiZ1tgzDDA==}
     engines: {node: '>=0.8'}
-
-  consola@3.2.3:
-    resolution: {integrity: sha512-I5qxpzLv+sJhTVEoLYNcTW+bThDCPsit0vLNKShZx6rLtpilNpmmeTPaeqJb9ZE9dV3DGaeby6Vuhrw38WjeyQ==}
-    engines: {node: ^14.18.0 || >=16.10.0}
 
   consola@3.4.2:
     resolution: {integrity: sha512-5IKcdX0nnYavi6G7TtOhwkYzyjfJlatbjMjuLSfE2kYT5pMDOilZ4OvMhi637CcDICTmz3wARPoyhqyX1Y+XvA==}
@@ -14059,8 +14092,6 @@ snapshots:
 
   connect-history-api-fallback@2.0.0: {}
 
-  consola@3.2.3: {}
-
   consola@3.4.2: {}
 
   content-disposition@0.5.2: {}
@@ -19509,7 +19540,7 @@ snapshots:
     dependencies:
       ansi-escapes: 4.3.2
       chalk: 4.1.2
-      consola: 3.2.3
+      consola: 3.4.2
       figures: 3.2.0
       markdown-table: 2.0.0
       pretty-time: 1.1.0
