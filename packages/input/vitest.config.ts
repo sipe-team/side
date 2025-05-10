@@ -5,7 +5,12 @@ export default mergeConfig(
   defaultConfig,
   defineProject({
     test: {
-      setupFiles: './vitest.setup.ts',
+      browser: {
+        enabled: true,
+        headless: true,
+        provider: 'playwright',
+        instances: [{ browser: 'chromium' }],
+      },
     },
   }),
 );
