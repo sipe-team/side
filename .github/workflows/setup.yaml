@@ -1,0 +1,22 @@
+name: Setup Node & pnpm
+
+on:
+  workflow_call:
+    inputs:
+      run_install:
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: ${{ inputs.run_install }}
+      - uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+          node-version-file: .nvmrc
