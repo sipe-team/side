@@ -9,9 +9,8 @@ jobs:
   release:
     runs-on: ubuntu-latest
 
-    uses: ./.github/workflows/setup.yaml
-    with:
-      run_install: true
+    steps:
+      - uses: ./.github/actions/setup-action
       - name: Create Release Pull Request or Publish to Github Package Registry
         id: changesets
         uses: changesets/action@v1

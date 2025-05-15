@@ -17,9 +17,8 @@ jobs:
   chromatic:
     runs-on: ubuntu-latest
 
-    uses: ./.github/workflows/setup.yaml
-    with:
-      run_install: true
+    steps:
+      - uses: ./.github/actions/setup-action
       - name: Run Chromatic
         id: chromatic
         uses: chromaui/action@latest
@@ -31,4 +30,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }}
         with:
-          message: "💅 The Storybook has been updated! Click [here](${{ steps.chromatic.outputs.storybookUrl }}) to check it out."
+          message: " The Storybook has been updated! Click [here](${{ steps.chromatic.outputs.storybookUrl }}) to check it out."

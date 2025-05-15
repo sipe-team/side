@@ -1,0 +1,16 @@
+name: Setup Node & pnpm
+description: Setup pnpm, node, and install dependencies
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+    - uses: pnpm/action-setup@v4
+      with:
+        run_install: true
+    - uses: actions/setup-node@v4
+      with:
+        cache: pnpm
+        node-version-file: .nvmrc
+    - run: pnpm install
+      shell: bash

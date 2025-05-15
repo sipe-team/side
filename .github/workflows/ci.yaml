@@ -7,14 +7,13 @@ jobs:
   CI:
     runs-on: ubuntu-latest
 
-    uses: ./.github/workflows/setup.yaml
-    with:
-      run_install: true
-    - name: Lint
-      run: pnpm --filter="...[origin/${{ github.base_ref }}]" "/lint:*/"
-    - name: Test
-      run: pnpm --filter="...[origin/${{ github.base_ref }}]" test
-    - name: Type check
-      run: pnpm --filter="...[origin/${{ github.base_ref }}]" typecheck
-    - name: Build
-      run: pnpm --filter="...[origin/${{ github.base_ref }}]" build
+    steps:
+      - uses: ./.github/actions/setup-action
+      - name: Lint
+        run: pnpm --filter="...[origin/${{ github.base_ref }}]" "/lint:*/"
+      - name: Test
+        run: pnpm --filter="...[origin/${{ github.base_ref }}]" test
+      - name: Type check
+        run: pnpm --filter="...[origin/${{ github.base_ref }}]" typecheck
+      - name: Build
+        run: pnpm --filter="...[origin/${{ github.base_ref }}]" build
