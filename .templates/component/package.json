@@ -28,16 +28,14 @@
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@storybook/test": "catalog:",
-    "@testing-library/jest-dom": "catalog:",
-    "@testing-library/react": "catalog:",
     "@types/react": "^18.3.12",
-    "happy-dom": "catalog:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "storybook": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "vitest-browser-react": "catalog:"
   },
   "peerDependencies": {
     "react": ">= 18",
