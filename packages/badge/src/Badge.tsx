@@ -1,6 +1,9 @@
-import { Typography } from '@sipe-team/typography';
-import { clsx as cx } from 'clsx';
 import { type ComponentProps, type ForwardedRef, forwardRef } from 'react';
+
+import { Typography } from '@sipe-team/typography';
+
+import { clsx as cx } from 'clsx';
+
 import * as styles from './Badge.css';
 
 export type BadgeSize = keyof typeof styles.BadgeSize;
@@ -13,7 +16,7 @@ export interface BadgeProps extends ComponentProps<'div'> {
 
 export const Badge = forwardRef(function Badge(
   { className, children, size = 'medium', variant = 'filled', ...props }: BadgeProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<HTMLDivElement>
 ) {
   return (
     <div

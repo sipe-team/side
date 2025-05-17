@@ -1,6 +1,8 @@
+import { type ComponentProps, type ForwardedRef, forwardRef } from 'react';
+
 import { Slot } from '@radix-ui/react-slot';
 import { clsx as cx } from 'clsx';
-import { type ComponentProps, type ForwardedRef, forwardRef } from 'react';
+
 import * as styles from './Button.css';
 
 export const ButtonColor = {
@@ -32,7 +34,7 @@ export const Button = forwardRef(function Button(
     className: _className,
     ...props
   }: ButtonProps,
-  ref: ForwardedRef<HTMLButtonElement>,
+  ref: ForwardedRef<HTMLButtonElement>
 ) {
   const Comp = asChild ? Slot : 'button';
   const className = cx(styles.button({ color, variant }), { [styles.disabled]: disabled }, _className);

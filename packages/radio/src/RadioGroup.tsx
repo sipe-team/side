@@ -1,4 +1,5 @@
-import { type PropsWithChildren, createContext, useId } from 'react';
+import { createContext, type PropsWithChildren, useId } from 'react';
+
 import styles from './RadioGroup.module.css';
 
 /**
@@ -42,7 +43,7 @@ export function RadioGroup({
   const name = propName ?? fallbackId;
 
   return (
-    <fieldset className={styles.radioGroup} disabled={disabled} role={'radiogroup'}>
+    <fieldset className={styles.radioGroup} disabled={disabled} aria-roledescription="radiogroup">
       <legend>{labelText}</legend>
 
       <RadioGroupContext.Provider value={{ ...rest, disabled, size, name }}>{children}</RadioGroupContext.Provider>

@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { expect, test } from 'vitest';
+
 import { Button } from './Button';
 
 test('children으로 입력한 텍스트를 표시한다.', () => {

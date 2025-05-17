@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
+
 import { ButtonColor, ButtonVariant } from './Button';
 
 const primaryColor = '#00ffff';
