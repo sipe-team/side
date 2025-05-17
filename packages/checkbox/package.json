@@ -9,9 +9,7 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
@@ -23,9 +21,9 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.1.0",
+    "@sipe-team/tokens": "workspace:*",
     "clsx": "^2.1.1",
-    "nanoid": "^5.0.9"
+    "@vanilla-extract/recipes": "^0.5.5"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "catalog:",
@@ -37,7 +35,9 @@
     "@storybook/test": "catalog:",
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
+    "@testing-library/user-event": "catalog:",
     "@types/react": "^18.3.12",
+    "@vanilla-extract/css": "^1.17.1",
     "happy-dom": "catalog:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

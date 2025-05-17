@@ -33,6 +33,9 @@ catalogs:
     '@testing-library/react':
       specifier: ^16.0.1
       version: 16.0.1
+    '@testing-library/user-event':
+      specifier: ^14.6.1
+      version: 14.6.1
     '@vanilla-extract/css':
       specifier: ^1.14.1
       version: 1.17.1
@@ -555,15 +558,15 @@ importers:
 
   packages/checkbox:
     dependencies:
-      '@radix-ui/react-slot':
-        specifier: ^1.1.0
-        version: 1.1.0(@types/react@18.3.13)(react@18.3.1)
+      '@sipe-team/tokens':
+        specifier: workspace:*
+        version: link:../tokens
+      '@vanilla-extract/recipes':
+        specifier: ^0.5.5
+        version: 0.5.5(@vanilla-extract/css@1.17.1)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      nanoid:
-        specifier: ^5.0.9
-        version: 5.1.5
     devDependencies:
       '@storybook/addon-essentials':
         specifier: 'catalog:'
@@ -592,9 +595,15 @@ importers:
       '@testing-library/react':
         specifier: 'catalog:'
         version: 16.0.1(@testing-library/dom@10.4.0)(@types/react-dom@18.3.1)(@types/react@18.3.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@testing-library/user-event':
+        specifier: 'catalog:'
+        version: 14.6.1(@testing-library/dom@10.4.0)
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.13
+      '@vanilla-extract/css':
+        specifier: ^1.17.1
+        version: 1.17.1
       happy-dom:
         specifier: 'catalog:'
         version: 15.11.7
@@ -4002,6 +4011,12 @@ packages:
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
 
+  '@testing-library/user-event@14.6.1':
+    resolution: {integrity: sha512-vq7fv0rnt+QTXgPxr5Hjc210p6YKq2kmdziLgnsZGgLJ9e6VAShx1pACLuRjd/AS/sr7phAR58OIIpf0LlmQNw==}
+    engines: {node: '>=12', npm: '>=6'}
+    peerDependencies:
+      '@testing-library/dom': '>=7.21.4'
+
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
@@ -7234,11 +7249,6 @@ packages:
   nanoid@3.3.8:
     resolution: {integrity: sha512-WNLf5Sd8oZxOm+TzppcYk8gVOgP+l58xNy58D0nbUnOxOWRWvlcCV4kUF7ltmI6PsrLl/BgKEyS4mqsGChFN0w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
-
-  nanoid@5.1.5:
-    resolution: {integrity: sha512-Ir/+ZpE9fDsNH0hQ3C68uyThDXzYcim2EqcZ8zn8Chtt1iylPT9xXJB0kPCnqzgcEGikO9RxSrh63MsmVCU7Fw==}
-    engines: {node: ^18 || >=20}
     hasBin: true
 
   natural-compare@1.4.0:
@@ -12814,6 +12824,10 @@ snapshots:
     dependencies:
       '@testing-library/dom': 10.4.0
 
+  '@testing-library/user-event@14.6.1(@testing-library/dom@10.4.0)':
+    dependencies:
+      '@testing-library/dom': 10.4.0
+
   '@trysound/sax@0.2.0': {}
 
   '@tsconfig/strictest@2.0.5': {}
@@ -16978,8 +16992,6 @@ snapshots:
       thenify-all: 1.6.0
 
   nanoid@3.3.8: {}
-
-  nanoid@5.1.5: {}
 
   natural-compare@1.4.0: {}
 

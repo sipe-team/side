@@ -5,11 +5,39 @@ import { useCheckboxGroup } from './hooks/useCheckboxGroup';
 
 const meta = {
   title: 'Components/Checkbox',
-  component: Checkbox,
+  component: Checkbox.Root,
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Checkbox>;
+  tags: ['autodocs'],
+  argTypes: {
+    size: {
+      control: 'select',
+      options: ['small', 'medium', 'large'],
+      description: 'Size of the checkbox',
+      defaultValue: 'medium',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Whether the checkbox is disabled',
+      defaultValue: false,
+    },
+    checked: {
+      control: 'boolean',
+      description: 'Whether the checkbox is checked (controlled)',
+    },
+    defaultChecked: {
+      control: 'boolean',
+      description: 'Default checked state (uncontrolled)',
+      defaultValue: false,
+    },
+    indeterminate: {
+      control: 'boolean',
+      description: 'Whether the checkbox is in an indeterminate state',
+      defaultValue: false,
+    },
+  },
+} satisfies Meta<typeof Checkbox.Root>;
 
 export default meta;
 
@@ -17,137 +45,106 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
-    label: 'Basic Checkbox',
-    value: 'test',
-    name: 'test',
-  },
-};
-
-export const Checked: Story = {
-  args: {
-    label: 'Checked Checkbox',
-    value: 'test',
-    name: 'test',
-    checked: true,
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    label: 'Disabled Checkbox',
-    value: 'test',
-    name: 'test',
-    disabled: true,
+    size: 'medium',
+    children: (
+      <>
+        <Checkbox.Input />
+        <Checkbox.Label>Basic checkbox</Checkbox.Label>
+      </>
+    ),
   },
 };
 
 export const Sizes: Story = {
-  render: () => (
-    <div>
-      <Checkbox label="Small Checkbox" size="small" name={'test1'} value={'test1'} style={{ marginBottom: '1rem' }} />
-      <Checkbox label="Medium Checkbox" size="medium" name={'test2'} value={'test2'} style={{ marginBottom: '1rem' }} />
-      <Checkbox label="Large Checkbox" size="large" name={'test3'} value={'test3'} style={{ marginBottom: '1rem' }} />
-    </div>
-  ),
-};
-
-export const CustomStyles: Story = {
   args: {
-    label: 'Custom Styled Checkbox',
-    style: {
-      padding: '20px',
-      border: '2px solid #f8f',
-      borderRadius: '10px',
-      backgroundColor: '#f8f9fa',
-    },
-    value: 'test',
-    name: 'test',
+    children: (
+      <div style={{ display: 'flex', gap: '1rem' }}>
+        <Checkbox.Root size="small">
+          <Checkbox.Input />
+          <Checkbox.Label>Small size</Checkbox.Label>
+        </Checkbox.Root>
+        <Checkbox.Root size="medium">
+          <Checkbox.Input />
+          <Checkbox.Label>Medium size</Checkbox.Label>
+        </Checkbox.Root>
+        <Checkbox.Root size="large">
+          <Checkbox.Input />
+          <Checkbox.Label>Large size</Checkbox.Label>
+        </Checkbox.Root>
+      </div>
+    ),
   },
 };
 
 export const Controlled: Story = {
   render: () => {
-    const [isChecked, setIsChecked] = useState(false);
-
-    return <Checkbox label="Controlled Checkbox" checked={isChecked} onCheckedChange={setIsChecked} />;
-  },
-};
-
-export const Uncontrolled: Story = {
-  args: {
-    label: 'Uncontrolled Checkbox',
-    value: 'test',
-    name: 'test',
-  },
-};
-
-export const CheckboxGroup: Story = {
-  render: () => {
-    const items = ['Item 1', 'Item 2', 'Item 3'];
-    const { checkedItems, updateCheckedItems, setAllChecked, allChecked } = useCheckboxGroup({
-      total: items.length,
-    });
+    const [checked, setChecked] = useState(false);
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <Checkbox label="Select All" checked={allChecked} onCheckedChange={setAllChecked} />
-        {items.map((item, index) => (
-          <Checkbox
-            key={item}
-            label={item}
-            checked={checkedItems[index] || false}
-            onCheckedChange={(checked) => updateCheckedItems(index, checked)}
-          />
-        ))}
+      <div>
+        <Checkbox.Root checked={checked} onCheckedChange={setChecked}>
+          <Checkbox.Input />
+          <Checkbox.Label>Controlled checkbox</Checkbox.Label>
+        </Checkbox.Root>
       </div>
     );
   },
 };
 
+export const Uncontrolled: Story = {
+  args: {
+    children: (
+      <div>
+        <Checkbox.Root defaultChecked={true}>
+          <Checkbox.Input />
+          <Checkbox.Label>Uncontrolled checkbox</Checkbox.Label>
+        </Checkbox.Root>
+      </div>
+    ),
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    children: (
+      <div style={{ display: 'flex', gap: '1rem' }}>
+        <Checkbox.Root disabled>
+          <Checkbox.Input />
+          <Checkbox.Label>Disabled unchecked</Checkbox.Label>
+        </Checkbox.Root>
+        <Checkbox.Root disabled checked>
+          <Checkbox.Input />
+          <Checkbox.Label>Disabled checked</Checkbox.Label>
+        </Checkbox.Root>
+      </div>
+    ),
+  },
+};
+
 export const Indeterminate: Story = {
   render: () => {
-    const [parentChecked, setParentChecked] = useState(false);
-    const [parentIndeterminate, setParentIndeterminate] = useState(false);
-    const [childChecked, setChildChecked] = useState([false, false]);
-
-    const updateParentState = (newChildChecked: boolean[]) => {
-      const checkedCount = newChildChecked.filter(Boolean).length;
-      setParentIndeterminate(checkedCount > 0 && checkedCount < newChildChecked.length);
-      setParentChecked(checkedCount === newChildChecked.length);
-    };
-
-    const handleParentChange = (checked: boolean) => {
-      setParentChecked(checked);
-      setParentIndeterminate(false);
-      setChildChecked([checked, checked]);
-    };
-
-    const handleChildChange = (index: number, checked: boolean) => {
-      const newChildChecked = [...childChecked];
-      newChildChecked[index] = checked;
-      setChildChecked(newChildChecked);
-      updateParentState(newChildChecked);
-    };
+    const { allChecked, indeterminate, checkedItems, updateCheckedItems, setAllChecked } = useCheckboxGroup({
+      total: 3,
+    });
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <Checkbox
-          label="Parent Checkbox"
-          checked={parentChecked}
-          indeterminate={parentIndeterminate}
-          onCheckedChange={handleParentChange}
-        />
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <Checkbox.Root checked={allChecked} indeterminate={indeterminate} onCheckedChange={setAllChecked}>
+          <Checkbox.Input />
+          <Checkbox.Label>Select all options</Checkbox.Label>
+        </Checkbox.Root>
+
         <div style={{ marginLeft: '1.5rem' }}>
-          <Checkbox
-            label="Child Checkbox 1"
-            checked={childChecked[0] || false}
-            onCheckedChange={(checked) => handleChildChange(0, checked)}
-          />
-          <Checkbox
-            label="Child Checkbox 2"
-            checked={childChecked[1] || false}
-            onCheckedChange={(checked) => handleChildChange(1, checked)}
-          />
+          {checkedItems.map((item, index) => (
+            <Checkbox.Root
+              key={`${item}-newDate`}
+              checked={item}
+              onCheckedChange={(checked) => updateCheckedItems(index, checked)}
+            >
+              <Checkbox.Input />
+              <Checkbox.Label>{`Option ${index + 1}`}</Checkbox.Label>
+            </Checkbox.Root>
+          ))}
         </div>
       </div>
     );
