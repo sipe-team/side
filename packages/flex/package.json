@@ -22,8 +22,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
-    "clsx": "^2.1.1",
-    "@vanilla-extract/recipes": "^0.5.5"
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.2.0",

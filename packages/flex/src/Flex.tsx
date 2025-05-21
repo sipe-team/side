@@ -4,10 +4,10 @@ import { type CSSProperties, type ComponentProps, type ForwardedRef, forwardRef 
 import * as styles from './Flex.css';
 
 export interface FlexProps extends ComponentProps<'div'> {
-  direction?: CSSProperties['flexDirection'];
-  align?: CSSProperties['alignItems'];
-  justify?: CSSProperties['justifyContent'];
-  wrap?: CSSProperties['flexWrap'];
+  direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
+  align?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline' | 'normal';
+  justify?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly' | 'normal';
+  wrap?: 'nowrap' | 'wrap' | 'wrap-reverse';
   basis?: CSSProperties['flexBasis'];
   grow?: CSSProperties['flexGrow'];
   shrink?: CSSProperties['flexShrink'];
@@ -18,14 +18,14 @@ export interface FlexProps extends ComponentProps<'div'> {
 
 export const Flex = forwardRef(function Flex(
   {
-    align,
-    justify,
-    wrap,
-    direction,
+    direction = 'row',
+    align = 'normal',
+    justify = 'normal',
+    wrap = 'nowrap',
     basis,
     grow,
     shrink,
-    inline,
+    inline = false,
     gap,
     className,
     style,
@@ -37,21 +37,26 @@ export const Flex = forwardRef(function Flex(
 ) {
   const Component = asChild ? Slot : 'div';
 
-  const flexStyle = {
-    display: inline ? 'inline-flex' : 'flex',
-    flexDirection: direction ?? 'row',
-    alignItems: align ?? 'normal',
-    justifyContent: justify ?? 'normal',
-    flexWrap: wrap ?? 'nowrap',
+  const classNames = cx(
+    styles.base,
+    direction && styles.direction[direction],
+    align && styles.align[align],
+    justify && styles.justify[justify],
+    wrap && styles.wrap[wrap],
+    inline && styles.display['inline-flex'],
+    className,
+  );
+
+  const inlineStyles = {
     flexBasis: basis,
     flexGrow: grow,
     flexShrink: shrink,
     gap,
     ...style,
-  } as React.CSSProperties;
+  };
 
   return (
-    <Component ref={ref} className={cx(styles.flex, className)} style={flexStyle} {...rest}>
+    <Component ref={ref} className={classNames} style={inlineStyles} {...rest}>
       {children}
     </Component>
   );
