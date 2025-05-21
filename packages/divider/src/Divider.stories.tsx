@@ -8,6 +8,18 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
+  argTypes: {
+    orientation: {
+      description: '구분선의 방향',
+      control: 'radio',
+      options: ['horizontal', 'vertical'],
+    },
+    color: {
+      description: '구분선의 색상',
+      control: 'radio',
+      options: ['default', 'primary', 'dark'],
+    },
+  },
 } satisfies Meta<typeof Divider>;
 export default meta;
 
@@ -47,26 +59,50 @@ export const Basic: Story = {
         </div>
       </section>
 
-      {/* 스타일 섹션 */}
+      {/* 색상 변형 섹션 */}
       <section>
         <Typography weight="bold" size={12}>
-          <h2>스타일링</h2>
+          <h2>색상 변형</h2>
         </Typography>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           <div>
-            <Typography>default</Typography>
-            <Divider style={{ backgroundColor: '#E5E7EB' }} />
+            <Typography>기본 색상 (default)</Typography>
+            <Divider color="default" />
           </div>
 
           <div>
-            <Typography>colored</Typography>
-            <Divider style={{ backgroundColor: '#3B82F6' }} />
+            <Typography>메인 색상 (primary)</Typography>
+            <Divider color="primary" />
           </div>
 
           <div>
-            <Typography>thick</Typography>
-            <Divider style={{ backgroundColor: '#E5E7EB', height: '4px' }} />
+            <Typography>어두운 색상 (dark)</Typography>
+            <Divider color="dark" />
+          </div>
+        </div>
+      </section>
+
+      {/* 고급 스타일링 섹션 */}
+      <section>
+        <Typography weight="bold" size={12}>
+          <h2>고급 스타일링</h2>
+        </Typography>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div>
+            <Typography>사용자 정의 색상</Typography>
+            <Divider style={{ backgroundColor: '#FF5733' }} />
+          </div>
+
+          <div>
+            <Typography>두껍게 (4px)</Typography>
+            <Divider style={{ height: '4px' }} />
+          </div>
+
+          <div>
+            <Typography>점선</Typography>
+            <Divider style={{ borderStyle: 'dashed', borderTopWidth: '1px', backgroundColor: 'transparent' }} />
           </div>
         </div>
       </section>
