@@ -70,7 +70,7 @@ export const Basic: Story = {
 
 export const Direction: Story = {
   args: {
-    direction: 'column',
+    direction: 'row',
     gap: '1rem',
     style: { width: '100%' },
     children: [<Box key="1" />, <Box key="2" />, <Box key="3" />],

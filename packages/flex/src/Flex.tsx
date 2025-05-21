@@ -1,13 +1,13 @@
 import { Slot } from '@radix-ui/react-slot';
 import { clsx as cx } from 'clsx';
 import { type CSSProperties, type ComponentProps, type ForwardedRef, forwardRef } from 'react';
-import styles from './Flex.module.css';
+import * as styles from './Flex.css';
 
 export interface FlexProps extends ComponentProps<'div'> {
+  direction?: CSSProperties['flexDirection'];
   align?: CSSProperties['alignItems'];
   justify?: CSSProperties['justifyContent'];
   wrap?: CSSProperties['flexWrap'];
-  direction?: CSSProperties['flexDirection'];
   basis?: CSSProperties['flexBasis'];
   grow?: CSSProperties['flexGrow'];
   shrink?: CSSProperties['flexShrink'];
@@ -38,15 +38,15 @@ export const Flex = forwardRef(function Flex(
   const Component = asChild ? Slot : 'div';
 
   const flexStyle = {
-    '--flex-display': inline ? 'inline-flex' : 'flex',
-    '--flex-direction': direction ?? 'row',
-    '--flex-align': align ?? 'normal',
-    '--flex-justify': justify ?? 'normal',
-    '--flex-wrap': wrap ?? 'nowrap',
-    '--flex-gap': gap,
-    '--flex-basis': basis,
-    '--flex-grow': grow,
-    '--flex-shrink': shrink,
+    display: inline ? 'inline-flex' : 'flex',
+    flexDirection: direction ?? 'row',
+    alignItems: align ?? 'normal',
+    justifyContent: justify ?? 'normal',
+    flexWrap: wrap ?? 'nowrap',
+    flexBasis: basis,
+    flexGrow: grow,
+    flexShrink: shrink,
+    gap,
     ...style,
   } as React.CSSProperties;
 
