@@ -21,7 +21,9 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
-    "clsx": "^2.1.1"
+    "clsx": "^2.1.1",
+    "@vanilla-extract/recipes": "^0.5.5",
+    "@sipe-team/tokens": "workspace:*"
   },
   "devDependencies": {
     "@sipe-team/typography": "workspace:*",

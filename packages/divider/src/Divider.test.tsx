@@ -1,3 +1,4 @@
+import { color } from '@sipe-team/tokens';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
 import { Divider } from './Divider';
@@ -41,5 +42,21 @@ describe('Divider', () => {
       backgroundColor: 'red',
       margin: '8px',
     });
+  });
+
+  test('color 속성에 따라 배경색이 변경된다.', () => {
+    render(<Divider color="primary" />);
+
+    const divider = screen.getByRole('separator');
+    expect(divider).toHaveStyle({
+      backgroundColor: color.cyan300,
+    });
+  });
+
+  test('className이 올바르게 전달된다.', () => {
+    render(<Divider className="custom-class" />);
+
+    const divider = screen.getByRole('separator');
+    expect(divider).toHaveClass('custom-class');
   });
 });
