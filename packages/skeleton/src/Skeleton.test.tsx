@@ -47,7 +47,7 @@ describe('Skeleton', () => {
 
       const skeleton = screen.getByTestId('skeleton');
       expect(skeleton).toBeInTheDocument();
-      expect(skeleton).toHaveStyle({ height: '1em' });
+      expect(skeleton).toHaveStyle({ height: '16px' });
     });
 
     test('lines prop으로 여러 줄을 렌더링할 수 있다', () => {
@@ -70,7 +70,7 @@ describe('Skeleton', () => {
       render(<Skeleton loading={true} variant="text" height="2rem" data-testid="skeleton" />);
 
       const skeleton = screen.getByTestId('skeleton');
-      expect(skeleton).toHaveStyle({ height: '2rem' });
+      expect(skeleton).toHaveStyle({ height: '32px' });
     });
   });
 
@@ -91,7 +91,7 @@ describe('Skeleton', () => {
       const skeleton = screen.getByTestId('skeleton');
       expect(skeleton).toHaveStyle({
         width: '100%',
-        height: '2rem',
+        height: '32px',
       });
     });
 
