@@ -24,7 +24,7 @@ describe('Skeleton', () => {
       ['circle', 'circle'],
       ['text', 'text'],
       ['rounded', 'rounded'],
-    ])('variant가 %s일 때 올바른 클래스가 적용된다', (variant, expected) => {
+    ])('variant가 %s일 때 올바른 클래스가 적용된다', (variant) => {
       const { container } = render(<Skeleton loading={true} variant={variant as any} data-testid="skeleton" />);
 
       const skeleton = container.firstChild as HTMLElement;
@@ -91,6 +91,7 @@ describe('Skeleton', () => {
       const skeleton = screen.getByTestId('skeleton');
       expect(skeleton).toHaveStyle({
         width: '100%',
+        // 2rem은 브라우저에서 32px로 계산됨
         height: '32px',
       });
     });
