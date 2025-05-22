@@ -9,9 +9,7 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
@@ -24,7 +22,8 @@
   },
   "dependencies": {
     "@sipe-team/tokens": "workspace:^",
-    "clsx": "^2.1.1"
+    "clsx": "^2.1.1",
+    "@vanilla-extract/recipes": "^0.5.5"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.2.0",
@@ -39,6 +38,7 @@
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.3.12",
+    "@vanilla-extract/css": "catalog:",
     "happy-dom": "catalog:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
