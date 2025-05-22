@@ -108,9 +108,6 @@ export const wrapper = recipe({
   },
 });
 
-/**
- * Input field recipe - 실제 입력 필드 스타일
- */
 export const input = recipe({
   base: {
     width: '100%',
@@ -129,7 +126,6 @@ export const input = recipe({
       opacity: INPUT_STYLES.opacity.placeholder,
     },
 
-    // Webkit specific styles
     '::-webkit-search-cancel-button': {
       appearance: INPUT_STYLES.webkit.appearance,
     },
@@ -158,9 +154,6 @@ export const input = recipe({
   },
 });
 
-/**
- * Input action button recipe - 액션 버튼 스타일
- */
 export const action = recipe({
   base: {
     display: INPUT_STYLES.display.flex,
