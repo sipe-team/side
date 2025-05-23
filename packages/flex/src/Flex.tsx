@@ -39,11 +39,11 @@ export const Flex = forwardRef(function Flex(
 
   const classNames = cx(
     styles.base,
-    direction && styles.direction[direction],
-    align && styles.align[align],
-    justify && styles.justify[justify],
-    wrap && styles.wrap[wrap],
-    inline && styles.display['inline-flex'],
+    styles.direction[direction],
+    styles.align[align],
+    styles.justify[justify],
+    styles.wrap[wrap],
+    styles.display['inline-flex'],
     className,
   );
 
