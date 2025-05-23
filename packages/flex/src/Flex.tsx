@@ -43,7 +43,7 @@ export const Flex = forwardRef(function Flex(
     styles.align[align],
     styles.justify[justify],
     styles.wrap[wrap],
-    styles.display['inline-flex'],
+    inline ? styles.display['inline-flex'] : styles.display['flex'],
     className,
   );
 
