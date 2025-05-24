@@ -6,7 +6,7 @@ import type {
 } from '@sipe-team/tokens';
 import cx from 'clsx';
 import { type CSSProperties, type ComponentProps, type ElementType, type ForwardedRef, forwardRef } from 'react';
-import { typography } from './Typography.css';
+import { base, lineHeightVariants, size as sizeVariants, weight as weightVariants } from './Typography.css';
 
 export type FontSize = keyof typeof fontSizeToken;
 export type FontWeight = keyof typeof fontWeightToken;
@@ -33,7 +33,7 @@ export const Typography = forwardRef(function Typography(
     weight = 'regular',
     ...props
   }: TypographyProps,
-  ref: ForwardedRef<any>,
+  ref: ForwardedRef<HTMLElement>,
 ) {
   const Component = asChild ? Slot : as || 'p';
   const style = {
@@ -41,11 +41,7 @@ export const Typography = forwardRef(function Typography(
     color,
   } as CSSProperties;
 
-  const typographyClassName = typography({
-    size,
-    weight,
-    lineHeight,
-  });
+  const typographyClassName = cx(base, sizeVariants[size], weightVariants[weight], lineHeightVariants[lineHeight]);
   const combinedClassName = cx(typographyClassName, className);
 
   return <Component ref={ref} className={combinedClassName} style={style} {...props} />;

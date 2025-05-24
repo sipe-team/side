@@ -1,6 +1,5 @@
 import { fontSize, fontWeight, lineHeight } from '@sipe-team/tokens';
 import { style, styleVariants } from '@vanilla-extract/css';
-import { recipe } from '@vanilla-extract/recipes';
 
 export const base = style({
   margin: 0,
@@ -18,18 +17,8 @@ export const lineHeightVariants = styleVariants(lineHeight, (value) => ({
   lineHeight: value,
 }));
 
-export const typography = recipe({
-  base,
-  variants: {
-    size,
-    weight,
-    lineHeight: lineHeightVariants,
-  },
-  defaultVariants: {
-    size: 14,
-    weight: 'regular',
-    lineHeight: 'regular',
-  },
-});
-
-export type TypographyVariants = Parameters<typeof typography>[0];
+export type TypographyVariants = {
+  size?: keyof typeof size;
+  weight?: keyof typeof weight;
+  lineHeight?: keyof typeof lineHeightVariants;
+};
