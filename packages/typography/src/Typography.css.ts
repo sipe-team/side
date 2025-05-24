@@ -1,8 +1,11 @@
 import { fontSize, fontWeight, lineHeight } from '@sipe-team/tokens';
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style, styleVariants, createVar } from '@vanilla-extract/css';
+
+export const textColorVar = createVar();
 
 export const base = style({
   margin: 0,
+  color: textColorVar,
 });
 
 export const size = styleVariants(fontSize, (value) => ({

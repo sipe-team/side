@@ -6,7 +6,14 @@ import type {
 } from '@sipe-team/tokens';
 import cx from 'clsx';
 import { type CSSProperties, type ComponentProps, type ElementType, type ForwardedRef, forwardRef } from 'react';
-import { base, lineHeightVariants, size as sizeVariants, weight as weightVariants } from './Typography.css';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
+import {
+  base,
+  lineHeightVariants,
+  size as sizeVariants,
+  weight as weightVariants,
+  textColorVar,
+} from './Typography.css';
 
 export type FontSize = keyof typeof fontSizeToken;
 export type FontWeight = keyof typeof fontWeightToken;
@@ -36,9 +43,10 @@ export const Typography = forwardRef(function Typography(
   ref: ForwardedRef<HTMLElement>,
 ) {
   const Component = asChild ? Slot : as || 'p';
+  const dynamicStyles = color ? assignInlineVars({ [textColorVar]: color }) : {};
   const style = {
     ..._style,
-    color,
+    ...dynamicStyles,
   } as CSSProperties;
 
   const typographyClassName = cx(base, sizeVariants[size], weightVariants[weight], lineHeightVariants[lineHeight]);

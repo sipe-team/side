@@ -23,6 +23,7 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
     "@sipe-team/tokens": "workspace:^",
+    "@vanilla-extract/dynamic": "^2.1.3",
     "clsx": "^2.1.1"
   },
   "devDependencies": {
