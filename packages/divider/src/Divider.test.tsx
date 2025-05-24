@@ -4,7 +4,7 @@ import { describe, expect, test } from 'vitest';
 import { Divider } from './Divider';
 
 describe('Divider', () => {
-  test('orientation 속성이 없으면 가로 방향으로 그린다.', () => {
+  test('orientation 속성이 없으면 가로 방향으로 그리고 기본 색상을 가진다.', () => {
     render(<Divider />);
 
     const divider = screen.getByRole('separator');
@@ -13,6 +13,7 @@ describe('Divider', () => {
     expect(divider).toHaveStyle({
       width: '100%',
       height: '1px',
+      backgroundColor: color.gray300,
     });
   });
 

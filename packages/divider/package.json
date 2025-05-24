@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "@vanilla-extract/recipes": "^0.5.5",
     "@sipe-team/tokens": "workspace:*"
   },
   "devDependencies": {

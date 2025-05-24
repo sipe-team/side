@@ -1,6 +1,7 @@
 import { Typography } from '@sipe-team/typography';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Divider } from './Divider';
+import { DIVIDER_COLORS, DIVIDER_ORIENTATIONS } from './constants';
 
 const meta = {
   title: 'Components/Divider',
@@ -12,12 +13,12 @@ const meta = {
     orientation: {
       description: '구분선의 방향',
       control: 'radio',
-      options: ['horizontal', 'vertical'],
+      options: DIVIDER_ORIENTATIONS,
     },
     color: {
       description: '구분선의 색상',
       control: 'radio',
-      options: ['default', 'primary', 'dark'],
+      options: DIVIDER_COLORS,
     },
   },
 } satisfies Meta<typeof Divider>;
