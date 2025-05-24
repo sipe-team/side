@@ -1,34 +1,37 @@
 import { Slot } from '@radix-ui/react-slot';
-import {
+import type {
   fontSize as fontSizeToken,
   fontWeight as fontWeightToken,
   lineHeight as lineHeightToken,
 } from '@sipe-team/tokens';
-import { clsx as cx } from 'clsx';
+import cx from 'clsx';
+import { type CSSProperties, type ComponentProps, type ElementType, type ForwardedRef, forwardRef } from 'react';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
 import {
-  type CSSProperties,
-  type ComponentProps,
-  type ForwardedRef,
-  forwardRef,
-} from 'react';
-import styles from './Typography.module.css';
+  base,
+  lineHeightVariants,
+  size as sizeVariants,
+  weight as weightVariants,
+  textColorVar,
+} from './Typography.css';
 
 export type FontSize = keyof typeof fontSizeToken;
-
 export type FontWeight = keyof typeof fontWeightToken;
-
 export type LineHeight = keyof typeof lineHeightToken;
 
-export interface TypographyProps extends ComponentProps<'p'> {
+export interface TypographyProps extends Omit<ComponentProps<'p'>, 'color'> {
+  as?: ElementType;
   asChild?: boolean;
   lineHeight?: LineHeight;
   size?: FontSize;
   weight?: FontWeight;
+  color?: string;
 }
 
 export const Typography = forwardRef(function Typography(
   {
     asChild,
+    as,
     className,
     color,
     lineHeight = 'regular',
@@ -37,23 +40,19 @@ export const Typography = forwardRef(function Typography(
     weight = 'regular',
     ...props
   }: TypographyProps,
-  ref: ForwardedRef<any>,
+  ref: ForwardedRef<HTMLElement>,
 ) {
-  const Component = asChild ? Slot : 'p';
+  const Component = asChild ? Slot : as || 'p';
+  const dynamicStyles = color ? assignInlineVars({ [textColorVar]: color }) : {};
   const style = {
     ..._style,
-    '--font-color': color,
-    '--font-size': `${fontSizeToken[size]}px`,
-    '--font-weight': fontWeightToken[weight],
-    '--line-height': lineHeightToken[lineHeight],
+    ...dynamicStyles,
   } as CSSProperties;
 
-  return (
-    <Component
-      className={cx(styles.typography, className)}
-      ref={ref}
-      style={style}
-      {...props}
-    />
-  );
+  const typographyClassName = cx(base, sizeVariants[size], weightVariants[weight], lineHeightVariants[lineHeight]);
+  const combinedClassName = cx(typographyClassName, className);
+
+  return <Component ref={ref} className={combinedClassName} style={style} {...props} />;
 });
+
+Typography.displayName = 'Typography';
