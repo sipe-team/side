@@ -1,20 +1,23 @@
 import { clsx as cx } from 'clsx';
 import { type ComponentProps, forwardRef } from 'react';
-import styles from './Divider.module.css';
+import * as styles from './Divider.css';
+import type { ColorType, OrientationType } from './constants';
 
-interface DividerProps extends ComponentProps<'hr'> {
-  orientation?: 'horizontal' | 'vertical';
+export interface DividerProps extends ComponentProps<'hr'> {
+  orientation?: OrientationType;
+  color?: ColorType;
 }
 
-export const Divider = forwardRef(function Divider({
-  orientation = 'horizontal',
-  ...props
-}: DividerProps) {
+export const Divider = forwardRef<HTMLHRElement, DividerProps>(function Divider(
+  { orientation = 'horizontal', color = 'default', className, ...props }: DividerProps,
+  ref,
+) {
   return (
     <hr
-      {...props}
+      ref={ref}
       aria-orientation={orientation}
-      className={cx(styles[orientation], styles.divider, props.className)}
+      className={cx(styles.base, styles.orientations[orientation], styles.colors[color], className)}
+      {...props}
     />
   );
 });
