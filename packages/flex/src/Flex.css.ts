@@ -1,26 +1,29 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+import type { FlexDirection, FlexAlign, FlexJustify, FlexWrap } from './constants';
 
 export const base = style({
   display: 'flex',
 });
 
-export const direction = styleVariants({
+const directionStyles: Record<FlexDirection, { flexDirection: FlexDirection }> = {
   row: { flexDirection: 'row' },
   column: { flexDirection: 'column' },
   'row-reverse': { flexDirection: 'row-reverse' },
   'column-reverse': { flexDirection: 'column-reverse' },
-});
+};
+export const direction = styleVariants(directionStyles);
 
-export const align = styleVariants({
+const alignStyles: Record<FlexAlign, { alignItems: FlexAlign }> = {
   'flex-start': { alignItems: 'flex-start' },
   'flex-end': { alignItems: 'flex-end' },
   center: { alignItems: 'center' },
   stretch: { alignItems: 'stretch' },
   baseline: { alignItems: 'baseline' },
   normal: { alignItems: 'normal' },
-});
+};
+export const align = styleVariants(alignStyles);
 
-export const justify = styleVariants({
+const justifyStyles: Record<FlexJustify, { justifyContent: FlexJustify }> = {
   'flex-start': { justifyContent: 'flex-start' },
   'flex-end': { justifyContent: 'flex-end' },
   center: { justifyContent: 'center' },
@@ -28,13 +31,15 @@ export const justify = styleVariants({
   'space-around': { justifyContent: 'space-around' },
   'space-evenly': { justifyContent: 'space-evenly' },
   normal: { justifyContent: 'normal' },
-});
+};
+export const justify = styleVariants(justifyStyles);
 
-export const wrap = styleVariants({
+const wrapStyles: Record<FlexWrap, { flexWrap: FlexWrap }> = {
   nowrap: { flexWrap: 'nowrap' },
   wrap: { flexWrap: 'wrap' },
   'wrap-reverse': { flexWrap: 'wrap-reverse' },
-});
+};
+export const wrap = styleVariants(wrapStyles);
 
 export const display = styleVariants({
   flex: { display: 'flex' },

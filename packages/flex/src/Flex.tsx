@@ -2,12 +2,13 @@ import { Slot } from '@radix-ui/react-slot';
 import { clsx as cx } from 'clsx';
 import { type CSSProperties, type ComponentProps, type ForwardedRef, forwardRef } from 'react';
 import * as styles from './Flex.css';
+import type { FlexDirection, FlexAlign, FlexJustify, FlexWrap } from './constants';
 
 export interface FlexProps extends ComponentProps<'div'> {
-  direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
-  align?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline' | 'normal';
-  justify?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly' | 'normal';
-  wrap?: 'nowrap' | 'wrap' | 'wrap-reverse';
+  direction?: FlexDirection;
+  align?: FlexAlign;
+  justify?: FlexJustify;
+  wrap?: FlexWrap;
   basis?: CSSProperties['flexBasis'];
   grow?: CSSProperties['flexGrow'];
   shrink?: CSSProperties['flexShrink'];
@@ -43,7 +44,7 @@ export const Flex = forwardRef(function Flex(
     styles.align[align],
     styles.justify[justify],
     styles.wrap[wrap],
-    inline ? styles.display['inline-flex'] : styles.display['flex'],
+    inline ? styles.display['inline-flex'] : styles.display.flex,
     className,
   );
 
