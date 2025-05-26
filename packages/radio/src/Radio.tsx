@@ -1,41 +1,78 @@
-import { type CSSProperties, type ComponentProps, type PropsWithChildren, useContext } from 'react';
+import clsx from 'clsx';
+import { type ComponentProps, type PropsWithChildren, useContext, useId } from 'react';
+import * as styles from './Radio.css';
 import { RadioGroupContext } from './RadioGroup';
-import styles from './RadioGroup.module.css';
+import type { RadioSize } from './constants/sizes';
 
 type RadioProps = PropsWithChildren<
-  ComponentProps<'input'> & {
-    size?: 'small' | 'medium' | 'large';
+  Omit<ComponentProps<'input'>, 'size'> & {
+    size?: RadioSize;
+    className?: string;
   }
 >;
 
-export function Radio({ value, defaultChecked, disabled = false, children }: RadioProps) {
+export function Radio({
+  value,
+  defaultChecked,
+  disabled = false,
+  children,
+  className,
+  size: propSize,
+  ...inputProps
+}: RadioProps) {
   const groupContext = useContext(RadioGroupContext);
+  const radioId = useId();
 
-  const sizeMap = {
-    small: '12px',
-    medium: '16px',
-    large: '20px',
+  // Context에서 오는 값들과 props 값들을 합성
+  const isDisabled = groupContext.disabled || disabled;
+  const radioSize = propSize || groupContext.size || 'medium';
+  const isChecked = groupContext.value !== undefined ? groupContext.value === value : defaultChecked || false;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isDisabled) {
+      groupContext.onChangeValue?.(e.target.value);
+    }
+    inputProps.onChange?.(e);
   };
 
-  const style = {
-    width: sizeMap[groupContext.size ?? 'medium'],
-    height: sizeMap[groupContext.size ?? 'medium'],
-  } as CSSProperties;
-
   return (
-    <label className={styles.radioContainer}>
+    <label
+      className={clsx(
+        styles.radioContainer({
+          size: radioSize,
+          disabled: isDisabled,
+        }),
+        className,
+      )}
+      htmlFor={radioId}
+    >
       <input
-        className={styles.radioIndicator}
+        {...inputProps}
+        id={radioId}
+        className={styles.radioInput({
+          size: radioSize,
+          checked: isChecked,
+          disabled: isDisabled,
+        })}
         type="radio"
         value={value}
         name={groupContext.name}
         defaultChecked={groupContext.defaultValue === value || defaultChecked}
-        disabled={groupContext.disabled || disabled}
-        checked={groupContext.value !== undefined ? groupContext.value === value : undefined}
-        onChange={(e) => groupContext.onChangeValue?.(e.target.value)}
-        style={style}
+        disabled={isDisabled}
+        checked={isChecked}
+        onChange={handleChange}
       />
-      <span className={styles.radioLabelText}>{children}</span>
+
+      {children && (
+        <span
+          className={styles.radioLabel({
+            size: radioSize,
+            disabled: isDisabled,
+          })}
+        >
+          {children}
+        </span>
+      )}
     </label>
   );
 }
