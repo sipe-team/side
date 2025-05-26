@@ -41,7 +41,9 @@ export const Typography = forwardRef(function Typography(
   ref: ForwardedRef<HTMLElement>,
 ) {
   const Component = asChild ? Slot : 'p';
-  const dynamicStyles = color ? assignInlineVars({ [textColorVar]: color }) : {};
+  const dynamicStyles = assignInlineVars({
+    ...(color && { [textColorVar]: color }),
+  });
   const style = {
     ..._style,
     ...dynamicStyles,
