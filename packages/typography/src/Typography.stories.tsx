@@ -28,11 +28,6 @@ const meta = {
       control: 'color',
       description: '글꼴 색상',
     },
-    as: {
-      control: 'select',
-      options: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'div'],
-      description: '렌더링할 HTML 요소',
-    },
     asChild: {
       control: 'boolean',
       description: '자식 요소의 태그를 사용',
@@ -47,11 +42,11 @@ export const Basic: Story = {
   render() {
     return (
       <section style={{ maxWidth: '600px' }}>
-        <Typography as="h1" size={32} weight="bold" style={{ marginBottom: '24px' }}>
+        <Typography size={32} weight="bold" style={{ marginBottom: '24px' }}>
           Typography
         </Typography>
 
-        <Typography as="h2" size={24} weight="bold" style={{ marginBottom: '16px' }}>
+        <Typography size={24} weight="bold" style={{ marginBottom: '16px' }}>
           Weight
         </Typography>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '24px' }}>
@@ -61,7 +56,7 @@ export const Basic: Story = {
           <Typography weight="bold">bold(700) - 사이프 디자인 시스템</Typography>
         </div>
 
-        <Typography as="h2" size={24} weight="bold" style={{ marginBottom: '16px' }}>
+        <Typography size={24} weight="bold" style={{ marginBottom: '16px' }}>
           Size
         </Typography>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '24px' }}>
@@ -77,7 +72,7 @@ export const Basic: Story = {
           <Typography size={48}>48 - 사이프 디자인 시스템</Typography>
         </div>
 
-        <Typography as="h2" size={24} weight="bold" style={{ marginBottom: '16px' }}>
+        <Typography size={24} weight="bold" style={{ marginBottom: '16px' }}>
           Line Height
         </Typography>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -121,30 +116,26 @@ export const SemanticElements: Story = {
   render() {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <Typography as="h1" size={32} weight="bold">
+        <Typography size={32} weight="bold">
           제목 1
         </Typography>
-        <Typography as="h2" size={28} weight="bold">
+        <Typography size={28} weight="bold">
           제목 2
         </Typography>
-        <Typography as="h3" size={24} weight="bold">
+        <Typography size={24} weight="bold">
           제목 3
         </Typography>
-        <Typography as="h4" size={20} weight="semiBold">
+        <Typography size={20} weight="semiBold">
           제목 4
         </Typography>
-        <Typography as="h5" size={18} weight="semiBold">
+        <Typography size={18} weight="semiBold">
           제목 5
         </Typography>
-        <Typography as="h6" size={16} weight="semiBold">
+        <Typography size={16} weight="semiBold">
           제목 6
         </Typography>
-        <Typography as="p" size={14}>
-          일반 텍스트 단락입니다.
-        </Typography>
-        <Typography as="span" size={14}>
-          인라인 텍스트입니다.
-        </Typography>
+        <Typography size={14}>일반 텍스트 단락입니다.</Typography>
+        <Typography size={14}>인라인 텍스트입니다.</Typography>
       </div>
     );
   },
@@ -159,7 +150,6 @@ export const Polymorphic: Story = {
         </Typography>
 
         <Typography
-          as="button"
           style={{
             cursor: 'pointer',
             background: '#007bff',

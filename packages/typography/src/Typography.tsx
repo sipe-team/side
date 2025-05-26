@@ -4,15 +4,15 @@ import type {
   fontWeight as fontWeightToken,
   lineHeight as lineHeightToken,
 } from '@sipe-team/tokens';
-import cx from 'clsx';
-import { type CSSProperties, type ComponentProps, type ElementType, type ForwardedRef, forwardRef } from 'react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
+import cx from 'clsx';
+import { type CSSProperties, type ComponentProps, type ForwardedRef, forwardRef } from 'react';
 import {
   base,
   lineHeightVariants,
   size as sizeVariants,
-  weight as weightVariants,
   textColorVar,
+  weight as weightVariants,
 } from './Typography.css';
 
 export type FontSize = keyof typeof fontSizeToken;
@@ -20,7 +20,6 @@ export type FontWeight = keyof typeof fontWeightToken;
 export type LineHeight = keyof typeof lineHeightToken;
 
 export interface TypographyProps extends Omit<ComponentProps<'p'>, 'color'> {
-  as?: ElementType;
   asChild?: boolean;
   lineHeight?: LineHeight;
   size?: FontSize;
@@ -31,7 +30,6 @@ export interface TypographyProps extends Omit<ComponentProps<'p'>, 'color'> {
 export const Typography = forwardRef(function Typography(
   {
     asChild,
-    as,
     className,
     color,
     lineHeight = 'regular',
@@ -42,7 +40,7 @@ export const Typography = forwardRef(function Typography(
   }: TypographyProps,
   ref: ForwardedRef<HTMLElement>,
 ) {
-  const Component = asChild ? Slot : as || 'p';
+  const Component = asChild ? Slot : 'p';
   const dynamicStyles = color ? assignInlineVars({ [textColorVar]: color }) : {};
   const style = {
     ..._style,
@@ -52,7 +50,9 @@ export const Typography = forwardRef(function Typography(
   const typographyClassName = cx(base, sizeVariants[size], weightVariants[weight], lineHeightVariants[lineHeight]);
   const combinedClassName = cx(typographyClassName, className);
 
-  return <Component ref={ref} className={combinedClassName} style={style} {...props} />;
+  return (
+    <Component ref={ref as ForwardedRef<HTMLParagraphElement>} className={combinedClassName} style={style} {...props} />
+  );
 });
 
 Typography.displayName = 'Typography';

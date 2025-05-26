@@ -89,12 +89,6 @@ test('asChild가 true일 때, children으로 전달된 요소에 Typography 스�
   expect(screen.getByText('테스트')).toHaveProperty('tagName', 'H1');
 });
 
-test('as prop을 통해 요소 타입을 변경할 수 있다.', () => {
-  render(<Typography as="h2">테스트</Typography>);
-
-  expect(screen.getByText('테스트')).toHaveProperty('tagName', 'H2');
-});
-
 test('className을 주입하면 추가로 전달한다.', () => {
   const customClassName = faker.word.noun();
 
