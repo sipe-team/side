@@ -124,9 +124,19 @@ export const radioInput = recipe({
       outlineOffset: '2px',
     },
 
-    ':hover:not(:disabled)': {
+    selectors: {
+      '&:hover:not(:disabled)': {
+        borderColor: COLORS.checked,
+        backgroundColor: COLORS.hover,
+      },
+      '&:checked::after': {
+        transform: 'translate(-50%, -50%) scale(1)',
+      },
+    },
+
+    ':checked': {
       borderColor: COLORS.checked,
-      backgroundColor: COLORS.hover,
+      backgroundColor: COLORS.checked,
     },
   },
   variants: {
@@ -140,6 +150,7 @@ export const radioInput = recipe({
           transform: 'translate(-50%, -50%) scale(1)',
         },
       },
+      false: {},
     },
     disabled: {
       true: {
@@ -151,7 +162,17 @@ export const radioInput = recipe({
           borderColor: COLORS.disabled,
           backgroundColor: COLORS.disabled,
         },
+
+        ':checked': {
+          borderColor: COLORS.disabled,
+          backgroundColor: COLORS.disabled,
+
+          '::after': {
+            backgroundColor: COLORS.disabled,
+          },
+        },
       },
+      false: {},
     },
   },
   compoundVariants: [
@@ -166,6 +187,7 @@ export const radioInput = recipe({
 
         '::after': {
           backgroundColor: COLORS.disabled,
+          transform: 'translate(-50%, -50%) scale(1)',
         },
       },
     },
@@ -195,6 +217,7 @@ export const radioLabel = recipe({
     color: COLORS.text,
     lineHeight: 1.5,
     userSelect: 'none',
+    marginLeft: '8px',
   },
   variants: {
     size: styleVariants(radioLabelSizeStyles, (sizeStyle) => sizeStyle),
@@ -203,6 +226,7 @@ export const radioLabel = recipe({
         color: COLORS.textDisabled,
         cursor: 'not-allowed',
       },
+      false: {},
     },
   },
   defaultVariants: {
