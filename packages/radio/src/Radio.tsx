@@ -23,10 +23,11 @@ export function Radio({
   const groupContext = useContext(RadioGroupContext);
   const radioId = useId();
 
-  // Context에서 오는 값들과 props 값들을 합성
   const isDisabled = groupContext.disabled || disabled;
   const radioSize = propSize || groupContext.size || 'medium';
-  const isChecked = groupContext.value !== undefined ? groupContext.value === value : defaultChecked || false;
+
+  const isControlled = groupContext.value !== undefined;
+  const isChecked = isControlled ? groupContext.value === value : undefined;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!isDisabled) {
@@ -51,15 +52,16 @@ export function Radio({
         id={radioId}
         className={styles.radioInput({
           size: radioSize,
-          checked: isChecked,
+          checked: isChecked || false,
           disabled: isDisabled,
         })}
         type="radio"
         value={value}
         name={groupContext.name}
-        defaultChecked={groupContext.defaultValue === value || defaultChecked}
+        {...(isControlled
+          ? { checked: isChecked }
+          : { defaultChecked: groupContext.defaultValue === value || defaultChecked })}
         disabled={isDisabled}
-        checked={isChecked}
         onChange={handleChange}
       />
 

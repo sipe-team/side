@@ -4,6 +4,7 @@ import { describe, expect, test, vi } from 'vitest';
 import { Radio } from './Radio';
 import { RadioGroup } from './RadioGroup';
 import { RadioSize } from './constants/sizes';
+import { RADIO_SIZES } from './constants/sizes';
 
 describe('Radio Group Component', () => {
   test('Radio 옵션이 정확히 렌더링 된다.', () => {
@@ -70,7 +71,11 @@ describe('Radio Group Component', () => {
 
     const radio = screen.getByRole('radio', { name: '사과' });
 
-    expect(radio).toHaveClass(expect.stringMatching(/radioInput_/));
+    const expectedSize = RADIO_SIZES[size].inputSize;
+    expect(radio).toHaveStyle({
+      width: expectedSize,
+      height: expectedSize,
+    });
   });
 
   test('RadioGroup이 비활성화(disabled) 상태일 경우 선택할 수 없어야 한다.', async () => {
