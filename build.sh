@@ -3,7 +3,6 @@
 echo "Current directory: $(pwd)"
 echo "Contents: $(ls -la)"
 
-
 if [ -d "../.storybook" ]; then
     echo "Found .storybook in parent directory, moving up"
     cd ../
@@ -29,6 +28,11 @@ if [ -f ".gitignore" ]; then
     echo "Copied .gitignore"
 fi
 
+if [ -f "tsconfig.json" ]; then
+    cp tsconfig.json output/
+    echo "Copied tsconfig.json"
+fi
+
 if [ -d "./side" ]; then
     cp -R ./side/* ./output/
     echo "Copied side/* to output"
@@ -47,6 +51,16 @@ fi
 if [ -f "pnpm-lock.yaml" ]; then
     cp pnpm-lock.yaml output/
     echo "Copied pnpm-lock.yaml"
+fi
+
+if [ -f "tsconfig.base.json" ]; then
+    cp tsconfig.base.json output/
+    echo "Copied tsconfig.base.json"
+fi
+
+if [ -f "tsconfig.node.json" ]; then
+    cp tsconfig.node.json output/
+    echo "Copied tsconfig.node.json"
 fi
 
 echo "Build.sh completed successfully"
