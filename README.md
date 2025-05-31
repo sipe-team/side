@@ -9,7 +9,7 @@ This design system is built with:
 - 📦 Monorepo structure for better package management
 - 🎨 Consistent design tokens and patterns
 - 💪 TypeScript for type safety
-- 📚 Storybook for component documentation
+- 📚 Storybook for component documentation with Netlify deployment
 - 🧪 Vitest for testing
 - 🛠️ Modern build tooling
 
