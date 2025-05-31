@@ -2,14 +2,18 @@
   base = "."
   
   command = """
-    sh ./build.sh &&
-    cd output &&
+    echo "=== Current directory and files ===" &&
+    pwd && ls -la &&
+    echo "=== Installing dependencies ===" &&
     corepack enable &&
     pnpm install --frozen-lockfile &&
+    echo "=== Checking @faker-js/faker ===" &&
+    pnpm list @faker-js/faker || echo "faker not found in dependencies" &&
+    echo "=== Building Storybook ===" &&
     pnpm build:storybook
   """
   
-  publish = "output/storybook-static"
+  publish = "storybook-static"
 
 [build.environment]
   NODE_VERSION = "18"
@@ -19,18 +23,3 @@
   from = "/*"
   to = "/index.html"
   status = 200
-
-[[headers]]
-  for = "/static/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"

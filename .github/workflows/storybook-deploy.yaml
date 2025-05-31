@@ -1,4 +1,4 @@
-name: Deploy Storybook to Netlify
+name: Deploy Storybook
 
 on:
   push:
@@ -7,7 +7,6 @@ on:
     paths:
       - 'packages/**/src/**/*.stories.@(js|jsx|ts|tsx)'
       - '.storybook/**'
-      - 'build.sh'
       - 'netlify.toml'
   pull_request:
     branches:
@@ -15,51 +14,44 @@ on:
     paths:
       - 'packages/**/src/**/*.stories.@(js|jsx|ts|tsx)'
       - '.storybook/**'
-      - 'build.sh'
       - 'netlify.toml'
   workflow_dispatch:
 
 jobs:
+  # Netlify 배포 (새로 추가)
   deploy-netlify:
     name: Deploy to Netlify
     runs-on: ubuntu-latest
-    container: pandoc/latex
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         
-      - name: Install mustache (to update the date)
-        run: apk add ruby && gem install mustache
-        
-      - name: Install Node.js and pnpm
-        run: |
-          apk add --no-cache nodejs npm
-          npm install -g pnpm@9.7.1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
           
-      - name: Creates output using existing build.sh
-        run: sh ./build.sh
-        
-      - name: Copy .storybook folder to output
-        run: cp -r .storybook output/
-        
-      - name: Install dependencies in output directory
-        working-directory: ./output
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.7.1
+          
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
         
-      - name: Build Storybook in output directory
-        working-directory: ./output
+      - name: Build Storybook
         run: pnpm build:storybook
         
       - name: Deploy to Netlify
         uses: netlify/actions/cli@master
         with:
-          args: deploy --dir=output/storybook-static --prod
+          args: deploy --dir=storybook-static --prod
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
-  # 기존 레포 배포 유지
+  # 기존 백업 레포 배포 (기존 시스템 유지)
   deploy-backup-repo:
     name: Deploy to Backup Repository
     runs-on: ubuntu-latest
