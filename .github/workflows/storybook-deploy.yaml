@@ -1,4 +1,4 @@
-name: Deploy Storybook
+name: Deploy Storybook to Netlify
 
 on:
   push:
@@ -6,22 +6,53 @@ on:
       - main
     paths:
       - 'packages/**/src/**/*.stories.@(js|jsx|ts|tsx)'
+      - '.storybook/**'
+      - 'build.sh'
+      - 'netlify.toml'
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
+    name: Build and Deploy Storybook
     runs-on: ubuntu-latest
     container: pandoc/latex
+    
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
       - name: Install mustache (to update the date)
         run: apk add ruby && gem install mustache
-      - name: creates output
+        
+      - name: Install Node.js and pnpm
+        run: |
+          apk add --no-cache nodejs npm
+          npm install -g pnpm@9.7.1
+          
+      - name: Creates output using existing build.sh
         run: sh ./build.sh
-      - name: Copy .storybook folder
+        
+      - name: Copy .storybook folder to output (as per existing workflow)
         run: cp -r .storybook output/
-      - name: Pushes to another repository
-        id: push_directory
+        
+      - name: Install dependencies in output directory
+        working-directory: ./output
+        run: pnpm install --frozen-lockfile
+        
+      - name: Build Storybook in output directory
+        working-directory: ./output
+        run: pnpm build:storybook
+        
+      - name: Deploy to Netlify
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --dir=output/storybook-static --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          
+      - name: Push to backup repository (optional)
+        if: success()
         uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.GH_TOKEN }}
@@ -34,5 +65,3 @@ jobs:
           user-email: ${{ secrets.EMAIL }}
           commit-message: ${{ github.event.commits[0].message || 'Manual deployment via workflow_dispatch' }}
           target-branch: main
-      - name: Test get variable exported by push-to-another-repository
-        run: echo $DESTINATION_CLONED_DIRECTORY
