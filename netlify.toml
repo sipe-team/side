@@ -4,6 +4,8 @@
   command = """
     echo "=== Current directory and files ===" &&
     pwd && ls -la &&
+    echo "=== Node version from .nvmrc ===" &&
+    cat .nvmrc &&
     echo "=== Installing dependencies ===" &&
     corepack enable &&
     pnpm install --frozen-lockfile &&
@@ -16,7 +18,6 @@
   publish = "storybook-static"
 
 [build.environment]
-  NODE_VERSION = "18"
   PNPM_VERSION = "9.7.1"
 
 [[redirects]]
