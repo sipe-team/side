@@ -3,7 +3,15 @@ name: Deploy Storybook to Netlify
 on:
   push:
     branches:
-      - main
+      - release/v1
+    paths:
+      - 'packages/**/src/**/*.stories.@(js|jsx|ts|tsx)'
+      - '.storybook/**'
+      - 'build.sh'
+      - 'netlify.toml'
+  pull_request:
+    branches:
+      - release/v1
     paths:
       - 'packages/**/src/**/*.stories.@(js|jsx|ts|tsx)'
       - '.storybook/**'
@@ -12,8 +20,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
-    name: Build and Deploy Storybook
+  deploy-netlify:
+    name: Deploy to Netlify
     runs-on: ubuntu-latest
     container: pandoc/latex
     
@@ -32,7 +40,7 @@ jobs:
       - name: Creates output using existing build.sh
         run: sh ./build.sh
         
-      - name: Copy .storybook folder to output (as per existing workflow)
+      - name: Copy .storybook folder to output
         run: cp -r .storybook output/
         
       - name: Install dependencies in output directory
@@ -50,9 +58,27 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          
-      - name: Push to backup repository (optional)
-        if: success()
+
+  # 기존 레포 배포 유지
+  deploy-backup-repo:
+    name: Deploy to Backup Repository
+    runs-on: ubuntu-latest
+    container: pandoc/latex
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Install mustache (to update the date)
+        run: apk add ruby && gem install mustache
+        
+      - name: Creates output using existing build.sh
+        run: sh ./build.sh
+        
+      - name: Copy .storybook folder to output
+        run: cp -r .storybook output/
+        
+      - name: Push to backup repository
         uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.GH_TOKEN }}
