@@ -628,6 +628,9 @@ importers:
 
   packages/divider:
     dependencies:
+      '@sipe-team/tokens':
+        specifier: workspace:*
+        version: link:../tokens
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -665,6 +668,9 @@ importers:
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.13
+      '@vanilla-extract/css':
+        specifier: 'catalog:'
+        version: 1.17.1
       happy-dom:
         specifier: 'catalog:'
         version: 15.11.7
