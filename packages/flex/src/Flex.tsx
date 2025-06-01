@@ -1,13 +1,14 @@
 import { Slot } from '@radix-ui/react-slot';
 import { clsx as cx } from 'clsx';
 import { type CSSProperties, type ComponentProps, type ForwardedRef, forwardRef } from 'react';
-import styles from './Flex.module.css';
+import * as styles from './Flex.css';
+import type { FlexDirection, FlexAlign, FlexJustify, FlexWrap } from './constants';
 
 export interface FlexProps extends ComponentProps<'div'> {
-  align?: CSSProperties['alignItems'];
-  justify?: CSSProperties['justifyContent'];
-  wrap?: CSSProperties['flexWrap'];
-  direction?: CSSProperties['flexDirection'];
+  direction?: FlexDirection;
+  align?: FlexAlign;
+  justify?: FlexJustify;
+  wrap?: FlexWrap;
   basis?: CSSProperties['flexBasis'];
   grow?: CSSProperties['flexGrow'];
   shrink?: CSSProperties['flexShrink'];
@@ -18,14 +19,14 @@ export interface FlexProps extends ComponentProps<'div'> {
 
 export const Flex = forwardRef(function Flex(
   {
-    align,
-    justify,
-    wrap,
-    direction,
+    direction = 'row',
+    align = 'normal',
+    justify = 'normal',
+    wrap = 'nowrap',
     basis,
     grow,
     shrink,
-    inline,
+    inline = false,
     gap,
     className,
     style,
@@ -37,21 +38,26 @@ export const Flex = forwardRef(function Flex(
 ) {
   const Component = asChild ? Slot : 'div';
 
-  const flexStyle = {
-    '--flex-display': inline ? 'inline-flex' : 'flex',
-    '--flex-direction': direction ?? 'row',
-    '--flex-align': align ?? 'normal',
-    '--flex-justify': justify ?? 'normal',
-    '--flex-wrap': wrap ?? 'nowrap',
-    '--flex-gap': gap,
-    '--flex-basis': basis,
-    '--flex-grow': grow,
-    '--flex-shrink': shrink,
+  const classNames = cx(
+    styles.base,
+    styles.direction[direction],
+    styles.align[align],
+    styles.justify[justify],
+    styles.wrap[wrap],
+    inline ? styles.display['inline-flex'] : styles.display.flex,
+    className,
+  );
+
+  const inlineStyles = {
+    flexBasis: basis,
+    flexGrow: grow,
+    flexShrink: shrink,
+    gap,
     ...style,
-  } as React.CSSProperties;
+  };
 
   return (
-    <Component ref={ref} className={cx(styles.flex, className)} style={flexStyle} {...rest}>
+    <Component ref={ref} className={classNames} style={inlineStyles} {...rest}>
       {children}
     </Component>
   );
