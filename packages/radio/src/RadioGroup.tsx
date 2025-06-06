@@ -30,7 +30,6 @@ export function RadioGroup({
   ...rest
 }: RadioGroupProps) {
   const fallbackId = useId();
-  const _legendId = useId();
   const name = propName ?? fallbackId;
 
   return (
