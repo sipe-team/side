@@ -1093,6 +1093,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.0
         version: 1.1.0(@types/react@18.3.13)(react@18.3.1)
+      '@sipe-team/tokens':
+        specifier: workspace:*
+        version: link:../tokens
       '@vanilla-extract/recipes':
         specifier: ^0.5.5
         version: 0.5.5(@vanilla-extract/css@1.17.1)
