@@ -14,7 +14,8 @@
     "build:storybook": "storybook build public",
     "serve:storybook": "serve storybook-static -p 6006",
     "create:component": "tsx scripts/createComponent.ts create",
-    "test": "vitest"
+    "test": "vitest",
+    "clean": "pnpm --filter './www' clean && pnpm --filter './packages/*' clean"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

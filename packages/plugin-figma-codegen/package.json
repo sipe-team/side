@@ -12,6 +12,7 @@
   "files": ["dist", "manifest.json"],
   "scripts": {
     "build": "tsup",
+    "clean": "rm -rf node_modules dist",
     "dev": "pnpm build --watch",
     "lint": "biome lint .",
     "typecheck": "tsc",
