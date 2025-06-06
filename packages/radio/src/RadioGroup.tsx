@@ -30,12 +30,12 @@ export function RadioGroup({
   ...rest
 }: RadioGroupProps) {
   const fallbackId = useId();
+  const _legendId = useId();
   const name = propName ?? fallbackId;
 
   return (
     <fieldset className={clsx(radioGroup, className)} disabled={disabled}>
-      <legend>{labelText}</legend>
-
+      {labelText && <legend>{labelText}</legend>}
       <RadioGroupContext.Provider value={{ ...rest, disabled, size, name }}>{children}</RadioGroupContext.Provider>
     </fieldset>
   );
