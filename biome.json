@@ -1,14 +1,17 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.0.0-beta.6/schema.json",
+  "files": {
+    "includes": ["packages/**/*.ts", "packages/**/*.tsx", ".templates/src/*.ts", ".templates/src/*.tsx"]
+  },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
     "lineWidth": 120
   },
-  "organizeImports": {
-    "enabled": true
-  },
   "linter": {
+    "domains": {
+      "react": "recommended"
+    },
     "enabled": true,
     "rules": {
       "correctness": {
@@ -29,7 +32,30 @@
       "quoteStyle": "single"
     }
   },
-  "files": {
-    "ignore": ["dist/*.*"]
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              ":NODE:",
+              ":BLANK_LINE:",
+              ["react", "react/**", "react-*", "react-*/**"],
+              ":BLANK_LINE:",
+              ["@sipe-team/tokens", "@sipe-team/typography", "@sipe-team/**"],
+              ":BLANK_LINE:",
+              ["@vanilla-extract/**"],
+              ":BLANK_LINE:",
+              ["@radix-ui/**"],
+              ":BLANK_LINE:",
+              ":PACKAGE:",
+              ":BLANK_LINE:",
+              ":PATH:"
+            ]
+          }
+        }
+      }
+    }
   }
 }
