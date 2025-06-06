@@ -20,6 +20,9 @@
     "typecheck": "tsc",
     "prepack": "pnpm run build"
   },
+  "dependencies": {
+    "clsx": "^2.1.1"
+  },
   "devDependencies": {
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
@@ -28,16 +31,16 @@
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@storybook/test": "catalog:",
-    "@testing-library/jest-dom": "catalog:",
-    "@testing-library/react": "catalog:",
     "@types/react": "^18.3.12",
-    "happy-dom": "catalog:",
+    "@vanilla-extract/css": "catalog:",
+    "playwright": "catalog:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "storybook": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "vitest-browser-react": "catalog:"
   },
   "peerDependencies": {
     "react": ">= 18",
@@ -60,6 +63,6 @@
       "./styles.css": "./dist/index.css"
     }
   },
-  "sideEffects": false,
+  "sideEffects": ["*.css"],
   "private": true
 }
