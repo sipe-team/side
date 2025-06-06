@@ -1,5 +1,4 @@
 packages:
-  - .templates/*
   - packages/*
   - www
 
