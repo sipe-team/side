@@ -1,33 +1,21 @@
+import clsx from 'clsx';
 import { type PropsWithChildren, createContext, useId } from 'react';
-import styles from './RadioGroup.module.css';
+import { radioGroup, radioGroupLegend } from './Radio.css';
+import type { RadioSize } from './constants/sizes';
 
-/**
- * ================================================================
- * RadioGroup Provider
- * ================================================================
- */
 type RadioGroupContext = Omit<RadioGroupProps, 'labelText' | 'children'>;
 
 export const RadioGroupContext = createContext<RadioGroupContext>({});
-
-/**
- * ================================================================
- * RadioGroup
- * ================================================================
- */
-
-type RadioSize = 'small' | 'medium' | 'large';
 
 type RadioGroupProps = PropsWithChildren<{
   defaultValue?: string;
   value?: string;
   onChangeValue?: (value: string) => void;
-
   labelText?: string;
   name?: string;
-
   size?: RadioSize;
   disabled?: boolean;
+  className?: string;
 }>;
 
 export function RadioGroup({
@@ -36,14 +24,15 @@ export function RadioGroup({
   disabled = false,
   children,
   name: propName,
+  className,
   ...rest
 }: RadioGroupProps) {
   const fallbackId = useId();
   const name = propName ?? fallbackId;
 
   return (
-    <fieldset className={styles.radioGroup} disabled={disabled} role={'radiogroup'}>
-      <legend>{labelText}</legend>
+    <fieldset className={clsx(radioGroup, className)} disabled={disabled} role="radiogroup">
+      {labelText && <legend className={radioGroupLegend}>{labelText}</legend>}
 
       <RadioGroupContext.Provider value={{ ...rest, disabled, size, name }}>{children}</RadioGroupContext.Provider>
     </fieldset>
