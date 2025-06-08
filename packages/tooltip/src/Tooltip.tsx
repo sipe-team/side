@@ -2,16 +2,16 @@ import { Slot } from '@radix-ui/react-slot';
 
 import clsx from 'clsx';
 import {
-  type ComponentProps,
   type CSSProperties,
+  type ComponentProps,
   type ForwardedRef,
-  forwardRef,
   type ReactNode,
+  forwardRef,
   useImperativeHandle,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { useTooltip } from './hooks/useTooltip';
 import * as styles from './Tooltip.css';
+import { useTooltip } from './hooks/useTooltip';
 
 export type TooltipPosition =
   | 'top-left'
@@ -81,7 +81,13 @@ export const Tooltip = forwardRef(function Tooltip(
           <div
             ref={tooltipRef}
             className={clsx(styles.tooltip, styles.placement[placementProp], tooltipClassName, isVisible && 'visible')}
-            style={{ ...tooltipStyles, ...tooltipStyle }}
+            style={
+              {
+                ...tooltipStyles,
+                ...tooltipStyle,
+                '--tooltip-bg-color': tooltipStyle?.backgroundColor || '#000000',
+              } as CSSProperties
+            }
           >
             {tooltipContent}
           </div>,
