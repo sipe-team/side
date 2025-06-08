@@ -17,7 +17,8 @@
     "build": "tsup",
     "lint": "pnpm exec biome lint",
     "test": "vitest",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "clean": "rm -rf node_modules dist"
   },
   "dependencies": {},
   "devDependencies": {

@@ -9,12 +9,11 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
+    "clean": "rm -rf node_modules dist",
     "dev:storybook": "storybook dev -p 6006",
     "lint": "pnpm exec biome lint",
     "test": "vitest",
