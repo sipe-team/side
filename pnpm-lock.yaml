@@ -69,6 +69,20 @@ catalogs:
     vitest:
       specifier: ^2.1.8
       version: 2.1.9
+      version: 2.1.8
+  react:
+    '@types/react':
+      specifier: ^18.3.12
+      version: 18.3.13
+    '@types/react-dom':
+      specifier: ^18.3.1
+      version: 18.3.1
+    react:
+      specifier: ^18.3.1
+      version: 18.3.1
+    react-dom:
+      specifier: ^18.3.1
+      version: 18.3.1
 
 importers:
 
@@ -241,16 +255,16 @@ importers:
         specifier: 'catalog:'
         version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       happy-dom:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       storybook:
         specifier: 'catalog:'
@@ -311,7 +325,7 @@ importers:
         specifier: ^16.0.1
         version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       '@vanilla-extract/css':
         specifier: 'catalog:'
@@ -320,10 +334,10 @@ importers:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       storybook:
         specifier: 'catalog:'
@@ -378,7 +392,7 @@ importers:
         specifier: ^16.0.1
         version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       '@vanilla-extract/css':
         specifier: 'catalog:'
@@ -387,10 +401,10 @@ importers:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       sanitize.css:
         specifier: ^13.0.0
@@ -451,7 +465,7 @@ importers:
         specifier: ^16.0.1
         version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       '@vanilla-extract/css':
         specifier: 'catalog:'
@@ -460,10 +474,10 @@ importers:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       sanitize.css:
         specifier: ^13.0.0
@@ -521,7 +535,7 @@ importers:
         specifier: ^16.0.1
         version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       '@vanilla-extract/css':
         specifier: 'catalog:'
@@ -533,10 +547,10 @@ importers:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       sanitize.css:
         specifier: ^13.0.0
@@ -597,7 +611,7 @@ importers:
         specifier: 'catalog:'
         version: 14.6.1(@testing-library/dom@10.4.0)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       '@vanilla-extract/css':
         specifier: ^1.17.1
@@ -606,10 +620,10 @@ importers:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       storybook:
         specifier: 'catalog:'
@@ -664,7 +678,7 @@ importers:
         specifier: ^16.0.1
         version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       '@vanilla-extract/css':
         specifier: 'catalog:'
@@ -673,10 +687,10 @@ importers:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       storybook:
         specifier: 'catalog:'
@@ -731,7 +745,7 @@ importers:
         specifier: 'catalog:'
         version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       '@vanilla-extract/css':
         specifier: 'catalog:'
@@ -740,10 +754,10 @@ importers:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       storybook:
         specifier: 'catalog:'
@@ -801,7 +815,7 @@ importers:
         specifier: 'catalog:'
         version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       '@vanilla-extract/css':
         specifier: 'catalog:'
@@ -810,7 +824,7 @@ importers:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       storybook:
         specifier: 'catalog:'
@@ -855,16 +869,16 @@ importers:
         specifier: 'catalog:'
         version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       happy-dom:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       storybook:
         specifier: 'catalog:'
@@ -922,16 +936,16 @@ importers:
         specifier: ^14.5.2
         version: 14.6.1(@testing-library/dom@10.4.0)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       happy-dom:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       storybook:
         specifier: 'catalog:'
@@ -1007,10 +1021,10 @@ importers:
         specifier: ^14.5.2
         version: 14.6.1(@testing-library/dom@10.4.0)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       '@types/react-dom':
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.7(@types/react@18.3.23)
       '@vanilla-extract/css':
         specifier: 'catalog:'
@@ -1019,10 +1033,10 @@ importers:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       storybook:
         specifier: 'catalog:'
@@ -1050,10 +1064,10 @@ importers:
         specifier: 'catalog:'
         version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       tsup:
         specifier: 'catalog:'
@@ -1157,16 +1171,16 @@ importers:
         specifier: ^16.0.1
         version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       happy-dom:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       storybook:
         specifier: 'catalog:'
@@ -1230,7 +1244,7 @@ importers:
         specifier: ^14.5.2
         version: 14.6.1(@testing-library/dom@10.4.0)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       '@vanilla-extract/css':
         specifier: 'catalog:'
@@ -1242,10 +1256,10 @@ importers:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       storybook:
         specifier: 'catalog:'
@@ -1288,10 +1302,10 @@ importers:
         specifier: ^1.14.1
         version: 1.17.4
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       storybook:
         specifier: 'catalog:'
@@ -1322,13 +1336,13 @@ importers:
         specifier: 'catalog:'
         version: 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.44.1)(storybook@8.6.14(prettier@2.8.8))(typescript@5.6.3)(vite@5.4.19(@types/node@22.15.33)(terser@5.43.1))
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       storybook:
         specifier: 'catalog:'
@@ -1383,10 +1397,10 @@ importers:
         specifier: ^14.5.2
         version: 14.6.1(@testing-library/dom@10.4.0)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       '@types/react-dom':
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.7(@types/react@18.3.23)
       '@vanilla-extract/css':
         specifier: 'catalog:'
@@ -1395,10 +1409,10 @@ importers:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       storybook:
         specifier: 'catalog:'
@@ -1459,7 +1473,7 @@ importers:
         specifier: ^16.0.1
         version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
-        specifier: ^18.3.12
+        specifier: catalog:react
         version: 18.3.23
       '@vanilla-extract/css':
         specifier: 'catalog:'
@@ -1468,10 +1482,10 @@ importers:
         specifier: 'catalog:'
         version: 15.11.7
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
       storybook:
         specifier: 'catalog:'
