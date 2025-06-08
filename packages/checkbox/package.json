@@ -9,9 +9,7 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
@@ -37,10 +35,10 @@
     "@storybook/test": "catalog:",
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
-    "@types/react": "^18.3.12",
+    "@types/react": "catalog:react",
     "happy-dom": "catalog:",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "catalog:react",
+    "react-dom": "catalog:react",
     "storybook": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
