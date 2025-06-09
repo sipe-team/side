@@ -1,8 +1,8 @@
+import { useControllableState } from '@radix-ui/react-use-controllable-state';
 import clsx from 'clsx';
 import { type CSSProperties, type ComponentProps, type ForwardedRef, forwardRef, useMemo } from 'react';
 import * as styles from './Switch.css';
 import { SWITCH_SIZES, SwitchSize } from './constants/size';
-import useCheckedController from './hooks/useCheckedController';
 
 export type { SwitchSize } from './constants/size';
 
@@ -23,7 +23,7 @@ export const Switch = forwardRef(function Switch(
     className,
     size = SwitchSize.md,
     defaultChecked,
-    checked,
+    checked: checkedProp,
     disabled = false,
     onChange,
     onKeyDown,
@@ -35,10 +35,9 @@ export const Switch = forwardRef(function Switch(
   }: SwitchProps,
   ref: ForwardedRef<HTMLInputElement>,
 ) {
-  const { checked: controlledChecked, onChange: controlledOnChange } = useCheckedController({
-    defaultChecked,
-    checked,
-    onChange,
+  const [checked = false, setChecked] = useControllableState({
+    prop: checkedProp,
+    defaultProp: defaultChecked,
   });
 
   const accessibilityProps = useMemo(() => {
@@ -71,22 +70,14 @@ export const Switch = forwardRef(function Switch(
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !disabled) {
       e.preventDefault();
-      const target = e.currentTarget.cloneNode(true) as HTMLInputElement;
-      target.checked = !controlledChecked;
-
-      const syntheticEvent = {
-        ...e,
-        target,
-        currentTarget: target,
-      } as unknown as React.KeyboardEvent<HTMLInputElement> & {
-        target: HTMLInputElement;
-        currentTarget: HTMLInputElement;
-      };
-
-      controlledOnChange?.(syntheticEvent as React.ChangeEvent<HTMLInputElement>);
+      setChecked((prev) => !prev);
     }
-
     onKeyDown?.(e);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(e.target.checked);
+    onChange?.(e);
   };
 
   return (
@@ -96,22 +87,17 @@ export const Switch = forwardRef(function Switch(
         type="checkbox"
         role="switch"
         className={styles.input}
-        checked={controlledChecked}
+        checked={checked}
         disabled={disabled}
-        onChange={controlledOnChange}
+        onChange={handleChange}
         onKeyDown={handleKeyDown}
-        aria-checked={controlledChecked}
+        aria-checked={checked}
         {...accessibilityProps}
         {...props}
       />
 
-      <span
-        className={styles.track({ size })}
-        data-checked={controlledChecked}
-        data-disabled={disabled}
-        aria-hidden="true"
-      >
-        <span className={styles.thumb({ size })} data-checked={controlledChecked} />
+      <span className={styles.track({ size })} data-checked={checked} data-disabled={disabled} aria-hidden="true">
+        <span className={styles.thumb({ size })} data-checked={checked} />
       </span>
 
       {label && <span className={styles.label}>{label}</span>}

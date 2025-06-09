@@ -22,9 +22,10 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
+    "@radix-ui/react-use-controllable-state": "^1.2.2",
     "@sipe-team/tokens": "workspace:^",
-    "clsx": "^2.1.1",
-    "@vanilla-extract/recipes": "^0.5.5"
+    "@vanilla-extract/recipes": "^0.5.5",
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.2.0",
