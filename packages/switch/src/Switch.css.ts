@@ -3,7 +3,7 @@ import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 import { SWITCH_SIZES, SwitchSize } from './constants/size';
 
-export const switchWrapper = style({
+export const wrapper = style({
   display: 'inline-flex',
   alignItems: 'center',
   cursor: 'pointer',
@@ -23,7 +23,7 @@ export const switchWrapper = style({
   },
 });
 
-export const switchInput = style({
+export const input = style({
   position: 'absolute',
   width: '1px',
   height: '1px',
@@ -35,7 +35,7 @@ export const switchInput = style({
   border: 0,
 });
 
-export const switchTrack = recipe({
+export const track = recipe({
   base: {
     position: 'relative',
     display: 'inline-flex',
@@ -87,11 +87,10 @@ export const switchTrack = recipe({
   },
 });
 
-export const switchThumb = recipe({
+export const thumb = recipe({
   base: {
     display: 'block',
     backgroundColor: color.white,
-    borderRadius: '50%',
     transition: 'transform 150ms ease-in-out',
     boxShadow: `0px 2px 4px ${color.gray900}1A, 0px 0px 1px ${color.gray900}4D`,
 
@@ -106,14 +105,17 @@ export const switchThumb = recipe({
       [SwitchSize.sm]: {
         width: `${SWITCH_SIZES[SwitchSize.sm].thumbSize}px`,
         height: `${SWITCH_SIZES[SwitchSize.sm].thumbSize}px`,
+        borderRadius: `${SWITCH_SIZES[SwitchSize.sm].width - SWITCH_SIZES[SwitchSize.sm].gap}px`,
       },
       [SwitchSize.md]: {
         width: `${SWITCH_SIZES[SwitchSize.md].thumbSize}px`,
         height: `${SWITCH_SIZES[SwitchSize.md].thumbSize}px`,
+        borderRadius: `${SWITCH_SIZES[SwitchSize.md].width - SWITCH_SIZES[SwitchSize.md].gap}px`,
       },
       [SwitchSize.lg]: {
         width: `${SWITCH_SIZES[SwitchSize.lg].thumbSize}px`,
         height: `${SWITCH_SIZES[SwitchSize.lg].thumbSize}px`,
+        borderRadius: `${SWITCH_SIZES[SwitchSize.lg].width - SWITCH_SIZES[SwitchSize.lg].gap}px`,
       },
     },
   },
@@ -122,7 +124,7 @@ export const switchThumb = recipe({
   },
 });
 
-export const switchLabel = style({
+export const label = style({
   marginLeft: '8px',
   fontSize: '14px',
   color: color.gray900,
