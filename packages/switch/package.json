@@ -40,6 +40,7 @@
     "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.3.12",
     "@vanilla-extract/css": "catalog:",
+    "@vanilla-extract/vite-plugin": "catalog:",
     "happy-dom": "catalog:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

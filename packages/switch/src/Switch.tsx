@@ -56,7 +56,7 @@ export const Switch = forwardRef(function Switch(
 
   const cssVariables = useMemo(() => {
     const sizeConfig = SWITCH_SIZES[size];
-    const translateDistance = sizeConfig.width - sizeConfig.thumbSize - sizeConfig.gap * 2;
+    const translateDistance = sizeConfig.width - sizeConfig.thumbSize;
 
     return {
       '--switch-translate-distance': `${translateDistance}px`,
@@ -90,12 +90,12 @@ export const Switch = forwardRef(function Switch(
   };
 
   return (
-    <label className={clsx(styles.switchWrapper, className)} data-disabled={disabled} style={combinedStyle}>
+    <label className={clsx(styles.wrapper, className)} data-disabled={disabled} style={combinedStyle}>
       <input
         ref={ref}
         type="checkbox"
         role="switch"
-        className={styles.switchInput}
+        className={styles.input}
         checked={controlledChecked}
         disabled={disabled}
         onChange={controlledOnChange}
@@ -106,15 +106,15 @@ export const Switch = forwardRef(function Switch(
       />
 
       <span
-        className={styles.switchTrack({ size })}
+        className={styles.track({ size })}
         data-checked={controlledChecked}
         data-disabled={disabled}
         aria-hidden="true"
       >
-        <span className={styles.switchThumb({ size })} data-checked={controlledChecked} />
+        <span className={styles.thumb({ size })} data-checked={controlledChecked} />
       </span>
 
-      {label && <span className={styles.switchLabel}>{label}</span>}
+      {label && <span className={styles.label}>{label}</span>}
     </label>
   );
 });
