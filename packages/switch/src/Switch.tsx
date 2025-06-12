@@ -1,75 +1,122 @@
-import { color } from '@sipe-team/tokens';
-import { clsx as cx } from 'clsx';
-import {
-  type CSSProperties,
-  type ComponentProps,
-  type ForwardedRef,
-  forwardRef,
-} from 'react';
-import styles from './Switch.module.css';
-import { type SwitchSize, switchHeight, switchWidth } from './constants/size';
+import clsx from 'clsx';
+import { type CSSProperties, type ComponentProps, type ForwardedRef, forwardRef, useMemo } from 'react';
+import * as styles from './Switch.css';
+import { SWITCH_SIZES, SwitchSize } from './constants/size';
 import useCheckedController from './hooks/useCheckedController';
 
+export type { SwitchSize } from './constants/size';
+
 export interface SwitchProps extends Omit<ComponentProps<'input'>, 'size'> {
+  size?: SwitchSize;
   defaultChecked?: boolean;
   checked?: boolean;
   disabled?: boolean;
-  size?: SwitchSize;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
+  label?: string;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
 }
 
 export const Switch = forwardRef(function Switch(
   {
     className,
+    size = SwitchSize.md,
     defaultChecked,
     checked,
-    disabled,
+    disabled = false,
     onChange,
-    size = 'md',
+    onKeyDown,
+    label,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledby,
+    style,
     ...props
   }: SwitchProps,
   ref: ForwardedRef<HTMLInputElement>,
 ) {
-  const { checked: overrideChecked, onChange: overrideOnChange } =
-    useCheckedController({
-      defaultChecked,
-      checked,
-      onChange,
-    });
+  const { checked: controlledChecked, onChange: controlledOnChange } = useCheckedController({
+    defaultChecked,
+    checked,
+    onChange,
+  });
 
-  const style = {
-    '--switch-width': `${switchWidth[size]}px`,
-    '--switch-height': `${switchHeight[size]}px`,
-    '--switch-diff': `${switchWidth[size] - switchHeight[size]}px`,
-    '--switch-border-radius': '100px',
-    '--switch-thumb-color': `${color.white}`,
-    '--switch-background-color': `${color.gray300}`,
-    '--switch-checked-background-color': `${color.blue500}`,
-    '--switch-shadow': `0px 2px 4px color-mix(in srgb, ${color.gray900} 10%, transparent), 0px 0px 1px color-mix(in srgb, ${color.gray900} 30%, transparent)`,
-  } as CSSProperties;
+  const accessibilityProps = useMemo(() => {
+    if (ariaLabel) {
+      return { 'aria-label': ariaLabel };
+    }
+    if (ariaLabelledby) {
+      return { 'aria-labelledby': ariaLabelledby };
+    }
+    if (label) {
+      return { 'aria-label': label };
+    }
+    return {};
+  }, [ariaLabel, ariaLabelledby, label]);
 
-  const state = overrideChecked ? 'checked' : 'unchecked';
+  const cssVariables = useMemo(() => {
+    const sizeConfig = SWITCH_SIZES[size];
+    const translateDistance = sizeConfig.width - sizeConfig.thumbSize - sizeConfig.gap * 2;
+
+    return {
+      '--switch-translate-distance': `${translateDistance}px`,
+    } as CSSProperties;
+  }, [size]);
+
+  const combinedStyle = {
+    ...cssVariables,
+    ...style,
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !disabled) {
+      e.preventDefault();
+      const target = e.currentTarget.cloneNode(true) as HTMLInputElement;
+      target.checked = !controlledChecked;
+
+      const syntheticEvent = {
+        ...e,
+        target,
+        currentTarget: target,
+      } as unknown as React.KeyboardEvent<HTMLInputElement> & {
+        target: HTMLInputElement;
+        currentTarget: HTMLInputElement;
+      };
+
+      controlledOnChange?.(syntheticEvent as React.ChangeEvent<HTMLInputElement>);
+    }
+
+    onKeyDown?.(e);
+  };
 
   return (
-    <label className={styles['switch-wrapper']} style={style}>
+    <label className={clsx(styles.switchWrapper, className)} data-disabled={disabled} style={combinedStyle}>
       <input
         ref={ref}
         type="checkbox"
         role="switch"
-        aria-checked={overrideChecked}
-        className={cx(styles['switch-input'], className)}
-        checked={overrideChecked}
+        className={styles.switchInput}
+        checked={controlledChecked}
         disabled={disabled}
-        onChange={overrideOnChange}
+        onChange={controlledOnChange}
+        onKeyDown={handleKeyDown}
+        aria-checked={controlledChecked}
+        {...accessibilityProps}
         {...props}
       />
+
       <span
-        className={styles['switch-track']}
+        className={styles.switchTrack({ size })}
+        data-checked={controlledChecked}
         data-disabled={disabled}
-        data-state={state}
+        aria-hidden="true"
       >
-        <span className={styles['switch-thumb']} data-state={state} />
+        <span className={styles.switchThumb({ size })} data-checked={controlledChecked} />
       </span>
+
+      {label && <span className={styles.switchLabel}>{label}</span>}
     </label>
   );
 });
+
+Switch.displayName = 'Switch';

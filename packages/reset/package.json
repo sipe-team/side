@@ -15,6 +15,7 @@
   "files": ["dist"],
   "scripts": {
     "build": "tsup",
+    "clean": "rm -rf node_modules dist",
     "lint:biome": "pnpm exec biome lint",
     "lint:eslint": "pnpm exec eslint",
     "test": "vitest",

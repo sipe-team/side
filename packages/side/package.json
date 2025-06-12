@@ -12,6 +12,7 @@
   "files": ["dist", "styles.css"],
   "scripts": {
     "build": "tsup",
+    "clean": "rm -rf node_modules dist",
     "prepack": "pnpm run build"
   },
   "dependencies": {

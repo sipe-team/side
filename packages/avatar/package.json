@@ -13,6 +13,7 @@
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
+    "clean": "rm -rf node_modules dist",
     "dev:storybook": "storybook dev -p 6006",
     "lint": "biome lint .",
     "test": "vitest",

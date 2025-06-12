@@ -1,0 +1,26 @@
+[build]
+  base = "."
+  
+  command = """
+    echo "=== Current directory and files ===" &&
+    pwd && ls -la &&
+    echo "=== Node version from .nvmrc ===" &&
+    cat .nvmrc &&
+    echo "=== Installing dependencies ===" &&
+    corepack enable &&
+    pnpm install --frozen-lockfile &&
+    echo "=== Checking @faker-js/faker ===" &&
+    pnpm list @faker-js/faker || echo "faker not found in dependencies" &&
+    echo "=== Building Storybook ===" &&
+    pnpm build:storybook
+  """
+  
+  publish = "storybook-static"
+
+[build.environment]
+  PNPM_VERSION = "9.7.1"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
