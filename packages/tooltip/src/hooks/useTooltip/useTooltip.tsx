@@ -1,4 +1,5 @@
 import { type CSSProperties, type KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, useState } from 'react';
+
 import type { TooltipPosition, TooltipTrigger } from '../../Tooltip';
 
 interface useTooltipProps {

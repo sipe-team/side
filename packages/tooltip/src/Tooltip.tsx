@@ -1,17 +1,19 @@
-import { Slot } from '@radix-ui/react-slot';
-
-import clsx from 'clsx';
 import {
-  type CSSProperties,
   type ComponentProps,
+  type CSSProperties,
   type ForwardedRef,
-  type ReactNode,
   forwardRef,
+  type ReactNode,
   useImperativeHandle,
 } from 'react';
 import { createPortal } from 'react-dom';
-import * as styles from './Tooltip.css';
+
+import { Slot } from '@radix-ui/react-slot';
+
+import clsx from 'clsx';
+
 import { useTooltip } from './hooks/useTooltip';
+import * as styles from './Tooltip.css';
 
 export type TooltipPosition =
   | 'top-left'

@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
+
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useEffect, useState } from 'react';
 import { describe, expect, test } from 'vitest';
+
 import { Tooltip, type TooltipPosition } from './Tooltip';
 
 describe('Tooltip 기본 동작 테스트', () => {

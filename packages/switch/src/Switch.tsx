@@ -1,8 +1,11 @@
+import { type ComponentProps, type CSSProperties, type ForwardedRef, forwardRef, useMemo } from 'react';
+
 import { useControllableState } from '@radix-ui/react-use-controllable-state';
+
 import clsx from 'clsx';
-import { type CSSProperties, type ComponentProps, type ForwardedRef, forwardRef, useMemo } from 'react';
-import * as styles from './Switch.css';
+
 import { SWITCH_SIZES, SwitchSize } from './constants/size';
+import * as styles from './Switch.css';
 
 export type { SwitchSize } from './constants/size';
 
