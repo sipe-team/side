@@ -1,8 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0-beta.6/schema.json",
-  "files": {
-    "includes": ["packages/**/*.ts", "packages/**/*.tsx"]
-  },
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
@@ -31,6 +28,12 @@
     "formatter": {
       "quoteStyle": "single"
     }
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "root": "."
   },
   "assist": {
     "actions": {

@@ -15,7 +15,7 @@
     "clean": "pnpm --filter './www' clean && pnpm --filter './packages/*' clean"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.0.0-beta.6",
+    "@biomejs/biome": "^2.0.6",
     "@changesets/cli": "^2.27.9",
     "@clack/prompts": "^0.9.0",
     "@commitlint/cli": "^19.6.1",
