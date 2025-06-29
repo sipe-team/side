@@ -232,7 +232,80 @@ importers:
         version: 8.4.6(@storybook/test@8.4.6(storybook@8.5.0(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.0(prettier@2.8.8))(typescript@5.6.3)
       '@storybook/react-vite':
         specifier: 'catalog:'
-        version: 8.4.6(@storybook/test@8.4.6(storybook@8.5.0(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.36.0)(storybook@8.5.0(prettier@2.8.8))(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.1)(terser@5.37.0))
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.5.0(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.36.0)(storybook@8.5.0(prettier@2.8.8))(typescript@5.6.3)(vite@6.2.4(@types/node@22.10.1)(jiti@2.4.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1))
+      '@storybook/test':
+        specifier: 'catalog:'
+        version: 8.4.6(storybook@8.5.0(prettier@2.8.8))
+      '@testing-library/jest-dom':
+        specifier: 'catalog:'
+        version: 6.6.3
+      '@testing-library/react':
+        specifier: 'catalog:'
+        version: 16.0.1(@testing-library/dom@10.4.0)(@types/react-dom@18.3.1)(@types/react@18.3.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/react':
+        specifier: ^18.3.12
+        version: 18.3.13
+      happy-dom:
+        specifier: 'catalog:'
+        version: 15.11.7
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      storybook:
+        specifier: 'catalog:'
+        version: 8.5.0(prettier@2.8.8)
+      tsup:
+        specifier: 'catalog:'
+        version: 8.4.0(jiti@2.4.1)(postcss@8.5.3)(tsx@4.19.2)(typescript@5.6.3)(yaml@2.6.1)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.6.3
+      vitest:
+        specifier: 'catalog:'
+        version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(terser@5.37.0)
+
+  packages/accordion:
+    dependencies:
+      '@radix-ui/react-slot':
+        specifier: ^1.1.0
+        version: 1.1.0(@types/react@18.3.13)(react@18.3.1)
+      '@sipe-team/icon':
+        specifier: workspace:*
+        version: link:../icon
+      '@sipe-team/tokens':
+        specifier: ^0.1.0
+        version: 0.1.0
+      '@vanilla-extract/css':
+        specifier: 'catalog:'
+        version: 1.17.1
+      '@vanilla-extract/recipes':
+        specifier: ^0.5.5
+        version: 0.5.5(@vanilla-extract/css@1.17.1)
+      clsx:
+        specifier: ^2.1.0
+        version: 2.1.1
+    devDependencies:
+      '@storybook/addon-essentials':
+        specifier: 'catalog:'
+        version: 8.4.6(@types/react@18.3.13)(storybook@8.5.0(prettier@2.8.8))
+      '@storybook/addon-interactions':
+        specifier: 'catalog:'
+        version: 8.4.6(storybook@8.5.0(prettier@2.8.8))
+      '@storybook/addon-links':
+        specifier: 'catalog:'
+        version: 8.4.6(react@18.3.1)(storybook@8.5.0(prettier@2.8.8))
+      '@storybook/blocks':
+        specifier: 'catalog:'
+        version: 8.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.0(prettier@2.8.8))
+      '@storybook/react':
+        specifier: 'catalog:'
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.5.0(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.0(prettier@2.8.8))(typescript@5.6.3)
+      '@storybook/react-vite':
+        specifier: 'catalog:'
+        version: 8.4.6(@storybook/test@8.4.6(storybook@8.5.0(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.36.0)(storybook@8.5.0(prettier@2.8.8))(typescript@5.6.3)(vite@6.2.4(@types/node@22.10.1)(jiti@2.4.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1))
       '@storybook/test':
         specifier: 'catalog:'
         version: 8.4.6(storybook@8.5.0(prettier@2.8.8))
@@ -3719,6 +3792,9 @@ packages:
   '@sindresorhus/is@5.6.0':
     resolution: {integrity: sha512-TV7t8GKYaJWsn00tFDqBw8+Uqmr8A0fRU1tvTQhyZzGv0sJCGRQL3JGMI3ucuKo3XIZdUP+Lx7/gh2t3lewy7g==}
     engines: {node: '>=14.16'}
+
+  '@sipe-team/tokens@0.1.0':
+    resolution: {integrity: sha512-ZrR6S1sigyemBpmU4eTkPW6tvjg/aRlk8NvPun2yNzz0FnKLCcXoTg1RujUPdTjn1U/t+i6WiDshUkAegHG/0g==, tarball: https://npm.pkg.github.com/download/@sipe-team/tokens/0.1.0/04d76be75e09b4ac26971f4c39916b3556e3859e}
 
   '@slorber/remark-comment@1.0.0':
     resolution: {integrity: sha512-RCE24n7jsOj1M0UPvIQCHTe7fI0sFL4S2nwKVWwHyVr/wI/H8GosgsJGyhnsZoGFnD/P2hLf1mSbrrgSLN93NA==}
@@ -12419,6 +12495,8 @@ snapshots:
 
   '@sindresorhus/is@5.6.0': {}
 
+  '@sipe-team/tokens@0.1.0': {}
+
   '@slorber/remark-comment@1.0.0':
     dependencies:
       micromark-factory-space: 1.1.0
@@ -19374,7 +19452,7 @@ snapshots:
     dependencies:
       cac: 6.7.14
       debug: 4.4.0
-      es-module-lexer: 1.5.4
+      es-module-lexer: 1.6.0
       pathe: 1.1.2
       vite: 5.4.11(@types/node@22.10.1)(terser@5.37.0)
     transitivePeerDependencies:
@@ -19448,7 +19526,7 @@ snapshots:
       pathe: 1.1.2
       std-env: 3.8.0
       tinybench: 2.9.0
-      tinyexec: 0.3.1
+      tinyexec: 0.3.2
       tinypool: 1.0.2
       tinyrainbow: 1.2.0
       vite: 5.4.11(@types/node@22.10.1)(terser@5.37.0)
