@@ -278,6 +278,9 @@ importers:
       '@sipe-team/tokens':
         specifier: ^0.1.0
         version: 0.1.0
+      '@sipe-team/typography':
+        specifier: workspace:*
+        version: link:../typography
       '@vanilla-extract/css':
         specifier: 'catalog:'
         version: 1.17.1
