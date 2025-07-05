@@ -1,33 +1,10 @@
 import { Slot } from '@radix-ui/react-slot';
 import { AccordionArrowIcon } from '@sipe-team/icon';
 import { clsx as cx } from 'clsx';
-import {
-  type ComponentProps,
-  type ForwardedRef,
-  createContext,
-  forwardRef,
-  useContext,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { type ComponentProps, type ForwardedRef, forwardRef, useLayoutEffect, useRef, useState } from 'react';
 import * as styles from './Accordion.css';
+import { AccordionItemContext, useAccordionItemContext } from './context/AccordionItemContext';
 import type { AccordionContentProps, AccordionItemProps, AccordionRootProps } from './types';
-
-interface AccordionItemContextValue {
-  isOpen: boolean;
-  toggleAccordion: () => void;
-}
-
-const AccordionItemContext = createContext<AccordionItemContextValue | null>(null);
-
-const useAccordionItemContext = () => {
-  const context = useContext(AccordionItemContext);
-  if (!context) {
-    throw new Error('useAccordionItemContext는 AccordionItem 내부에서 사용되어야 합니다');
-  }
-  return context;
-};
 
 export const AccordionRoot = forwardRef(function AccordionRoot(
   { children, asChild, className, ...props }: AccordionRootProps,
