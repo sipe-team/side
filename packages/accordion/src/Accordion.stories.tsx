@@ -1,7 +1,7 @@
+import { color } from '@sipe-team/tokens';
+import { Typography } from '@sipe-team/typography';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Accordion } from './Accordion';
-import { Typography } from '@sipe-team/typography';
-import { color } from '@sipe-team/tokens';
 
 const contentTextColor = color.gray200;
 
@@ -18,9 +18,9 @@ export default meta;
 
 type Story = StoryObj<typeof Accordion>;
 
-export const Composable: Story = {
-  render: (args) => (
-    <Accordion.Root {...args}>
+export const Basic: Story = {
+  render: () => (
+    <Accordion>
       <Accordion.Item>
         <Accordion.Trigger>
           <Typography weight="bold">
@@ -34,13 +34,13 @@ export const Composable: Story = {
           </Typography>
         </Accordion.Content>
       </Accordion.Item>
-    </Accordion.Root>
+    </Accordion>
   ),
 };
 
 export const WithDefaultOpen: Story = {
-  render: (args) => (
-    <Accordion.Root {...args}>
+  render: () => (
+    <Accordion.Root>
       <Accordion.Item defaultOpen>
         <Accordion.Trigger>
           <Typography weight="bold">이 항목은 기본으로 열려있습니다.</Typography>
@@ -67,9 +67,9 @@ export const WithDefaultOpen: Story = {
 };
 
 export const AccordionList: Story = {
-  render: (args) => (
+  render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '100%' }}>
-      <Accordion.Root {...args}>
+      <Accordion.Root>
         <Accordion.Item>
           <Accordion.Trigger>
             <Typography weight="bold">4기 선발 기준은 어떻게 되나요?</Typography>
@@ -82,7 +82,7 @@ export const AccordionList: Story = {
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
-      <Accordion.Root {...args}>
+      <Accordion.Root>
         <Accordion.Item>
           <Accordion.Trigger>
             <Typography weight="bold">
@@ -97,7 +97,7 @@ export const AccordionList: Story = {
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
-      <Accordion.Root {...args}>
+      <Accordion.Root>
         <Accordion.Item>
           <Accordion.Trigger>
             <Typography weight="bold">4기 선발 인원은 몇명인가요?</Typography>
@@ -109,7 +109,7 @@ export const AccordionList: Story = {
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
-      <Accordion.Root {...args}>
+      <Accordion.Root>
         <Accordion.Item>
           <Accordion.Trigger>
             <Typography weight="bold">미성년자이지만 개발자로 근무하고 있는데 지원할 수 있나요?</Typography>
