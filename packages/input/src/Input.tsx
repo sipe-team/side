@@ -6,15 +6,15 @@ import cx from 'clsx';
 
 import { defaultFontSize, defaultFontWeight, inputAction, inputElement, inputWrapper, type weight } from './Input.css';
 
-export type FontSize = 12 | 14 | 16 | 18 | 20 | 24 | 28 | 32 | 36 | 48;
-export type FontWeight = keyof typeof weight;
+export type InputFontSize = 12 | 14 | 16 | 18 | 20 | 24 | 28 | 32 | 36 | 48;
+export type InputFontWeight = keyof typeof weight;
 type AllowedInputTypes = 'email' | 'password' | 'search' | 'tel' | 'text' | 'url';
 type InputFieldElement = ElementRef<'input'>;
 
 interface InputProps extends Omit<ComponentPropsWithoutRef<'input'>, 'type'> {
   type?: AllowedInputTypes;
-  fontSize?: FontSize;
-  fontWeight?: FontWeight;
+  fontSize?: InputFontSize;
+  fontWeight?: InputFontWeight;
 }
 
 const Input = forwardRef<InputFieldElement, InputProps>((props, forwardedRef) => {

@@ -3,7 +3,7 @@ import { color } from '@sipe-team/tokens';
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import type { FontSize, FontWeight } from './Input';
+import type { InputFontSize, InputFontWeight } from './Input';
 
 // TODO ThemeProvider 적용
 export const colors = {
@@ -25,8 +25,8 @@ export const weight = {
   bold: 700,
 } as const;
 
-export const defaultFontSize: FontSize = 16;
-export const defaultFontWeight: FontWeight = 'regular';
+export const defaultFontSize: InputFontSize = 16;
+export const defaultFontWeight: InputFontWeight = 'regular';
 
 export const inputWrapper = recipe({
   base: {
