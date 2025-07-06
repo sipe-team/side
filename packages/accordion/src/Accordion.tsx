@@ -1,9 +1,10 @@
 import { Slot } from '@radix-ui/react-slot';
 import { AccordionArrowIcon } from '@sipe-team/icon';
 import { clsx as cx } from 'clsx';
-import { type ComponentProps, type ForwardedRef, forwardRef, useLayoutEffect, useRef, useState } from 'react';
+import { type ComponentProps, type ForwardedRef, forwardRef, useState } from 'react';
 import * as styles from './Accordion.css';
 import { AccordionItemContext, useAccordionItemContext } from './context/AccordionItemContext';
+import { useAccordionAnimation } from './hooks/useAccordionAnimation';
 import type { AccordionContentProps, AccordionItemProps, AccordionRootProps } from './types';
 
 export const AccordionRoot = forwardRef(function AccordionRoot(
@@ -22,7 +23,7 @@ export const AccordionItem = forwardRef(function AccordionItem(
   { children, className, defaultOpen = false, ...props }: AccordionItemProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
-  const [isOpen, setIsOpen] = useState(defaultOpen);
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
 
   const toggleAccordion = () => {
     setIsOpen((prev) => !prev);
@@ -62,45 +63,9 @@ export const AccordionTrigger = forwardRef(function AccordionTrigger(
 
 export const AccordionContent = ({ children, asChild, className, ...props }: AccordionContentProps) => {
   const { isOpen } = useAccordionItemContext();
-  const ref = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState('0px');
-  const [shouldTransition, setShouldTransition] = useState(false);
+  const { ref, height, shouldTransition } = useAccordionAnimation(isOpen);
 
   const Comp = asChild ? Slot : 'div';
-
-  // 높이 측정 및 트랜지션 처리
-  useLayoutEffect(() => {
-    const el = ref.current;
-    if (!el) return () => {};
-
-    if (isOpen) {
-      // 열릴 때: 실제 높이로 트랜지션 → 트랜지션 끝나면 auto로 변경
-      setHeight(`${el.scrollHeight}px`);
-      setShouldTransition(true);
-
-      const handleTransitionEnd = () => {
-        if (isOpen) setHeight('auto');
-      };
-      el.addEventListener('transitionend', handleTransitionEnd, { once: true });
-      return () => el.removeEventListener('transitionend', handleTransitionEnd);
-    }
-
-    // 닫힐 때: auto → 실제 높이로 세팅 후 → 0으로 트랜지션
-    if (el.style.height === 'auto') {
-      setHeight(`${el.scrollHeight}px`);
-      // 다음 프레임에 0으로 변경(트랜지션 적용)
-      requestAnimationFrame(() => {
-        setShouldTransition(true);
-        setHeight('0px');
-      });
-    } else {
-      setShouldTransition(true);
-      setHeight('0px');
-    }
-
-    // clean-up
-    return () => {};
-  }, [isOpen]);
 
   return (
     <div
