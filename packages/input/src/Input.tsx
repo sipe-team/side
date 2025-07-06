@@ -1,15 +1,16 @@
-import classNames from 'classnames';
-import { type CSSProperties, type ComponentPropsWithoutRef, type ElementRef, forwardRef } from 'react';
+import { type ComponentPropsWithoutRef, type ElementRef, forwardRef } from 'react';
 
 import { Slot } from '@radix-ui/react-slot';
 
-import styles from './Input.module.css';
-import { colors } from './constants/colors';
-import { spacing } from './constants/spacing';
-import { type FontSize, type FontWeight, Weight, defaultFontSize, defaultFontWeight } from './constants/typhography';
+import cx from 'clsx';
 
+import { defaultFontSize, defaultFontWeight, inputAction, inputElement, inputWrapper, type weight } from './Input.css';
+
+export type FontSize = 12 | 14 | 16 | 18 | 20 | 24 | 28 | 32 | 36 | 48;
+export type FontWeight = keyof typeof weight;
 type AllowedInputTypes = 'email' | 'password' | 'search' | 'tel' | 'text' | 'url';
 type InputFieldElement = ElementRef<'input'>;
+
 interface InputProps extends Omit<ComponentPropsWithoutRef<'input'>, 'type'> {
   type?: AllowedInputTypes;
   fontSize?: FontSize;
@@ -28,22 +29,8 @@ const Input = forwardRef<InputFieldElement, InputProps>((props, forwardedRef) =>
   } = props;
 
   return (
-    <div
-      role="presentation"
-      className={classNames(styles['input-wrapper'], className)}
-      style={
-        {
-          '--input-padding': `${spacing.defaultInputPadding}`,
-          '--input-border-radius': `${spacing.defaultBorderRadius}`,
-          '--input-ring-color': `${colors.defaultInputOutline}`,
-          '--input-disabled-color': `${colors.disabledBackground}`,
-          '--action-size': `${spacing.defaultActionSize}`,
-          '--font-size': `${fontSize}px`,
-          '--font-weight': `${Weight[fontWeight]}`,
-        } as CSSProperties
-      }
-    >
-      <input name={name} type={type} spellCheck="false" ref={forwardedRef} className={styles.input} {...inputProps} />
+    <div role="presentation" className={cx(inputWrapper({ fontSize, fontWeight }), className)}>
+      <input name={name} type={type} spellCheck="false" ref={forwardedRef} className={inputElement} {...inputProps} />
       {children}
     </div>
   );
@@ -66,10 +53,9 @@ const InputFieldAction = forwardRef<InputFieldActionElement, InputFieldActionPro
   const { className, asChild, type = 'button', ...slotProps } = props;
 
   const Comp = asChild ? Slot : 'button';
-  return <Comp ref={forwardedRef} className={classNames(styles['input-action'], className)} {...slotProps} />;
+  return <Comp ref={forwardedRef} className={cx(inputAction, className)} type={type} {...slotProps} />;
 });
 InputFieldAction.displayName = 'Input.Action';
 
 export { InputFieldAction as Action, Input };
-
 export type { InputProps, InputFieldActionProps as SlotProps };

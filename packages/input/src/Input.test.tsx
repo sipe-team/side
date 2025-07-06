@@ -1,11 +1,13 @@
 import '@testing-library/jest-dom';
+
+import { createRef } from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createRef } from 'react';
 import { describe, expect, test } from 'vitest';
+
 import { Action, Input } from './Input';
-import { colors } from './constants/colors';
-import { Weight, defaultFontSize, defaultFontWeight } from './constants/typhography';
+import { defaultFontSize, defaultFontWeight, weight } from './Input.css';
 
 describe('Input 컴포넌트', () => {
   describe('렌더링', () => {
@@ -25,12 +27,10 @@ describe('Input 컴포넌트', () => {
       expect(ref.current).toBeInstanceOf(HTMLInputElement);
     });
 
-    test(`disabled일 때 배경색이 정의된 비활성화 색상(${colors.disabledBackground})으로 설정된다`, () => {
-      const disableColor = colors.disabledBackground;
-      const { container } = render(<Input disabled={true} />);
-      const element = container.firstChild as HTMLElement;
-      const styles = getComputedStyle(element);
-      expect(styles.getPropertyValue('--input-disabled-color')).toBe(disableColor);
+    test('disabled 상태가 올바르게 설정된다', () => {
+      render(<Input disabled={true} />);
+      const input = screen.getByRole('textbox');
+      expect(input).toBeDisabled();
     });
 
     test('classNames가 올바르게 적용된다', () => {
@@ -46,9 +46,10 @@ describe('Input 컴포넌트', () => {
     test(`fontWeight가 미지정시 ${defaultFontWeight}, fontSize가 미지정시 ${defaultFontSize}px이 기본값으로 적용된다`, () => {
       const { container } = render(<Input />);
       const element = container.firstChild as HTMLElement;
-      const styles = getComputedStyle(element);
-      expect(styles.getPropertyValue('--font-size')).toBe(`${defaultFontSize}px`);
-      expect(styles.getPropertyValue('--font-weight')).toBe(`${Weight[defaultFontWeight]}`);
+      const computedStyle = getComputedStyle(element);
+
+      expect(computedStyle.fontSize).toBe(`${defaultFontSize}px`);
+      expect(computedStyle.fontWeight).toBe(`${weight[defaultFontWeight]}`);
     });
 
     test('변경 폰트 사이즈, 폰트 웨이트 적용된다.', () => {
@@ -56,9 +57,10 @@ describe('Input 컴포넌트', () => {
       const fontWeight = 'semiBold';
       const { container } = render(<Input fontSize={fontSize} fontWeight={fontWeight} />);
       const element = container.firstChild as HTMLElement;
-      const styles = getComputedStyle(element);
-      expect(styles.getPropertyValue('--font-size')).toBe(`${fontSize}px`);
-      expect(styles.getPropertyValue('--font-weight')).toBe(`${Weight[fontWeight]}`);
+      const computedStyle = getComputedStyle(element);
+
+      expect(computedStyle.fontSize).toBe(`${fontSize}px`);
+      expect(computedStyle.fontWeight).toBe(`${weight[fontWeight]}`);
     });
   });
 
