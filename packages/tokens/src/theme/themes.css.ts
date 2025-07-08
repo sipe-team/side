@@ -1,6 +1,10 @@
 import { createGlobalTheme } from '@vanilla-extract/css';
 
-import { fontSize, fontWeight, lineHeight, radius, shadows, spacing, themeColor } from '../index';
+import { themeColor } from '../colors/colors';
+import { radius } from '../effects/radius';
+import { shadows } from '../effects/shadows';
+import { spacing } from '../layout/spacing';
+import { fontSize, fontWeight, lineHeight } from '../typography/fonts';
 import { themeLayer, vars } from './contract.css';
 
 const baseTheme = {
@@ -120,19 +124,16 @@ export const lightTheme4th = createGlobalTheme('[data-theme="4th"]', vars, {
   theme: '4th',
 });
 
-export const darkTheme1st = createGlobalTheme('[data-theme="1st"][data-mode="dark"]', vars, {
-  ...baseTheme,
-  color: {
-    primary: themeColor['1st'].primary,
-    secondary: themeColor['1st'].secondary,
-    background: themeColor['1st'].background,
-    text: themeColor['1st'].text,
-    gradient: themeColor['1st'].gradient,
-  },
-  mode: 'dark',
-  theme: '1st',
-});
-
-// Legacy themes for backward compatibility
-export const lightTheme = defaultTheme;
-export const darkTheme = darkTheme1st;
+// TODO: 다크 모드 추가 필요
+// export const darkTheme1st = createGlobalTheme('[data-theme="1st"][data-mode="dark"]', vars, {
+//   ...baseTheme,
+//   color: {
+//     primary: themeColor['1st'].primary,
+//     secondary: themeColor['1st'].secondary,
+//     background: themeColor['1st'].background,
+//     text: themeColor['1st'].text,
+//     gradient: themeColor['1st'].gradient,
+//   },
+//   mode: 'dark',
+//   theme: '1st',
+// });
