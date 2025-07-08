@@ -8,7 +8,7 @@ export default {
   parameters: {
     options: {
       storySort: {
-        order: ['Tokens', 'Components'],
+        order: ['INTRO', 'Components'],
       },
     },
   },
