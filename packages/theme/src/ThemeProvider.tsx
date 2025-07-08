@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useMemo, useRef, useState } from 
 
 import { vars } from '@sipe-team/tokens';
 
-type ThemeName = '1st' | '2nd' | '3rd' | '4th';
+export type ThemeName = '1st' | '2nd' | '3rd' | '4th';
 
 interface ThemeContextType {
   theme: ThemeName;
