@@ -20,7 +20,6 @@
     "prepack": "pnpm run build"
   },
   "devDependencies": {
-    "@faker-js/faker": "^9.2.0",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
@@ -29,8 +28,7 @@
     "react-dom": "^18.3.1",
     "storybook": "catalog:",
     "tsup": "catalog:",
-    "typescript": "catalog:",
-    "@sipe-team/typography": "workspace:*"
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "access": "public",
