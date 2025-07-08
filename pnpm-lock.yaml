@@ -337,6 +337,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.0
         version: 1.2.3(@types/react@18.3.23)(react@18.3.1)
+      '@sipe-team/tokens':
+        specifier: workspace:*
+        version: link:../tokens
       '@sipe-team/typography':
         specifier: workspace:*
         version: link:../typography
@@ -347,6 +350,9 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
     devDependencies:
+      '@sipe-team/theme':
+        specifier: workspace:*
+        version: link:../theme
       '@storybook/addon-essentials':
         specifier: 'catalog:'
         version: 8.6.14(@types/react@18.3.23)(storybook@8.6.14(prettier@2.8.8))
@@ -1015,6 +1021,9 @@ importers:
       '@sipe-team/switch':
         specifier: workspace:*
         version: link:../switch
+      '@sipe-team/theme':
+        specifier: workspace:*
+        version: link:../theme
       '@sipe-team/tokens':
         specifier: workspace:*
         version: link:../tokens
@@ -1229,6 +1238,9 @@ importers:
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.23
+      '@vanilla-extract/css':
+        specifier: 'catalog:'
+        version: 1.17.4
       react:
         specifier: ^18.3.1
         version: 18.3.1
