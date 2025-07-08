@@ -19,12 +19,14 @@
     "typecheck": "tsc",
     "prepack": "pnpm run build"
   },
+  "dependencies": {
+    "@vanilla-extract/css": "catalog:"
+  },
   "devDependencies": {
     "@storybook/addon-essentials": "catalog:",
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@types/react": "^18.3.12",
-    "@vanilla-extract/css": "catalog:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "storybook": "catalog:",
