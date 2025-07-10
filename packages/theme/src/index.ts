@@ -1,3 +1,3 @@
-export { ThemeProvider, useTheme, theme } from './ThemeProvider';
-export { vars, themeLayer } from './themeContract.css';
-export * from './utils/index';
+export { themeLayer, vars } from '@sipe-team/tokens';
+
+export { type ThemeName, ThemeProvider, theme, useTheme } from './ThemeProvider';

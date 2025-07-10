@@ -1,12 +1,19 @@
-import type React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ThemeProvider, useTheme, theme } from './ThemeProvider';
+
+import { ThemeProvider, useTheme } from './ThemeProvider';
 
 const meta = {
   title: 'Components/ThemeProvider',
   component: ThemeProvider,
   parameters: {
     layout: 'centered',
+  },
+  argTypes: {
+    theme: {
+      control: { type: 'select' },
+      options: ['1st', '2nd', '3rd', '4th'],
+      description: 'Select theme variant',
+    },
   },
   decorators: [
     (Story) => (
@@ -20,152 +27,88 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const CustomButton = ({ onClick, children }: { onClick: () => void; children: React.ReactNode }) => (
-  <button
-    type="button"
-    onClick={onClick}
-    style={{
-      padding: '8px 16px',
-      backgroundColor: theme.color.primary,
-      color: theme.color.black,
-      border: 'none',
-      borderRadius: '4px',
-      cursor: 'pointer',
-      fontWeight: theme.typography.fontWeight.medium,
-    }}
-  >
-    {children}
-  </button>
-);
-
-const ThemeToggler = () => {
-  const { mode, toggleMode } = useTheme();
-
-  return <CustomButton onClick={toggleMode}>Toggle Theme ({mode})</CustomButton>;
-};
-
 const ThemeDisplay = () => {
-  const { mode } = useTheme();
-
-  const themeVars = [
-    {
-      category: 'Colors',
-      vars: ['color-primary', 'color-background', 'color-text', 'color-border', 'color-black', 'color-white'],
-    },
-  ];
+  const { theme: currentTheme } = useTheme();
 
   return (
-    <div
-      style={{
-        maxWidth: '800px',
-        color: theme.color.text,
-        backgroundColor: theme.color.background,
-        padding: theme.spacing.md,
-        borderRadius: '8px',
-        transition: 'all 0.3s ease',
-        fontFamily: theme.typography.fontFamily,
-      }}
-    >
-      <h1 style={{ marginBottom: theme.spacing.md }}>Current Theme: {mode}</h1>
+    <ThemeProvider theme={currentTheme}>
+      <div
+        style={{
+          maxWidth: '800px',
+          color: 'var(--side-color-text)',
+          backgroundColor: 'var(--side-color-background)',
+          padding: 'var(--side-spacing-md)',
+          borderRadius: '8px',
+          transition: 'all 0.3s ease',
+          fontFamily: 'var(--side-typography-fontFamily)',
+          border: '1px solid var(--side-color-border)',
+        }}
+      >
+        <h1 style={{ marginBottom: 'var(--side-spacing-md)' }}>Current Theme: {currentTheme}</h1>
 
-      <ThemeToggler />
-
-      <div style={{ marginTop: theme.spacing.xl }}>
-        <h2>Theme Preview</h2>
-        <div
-          style={{
-            padding: theme.spacing.md,
-            border: `1px solid ${theme.color.border}`,
-            borderRadius: '8px',
-          }}
-        >
-          <p style={{ color: theme.color.text, fontSize: theme.typography.fontSize.medium }}>
-            This is regular text using the theme&apos;s text color and medium font size.
-          </p>
-          <p
-            style={{
-              color: theme.color.primary,
-              fontSize: theme.typography.fontSize.large,
-              fontWeight: theme.typography.fontWeight.bold,
-            }}
-          >
-            This is primary-colored text with large font size and bold weight.
-          </p>
+        <div style={{ marginTop: 'var(--side-spacing-xl)' }}>
+          <h2>Theme Preview</h2>
           <div
             style={{
-              backgroundColor: theme.color.primary,
-              color: mode === 'dark' ? theme.color.black : theme.color.white,
-              padding: theme.spacing.sm,
-              borderRadius: '4px',
-              marginTop: theme.spacing.sm,
-              fontWeight: theme.typography.fontWeight.medium,
+              padding: 'var(--side-spacing-md)',
+              border: '1px solid var(--side-color-border)',
+              borderRadius: '8px',
+              marginBottom: 'var(--side-spacing-md)',
             }}
           >
-            This is a primary background container
+            <p
+              style={{
+                color: 'var(--side-color-text)',
+                fontSize: 'var(--side-typography-fontSize-400)',
+                marginBottom: 'var(--side-spacing-sm)',
+              }}
+            >
+              This is regular text using the theme&apos;s text color and medium font size.
+            </p>
+            <p
+              style={{
+                color: 'var(--side-color-primary)',
+                fontSize: 'var(--side-typography-fontSize-600)',
+                fontWeight: 'var(--side-typography-fontWeight-bold)',
+                marginBottom: 'var(--side-spacing-sm)',
+              }}
+            >
+              This is primary-colored text with large font size and bold weight.
+            </p>
+            <div
+              style={{
+                backgroundColor: 'var(--side-color-primary)',
+                color: 'var(--side-color-background)',
+                padding: 'var(--side-spacing-sm)',
+                borderRadius: '4px',
+                marginTop: 'var(--side-spacing-sm)',
+                fontWeight: 'var(--side-typography-fontWeight-medium)',
+              }}
+            >
+              This is a primary background container
+            </div>
+            <div
+              style={{
+                backgroundColor: 'var(--side-color-secondary)',
+                color: 'var(--side-color-background)',
+                padding: 'var(--side-spacing-sm)',
+                borderRadius: '4px',
+                marginTop: 'var(--side-spacing-sm)',
+                fontWeight: 'var(--side-typography-fontWeight-medium)',
+              }}
+            >
+              This is a secondary background container
+            </div>
           </div>
         </div>
       </div>
-
-      <div style={{ marginTop: theme.spacing.md }}>
-        {themeVars.map(({ category, vars }) => (
-          <div key={category} style={{ marginBottom: theme.spacing.md }}>
-            <h2>{category}</h2>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                gap: theme.spacing.sm,
-              }}
-            >
-              {vars.map((varName) => {
-                const fullVarName = `--side-${varName}`;
-                const value = getComputedStyle(document.documentElement).getPropertyValue(fullVarName);
-
-                return (
-                  <div
-                    key={varName}
-                    style={{
-                      padding: theme.spacing.sm,
-                      border: `1px solid ${theme.color.border}`,
-                      borderRadius: '4px',
-                      marginBottom: theme.spacing.xs,
-                    }}
-                  >
-                    <div style={{ fontWeight: theme.typography.fontWeight.bold }}>{fullVarName}</div>
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: theme.spacing.xs,
-                      }}
-                    >
-                      {varName.includes('color') && !varName.includes('typography') && (
-                        <div
-                          style={{
-                            width: '20px',
-                            height: '20px',
-                            backgroundColor: value,
-                            border: '1px solid #ccc',
-                            borderRadius: '4px',
-                          }}
-                        />
-                      )}
-                      <code>{value}</code>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    </ThemeProvider>
   );
 };
 
 export const Default: Story = {
   args: {
-    defaultMode: 'light',
+    theme: '4th',
     children: <ThemeDisplay />,
   },
 };
