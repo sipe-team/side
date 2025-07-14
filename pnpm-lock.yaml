@@ -727,6 +727,9 @@ importers:
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.23
+      '@vanilla-extract/css':
+        specifier: 'catalog:'
+        version: 1.17.4
       happy-dom:
         specifier: 'catalog:'
         version: 15.11.7
