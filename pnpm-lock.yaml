@@ -687,9 +687,6 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.0
         version: 1.2.3(@types/react@18.3.23)(react@18.3.1)
-      '@vanilla-extract/css':
-        specifier: ^1.14.1
-        version: 1.17.4
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -730,6 +727,9 @@ importers:
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.23
+      '@vanilla-extract/css':
+        specifier: 'catalog:'
+        version: 1.17.4
       happy-dom:
         specifier: 'catalog:'
         version: 15.11.7
