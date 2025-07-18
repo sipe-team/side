@@ -31,7 +31,7 @@ const ComponentWithoutProvider = () => {
 };
 
 describe('ThemeProvider', () => {
-  test('기본 테마로 "4th"를 설정한다', () => {
+  test('sets "4th" as the default theme', () => {
     render(
       <ThemeProvider>
         <TestComponent />
@@ -41,7 +41,7 @@ describe('ThemeProvider', () => {
     expect(screen.getByTestId('current-theme')).toHaveTextContent('4th');
   });
 
-  test('초기 테마 prop을 전달하면 해당 테마로 설정된다', () => {
+  test('sets the theme to the provided initial theme prop', () => {
     render(
       <ThemeProvider theme="2nd">
         <TestComponent />
@@ -51,7 +51,7 @@ describe('ThemeProvider', () => {
     expect(screen.getByTestId('current-theme')).toHaveTextContent('2nd');
   });
 
-  test('data-theme 속성이 컨테이너 div에 올바르게 설정된다', () => {
+  test('sets the data-theme attribute correctly on the container div', () => {
     const { container } = render(
       <ThemeProvider theme="3rd">
         <TestComponent />
@@ -62,7 +62,7 @@ describe('ThemeProvider', () => {
     expect(themeContainer).toHaveAttribute('data-theme', '3rd');
   });
 
-  test('컨테이너 div가 display: contents 스타일을 가진다', () => {
+  test('container div has display: contents style', () => {
     const { container } = render(
       <ThemeProvider>
         <TestComponent />
@@ -73,7 +73,7 @@ describe('ThemeProvider', () => {
     expect(themeContainer).toHaveStyle({ display: 'contents' });
   });
 
-  test('setTheme을 통해 테마를 변경할 수 있다', async () => {
+  test('can change theme through setTheme', async () => {
     const { container } = render(
       <ThemeProvider>
         <TestComponent />
@@ -95,7 +95,7 @@ describe('ThemeProvider', () => {
     expect(themeContainer).toHaveAttribute('data-theme', '2nd');
   });
 
-  test('초기 테마가 변경되면 테마가 업데이트된다', () => {
+  test('theme updates when initial theme changes', () => {
     const { rerender } = render(
       <ThemeProvider theme="1st">
         <TestComponent />
@@ -113,10 +113,10 @@ describe('ThemeProvider', () => {
     expect(screen.getByTestId('current-theme')).toHaveTextContent('3rd');
   });
 
-  describe('모든 테마 타입이 올바르게 설정된다', () => {
+  describe('all theme types are set correctly', () => {
     const themes = ['1st', '2nd', '3rd', '4th'] as const;
 
-    it.each(themes)('테마 "%s"가 올바르게 설정된다', (themeName) => {
+    it.each(themes)('theme "%s" is set correctly', (themeName) => {
       const { container } = render(
         <ThemeProvider theme={themeName}>
           <TestComponent />
@@ -131,7 +131,7 @@ describe('ThemeProvider', () => {
     });
   });
 
-  describe('테마 변경 기능 테스트', () => {
+  describe('theme change functionality tests', () => {
     const themeChangeTests = [
       { from: '4th', to: '1st', buttonTestId: 'set-1st' },
       { from: '1st', to: '2nd', buttonTestId: 'set-2nd' },
@@ -139,7 +139,7 @@ describe('ThemeProvider', () => {
       { from: '3rd', to: '4th', buttonTestId: 'set-4th' },
     ];
 
-    it.each(themeChangeTests)('테마를 $from에서 $to로 변경할 수 있다', async ({ from, to, buttonTestId }) => {
+    it.each(themeChangeTests)('can change theme from $from to $to', async ({ from, to, buttonTestId }) => {
       const { container } = render(
         <ThemeProvider theme={from as ThemeName}>
           <TestComponent />
@@ -150,22 +150,22 @@ describe('ThemeProvider', () => {
       const changeButton = screen.getByTestId(buttonTestId);
       const themeContainer = container.querySelector('[data-theme]');
 
-      // 초기 상태 확인
+      // Check initial state
       expect(currentTheme).toHaveTextContent(from);
       expect(themeContainer).toHaveAttribute('data-theme', from);
 
-      // 테마 변경
+      // Change theme
       await act(async () => {
         changeButton.click();
       });
 
-      // 변경된 상태 확인
+      // Check changed state
       expect(currentTheme).toHaveTextContent(to);
       expect(themeContainer).toHaveAttribute('data-theme', to);
     });
   });
 
-  test('children이 올바르게 렌더링된다', () => {
+  test('children are rendered correctly', () => {
     render(
       <ThemeProvider>
         <div data-testid="child-content">Test Content</div>
@@ -178,8 +178,8 @@ describe('ThemeProvider', () => {
 });
 
 describe('useTheme hook', () => {
-  test('ThemeProvider 외부에서 사용하면 에러를 발생시킨다', () => {
-    // 콘솔 에러를 숨기기 위해 console.error를 모킹
+  test('throws an error when used outside of ThemeProvider', () => {
+    // Mock console.error to hide console errors
     const originalError = console.error;
     console.error = () => {};
 
@@ -187,11 +187,11 @@ describe('useTheme hook', () => {
       render(<ComponentWithoutProvider />);
     }).toThrow('useTheme must be used within a ThemeProvider');
 
-    // console.error 복원
+    // Restore console.error
     console.error = originalError;
   });
 
-  test('ThemeProvider 내부에서 사용하면 올바른 context 값을 반환한다', () => {
+  test('returns correct context values when used inside ThemeProvider', () => {
     render(
       <ThemeProvider theme="2nd">
         <TestComponent />
