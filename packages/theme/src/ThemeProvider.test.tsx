@@ -127,7 +127,7 @@ describe('ThemeProvider', () => {
       { name: '4th', theme: themeColor['4th'] },
     ];
 
-    it.each(themes)('theme "$name" is set correctly', ({ name, theme }) => {
+    it.each(themes)('theme "$name" is set correctly', ({ theme }) => {
       render(
         <ThemeProvider theme={theme}>
           <TestComponent />
