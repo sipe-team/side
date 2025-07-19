@@ -23,7 +23,7 @@
   "dependencies": {
     "@sipe-team/typography": "workspace:*",
     "@radix-ui/react-slot": "^1.1.0",
-    "@sipe-team/tokens": "^0.1.0",
+    "@sipe-team/tokens": "workspace:*",
     "@vanilla-extract/css": "catalog:",
     "@vanilla-extract/recipes": "^0.5.5",
     "clsx": "^2.1.0",
