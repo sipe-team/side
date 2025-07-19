@@ -15,16 +15,16 @@
     "build:storybook": "storybook build",
     "clean": "rm -rf node_modules dist",
     "dev:storybook": "storybook dev -p 6006",
-    "lint:biome": "pnpm exec biome lint",
-    "lint:eslint": "pnpm exec eslint",
+    "lint": "pnpm exec biome lint",
     "test": "vitest",
     "typecheck": "tsc",
     "prepack": "pnpm run build"
   },
   "dependencies": {
+    "@radix-ui/react-use-controllable-state": "^1.2.2",
     "@sipe-team/tokens": "workspace:^",
-    "clsx": "^2.1.1",
-    "@vanilla-extract/recipes": "^0.5.5"
+    "@vanilla-extract/recipes": "^0.5.5",
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.2.0",
@@ -40,6 +40,7 @@
     "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.3.12",
     "@vanilla-extract/css": "catalog:",
+    "@vanilla-extract/vite-plugin": "catalog:",
     "happy-dom": "catalog:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

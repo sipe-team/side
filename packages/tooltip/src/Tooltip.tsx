@@ -1,17 +1,19 @@
-import { Slot } from '@radix-ui/react-slot';
-
-import clsx from 'clsx';
 import {
-  type CSSProperties,
   type ComponentProps,
+  type CSSProperties,
   type ForwardedRef,
-  type ReactNode,
   forwardRef,
+  type ReactNode,
   useImperativeHandle,
 } from 'react';
 import { createPortal } from 'react-dom';
-import styles from './Tooltip.module.css';
+
+import { Slot } from '@radix-ui/react-slot';
+
+import clsx from 'clsx';
+
 import { useTooltip } from './hooks/useTooltip';
+import * as styles from './Tooltip.css';
 
 export type TooltipPosition =
   | 'top-left'
@@ -38,7 +40,7 @@ export interface TooltipProps extends ComponentProps<'div'> {
 export const Tooltip = forwardRef(function Tooltip(
   {
     tooltipContent,
-    placement = 'top',
+    placement: placementProp = 'top',
     trigger = 'hover',
     asChild = true,
     children,
@@ -49,7 +51,7 @@ export const Tooltip = forwardRef(function Tooltip(
   ref: ForwardedRef<HTMLElement>,
 ) {
   const { isVisible, toggleTooltip, tooltipStyles, wrapperRef, tooltipRef, handleKeyDown } = useTooltip({
-    placement,
+    placement: placementProp,
     gap,
     trigger,
   });
@@ -72,7 +74,7 @@ export const Tooltip = forwardRef(function Tooltip(
         onClick={trigger === 'click' ? () => toggleTooltip(!isVisible) : undefined}
         onKeyDown={handleKeyDown}
         tabIndex={trigger === 'click' ? 0 : undefined}
-        className={clsx(styles.trigger, { [styles.asChild]: asChild })}
+        className={styles.button}
       >
         {children}
       </Component>
@@ -80,8 +82,14 @@ export const Tooltip = forwardRef(function Tooltip(
         createPortal(
           <div
             ref={tooltipRef}
-            className={clsx(styles.tooltip, styles[placement], tooltipClassName, { [styles.visible]: isVisible })}
-            style={{ ...tooltipStyles, ...tooltipStyle }}
+            className={clsx(styles.tooltip, styles.placement[placementProp], tooltipClassName, isVisible && 'visible')}
+            style={
+              {
+                ...tooltipStyles,
+                ...tooltipStyle,
+                '--tooltip-bg-color': tooltipStyle?.backgroundColor || '#000000',
+              } as CSSProperties
+            }
           >
             {tooltipContent}
           </div>,

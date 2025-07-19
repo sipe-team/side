@@ -1,10 +1,5 @@
-import {
-  type CSSProperties,
-  type KeyboardEvent as ReactKeyboardEvent,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { type CSSProperties, type KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, useState } from 'react';
+
 import type { TooltipPosition, TooltipTrigger } from '../../Tooltip';
 
 interface useTooltipProps {
@@ -24,12 +19,7 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
       const wrapper = wrapperRef.current;
       const tooltip = tooltipRef.current;
 
-      if (
-        wrapper &&
-        !wrapper.contains(event.target as Node) &&
-        tooltip &&
-        !tooltip.contains(event.target as Node)
-      ) {
+      if (wrapper && !wrapper.contains(event.target as Node) && tooltip && !tooltip.contains(event.target as Node)) {
         setIsVisible(false);
       }
     };
@@ -80,10 +70,7 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
   };
 
   const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
-    if (
-      (event.code === 'Enter' || event.code === 'space') &&
-      trigger === 'click'
-    ) {
+    if ((event.code === 'Enter' || event.code === 'space') && trigger === 'click') {
       event.preventDefault();
       toggleTooltip(!isVisible);
     }
@@ -105,12 +92,10 @@ interface CalculateTooltipPositionParams {
   placement: TooltipPosition;
   gap: number;
 }
-function calculateTooltipPosition({
-  wrapperRect,
-  tooltipRect,
-  placement,
-  gap,
-}: CalculateTooltipPositionParams): { top: number; left: number } {
+function calculateTooltipPosition({ wrapperRect, tooltipRect, placement, gap }: CalculateTooltipPositionParams): {
+  top: number;
+  left: number;
+} {
   let top = 0;
   let left = 0;
 
@@ -152,14 +137,8 @@ function calculateTooltipPosition({
       return { top: 0, left: 0 };
   }
 
-  top = Math.max(
-    gap,
-    Math.min(top, window.innerHeight - tooltipRect.height - gap),
-  );
-  left = Math.max(
-    gap,
-    Math.min(left, window.innerWidth - tooltipRect.width - gap),
-  );
+  top = Math.max(gap, Math.min(top, window.innerHeight - tooltipRect.height - gap));
+  left = Math.max(gap, Math.min(left, window.innerWidth - tooltipRect.width - gap));
 
   return { top, left };
 }
