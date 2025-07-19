@@ -198,8 +198,8 @@ importers:
         specifier: workspace:*
         version: link:../icon
       '@sipe-team/tokens':
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: workspace:*
+        version: link:../tokens
       '@sipe-team/typography':
         specifier: workspace:*
         version: link:../typography
@@ -3499,9 +3499,6 @@ packages:
   '@sindresorhus/is@5.6.0':
     resolution: {integrity: sha512-TV7t8GKYaJWsn00tFDqBw8+Uqmr8A0fRU1tvTQhyZzGv0sJCGRQL3JGMI3ucuKo3XIZdUP+Lx7/gh2t3lewy7g==}
     engines: {node: '>=14.16'}
-
-  '@sipe-team/tokens@0.1.0':
-    resolution: {integrity: sha512-ZrR6S1sigyemBpmU4eTkPW6tvjg/aRlk8NvPun2yNzz0FnKLCcXoTg1RujUPdTjn1U/t+i6WiDshUkAegHG/0g==, tarball: https://npm.pkg.github.com/download/@sipe-team/tokens/0.1.0/04d76be75e09b4ac26971f4c39916b3556e3859e}
 
   '@slorber/remark-comment@1.0.0':
     resolution: {integrity: sha512-RCE24n7jsOj1M0UPvIQCHTe7fI0sFL4S2nwKVWwHyVr/wI/H8GosgsJGyhnsZoGFnD/P2hLf1mSbrrgSLN93NA==}
@@ -11538,8 +11535,6 @@ snapshots:
   '@sindresorhus/is@4.6.0': {}
 
   '@sindresorhus/is@5.6.0': {}
-
-  '@sipe-team/tokens@0.1.0': {}
 
   '@slorber/remark-comment@1.0.0':
     dependencies:
