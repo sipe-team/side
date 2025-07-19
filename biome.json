@@ -1,35 +1,64 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "formatter": {
-    "enabled": true,
-    "indentStyle": "space",
-    "lineWidth": 120
-  },
-  "organizeImports": {
-    "enabled": true
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "correctness": {
-        "noUnusedImports": "error"
-      },
-      "recommended": true,
-      "a11y": {
-        "useSemanticElements": "warn",
-        "noSvgWithoutTitle": "off"
-      },
-      "suspicious": {
-        "noExplicitAny": "warn"
-      }
-    }
-  },
-  "javascript": {
-    "formatter": {
-      "quoteStyle": "single"
-    }
-  },
-  "files": {
-    "ignore": ["dist/*.*"]
-  }
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "space",
+		"lineWidth": 120
+	},
+	"linter": {
+		"domains": {
+			"react": "recommended"
+		},
+		"enabled": true,
+		"rules": {
+			"correctness": {
+				"noUnusedImports": "error"
+			},
+			"recommended": true,
+			"a11y": {
+				"useSemanticElements": "warn",
+				"noSvgWithoutTitle": "off"
+			},
+			"suspicious": {
+				"noExplicitAny": "warn"
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single"
+		}
+	},
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true,
+		"root": "."
+	},
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": {
+					"level": "on",
+					"options": {
+						"groups": [
+							":NODE:",
+							":BLANK_LINE:",
+							["react", "react/**", "react-*", "react-*/**"],
+							":BLANK_LINE:",
+							["@sipe-team/tokens", "@sipe-team/typography", "@sipe-team/**"],
+							":BLANK_LINE:",
+							["@vanilla-extract/**"],
+							":BLANK_LINE:",
+							["@radix-ui/**"],
+							":BLANK_LINE:",
+							":PACKAGE:",
+							":BLANK_LINE:",
+							":PATH:"
+						]
+					}
+				}
+			}
+		}
+	}
 }

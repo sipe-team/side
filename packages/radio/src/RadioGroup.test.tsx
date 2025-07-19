@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, test, vi } from 'vitest';
+
+import { RADIO_SIZES, RadioSize } from './constants/sizes';
 import { Radio } from './Radio';
 import { RadioGroup } from './RadioGroup';
-import { RadioSize } from './constants/sizes';
-import { RADIO_SIZES } from './constants/sizes';
 
 describe('Radio Group Component', () => {
   test('Radio 옵션이 정확히 렌더링 된다.', () => {
@@ -159,7 +159,7 @@ describe('Radio Group Component', () => {
     );
 
     expect(screen.getByText(labelText)).toBeInTheDocument();
-    expect(screen.getByRole('radiogroup')).toBeInTheDocument();
+    expect(screen.getByRole('group')).toBeInTheDocument();
   });
 
   test('className prop이 제대로 적용된다.', () => {
@@ -171,7 +171,7 @@ describe('Radio Group Component', () => {
       </RadioGroup>,
     );
 
-    const radioGroup = screen.getByRole('radiogroup');
+    const radioGroup = screen.getByRole('group');
     expect(radioGroup).toHaveClass(customClassName);
   });
 
