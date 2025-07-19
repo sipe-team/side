@@ -803,6 +803,9 @@ importers:
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.23
+      '@vanilla-extract/css':
+        specifier: 'catalog:'
+        version: 1.17.4
       happy-dom:
         specifier: 'catalog:'
         version: 15.11.7
@@ -1091,6 +1094,9 @@ importers:
       '@sipe-team/switch':
         specifier: workspace:*
         version: link:../switch
+      '@sipe-team/theme':
+        specifier: workspace:*
+        version: link:../theme
       '@sipe-team/tokens':
         specifier: workspace:*
         version: link:../tokens
@@ -1269,6 +1275,12 @@ importers:
       '@storybook/react-vite':
         specifier: 'catalog:'
         version: 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.44.1)(storybook@8.6.14(prettier@2.8.8))(typescript@5.6.3)(vite@5.4.19(@types/node@22.15.33)(terser@5.43.1))
+      '@testing-library/jest-dom':
+        specifier: 'catalog:'
+        version: 6.6.3
+      '@testing-library/react':
+        specifier: 'catalog:'
+        version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.23
@@ -1290,15 +1302,16 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      vitest:
+        specifier: 'catalog:'
+        version: 2.1.9(@types/node@22.15.33)(happy-dom@15.11.7)(terser@5.43.1)
 
   packages/tokens:
+    dependencies:
+      '@vanilla-extract/css':
+        specifier: 'catalog:'
+        version: 1.17.4
     devDependencies:
-      '@faker-js/faker':
-        specifier: ^9.2.0
-        version: 9.8.0
-      '@sipe-team/typography':
-        specifier: workspace:*
-        version: link:../typography
       '@storybook/addon-essentials':
         specifier: 'catalog:'
         version: 8.6.14(@types/react@18.3.23)(storybook@8.6.14(prettier@2.8.8))

@@ -1,3 +1,6 @@
+/**
+ * Font sizes following SIPE Typography system
+ */
 export const fontSize = {
   12: 12,
   14: 14,
@@ -12,18 +15,18 @@ export const fontSize = {
 } as const;
 
 /**
- * Font weights following MDN guidelines
- * @see https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight
+ * Font weights following SIPE Typography system
  */
 export const fontWeight = {
   regular: 400,
   medium: 500,
   semiBold: 600,
   bold: 700,
-  extraBold: 800,
-  black: 900,
 } as const;
 
+/**
+ * Line heights following SIPE Typography system
+ */
 export const lineHeight = {
   regular: 1.5,
   compact: 1.3,
