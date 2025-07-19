@@ -1,4 +1,4 @@
-import { themeColor } from '@sipe-team/tokens';
+import { type ThemeColor, themeColor } from '@sipe-team/tokens';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -253,6 +253,208 @@ export const NestedThemeOverride: Story = {
       description: {
         story:
           'This example demonstrates how themes can be overridden in nested components. Each ThemeProvider creates a new theme context that overrides its parent.',
+      },
+    },
+  },
+};
+
+const CustomThemeExample = () => {
+  // Custom theme object
+  const customTheme: ThemeColor = {
+    primary: '#ff6b6b',
+    secondary: '#4ecdc4',
+    background: '#f8f9fa',
+    text: '#343a40',
+    gradient: 'linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%)',
+  };
+
+  return (
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h2>Custom Theme Injection Example</h2>
+
+      {/* Custom Theme Container */}
+      <ThemeProvider theme={customTheme}>
+        <div
+          style={{
+            backgroundColor: 'var(--side-color-background)',
+            color: 'var(--side-color-text)',
+            padding: '24px',
+            border: '3px solid var(--side-color-primary)',
+            borderRadius: '12px',
+            marginBottom: '20px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+          }}
+        >
+          <h3 style={{ color: 'var(--side-color-primary)', margin: '0 0 16px 0' }}>Custom Theme Component</h3>
+          <p style={{ margin: '0 0 16px 0', lineHeight: '1.6' }}>
+            This component uses a completely custom theme with custom colors:
+          </p>
+
+          <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
+            <div
+              style={{
+                backgroundColor: 'var(--side-color-primary)',
+                color: 'var(--side-color-background)',
+                padding: '12px 16px',
+                borderRadius: '6px',
+                fontSize: '14px',
+                fontWeight: '500',
+              }}
+            >
+              Primary: #ff6b6b
+            </div>
+            <div
+              style={{
+                backgroundColor: 'var(--side-color-secondary)',
+                color: 'var(--side-color-background)',
+                padding: '12px 16px',
+                borderRadius: '6px',
+                fontSize: '14px',
+                fontWeight: '500',
+              }}
+            >
+              Secondary: #4ecdc4
+            </div>
+          </div>
+
+          <div
+            style={{
+              background: 'var(--side-color-gradient)',
+              color: 'var(--side-color-background)',
+              padding: '16px',
+              borderRadius: '8px',
+              marginBottom: '20px',
+              textAlign: 'center',
+              fontWeight: '600',
+            }}
+          >
+            Custom Gradient Background
+          </div>
+
+          {/* Nested with predefined theme */}
+          <ThemeProvider theme={themeColor['2nd']}>
+            <div
+              style={{
+                backgroundColor: 'var(--side-color-background)',
+                color: 'var(--side-color-text)',
+                padding: '16px',
+                border: '2px solid var(--side-color-secondary)',
+                borderRadius: '8px',
+                marginTop: '16px',
+              }}
+            >
+              <h4 style={{ color: 'var(--side-color-secondary)', margin: '0 0 12px 0' }}>
+                Nested Predefined Theme (2nd)
+              </h4>
+              <p style={{ margin: '0 0 12px 0', fontSize: '14px' }}>
+                This shows how you can nest predefined themes within custom themes.
+              </p>
+
+              <div
+                style={{
+                  backgroundColor: 'var(--side-color-secondary)',
+                  color: 'var(--side-color-background)',
+                  padding: '10px',
+                  borderRadius: '4px',
+                  fontSize: '13px',
+                }}
+              >
+                Predefined theme container
+              </div>
+            </div>
+          </ThemeProvider>
+        </div>
+      </ThemeProvider>
+
+      {/* Multiple Custom Themes Side by Side */}
+      <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+        <ThemeProvider
+          theme={{
+            primary: '#8b5cf6',
+            secondary: '#06b6d4',
+            background: '#fafafa',
+            text: '#1f2937',
+            gradient: 'linear-gradient(45deg, #8b5cf6 0%, #06b6d4 100%)',
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: 'var(--side-color-background)',
+              color: 'var(--side-color-text)',
+              padding: '16px',
+              border: '2px solid var(--side-color-primary)',
+              borderRadius: '8px',
+              minWidth: '200px',
+              flex: '1',
+            }}
+          >
+            <h4 style={{ color: 'var(--side-color-primary)', margin: '0 0 8px 0' }}>Purple Theme</h4>
+            <div
+              style={{
+                backgroundColor: 'var(--side-color-primary)',
+                color: 'var(--side-color-background)',
+                padding: '8px',
+                borderRadius: '4px',
+                fontSize: '12px',
+                textAlign: 'center',
+              }}
+            >
+              Custom Purple
+            </div>
+          </div>
+        </ThemeProvider>
+
+        <ThemeProvider
+          theme={{
+            primary: '#10b981',
+            secondary: '#f59e0b',
+            background: '#f9fafb',
+            text: '#374151',
+            gradient: 'linear-gradient(135deg, #10b981 0%, #f59e0b 100%)',
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: 'var(--side-color-background)',
+              color: 'var(--side-color-text)',
+              padding: '16px',
+              border: '2px solid var(--side-color-primary)',
+              borderRadius: '8px',
+              minWidth: '200px',
+              flex: '1',
+            }}
+          >
+            <h4 style={{ color: 'var(--side-color-primary)', margin: '0 0 8px 0' }}>Green Theme</h4>
+            <div
+              style={{
+                backgroundColor: 'var(--side-color-primary)',
+                color: 'var(--side-color-background)',
+                padding: '8px',
+                borderRadius: '4px',
+                fontSize: '12px',
+                textAlign: 'center',
+              }}
+            >
+              Custom Green
+            </div>
+          </div>
+        </ThemeProvider>
+      </div>
+    </div>
+  );
+};
+
+export const CustomThemeInjection: Story = {
+  args: {
+    theme: themeColor['4th'],
+    children: <CustomThemeExample />,
+  },
+  render: () => <CustomThemeExample />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'This example demonstrates how to inject completely custom theme objects. You can create custom themes with any color values and use them alongside predefined themes.',
       },
     },
   },
