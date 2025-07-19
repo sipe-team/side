@@ -1,24 +1,26 @@
+import { type ThemeColor, themeColor } from '@sipe-team/tokens';
+
 import { act, render, screen } from '@testing-library/react';
 import { describe, expect, it, test } from 'vitest';
 
-import { type ThemeName, ThemeProvider, useTheme } from './ThemeProvider';
+import { ThemeProvider, useTheme } from './ThemeProvider';
 
 const TestComponent = () => {
   const { theme, setTheme } = useTheme();
 
   return (
     <div>
-      <span data-testid="current-theme">{theme}</span>
-      <button type="button" data-testid="set-1st" onClick={() => setTheme('1st')}>
+      <span data-testid="current-theme">{theme.primary}</span>
+      <button type="button" data-testid="set-1st" onClick={() => setTheme(themeColor['1st'])}>
         Set 1st Theme
       </button>
-      <button type="button" data-testid="set-2nd" onClick={() => setTheme('2nd')}>
+      <button type="button" data-testid="set-2nd" onClick={() => setTheme(themeColor['2nd'])}>
         Set 2nd Theme
       </button>
-      <button type="button" data-testid="set-3rd" onClick={() => setTheme('3rd')}>
+      <button type="button" data-testid="set-3rd" onClick={() => setTheme(themeColor['3rd'])}>
         Set 3rd Theme
       </button>
-      <button type="button" data-testid="set-4th" onClick={() => setTheme('4th')}>
+      <button type="button" data-testid="set-4th" onClick={() => setTheme(themeColor['4th'])}>
         Set 4th Theme
       </button>
     </div>
@@ -27,39 +29,46 @@ const TestComponent = () => {
 
 const ComponentWithoutProvider = () => {
   const { theme } = useTheme();
-  return <div>{theme}</div>;
+  return <div>{theme.primary}</div>;
 };
 
 describe('ThemeProvider', () => {
-  test('sets "4th" as the default theme', () => {
+  test('sets 4th generation theme as default', () => {
     render(
       <ThemeProvider>
         <TestComponent />
       </ThemeProvider>,
     );
 
-    expect(screen.getByTestId('current-theme')).toHaveTextContent('4th');
+    expect(screen.getByTestId('current-theme')).toHaveTextContent(themeColor['4th'].primary);
   });
 
   test('sets the theme to the provided initial theme prop', () => {
     render(
-      <ThemeProvider theme="2nd">
+      <ThemeProvider theme={themeColor['2nd']}>
         <TestComponent />
       </ThemeProvider>,
     );
 
-    expect(screen.getByTestId('current-theme')).toHaveTextContent('2nd');
+    expect(screen.getByTestId('current-theme')).toHaveTextContent(themeColor['2nd'].primary);
   });
 
-  test('sets the data-theme attribute correctly on the container div', () => {
-    const { container } = render(
-      <ThemeProvider theme="3rd">
+  test('accepts custom theme color objects', () => {
+    const customTheme: ThemeColor = {
+      primary: '#ff0000',
+      secondary: '#00ff00',
+      background: '#0000ff',
+      text: '#ffffff',
+      gradient: 'linear-gradient(45deg, #ff0000 0%, #00ff00 100%)',
+    };
+
+    render(
+      <ThemeProvider theme={customTheme}>
         <TestComponent />
       </ThemeProvider>,
     );
 
-    const themeContainer = container.querySelector('[data-theme]');
-    expect(themeContainer).toHaveAttribute('data-theme', '3rd');
+    expect(screen.getByTestId('current-theme')).toHaveTextContent(customTheme.primary);
   });
 
   test('container div has display: contents style', () => {
@@ -69,12 +78,12 @@ describe('ThemeProvider', () => {
       </ThemeProvider>,
     );
 
-    const themeContainer = container.querySelector('[data-theme]');
+    const themeContainer = container.firstChild as HTMLElement;
     expect(themeContainer).toHaveStyle({ display: 'contents' });
   });
 
   test('can change theme through setTheme', async () => {
-    const { container } = render(
+    render(
       <ThemeProvider>
         <TestComponent />
       </ThemeProvider>,
@@ -82,87 +91,86 @@ describe('ThemeProvider', () => {
 
     const currentTheme = screen.getByTestId('current-theme');
     const set2ndButton = screen.getByTestId('set-2nd');
-    const themeContainer = container.querySelector('[data-theme]');
 
-    expect(currentTheme).toHaveTextContent('4th');
-    expect(themeContainer).toHaveAttribute('data-theme', '4th');
+    expect(currentTheme).toHaveTextContent(themeColor['4th'].primary);
 
     await act(async () => {
       set2ndButton.click();
     });
 
-    expect(currentTheme).toHaveTextContent('2nd');
-    expect(themeContainer).toHaveAttribute('data-theme', '2nd');
+    expect(currentTheme).toHaveTextContent(themeColor['2nd'].primary);
   });
 
   test('theme updates when initial theme changes', () => {
     const { rerender } = render(
-      <ThemeProvider theme="1st">
+      <ThemeProvider theme={themeColor['1st']}>
         <TestComponent />
       </ThemeProvider>,
     );
 
-    expect(screen.getByTestId('current-theme')).toHaveTextContent('1st');
+    expect(screen.getByTestId('current-theme')).toHaveTextContent(themeColor['1st'].primary);
 
     rerender(
-      <ThemeProvider theme="3rd">
+      <ThemeProvider theme={themeColor['3rd']}>
         <TestComponent />
       </ThemeProvider>,
     );
 
-    expect(screen.getByTestId('current-theme')).toHaveTextContent('3rd');
+    expect(screen.getByTestId('current-theme')).toHaveTextContent(themeColor['3rd'].primary);
   });
 
   describe('all theme types are set correctly', () => {
-    const themes = ['1st', '2nd', '3rd', '4th'] as const;
+    const themes = [
+      { name: '1st', theme: themeColor['1st'] },
+      { name: '2nd', theme: themeColor['2nd'] },
+      { name: '3rd', theme: themeColor['3rd'] },
+      { name: '4th', theme: themeColor['4th'] },
+    ];
 
-    it.each(themes)('theme "%s" is set correctly', (themeName) => {
-      const { container } = render(
-        <ThemeProvider theme={themeName}>
+    it.each(themes)('theme "$name" is set correctly', ({ name, theme }) => {
+      render(
+        <ThemeProvider theme={theme}>
           <TestComponent />
         </ThemeProvider>,
       );
 
       const currentTheme = screen.getByTestId('current-theme');
-      const themeContainer = container.querySelector('[data-theme]');
-
-      expect(currentTheme).toHaveTextContent(themeName);
-      expect(themeContainer).toHaveAttribute('data-theme', themeName);
+      expect(currentTheme).toHaveTextContent(theme.primary);
     });
   });
 
   describe('theme change functionality tests', () => {
     const themeChangeTests = [
-      { from: '4th', to: '1st', buttonTestId: 'set-1st' },
-      { from: '1st', to: '2nd', buttonTestId: 'set-2nd' },
-      { from: '2nd', to: '3rd', buttonTestId: 'set-3rd' },
-      { from: '3rd', to: '4th', buttonTestId: 'set-4th' },
+      { from: themeColor['4th'], to: themeColor['1st'], buttonTestId: 'set-1st' },
+      { from: themeColor['1st'], to: themeColor['2nd'], buttonTestId: 'set-2nd' },
+      { from: themeColor['2nd'], to: themeColor['3rd'], buttonTestId: 'set-3rd' },
+      { from: themeColor['3rd'], to: themeColor['4th'], buttonTestId: 'set-4th' },
     ];
 
-    it.each(themeChangeTests)('can change theme from $from to $to', async ({ from, to, buttonTestId }) => {
-      const { container } = render(
-        <ThemeProvider theme={from as ThemeName}>
-          <TestComponent />
-        </ThemeProvider>,
-      );
+    it.each(themeChangeTests)(
+      'can change theme from $from.primary to $to.primary',
+      async ({ from, to, buttonTestId }) => {
+        render(
+          <ThemeProvider theme={from}>
+            <TestComponent />
+          </ThemeProvider>,
+        );
 
-      const currentTheme = screen.getByTestId('current-theme');
-      const changeButton = screen.getByTestId(buttonTestId);
-      const themeContainer = container.querySelector('[data-theme]');
+        const currentTheme = screen.getByTestId('current-theme');
+        const changeButton = screen.getByTestId(buttonTestId);
 
-      // Check initial state
-      expect(currentTheme).toHaveTextContent(from);
-      expect(themeContainer).toHaveAttribute('data-theme', from);
+        // Check initial state
+        expect(currentTheme).toHaveTextContent(from.primary);
 
-      // Change theme
-      await act(async () => {
-        changeButton.click();
-      });
+        // Change theme
+        await act(async () => {
+          changeButton.click();
+        });
 
-      // Check changed state
-      expect(currentTheme).toHaveTextContent(to);
-      expect(themeContainer).toHaveAttribute('data-theme', to);
-    });
+        // Check changed state
+        expect(currentTheme).toHaveTextContent(to.primary);
+      },
+    );
   });
 
   test('children are rendered correctly', () => {
@@ -193,12 +201,12 @@ describe('useTheme hook', () => {
 
   test('returns correct context values when used inside ThemeProvider', () => {
     render(
-      <ThemeProvider theme="2nd">
+      <ThemeProvider theme={themeColor['2nd']}>
         <TestComponent />
       </ThemeProvider>,
     );
 
-    expect(screen.getByTestId('current-theme')).toHaveTextContent('2nd');
+    expect(screen.getByTestId('current-theme')).toHaveTextContent(themeColor['2nd'].primary);
     expect(screen.getByTestId('set-1st')).toBeInTheDocument();
     expect(screen.getByTestId('set-2nd')).toBeInTheDocument();
     expect(screen.getByTestId('set-3rd')).toBeInTheDocument();

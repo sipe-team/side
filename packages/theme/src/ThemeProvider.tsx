@@ -1,13 +1,11 @@
 import type React from 'react';
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
-import { vars } from '@sipe-team/tokens';
-
-export type ThemeName = '1st' | '2nd' | '3rd' | '4th';
+import { type ThemeColor, themeColor, vars } from '@sipe-team/tokens';
 
 interface ThemeContextType {
-  theme: ThemeName;
-  setTheme: (theme: ThemeName) => void;
+  theme: ThemeColor;
+  setTheme: (theme: ThemeColor) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -22,11 +20,11 @@ export const useTheme = (): ThemeContextType => {
 
 interface ThemeProviderProps {
   children: React.ReactNode;
-  theme?: ThemeName;
+  theme?: ThemeColor;
 }
 
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme: initialTheme = '4th' }) => {
-  const [theme, setTheme] = useState<ThemeName>(initialTheme);
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme: initialTheme = themeColor['4th'] }) => {
+  const [theme, setTheme] = useState<ThemeColor>(initialTheme);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,7 +33,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme: i
 
   useEffect(() => {
     if (containerRef.current) {
-      containerRef.current.setAttribute('data-theme', theme);
+      // Apply theme colors as CSS variables
+      Object.entries(theme).forEach(([key, value]) => {
+        containerRef.current?.style.setProperty(`--side-color-${key}`, value);
+      });
     }
   }, [theme]);
 
@@ -49,7 +50,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme: i
 
   return (
     <ThemeContext.Provider value={contextValue}>
-      <div ref={containerRef} data-theme={theme} style={{ display: 'contents' }}>
+      <div ref={containerRef} style={{ display: 'contents' }}>
         {children}
       </div>
     </ThemeContext.Provider>

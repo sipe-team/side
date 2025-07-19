@@ -1,3 +1,5 @@
+import { themeColor } from '@sipe-team/tokens';
+
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { ThemeProvider, useTheme } from './ThemeProvider';
@@ -13,6 +15,12 @@ const meta = {
       control: { type: 'select' },
       options: ['1st', '2nd', '3rd', '4th'],
       description: 'Select theme variant',
+      mapping: {
+        '1st': themeColor['1st'],
+        '2nd': themeColor['2nd'],
+        '3rd': themeColor['3rd'],
+        '4th': themeColor['4th'],
+      },
     },
   },
   decorators: [
@@ -44,7 +52,7 @@ const ThemeDisplay = () => {
           border: '1px solid var(--side-color-border)',
         }}
       >
-        <h1 style={{ marginBottom: 'var(--side-spacing-md)' }}>Current Theme: {currentTheme}</h1>
+        <h1 style={{ marginBottom: 'var(--side-spacing-md)' }}>Current Theme: {currentTheme.primary}</h1>
 
         <div style={{ marginTop: 'var(--side-spacing-xl)' }}>
           <h2>Theme Preview</h2>
@@ -99,6 +107,18 @@ const ThemeDisplay = () => {
             >
               This is a secondary background container
             </div>
+            <div
+              style={{
+                background: 'var(--side-color-gradient)',
+                color: 'var(--side-color-background)',
+                padding: 'var(--side-spacing-sm)',
+                borderRadius: '4px',
+                marginTop: 'var(--side-spacing-sm)',
+                fontWeight: 'var(--side-typography-fontWeight-medium)',
+              }}
+            >
+              This is a gradient background container
+            </div>
           </div>
         </div>
       </div>
@@ -108,7 +128,14 @@ const ThemeDisplay = () => {
 
 export const Default: Story = {
   args: {
-    theme: '4th',
+    theme: themeColor['4th'],
     children: <ThemeDisplay />,
+  },
+  render: (args) => {
+    return (
+      <ThemeProvider theme={args.theme || themeColor['4th']}>
+        <ThemeDisplay />
+      </ThemeProvider>
+    );
   },
 };

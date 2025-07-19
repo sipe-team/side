@@ -61,65 +61,7 @@ const baseTheme = {
 
 export const defaultTheme = createGlobalTheme(':root', vars, {
   ...baseTheme,
-  color: {
-    primary: themeColor['4th'].primary,
-    secondary: themeColor['4th'].secondary,
-    background: themeColor['4th'].background,
-    text: themeColor['4th'].text,
-    gradient: themeColor['4th']?.gradient,
-  },
-  mode: 'light',
-  theme: '4th',
-});
-
-export const lightTheme1st = createGlobalTheme('[data-theme="1st"]', vars, {
-  ...baseTheme,
-  color: {
-    primary: themeColor['1st'].primary,
-    secondary: themeColor['1st'].secondary,
-    background: themeColor['1st'].background,
-    text: themeColor['1st'].text,
-    gradient: themeColor['1st']?.gradient,
-  },
-  mode: 'light',
-  theme: '1st',
-});
-
-export const lightTheme2nd = createGlobalTheme('[data-theme="2nd"]', vars, {
-  ...baseTheme,
-  color: {
-    primary: themeColor['2nd'].primary,
-    secondary: themeColor['2nd'].secondary,
-    background: themeColor['2nd'].background,
-    text: themeColor['2nd'].text,
-    gradient: themeColor['2nd'].gradient,
-  },
-  mode: 'light',
-  theme: '2nd',
-});
-
-export const lightTheme3rd = createGlobalTheme('[data-theme="3rd"]', vars, {
-  ...baseTheme,
-  color: {
-    primary: themeColor['3rd'].primary,
-    secondary: themeColor['3rd'].secondary,
-    background: themeColor['3rd'].background,
-    text: themeColor['3rd'].text,
-    gradient: themeColor['3rd'].gradient,
-  },
-  mode: 'light',
-  theme: '3rd',
-});
-
-export const lightTheme4th = createGlobalTheme('[data-theme="4th"]', vars, {
-  ...baseTheme,
-  color: {
-    primary: themeColor['4th'].primary,
-    secondary: themeColor['4th'].secondary,
-    background: themeColor['4th'].background,
-    text: themeColor['4th'].text,
-    gradient: themeColor['4th'].gradient,
-  },
+  color: themeColor['4th'],
   mode: 'light',
   theme: '4th',
 });

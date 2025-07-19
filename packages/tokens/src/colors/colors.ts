@@ -130,33 +130,49 @@ export const semanticColor = {
   positive: color.blue400,
 } as const;
 
+export interface ThemeColor {
+  primary: string;
+  secondary: string;
+  background: string;
+  text: string;
+  gradient: string;
+}
+
+export const theme1st: ThemeColor = {
+  primary: '#01fe13',
+  secondary: '#01fe13',
+  background: '#000000',
+  text: color.white,
+  gradient: 'linear-gradient(45deg, #01fe13 0%, #000000 100%)',
+};
+
+export const theme2nd: ThemeColor = {
+  primary: '#03ff31',
+  secondary: '#06ffe3',
+  background: '#131518',
+  text: color.white,
+  gradient: 'linear-gradient(45deg, #03ff31 0%, #06ffe3 100%)',
+};
+
+export const theme3rd: ThemeColor = {
+  primary: '#00ffff',
+  secondary: '#00ff99',
+  background: '#0d0d0d',
+  text: color.white,
+  gradient: 'linear-gradient(45deg, #00FFFF 0%, #00FF99 100%)',
+};
+
+export const theme4th: ThemeColor = {
+  primary: '#f4a1a0',
+  secondary: '#f4a1a0',
+  background: '#0f1010',
+  text: color.white,
+  gradient: 'linear-gradient(45deg, #FF9595 0%, #FFE5B1 100%)',
+};
+
 export const themeColor = {
-  '1st': {
-    primary: '#01fe13',
-    secondary: '#01fe13',
-    background: '#000000',
-    text: color.white,
-    gradient: 'linear-gradient(45deg, #01fe13 0%, #000000 100%)',
-  },
-  '2nd': {
-    primary: '#03ff31',
-    secondary: '#06ffe3',
-    background: '#131518',
-    text: color.white,
-    gradient: 'linear-gradient(45deg, #03ff31 0%, #06ffe3 100%)',
-  },
-  '3rd': {
-    primary: '#00ffff',
-    secondary: '#00ff99',
-    background: '#0d0d0d',
-    text: color.white,
-    gradient: 'linear-gradient(45deg, #00FFFF 0%, #00FF99 100%)',
-  },
-  '4th': {
-    primary: '#f4a1a0',
-    secondary: '#f4a1a0',
-    background: '#0f1010',
-    text: color.white,
-    gradient: 'linear-gradient(45deg, #FF9595 0%, #FFE5B1 100%)',
-  },
+  '1st': theme1st,
+  '2nd': theme2nd,
+  '3rd': theme3rd,
+  '4th': theme4th,
 } as const;
