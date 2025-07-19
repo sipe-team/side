@@ -139,3 +139,121 @@ export const Default: Story = {
     );
   },
 };
+
+const NestedThemeExample = () => {
+  return (
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h2>Nested Theme Override Example</h2>
+
+      {/* Parent Theme Container */}
+      <ThemeProvider theme={themeColor['1st']}>
+        <div
+          style={{
+            backgroundColor: 'var(--side-color-background)',
+            color: 'var(--side-color-text)',
+            padding: '20px',
+            border: '2px solid var(--side-color-primary)',
+            borderRadius: '8px',
+            marginBottom: '20px',
+          }}
+        >
+          <h3 style={{ color: 'var(--side-color-primary)', margin: '0 0 16px 0' }}>Parent Component (Theme 1st)</h3>
+          <p style={{ margin: '0 0 16px 0' }}>This is the parent component using the 1st theme.</p>
+
+          <div
+            style={{
+              backgroundColor: 'var(--side-color-primary)',
+              color: 'var(--side-color-background)',
+              padding: '12px',
+              borderRadius: '4px',
+              marginBottom: '20px',
+            }}
+          >
+            Parent theme primary color container
+          </div>
+
+          {/* Nested Child Theme Container */}
+          <ThemeProvider theme={themeColor['3rd']}>
+            <div
+              style={{
+                backgroundColor: 'var(--side-color-background)',
+                color: 'var(--side-color-text)',
+                padding: '20px',
+                border: '2px solid var(--side-color-secondary)',
+                borderRadius: '8px',
+                marginTop: '16px',
+              }}
+            >
+              <h4 style={{ color: 'var(--side-color-secondary)', margin: '0 0 12px 0' }}>
+                Child Component (Theme 3rd - Overridden)
+              </h4>
+              <p style={{ margin: '0 0 12px 0' }}>
+                This child component overrides the parent theme with the 3rd theme.
+              </p>
+
+              <div
+                style={{
+                  backgroundColor: 'var(--side-color-secondary)',
+                  color: 'var(--side-color-background)',
+                  padding: '12px',
+                  borderRadius: '4px',
+                  marginBottom: '16px',
+                }}
+              >
+                Child theme secondary color container
+              </div>
+
+              {/* Deeply Nested Component */}
+              <ThemeProvider theme={themeColor['4th']}>
+                <div
+                  style={{
+                    backgroundColor: 'var(--side-color-background)',
+                    color: 'var(--side-color-text)',
+                    padding: '16px',
+                    border: '2px dashed var(--side-color-primary)',
+                    borderRadius: '6px',
+                  }}
+                >
+                  <h5 style={{ color: 'var(--side-color-primary)', margin: '0 0 8px 0' }}>
+                    Grandchild Component (Theme 4th)
+                  </h5>
+                  <p style={{ margin: '0 0 8px 0', fontSize: '14px' }}>
+                    This deeply nested component uses the 4th theme.
+                  </p>
+
+                  <div
+                    style={{
+                      backgroundColor: 'var(--side-color-primary)',
+                      color: 'var(--side-color-background)',
+                      padding: '8px',
+                      borderRadius: '4px',
+                      fontSize: '12px',
+                    }}
+                  >
+                    Grandchild primary container
+                  </div>
+                </div>
+              </ThemeProvider>
+            </div>
+          </ThemeProvider>
+        </div>
+      </ThemeProvider>
+    </div>
+  );
+};
+
+export const NestedThemeOverride: Story = {
+  args: {
+    theme: themeColor['4th'],
+    children: <NestedThemeExample />,
+  },
+  render: () => <NestedThemeExample />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'This example demonstrates how themes can be overridden in nested components. Each ThemeProvider creates a new theme context that overrides its parent.',
+      },
+    },
+  },
+};
