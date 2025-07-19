@@ -1,11 +1,30 @@
-import { Slot } from '@radix-ui/react-slot';
-import { AccordionArrowIcon } from '@sipe-team/icon';
-import { clsx as cx } from 'clsx';
+import type { ReactNode } from 'react';
 import { type ComponentProps, type ForwardedRef, forwardRef, useState } from 'react';
+
+import { AccordionArrowIcon } from '@sipe-team/icon';
+
+import { Slot } from '@radix-ui/react-slot';
+
+import { clsx as cx } from 'clsx';
+
 import * as styles from './Accordion.css';
 import { AccordionItemContext, useAccordionItemContext } from './context/AccordionItemContext';
 import { useAccordionAnimation } from './hooks/useAccordionAnimation';
-import type { AccordionContentProps, AccordionItemProps, AccordionRootProps } from './types';
+export interface AccordionRootProps extends ComponentProps<'div'> {
+  children: ReactNode;
+  asChild?: boolean;
+}
+export interface AccordionItemProps {
+  children: ReactNode;
+  className?: string;
+  defaultOpen?: boolean;
+}
+
+export interface AccordionContentProps {
+  children: ReactNode;
+  className?: string;
+  asChild?: boolean;
+}
 
 export const AccordionRoot = forwardRef(function AccordionRoot(
   { children, asChild, className, ...props }: AccordionRootProps,
