@@ -1,7 +1,9 @@
+import { createElement } from 'react';
+
 import { faker } from '@faker-js/faker';
 import { render, screen } from '@testing-library/react';
-import { createElement } from 'react';
 import { describe, expect, it } from 'vitest';
+
 import * as Grid from './Grid';
 
 describe('Grid', () => {

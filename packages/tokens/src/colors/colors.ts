@@ -1,19 +1,19 @@
+// Base color palette (primitive colors)
 export const color = {
-  primary: '#00ffff',
   black: '#131518',
   white: '#ffffff',
 
-  gray50: '#f9fafb',
-  gray100: '#f3f4f6',
-  gray200: '#e5e7eb',
-  gray300: '#d1d5db',
-  gray400: '#9ca3af',
-  gray500: '#6b7280',
-  gray600: '#4b5563',
-  gray700: '#374151',
-  gray800: '#1f2937',
-  gray900: '#111827',
-  gray950: '#030712',
+  gray50: '#fafafa',
+  gray100: '#f4f4f5',
+  gray200: '#e4e4e7',
+  gray300: '#d4d4d8',
+  gray400: '#a1a1aa',
+  gray500: '#71717a',
+  gray600: '#52525b',
+  gray700: '#3f3f46',
+  gray800: '#27272a',
+  gray900: '#18181b',
+  gray950: '#111111',
 
   red50: '#fef2f2',
   red100: '#fee2e2',
@@ -122,4 +122,57 @@ export const color = {
   pink800: '#6d0e34',
   pink900: '#45061f',
   pink950: '#2c0514',
+} as const;
+
+export const semanticColor = {
+  warning: color.orange400,
+  danger: color.red500,
+  positive: color.blue400,
+} as const;
+
+export interface ThemeColor {
+  primary: string;
+  secondary: string;
+  background: string;
+  text: string;
+  gradient: string;
+}
+
+export const theme1st: ThemeColor = {
+  primary: '#01fe13',
+  secondary: '#01fe13',
+  background: '#000000',
+  text: color.white,
+  gradient: 'linear-gradient(45deg, #01fe13 0%, #000000 100%)',
+};
+
+export const theme2nd: ThemeColor = {
+  primary: '#03ff31',
+  secondary: '#06ffe3',
+  background: '#131518',
+  text: color.white,
+  gradient: 'linear-gradient(45deg, #03ff31 0%, #06ffe3 100%)',
+};
+
+export const theme3rd: ThemeColor = {
+  primary: '#00ffff',
+  secondary: '#00ff99',
+  background: '#0d0d0d',
+  text: color.white,
+  gradient: 'linear-gradient(45deg, #00FFFF 0%, #00FF99 100%)',
+};
+
+export const theme4th: ThemeColor = {
+  primary: '#f4a1a0',
+  secondary: '#f4a1a0',
+  background: '#0f1010',
+  text: color.white,
+  gradient: 'linear-gradient(45deg, #FF9595 0%, #FFE5B1 100%)',
+};
+
+export const themeColor = {
+  '1st': theme1st,
+  '2nd': theme2nd,
+  '3rd': theme3rd,
+  '4th': theme4th,
 } as const;

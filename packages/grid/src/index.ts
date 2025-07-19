@@ -1,2 +1,2 @@
-export { Grid, GridItem, Root, Item } from './Grid';
-export type { GridProps, GridItemProps } from './Grid';
+export type { GridItemProps, GridProps } from './Grid';
+export { Grid, GridItem, Item, Root } from './Grid';
