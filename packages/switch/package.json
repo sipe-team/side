@@ -12,9 +12,6 @@
   "files": [
     "dist"
   ],
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
