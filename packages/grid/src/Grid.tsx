@@ -35,7 +35,7 @@ export const Grid = forwardRef(function Grid(
     asChild,
     ...props
   }: GridProps,
-  ref: ForwardedRef<any>,
+  ref: ForwardedRef<HTMLDivElement>,
 ) {
   const Component = asChild ? Slot : 'div';
 
@@ -95,7 +95,7 @@ export const GridItem = forwardRef(function GridItem(
     children,
     ...props
   }: GridItemProps,
-  ref: ForwardedRef<any>,
+  ref: ForwardedRef<HTMLDivElement>,
 ) {
   const Component = asChild ? Slot : 'div';
 
