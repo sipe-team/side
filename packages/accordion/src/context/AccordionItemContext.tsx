@@ -10,7 +10,7 @@ export const AccordionItemContext = createContext<AccordionItemContextValue | nu
 export const useAccordionItemContext = () => {
   const context = useContext(AccordionItemContext);
   if (!context) {
-    throw new Error('useAccordionItemContext는 AccordionItem 내부에서 사용되어야 합니다');
+    throw new Error('useAccordionItemContext must be used within an AccordionItem');
   }
   return context;
 };
