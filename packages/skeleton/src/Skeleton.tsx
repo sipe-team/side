@@ -1,6 +1,9 @@
+import { type ComponentProps, type CSSProperties, type ForwardedRef, forwardRef } from 'react';
+
 import { Slot } from '@radix-ui/react-slot';
+
 import { clsx as cx } from 'clsx';
-import { type CSSProperties, type ComponentProps, type ForwardedRef, forwardRef } from 'react';
+
 import { type SkeletonVariant, shimmerEffect, skeleton } from './Skeleton.css';
 
 interface SkeletonProps extends ComponentProps<'div'> {
@@ -22,7 +25,7 @@ export const Skeleton = forwardRef(function Skeleton(
     variant = 'rectangular',
     width,
     height,
-    pulse = false,
+    pulse = true,
     shimmer = false,
     lines = 1,
     className,

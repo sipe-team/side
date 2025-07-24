@@ -1,12 +1,11 @@
 import { color, radius } from '@sipe-team/tokens';
+
 import { keyframes, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-//FIXME : background color 바꿔야함. 지금 x-lay 같음...
-
 const fadeInOut = keyframes({
   '0%': { opacity: 1 },
-  '50%': { opacity: 0.8 },
+  '50%': { opacity: 0.4 },
   '100%': { opacity: 1 },
 });
 
@@ -40,7 +39,7 @@ const baseSkeletonStyle = style({
     left: 0,
     right: 0,
     bottom: 0,
-    background: `linear-gradient(90deg, transparent, ${color.gray200}, transparent)`,
+    background: `linear-gradient(90deg, transparent, ${color.gray300}, transparent)`,
     animation: `${fadeInOut} 1.5s ease-in-out infinite`,
   },
 });
@@ -96,7 +95,7 @@ export const skeleton = recipe({
   defaultVariants: {
     variant: SkeletonVariant.rectangular,
     loading: true,
-    pulse: false,
+    pulse: true,
   },
 });
 
