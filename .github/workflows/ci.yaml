@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: pnpm install
     - name: Lint
-      run: pnpm --filter="...[origin/${{ github.base_ref }}]" "/lint:*/"
+      run: pnpm --filter="...[origin/${{ github.base_ref }}]" lint
     - name: Test
       run: pnpm --filter="...[origin/${{ github.base_ref }}]" test
     - name: Type check

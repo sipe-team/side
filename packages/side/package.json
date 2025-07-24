@@ -24,6 +24,7 @@
     "@sipe-team/radio": "workspace:*",
     "@sipe-team/skeleton": "workspace:*",
     "@sipe-team/switch": "workspace:*",
+    "@sipe-team/theme": "workspace:*",
     "@sipe-team/tokens": "workspace:*",
     "@sipe-team/tooltip": "workspace:*",
     "@sipe-team/typography": "workspace:*",

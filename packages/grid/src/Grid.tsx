@@ -1,7 +1,10 @@
+import { type ComponentProps, type CSSProperties, type ForwardedRef, forwardRef, useMemo } from 'react';
+
 import { Slot } from '@radix-ui/react-slot';
+
 import { clsx as cx } from 'clsx';
-import { type CSSProperties, type ComponentProps, type ForwardedRef, forwardRef, useMemo } from 'react';
-import styles from './Grid.module.css';
+
+import * as styles from './Grid.css';
 
 export interface GridProps extends ComponentProps<'div'> {
   templateColumns?: CSSProperties['gridTemplateColumns'];
@@ -111,11 +114,11 @@ export const GridItem = forwardRef(function GridItem(
   }, [row, rowSpan, rowStart, rowEnd]);
 
   const gridItemClasses = cx(
-    styles['grid-item'],
+    styles.gridItem,
     {
-      [styles['grid-item-column']]: getGridColumn,
-      [styles['grid-item-row']]: getGridRow,
-      [styles['grid-item-area']]: area,
+      [styles.gridItemColumn]: getGridColumn,
+      [styles.gridItemRow]: getGridRow,
+      [styles.gridItemArea]: area,
     },
     className,
   );

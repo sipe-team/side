@@ -17,8 +17,9 @@
     "build:storybook": "storybook build",
     "clean": "rm -rf node_modules dist",
     "dev:storybook": "storybook dev -p 6006",
-    "lint:biome": "pnpm exec biome lint",
-    "lint:eslint": "pnpm exec eslint",
+    "lint": "pnpm exec biome lint",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
     "typecheck": "tsc",
     "prepack": "pnpm run build"
   },
@@ -27,12 +28,15 @@
     "@storybook/addon-essentials": "catalog:",
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
     "@types/react": "^18.3.12",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "storybook": "catalog:",
     "tsup": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "dependencies": {
     "@sipe-team/tokens": "workspace:*"
