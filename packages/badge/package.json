@@ -22,10 +22,10 @@
   },
   "dependencies": {
     "@sipe-team/tokens": "workspace:*",
-    "@sipe-team/typography": "workspace:*",
     "clsx": "^2.1.1"
   },
   "devDependencies": {
+    "@radix-ui/react-slot": "^1.1.0",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
     "@storybook/addon-links": "catalog:",
@@ -37,6 +37,7 @@
     "@testing-library/react": "^16.0.1",
     "@types/react": "^18.3.12",
     "@vanilla-extract/css": "catalog:",
+    "@vanilla-extract/recipes": "^0.5.5",
     "happy-dom": "catalog:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

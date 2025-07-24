@@ -1,41 +1,59 @@
-import { Typography } from '@sipe-team/typography';
-import { clsx as cx } from 'clsx';
-import { type ComponentProps, type ForwardedRef, forwardRef } from 'react';
-import * as styles from './Badge.css';
+import React from 'react';
 
-export type BadgeSize = keyof typeof styles.BadgeSize;
-export type BadgeVariant = keyof typeof styles.BadgeVariant;
+import { Slot } from '@radix-ui/react-slot';
 
-export interface BadgeProps extends ComponentProps<'div'> {
-  size?: BadgeSize;
-  variant?: BadgeVariant;
-}
+import { clsx } from 'clsx';
 
-export const Badge = forwardRef(function Badge(
-  { className, children, size = 'medium', variant = 'filled', ...props }: BadgeProps,
-  ref: ForwardedRef<HTMLDivElement>,
-) {
-  return (
-    <div
-      className={cx(styles.root, styles.size[size], styles.variant[variant], className)}
-      ref={ref}
-      role="status"
-      {...props}
-    >
-      <Typography asChild={true} className={styles.text} size={getTypographySize(size)} weight="semiBold">
-        <span>{children}</span>
-      </Typography>
-    </div>
-  );
-});
+import type { BadgeProps } from './Badge.constants';
+import { BadgeColor, BadgeSize, BadgeVariant } from './Badge.constants';
+import { badge } from './Badge.css';
 
-function getTypographySize(size: BadgeSize): 12 | 14 | 18 {
-  switch (size) {
-    case 'small':
-      return 12;
-    case 'large':
-      return 18;
-    default:
-      return 14;
-  }
-}
+export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
+  (
+    {
+      asChild,
+      children,
+      className,
+      size = BadgeSize.small,
+      variant = BadgeVariant.default,
+      color = BadgeColor.gray,
+      icon = 'none',
+      leftIcon,
+      rightIcon,
+      ...props
+    },
+    ref,
+  ) => {
+    const Comp = asChild ? Slot : 'div';
+
+    const renderIcon = (iconNode: React.ReactNode) => {
+      if (!iconNode) return null;
+
+      return (
+        <span
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '12px',
+            height: '12px',
+          }}
+        >
+          {iconNode}
+        </span>
+      );
+    };
+
+    return (
+      <Comp ref={ref} className={clsx(badge({ size, variant, color }), className)} {...props}>
+        {icon === 'left' && leftIcon && renderIcon(leftIcon)}
+        {icon === 'both' && leftIcon && renderIcon(leftIcon)}
+        {children}
+        {icon === 'right' && rightIcon && renderIcon(rightIcon)}
+        {icon === 'both' && rightIcon && renderIcon(rightIcon)}
+      </Comp>
+    );
+  },
+);
+
+Badge.displayName = 'Badge';
