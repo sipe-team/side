@@ -6,6 +6,9 @@
     "lineWidth": 120
   },
   "linter": {
+    "domains": {
+      "react": "recommended"
+    },
     "enabled": true,
     "rules": {
       "correctness": {
