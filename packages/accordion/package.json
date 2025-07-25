@@ -21,7 +21,6 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
-    "@sipe-team/typography": "workspace:*",
     "@radix-ui/react-slot": "^1.1.0",
     "@sipe-team/tokens": "workspace:*",
     "@vanilla-extract/css": "catalog:",
@@ -30,6 +29,7 @@
     "@sipe-team/icon": "workspace:*"
   },
   "devDependencies": {
+    "@sipe-team/typography": "workspace:*",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
     "@storybook/addon-links": "catalog:",
