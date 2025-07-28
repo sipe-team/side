@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
+
 import { Accordion } from './Accordion';
 
 describe('Accordion.Root 기본 스타일', () => {
@@ -89,11 +90,14 @@ describe('Accordion.Trigger 기본 스타일 및 컴포넌트 구조', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
   });
 
-  test('Accordion의 Trigger에 AccordionArrowIcon이 포함되어 있다', () => {
+  test('Accordion.Indicator를 사용하여 아이콘을 렌더링할 수 있다', () => {
     render(
       <Accordion.Root>
         <Accordion.Item>
-          <Accordion.Trigger>Test Trigger</Accordion.Trigger>
+          <Accordion.Trigger>
+            Test Trigger
+            <Accordion.Indicator />
+          </Accordion.Trigger>
           <Accordion.Content>Test Content</Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>,
