@@ -1,6 +1,8 @@
 import { color } from '@sipe-team/tokens';
 import { Typography } from '@sipe-team/typography';
+
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Accordion } from './Accordion';
 
 const contentTextColor = color.gray200;
@@ -20,12 +22,13 @@ type Story = StoryObj<typeof Accordion>;
 
 export const Basic: Story = {
   render: () => (
-    <Accordion>
+    <Accordion.Root>
       <Accordion.Item>
         <Accordion.Trigger>
           <Typography weight="bold">
             수도권에 거주하고 있지 않지만 주요 활동 지역은 수도권인데 활동을 할 수 있나요?
           </Typography>
+          <Accordion.Indicator />
         </Accordion.Trigger>
         <Accordion.Content>
           <Typography weight="semiBold" color={contentTextColor}>
@@ -34,7 +37,7 @@ export const Basic: Story = {
           </Typography>
         </Accordion.Content>
       </Accordion.Item>
-    </Accordion>
+    </Accordion.Root>
   ),
 };
 
@@ -44,6 +47,7 @@ export const WithDefaultOpen: Story = {
       <Accordion.Item defaultOpen>
         <Accordion.Trigger>
           <Typography weight="bold">이 항목은 기본으로 열려있습니다.</Typography>
+          <Accordion.Indicator />
         </Accordion.Trigger>
         <Accordion.Content>
           <Typography weight="semiBold" color={contentTextColor}>
@@ -55,6 +59,7 @@ export const WithDefaultOpen: Story = {
       <Accordion.Item>
         <Accordion.Trigger>
           <Typography weight="bold">이 항목은 닫혀있습니다.</Typography>
+          <Accordion.Indicator />
         </Accordion.Trigger>
         <Accordion.Content>
           <Typography weight="semiBold" color={contentTextColor}>
@@ -73,6 +78,7 @@ export const AccordionList: Story = {
         <Accordion.Item>
           <Accordion.Trigger>
             <Typography weight="bold">4기 선발 기준은 어떻게 되나요?</Typography>
+            <Accordion.Indicator />
           </Accordion.Trigger>
           <Accordion.Content>
             <Typography weight="semiBold" color={contentTextColor}>
@@ -88,6 +94,7 @@ export const AccordionList: Story = {
             <Typography weight="bold">
               수도권에 거주하고 있지 않지만 주요 활동 지역은 수도권인데 활동을 할 수 있나요?
             </Typography>
+            <Accordion.Indicator />
           </Accordion.Trigger>
           <Accordion.Content>
             <Typography weight="semiBold" color={contentTextColor}>
@@ -101,6 +108,7 @@ export const AccordionList: Story = {
         <Accordion.Item>
           <Accordion.Trigger>
             <Typography weight="bold">4기 선발 인원은 몇명인가요?</Typography>
+            <Accordion.Indicator />
           </Accordion.Trigger>
           <Accordion.Content>
             <Typography weight="semiBold" color={contentTextColor}>
@@ -113,6 +121,7 @@ export const AccordionList: Story = {
         <Accordion.Item>
           <Accordion.Trigger>
             <Typography weight="bold">미성년자이지만 개발자로 근무하고 있는데 지원할 수 있나요?</Typography>
+            <Accordion.Indicator />
           </Accordion.Trigger>
           <Accordion.Content>
             <Typography weight="semiBold" color={contentTextColor}>
@@ -122,5 +131,25 @@ export const AccordionList: Story = {
         </Accordion.Item>
       </Accordion.Root>
     </div>
+  ),
+};
+
+export const TriggerUsingAsChild: Story = {
+  render: () => (
+    <Accordion.Root>
+      <Accordion.Item>
+        <Accordion.Trigger asChild>
+          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+            <Typography weight="bold">asChild prop을 사용하여 `div`로 렌더링된 Trigger</Typography>
+            <Accordion.Indicator />
+          </div>
+        </Accordion.Trigger>
+        <Accordion.Content>
+          <Typography weight="semiBold" color={contentTextColor}>
+            `Accordion.Trigger` 컴포넌트에 `asChild` prop을 전달하여 다른 HTML 요소로 렌더링할 수 있습니다.
+          </Typography>
+        </Accordion.Content>
+      </Accordion.Item>
+    </Accordion.Root>
   ),
 };
