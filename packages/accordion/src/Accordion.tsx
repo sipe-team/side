@@ -20,6 +20,12 @@ export interface AccordionItemProps {
   defaultOpen?: boolean;
 }
 
+export interface AccordionTriggerProps extends ComponentProps<'button'> {
+  children: ReactNode;
+  asChild?: boolean;
+  className?: string;
+}
+
 export interface AccordionContentProps {
   children: ReactNode;
   className?: string;
@@ -30,11 +36,11 @@ export const AccordionRoot = forwardRef(function AccordionRoot(
   { children, asChild, className, ...props }: AccordionRootProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
-  const Comp = asChild ? Slot : 'div';
+  const Component = asChild ? Slot : 'div';
   return (
-    <Comp ref={ref} className={cx(styles.accordionRoot, className)} {...props}>
+    <Component ref={ref} className={cx(styles.accordionRoot, className)} {...props}>
       {children}
-    </Comp>
+    </Component>
   );
 });
 
@@ -60,31 +66,37 @@ export const AccordionItem = forwardRef(function AccordionItem(
 });
 
 export const AccordionTrigger = forwardRef(function AccordionTrigger(
-  { children, className, ...props }: ComponentProps<'button'>,
+  { children, className, asChild, ...props }: AccordionTriggerProps,
   ref: ForwardedRef<HTMLButtonElement>,
 ) {
   const { isOpen, toggleAccordion } = useAccordionItemContext();
+  const Component = asChild ? Slot : 'button';
+  const buttonProps = asChild ? {} : { type: 'button' as const };
 
   return (
-    <button
+    <Component
       ref={ref}
-      type="button"
+      {...buttonProps}
       className={cx(styles.accordionTrigger, className)}
       onClick={toggleAccordion}
       aria-expanded={isOpen}
       {...props}
     >
       {children}
-      <AccordionArrowIcon className={styles.chevron({ isOpen })} />
-    </button>
+    </Component>
   );
 });
+
+export const AccordionIndicator = () => {
+  const { isOpen } = useAccordionItemContext();
+  return <AccordionArrowIcon className={styles.chevron({ isOpen })} />;
+};
 
 export const AccordionContent = ({ children, asChild, className, ...props }: AccordionContentProps) => {
   const { isOpen } = useAccordionItemContext();
   const { ref, height, shouldTransition } = useAccordionAnimation(isOpen);
 
-  const Comp = asChild ? Slot : 'div';
+  const Component = asChild ? Slot : 'div';
 
   return (
     <div
@@ -95,9 +107,9 @@ export const AccordionContent = ({ children, asChild, className, ...props }: Acc
       }}
       aria-hidden={!isOpen}
     >
-      <Comp className={cx(styles.accordionContentInner, className)} {...props}>
+      <Component className={cx(styles.accordionContentInner, className)} {...props}>
         {children}
-      </Comp>
+      </Component>
     </div>
   );
 };
@@ -106,6 +118,7 @@ export const Accordion = Object.assign(AccordionRoot, {
   Root: AccordionRoot,
   Item: AccordionItem,
   Trigger: AccordionTrigger,
+  Indicator: AccordionIndicator,
   Content: AccordionContent,
 });
 
