@@ -1,10 +1,7 @@
+import { type ComponentProps, type CSSProperties, type ForwardedRef, forwardRef } from 'react';
+
 import { Slot } from '@radix-ui/react-slot';
-import {
-  type CSSProperties,
-  type ComponentProps,
-  type ForwardedRef,
-  forwardRef,
-} from 'react';
+
 import styles from './Skeleton.module.css';
 
 type Variant = 'circle' | 'rectangular';
@@ -18,7 +15,7 @@ interface SkeletonProps extends ComponentProps<'div'> {
 }
 export const Skeleton = forwardRef(function Skeleton(
   { asChild, loading, children, ...props }: SkeletonProps,
-  ref: ForwardedRef<any>,
+  ref: ForwardedRef<HTMLDivElement>,
 ) {
   if (!loading) return children;
 

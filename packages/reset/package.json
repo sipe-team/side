@@ -12,7 +12,9 @@
     ".": "./src/index.ts",
     "./reset.css": "./src/reset.css"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "lint": "pnpm exec biome lint",
@@ -24,8 +26,8 @@
   "devDependencies": {
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
-    "@types/react": "^18.3.12",
-    "react": "^18.3.1",
+    "@types/react": "catalog:react",
+    "react": "catalog:react",
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"

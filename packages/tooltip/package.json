@@ -9,7 +9,9 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
@@ -25,9 +27,6 @@
     "clsx": "^2.1.1"
   },
   "devDependencies": {
-    "@types/react-dom": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "@testing-library/user-event": "^14.5.2",
     "@faker-js/faker": "^9.2.0",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
@@ -38,10 +37,13 @@
     "@storybook/test": "catalog:",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
-    "@types/react": "^18.3.12",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/react": "catalog:react",
+    "@types/react-dom": "catalog:react",
     "@vanilla-extract/css": "catalog:",
     "happy-dom": "catalog:",
-    "react": "^18.3.1",
+    "react": "catalog:react",
+    "react-dom": "catalog:react",
     "storybook": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",

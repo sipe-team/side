@@ -1,7 +1,7 @@
 {
-  "name": "@sipe-team/divider",
-  "description": "divider component for Sipe Design System",
-  "version": "0.0.3",
+  "name": "@sipe-team/accordion",
+  "description": "Accordion for Sipe Design System",
+  "version": "0.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -9,22 +9,24 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
-    "clean": "rm -rf node_modules dist",
     "dev:storybook": "storybook dev -p 6006",
-    "lint": "pnpm exec biome lint",
+    "lint:biome": "pnpm exec biome lint",
+    "lint:eslint": "pnpm exec eslint",
     "test": "vitest",
     "typecheck": "tsc",
     "prepack": "pnpm run build"
   },
   "dependencies": {
-    "clsx": "^2.1.1",
-    "@sipe-team/tokens": "workspace:*"
+    "@radix-ui/react-slot": "^1.1.0",
+    "@sipe-team/tokens": "workspace:*",
+    "@vanilla-extract/css": "catalog:",
+    "@vanilla-extract/recipes": "^0.5.5",
+    "clsx": "^2.1.0",
+    "@sipe-team/icon": "workspace:*"
   },
   "devDependencies": {
     "@sipe-team/typography": "workspace:*",
@@ -35,13 +37,12 @@
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@storybook/test": "catalog:",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.0.1",
-    "@types/react": "catalog:react",
-    "@vanilla-extract/css": "catalog:",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@types/react": "^18.3.12",
     "happy-dom": "catalog:",
-    "react": "catalog:react",
-    "react-dom": "catalog:react",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "storybook": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
@@ -53,6 +54,7 @@
   },
   "publishConfig": {
     "access": "public",
+    "registry": "https://npm.pkg.github.com",
     "exports": {
       ".": {
         "import": {
