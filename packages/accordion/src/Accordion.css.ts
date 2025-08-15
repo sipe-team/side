@@ -1,4 +1,5 @@
 import { color } from '@sipe-team/tokens';
+
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 

@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import type { IconProps } from '../types';
 
 export const AccordionArrowIcon = React.forwardRef<SVGSVGElement, IconProps>(({ color, size = 24, ...props }, ref) => {
