@@ -1,12 +1,13 @@
-import classNames from 'classnames';
-import { type CSSProperties, type ComponentPropsWithoutRef, type ElementRef, forwardRef } from 'react';
+import { type ComponentPropsWithoutRef, type CSSProperties, type ElementRef, forwardRef } from 'react';
 
 import { Slot } from '@radix-ui/react-slot';
 
-import styles from './Input.module.css';
+import classNames from 'classnames';
+
 import { colors } from './constants/colors';
 import { spacing } from './constants/spacing';
-import { type FontSize, type FontWeight, Weight, defaultFontSize, defaultFontWeight } from './constants/typhography';
+import { defaultFontSize, defaultFontWeight, type FontSize, type FontWeight, Weight } from './constants/typhography';
+import styles from './Input.module.css';
 
 type AllowedInputTypes = 'email' | 'password' | 'search' | 'tel' | 'text' | 'url';
 type InputFieldElement = ElementRef<'input'>;
@@ -63,7 +64,7 @@ interface InputFieldActionProps extends Omit<ComponentPropsWithoutRef<'button'>,
 }
 
 const InputFieldAction = forwardRef<InputFieldActionElement, InputFieldActionProps>((props, forwardedRef) => {
-  const { className, asChild, type = 'button', ...slotProps } = props;
+  const { className, asChild, ...slotProps } = props;
 
   const Comp = asChild ? Slot : 'button';
   return <Comp ref={forwardedRef} className={classNames(styles['input-action'], className)} {...slotProps} />;
