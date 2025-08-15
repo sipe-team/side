@@ -50,7 +50,7 @@ interface InputFieldActionProps extends Omit<ComponentPropsWithoutRef<'button'>,
 }
 
 const InputFieldAction = forwardRef<InputFieldActionElement, InputFieldActionProps>((props, forwardedRef) => {
-  const { className, asChild, type = 'button', ...slotProps } = props;
+  const { className, asChild, type, ...slotProps } = props;
 
   const Comp = asChild ? Slot : 'button';
   return <Comp ref={forwardedRef} className={cx(inputAction, className)} type={type} {...slotProps} />;

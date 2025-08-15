@@ -1,15 +1,11 @@
 import type React from 'react';
-import { createContext, useContext, useEffect, useState } from 'react';
-import './themes.css.ts';
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
-import { vars } from './themeContract.css';
-
-type ThemeMode = 'light' | 'dark';
+import { type ThemeColor, themeColor, vars } from '@sipe-team/tokens';
 
 interface ThemeContextType {
-  mode: ThemeMode;
-  setMode: (mode: ThemeMode) => void;
-  toggleMode: () => void;
+  theme: ThemeColor;
+  setTheme: (theme: ThemeColor) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -24,28 +20,41 @@ export const useTheme = (): ThemeContextType => {
 
 interface ThemeProviderProps {
   children: React.ReactNode;
-  defaultMode?: ThemeMode;
+  theme?: ThemeColor;
 }
 
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, defaultMode = 'light' }) => {
-  const [mode, setMode] = useState<ThemeMode>(defaultMode);
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme: initialTheme = themeColor['4th'] }) => {
+  const [theme, setTheme] = useState<ThemeColor>(initialTheme);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Apply theme mode to HTML element
   useEffect(() => {
-    const htmlElement = document.documentElement;
+    setTheme(initialTheme);
+  }, [initialTheme]);
 
-    if (mode === 'dark') {
-      htmlElement.setAttribute('data-theme', 'dark');
-    } else {
-      htmlElement.removeAttribute('data-theme');
+  useEffect(() => {
+    if (containerRef.current) {
+      // Apply theme colors as CSS variables
+      Object.entries(theme).forEach(([key, value]) => {
+        containerRef.current?.style.setProperty(`--side-color-${key}`, value);
+      });
     }
-  }, [mode]);
+  }, [theme]);
 
-  const toggleMode = () => {
-    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-  };
+  const contextValue = useMemo(
+    () => ({
+      theme,
+      setTheme,
+    }),
+    [theme],
+  );
 
-  return <ThemeContext.Provider value={{ mode, setMode, toggleMode }}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={contextValue}>
+      <div ref={containerRef} style={{ display: 'contents' }}>
+        {children}
+      </div>
+    </ThemeContext.Provider>
+  );
 };
 
 export const theme = vars;

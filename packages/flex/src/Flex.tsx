@@ -1,8 +1,11 @@
+import { type ComponentProps, type CSSProperties, type ForwardedRef, forwardRef } from 'react';
+
 import { Slot } from '@radix-ui/react-slot';
+
 import { clsx as cx } from 'clsx';
-import { type CSSProperties, type ComponentProps, type ForwardedRef, forwardRef } from 'react';
+
+import type { FlexAlign, FlexDirection, FlexJustify, FlexWrap } from './constants';
 import * as styles from './Flex.css';
-import type { FlexDirection, FlexAlign, FlexJustify, FlexWrap } from './constants';
 
 export interface FlexProps extends ComponentProps<'div'> {
   direction?: FlexDirection;
@@ -34,7 +37,7 @@ export const Flex = forwardRef(function Flex(
     asChild,
     ...rest
   }: FlexProps,
-  ref: ForwardedRef<any>,
+  ref: ForwardedRef<HTMLDivElement>,
 ) {
   const Component = asChild ? Slot : 'div';
 
