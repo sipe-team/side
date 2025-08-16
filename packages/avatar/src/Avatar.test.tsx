@@ -1,9 +1,9 @@
-import { faker } from '@faker-js/faker';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, test } from 'vitest';
+
 import { Avatar, type AvatarShape, type AvatarSize } from './Avatar';
 
-const testImage = faker.image.avatar();
+const testImage = 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png';
 
 test('Avatar 컴포넌트가 주입받은 이미지 주소를 src 속성으로 설정한다.', () => {
   render(<Avatar src={testImage} alt="대체 텍스트" />);
