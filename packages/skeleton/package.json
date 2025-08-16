@@ -21,7 +21,10 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.1.0"
+    "@sipe-team/tokens": "workspace:*",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@vanilla-extract/recipes": "^0.5.5",
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.2.0",
@@ -34,6 +37,7 @@
     "@storybook/test": "catalog:",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
+    "@vanilla-extract/css": "catalog:",
     "@types/react": "catalog:react",
     "happy-dom": "catalog:",
     "react": "catalog:react",
