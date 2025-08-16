@@ -3,8 +3,6 @@ import { color } from '@sipe-team/tokens';
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { ChipColor, ChipSize, ChipState, ChipVariant } from './Chip.constants';
-
 const transparentColor = 'transparent';
 
 export const disabled = style({
@@ -32,19 +30,19 @@ export const chip = recipe({
   },
   variants: {
     size: {
-      [ChipSize.small]: {
+      small: {
         padding: '4px 12px',
         fontSize: '12px',
         lineHeight: '16px',
         height: '24px',
       },
-      [ChipSize.medium]: {
+      medium: {
         padding: '8px 16px',
         fontSize: '14px',
         lineHeight: '20px',
         height: '32px',
       },
-      [ChipSize.large]: {
+      large: {
         padding: '12px 20px',
         fontSize: '16px',
         lineHeight: '24px',
@@ -52,32 +50,32 @@ export const chip = recipe({
       },
     },
     variant: {
-      [ChipVariant.filled]: {
+      filled: {
         borderColor: transparentColor,
       },
-      [ChipVariant.outline]: {
+      outline: {
         backgroundColor: transparentColor,
       },
     },
     color: {
-      [ChipColor.primary]: {},
-      [ChipColor.secondary]: {},
-      [ChipColor.success]: {},
-      [ChipColor.warning]: {},
-      [ChipColor.danger]: {},
+      primary: {},
+      secondary: {},
+      success: {},
+      warning: {},
+      danger: {},
     },
     state: {
-      [ChipState.default]: {},
-      [ChipState.selected]: {},
+      default: {},
+      selected: {},
     },
   },
   compoundVariants: [
     // Primary color combinations
     {
       variants: {
-        color: ChipColor.primary,
-        variant: ChipVariant.filled,
-        state: ChipState.default,
+        color: 'primary',
+        variant: 'filled',
+        state: 'default',
       },
       style: {
         backgroundColor: color.gray700,
@@ -94,9 +92,9 @@ export const chip = recipe({
     },
     {
       variants: {
-        color: ChipColor.primary,
-        variant: ChipVariant.filled,
-        state: ChipState.selected,
+        color: 'primary',
+        variant: 'filled',
+        state: 'selected',
       },
       style: {
         backgroundColor: color.cyan400,
@@ -113,9 +111,9 @@ export const chip = recipe({
     },
     {
       variants: {
-        color: ChipColor.primary,
-        variant: ChipVariant.outline,
-        state: ChipState.default,
+        color: 'primary',
+        variant: 'outline',
+        state: 'default',
       },
       style: {
         backgroundColor: transparentColor,
@@ -132,9 +130,9 @@ export const chip = recipe({
     },
     {
       variants: {
-        color: ChipColor.primary,
-        variant: ChipVariant.outline,
-        state: ChipState.selected,
+        color: 'primary',
+        variant: 'outline',
+        state: 'selected',
       },
       style: {
         backgroundColor: transparentColor,
@@ -152,9 +150,9 @@ export const chip = recipe({
     // Secondary color combinations
     {
       variants: {
-        color: ChipColor.secondary,
-        variant: ChipVariant.filled,
-        state: ChipState.default,
+        color: 'secondary',
+        variant: 'filled',
+        state: 'default',
       },
       style: {
         backgroundColor: color.gray600,
@@ -168,9 +166,9 @@ export const chip = recipe({
     },
     {
       variants: {
-        color: ChipColor.secondary,
-        variant: ChipVariant.filled,
-        state: ChipState.selected,
+        color: 'secondary',
+        variant: 'filled',
+        state: 'selected',
       },
       style: {
         backgroundColor: color.purple400,
@@ -185,9 +183,9 @@ export const chip = recipe({
     // Success color combinations
     {
       variants: {
-        color: ChipColor.success,
-        variant: ChipVariant.filled,
-        state: ChipState.default,
+        color: 'success',
+        variant: 'filled',
+        state: 'default',
       },
       style: {
         backgroundColor: color.green500,
@@ -202,9 +200,9 @@ export const chip = recipe({
     // Warning color combinations
     {
       variants: {
-        color: ChipColor.warning,
-        variant: ChipVariant.filled,
-        state: ChipState.default,
+        color: 'warning',
+        variant: 'filled',
+        state: 'default',
       },
       style: {
         backgroundColor: color.orange500,
@@ -219,9 +217,9 @@ export const chip = recipe({
     // Danger color combinations
     {
       variants: {
-        color: ChipColor.danger,
-        variant: ChipVariant.filled,
-        state: ChipState.default,
+        color: 'danger',
+        variant: 'filled',
+        state: 'default',
       },
       style: {
         backgroundColor: color.red500,
@@ -233,11 +231,128 @@ export const chip = recipe({
         },
       },
     },
+    // Success outline combinations
+    {
+      variants: {
+        color: 'success',
+        variant: 'outline',
+        state: 'default',
+      },
+      style: {
+        backgroundColor: transparentColor,
+        color: color.green500,
+        borderColor: color.green500,
+        ':hover': {
+          backgroundColor: color.green100,
+          borderColor: color.green600,
+        },
+        ':focus': {
+          outlineColor: color.green500,
+        },
+      },
+    },
+    {
+      variants: {
+        color: 'success',
+        variant: 'outline',
+        state: 'selected',
+      },
+      style: {
+        backgroundColor: color.green100,
+        color: color.green600,
+        borderColor: color.green500,
+        ':hover': {
+          backgroundColor: color.green200,
+          borderColor: color.green600,
+        },
+        ':focus': {
+          outlineColor: color.green500,
+        },
+      },
+    },
+    // Warning outline combinations
+    {
+      variants: {
+        color: 'warning',
+        variant: 'outline',
+        state: 'default',
+      },
+      style: {
+        backgroundColor: transparentColor,
+        color: color.orange500,
+        borderColor: color.orange500,
+        ':hover': {
+          backgroundColor: color.orange100,
+          borderColor: color.orange600,
+        },
+        ':focus': {
+          outlineColor: color.orange500,
+        },
+      },
+    },
+    {
+      variants: {
+        color: 'warning',
+        variant: 'outline',
+        state: 'selected',
+      },
+      style: {
+        backgroundColor: color.orange100,
+        color: color.orange600,
+        borderColor: color.orange500,
+        ':hover': {
+          backgroundColor: color.orange200,
+          borderColor: color.orange600,
+        },
+        ':focus': {
+          outlineColor: color.orange500,
+        },
+      },
+    },
+    // Danger outline combinations
+    {
+      variants: {
+        color: 'danger',
+        variant: 'outline',
+        state: 'default',
+      },
+      style: {
+        backgroundColor: transparentColor,
+        color: color.red500,
+        borderColor: color.red500,
+        ':hover': {
+          backgroundColor: color.red100,
+          borderColor: color.red600,
+        },
+        ':focus': {
+          outlineColor: color.red500,
+        },
+      },
+    },
+    {
+      variants: {
+        color: 'danger',
+        variant: 'outline',
+        state: 'selected',
+      },
+      style: {
+        backgroundColor: color.red100,
+        color: color.red600,
+        borderColor: color.red500,
+        ':hover': {
+          backgroundColor: color.red200,
+          borderColor: color.red600,
+        },
+        ':focus': {
+          outlineColor: color.red500,
+        },
+      },
+    },
   ],
   defaultVariants: {
-    color: ChipColor.primary,
-    variant: ChipVariant.filled,
-    size: ChipSize.medium,
-    state: ChipState.default,
+    color: 'primary',
+    variant: 'filled',
+    size: 'medium',
+    state: 'default',
   },
 });

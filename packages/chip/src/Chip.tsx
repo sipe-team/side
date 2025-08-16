@@ -4,23 +4,23 @@ import { Slot } from '@radix-ui/react-slot';
 
 import { clsx as cx } from 'clsx';
 
-import { ChipColor, ChipSize, ChipState, ChipVariant } from './Chip.constants';
+import type { ChipColor, ChipSize, ChipVariant } from './Chip.constants';
 import * as styles from './Chip.css';
 
 export interface ChipProps extends ComponentProps<'button'> {
   color?: ChipColor;
   variant?: ChipVariant;
   size?: ChipSize;
-  state?: ChipState;
+  selected?: boolean;
   asChild?: boolean;
 }
 
 export const Chip = forwardRef(function Chip(
   {
-    color = ChipColor.primary,
-    variant = ChipVariant.filled,
-    size = ChipSize.medium,
-    state = ChipState.default,
+    color = 'primary',
+    variant = 'filled',
+    size = 'medium',
+    selected = false,
     asChild,
     disabled,
     className: _className,
@@ -30,6 +30,7 @@ export const Chip = forwardRef(function Chip(
   ref: ForwardedRef<HTMLButtonElement>,
 ) {
   const Component = asChild ? Slot : 'button';
+  const state = selected ? 'selected' : 'default';
   const className = cx(styles.chip({ color, variant, size, state }), { [styles.disabled]: disabled }, _className);
 
   return (

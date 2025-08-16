@@ -19,9 +19,3 @@ export const ChipColor = {
   danger: 'danger',
 } as const;
 export type ChipColor = (typeof ChipColor)[keyof typeof ChipColor];
-
-export const ChipState = {
-  default: 'default',
-  selected: 'selected',
-} as const;
-export type ChipState = (typeof ChipState)[keyof typeof ChipState];

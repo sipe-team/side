@@ -1,7 +1,9 @@
+import React from 'react';
+
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Chip } from './Chip';
-import { ChipColor, ChipSize, ChipState, ChipVariant } from './Chip.constants';
+import { ChipColor, ChipSize, ChipVariant } from './Chip.constants';
 
 const meta = {
   title: 'Components/Chip',
@@ -23,9 +25,8 @@ const meta = {
       control: 'select',
       options: Object.values(ChipSize),
     },
-    state: {
-      control: 'select',
-      options: Object.values(ChipState),
+    selected: {
+      control: 'boolean',
     },
   },
 } satisfies Meta<typeof Chip>;
@@ -73,18 +74,20 @@ export const Sizes: Story = {
 export const States: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-      <Chip state="default">Default</Chip>
-      <Chip state="selected">Selected</Chip>
+      <Chip selected={false}>Default</Chip>
+      <Chip selected={true}>Selected</Chip>
     </div>
   ),
 };
 
 export const Interactive: Story = {
-  args: {
-    color: 'primary',
-    variant: 'filled',
-    size: 'medium',
-    state: 'default',
-    children: 'Interactive Chip',
+  render: () => {
+    const [selected, setSelected] = React.useState(false);
+
+    return (
+      <Chip selected={selected} onClick={() => setSelected(!selected)}>
+        {selected ? 'Selected Chip' : 'Click to Select'}
+      </Chip>
+    );
   },
 };

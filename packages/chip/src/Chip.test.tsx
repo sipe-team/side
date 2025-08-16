@@ -17,7 +17,7 @@ describe('Chip', () => {
 
   it('applies custom props correctly', () => {
     render(
-      <Chip color="success" variant="outline" size="large" state="selected">
+      <Chip color="success" variant="outline" size="large" selected={true}>
         Custom Chip
       </Chip>,
     );
@@ -44,6 +44,18 @@ describe('Chip', () => {
   it('applies disabled class when disabled', () => {
     render(<Chip disabled>Disabled Chip</Chip>);
     const chip = screen.getByText('Disabled Chip');
+    expect(chip).toBeTruthy();
+  });
+
+  it('handles selected prop correctly', () => {
+    render(<Chip selected={true}>Selected Chip</Chip>);
+    const chip = screen.getByText('Selected Chip');
+    expect(chip).toBeTruthy();
+  });
+
+  it('handles selected prop as false by default', () => {
+    render(<Chip>Default Chip</Chip>);
+    const chip = screen.getByText('Default Chip');
     expect(chip).toBeTruthy();
   });
 });
