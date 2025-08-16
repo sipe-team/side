@@ -1,5 +1,3 @@
-import React from 'react';
-
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Chip } from './Chip';
@@ -78,16 +76,4 @@ export const States: Story = {
       <Chip selected={true}>Selected</Chip>
     </div>
   ),
-};
-
-export const Interactive: Story = {
-  render: () => {
-    const [selected, setSelected] = React.useState(false);
-
-    return (
-      <Chip selected={selected} onClick={() => setSelected(!selected)}>
-        {selected ? 'Selected Chip' : 'Click to Select'}
-      </Chip>
-    );
-  },
 };
