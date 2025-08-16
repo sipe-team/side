@@ -944,7 +944,7 @@ importers:
         specifier: catalog:react
         version: 18.3.23
       '@vanilla-extract/css':
-        specifier: ^1.16.0
+        specifier: 'catalog:'
         version: 1.17.4
       happy-dom:
         specifier: 'catalog:'
