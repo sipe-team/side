@@ -121,21 +121,20 @@ reviews:
         - Accessibility guidelines and examples
         - Installation and setup instructions
 
-auto_review:
-  enabled: true
-  ignore_title_keywords:
-    - "Version Packages"
-    - "WIP"
-    - "DO NOT MERGE"
-    - "[WIP]"
-    - "draft"
-    - "Release"
-    - "release"
-  drafts: false
-  base_branches:
-    - "main"
-    - "release/v1"
-  incremental_review: true
-
+  auto_review:
+    enabled: true
+    ignore_title_keywords:
+      - "Version Packages"
+      - "WIP"
+      - "DO NOT MERGE"
+      - "[WIP]"
+      - "draft"
+      - "Release"
+      - "release"
+    drafts: false
+    base_branches:
+      - "main"
+      - "release/v1"
+    auto_incremental_review: true
 chat:
   auto_reply: true
