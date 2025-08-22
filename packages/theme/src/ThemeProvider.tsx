@@ -1,7 +1,9 @@
 import type React from 'react';
-import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 import { type ThemeColor, themeColor, vars } from '@sipe-team/tokens';
+
+import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 interface ThemeContextType {
   theme: ThemeColor;
@@ -25,20 +27,10 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme: initialTheme = themeColor['4th'] }) => {
   const [theme, setTheme] = useState<ThemeColor>(initialTheme);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setTheme(initialTheme);
   }, [initialTheme]);
-
-  useEffect(() => {
-    if (containerRef.current) {
-      // Apply theme colors as CSS variables
-      Object.entries(theme).forEach(([key, value]) => {
-        containerRef.current?.style.setProperty(`--side-color-${key}`, value);
-      });
-    }
-  }, [theme]);
 
   const contextValue = useMemo(
     () => ({
@@ -48,11 +40,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme: i
     [theme],
   );
 
+  const themeVars = assignInlineVars(vars.color, theme);
+
   return (
     <ThemeContext.Provider value={contextValue}>
-      <div ref={containerRef} style={{ display: 'contents' }}>
-        {children}
-      </div>
+      <div style={{ ...themeVars, display: 'contents' }}>{children}</div>
     </ThemeContext.Provider>
   );
 };

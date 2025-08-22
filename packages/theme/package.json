@@ -39,6 +39,7 @@
     "vitest": "catalog:"
   },
   "dependencies": {
+    "@vanilla-extract/dynamic": "^2.1.2",
     "@sipe-team/tokens": "workspace:*"
   },
   "publishConfig": {
