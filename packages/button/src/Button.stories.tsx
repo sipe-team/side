@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Button } from './Button';
 
 const meta = {
@@ -8,18 +9,18 @@ const meta = {
     layout: 'centered',
   },
   argTypes: {
-    color: {
-      description: '버튼의 색상을 지정합니다',
-      options: ['primary', 'black', 'white'],
+    variant: {
+      description: 'The visual style of the button',
+      options: ['filled', 'outline', 'ghost'],
       control: { type: 'radio' },
     },
-    variant: {
-      description: '버튼의 스타일을 지정합니다',
-      options: ['filled', 'outline', 'weak'],
+    size: {
+      description: 'The size of the button',
+      options: ['sm', 'lg'],
       control: { type: 'radio' },
     },
     disabled: {
-      description: '버튼의 비활성화 상태를 지정합니다',
+      description: 'Whether the button is disabled',
       control: { type: 'boolean' },
     },
   },
@@ -31,34 +32,14 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     children: 'Button',
-    color: 'primary',
     variant: 'filled',
+    size: 'lg',
   },
-};
-
-export const Colors: Story = {
-  args: {
-    children: 'Button',
-  },
-  render: (args) => (
-    <div style={{ display: 'flex', gap: '8px' }}>
-      <Button {...args} color="primary">
-        Primary
-      </Button>
-      <Button {...args} color="black">
-        Black
-      </Button>
-      <Button {...args} color="white">
-        White
-      </Button>
-    </div>
-  ),
 };
 
 export const Variants: Story = {
   args: {
     children: 'Button',
-    color: 'primary',
   },
   render: (args) => (
     <div style={{ display: 'flex', gap: '8px' }}>
@@ -68,8 +49,25 @@ export const Variants: Story = {
       <Button {...args} variant="outline">
         Outline
       </Button>
-      <Button {...args} variant="weak">
-        Weak
+      <Button {...args} variant="ghost">
+        Ghost
+      </Button>
+    </div>
+  ),
+};
+
+export const Sizes: Story = {
+  args: {
+    children: 'Button',
+    variant: 'filled',
+  },
+  render: (args) => (
+    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+      <Button {...args} size="sm">
+        Small
+      </Button>
+      <Button {...args} size="lg">
+        Large
       </Button>
     </div>
   ),
@@ -78,7 +76,6 @@ export const Variants: Story = {
 export const States: Story = {
   args: {
     children: 'Button',
-    color: 'primary',
   },
   render: (args) => (
     <div style={{ display: 'flex', gap: '8px' }}>
