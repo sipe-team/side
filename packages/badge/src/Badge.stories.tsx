@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Badge, type BadgeSize, type BadgeVariant } from './Badge';
-import { BadgeSize as BadgeSizeEnum, BadgeVariant as BadgeVariantEnum } from './Badge.css';
+
+import { Badge } from './Badge';
+import { BadgeColor, BadgeIconPosition, BadgeSize, BadgeVariant } from './Badge.constants';
 
 const meta = {
   title: 'Components/Badge',
@@ -8,53 +9,107 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
+  tags: ['autodocs'],
   argTypes: {
     size: {
       control: 'select',
-      options: Object.keys(BadgeSizeEnum),
-      description: 'Size of the badge',
-      defaultValue: 'medium',
+      options: Object.values(BadgeSize),
     },
     variant: {
       control: 'select',
-      options: Object.keys(BadgeVariantEnum),
-      description: 'Visual style of the badge',
-      defaultValue: 'filled',
+      options: Object.values(BadgeVariant),
+    },
+    color: {
+      control: 'select',
+      options: Object.values(BadgeColor),
+    },
+    icon: {
+      control: 'select',
+      options: Object.values(BadgeIconPosition),
     },
   },
+  args: {
+    children: 'Badge',
+    size: BadgeSize.small,
+    variant: BadgeVariant.default,
+    color: BadgeColor.gray,
+    icon: BadgeIconPosition.none,
+  },
 } satisfies Meta<typeof Badge>;
-export default meta;
 
+export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
+export const Default: Story = {
   args: {
-    children: '사이프',
-    size: 'medium',
-    variant: 'filled',
+    children: 'Badge',
   },
 };
 
 export const Sizes: Story = {
-  render: (args) => (
-    <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-      {Object.keys(BadgeSizeEnum).map((size) => (
-        <Badge key={size} {...args} size={size as BadgeSize}>
-          {size}
-        </Badge>
-      ))}
+  render: () => (
+    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+      <Badge size={BadgeSize.small}>Small</Badge>
+      <Badge size={BadgeSize.large}>Large</Badge>
     </div>
   ),
 };
 
 export const Variants: Story = {
-  render: (args) => (
-    <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-      {Object.keys(BadgeVariantEnum).map((variant) => (
-        <Badge key={variant} {...args} variant={variant as BadgeVariant}>
-          {variant}
-        </Badge>
+  render: () => (
+    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+      <Badge variant={BadgeVariant.solid}>Solid</Badge>
+      <Badge variant={BadgeVariant.default}>Default</Badge>
+    </div>
+  ),
+};
+
+export const Colors: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+      <Badge color={BadgeColor.white}>White</Badge>
+      <Badge color={BadgeColor.gray}>Gray</Badge>
+      <Badge color={BadgeColor.danger}>Danger</Badge>
+      <Badge color={BadgeColor.general}>General</Badge>
+      <Badge color={BadgeColor['1st']}>1st</Badge>
+      <Badge color={BadgeColor['2nd']}>2nd</Badge>
+      <Badge color={BadgeColor['3rd']}>3rd</Badge>
+      <Badge color={BadgeColor['4th']}>4th</Badge>
+    </div>
+  ),
+};
+
+export const ColorVariantMatrix: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      {Object.values(BadgeVariant).map((variant) => (
+        <div key={variant} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <span style={{ width: '60px', fontSize: '12px' }}>{variant}:</span>
+          {Object.values(BadgeColor).map((color) => (
+            <Badge key={color} variant={variant} color={color}>
+              {color}
+            </Badge>
+          ))}
+        </div>
       ))}
+    </div>
+  ),
+};
+
+export const WithIcons: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+        <Badge icon="left" leftIcon="👈">
+          Left Icon
+        </Badge>
+        <Badge icon="right" rightIcon="👉">
+          Right Icon
+        </Badge>
+        <Badge icon="both" leftIcon="👈" rightIcon="👉">
+          Both Icons
+        </Badge>
+      </div>
     </div>
   ),
 };
