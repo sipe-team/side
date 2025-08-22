@@ -1299,6 +1299,9 @@ importers:
       '@sipe-team/tokens':
         specifier: workspace:*
         version: link:../tokens
+      '@vanilla-extract/dynamic':
+        specifier: ^2.1.2
+        version: 2.1.5
     devDependencies:
       '@storybook/addon-essentials':
         specifier: 'catalog:'
