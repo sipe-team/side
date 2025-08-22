@@ -1,5 +1,5 @@
 import type React from 'react';
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 import { type ThemeColor, themeColor, vars } from '@sipe-team/tokens';
 
@@ -27,6 +27,10 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme: initialTheme = themeColor['4th'] }) => {
   const [theme, setTheme] = useState<ThemeColor>(initialTheme);
+
+  useEffect(() => {
+    setTheme(initialTheme);
+  }, [initialTheme]);
 
   const contextValue = useMemo(
     () => ({
