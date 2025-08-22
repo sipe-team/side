@@ -1,0 +1,140 @@
+language: "en"
+early_access: false
+reviews:
+  profile: "assertive"
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  path_filters:
+    - "!.templates/**"
+    - "!.changeset/**"
+    - "!**/pnpm-lock.yaml"
+    - "!**/node_modules/**"
+    - "!**/dist/**"
+    - "!**/storybook-static/**"
+    - "!**/*.d.ts"
+  path_instructions:
+    # React Components
+    - path: "**/packages/*/src/*.tsx"
+      instructions: |
+        Review React component code for:
+        - Consistent component patterns following existing components (forwardRef, props interface, const enums)
+        - Proper TypeScript usage with strict typing
+        - Accessibility best practices (semantic HTML, ARIA attributes)
+        - Component composition patterns using Radix UI Slot when applicable
+        - ThemeProvider integration - components should work with all theme variants (1st-4th)
+        - Consistent prop naming and structure with existing components
+        - Proper use of clsx for conditional className handling
+        - Integration with design token system and theme contract variables
+    
+    # Vanilla Extract CSS
+    - path: "**/packages/*/src/*.css.ts"
+      instructions: |
+        Review Vanilla Extract styling for:
+        - Proper usage of design tokens from @sipe-team/tokens (vars.color, vars.spacing, etc.)
+        - ThemeProvider compatibility - use vars.color.primary instead of hardcoded colors
+        - Consistent recipe patterns with variants and compound variants
+        - Proper hover states and transitions following existing patterns
+        - Theme-aware color usage that works with multiple theme variants (1st-4th themes)
+        - Avoid hardcoded colors like '#00ffff' - use theme contract variables instead
+        - Responsive design considerations using token-based breakpoints
+        - Performance-optimized CSS generation with proper CSS layers
+    
+    # Test Files
+    - path: "**/packages/*/src/*.test.tsx"
+      instructions: |
+        Review test files for:
+        - English test descriptions (convert Korean descriptions to English)
+        - Comprehensive test coverage including visual, behavioral, and accessibility tests
+        - Theme compatibility testing - ensure components work with different theme variants
+        - Proper use of @testing-library/react patterns
+        - Testing component variants, props, and edge cases
+        - ThemeProvider wrapper in tests when testing theme-dependent components
+        - Consistent test structure and naming conventions
+        - Proper setup and cleanup in test files
+    
+    # Storybook Stories
+    - path: "**/packages/*/src/*.stories.tsx"
+      instructions: |
+        Review Storybook stories for:
+        - Complete component variant coverage in stories
+        - Theme showcase - demonstrate components with different theme variants (1st-4th)
+        - ThemeProvider integration in stories for theme-dependent components
+        - Proper story naming and organization
+        - Accessible and informative story descriptions
+        - Consistent args and argTypes definitions
+        - Documentation value for design system users
+    
+    # Design Tokens
+    - path: "**/packages/tokens/src/**/*.ts"
+      instructions: |
+        Review design token changes for:
+        - Backward compatibility with existing components
+        - Consistent naming conventions following established patterns
+        - Proper TypeScript exports and type definitions
+        - Impact on overall design system consistency
+        - Documentation of token usage and purpose
+    
+    # Package Configuration
+    - path: "**/packages/*/package.json"
+      instructions: |
+        Review package.json changes for:
+        - Version consistency with changeset workflow
+        - Proper dependency management (peer deps, dev deps)
+        - Consistent package structure and scripts
+        - Proper exports and entry points configuration
+    
+    # TypeScript Configuration
+    - path: "**/tsconfig.json"
+      instructions: |
+        Review TypeScript configuration for:
+        - Strict type checking maintenance
+        - Consistent compiler options across packages
+        - Proper path mappings and module resolution
+        - Build optimization settings
+    
+    # Build Configuration
+    - path: "**/packages/*/tsup.config.ts"
+      instructions: |
+        Review build configuration for:
+        - Consistent build targets and formats
+        - Proper external dependencies handling
+        - Source map and declaration generation
+        - Bundle optimization settings
+    
+    # Root Configuration Files
+    - path: "biome.json"
+      instructions: |
+        Review Biome configuration for:
+        - Consistent formatting and linting rules
+        - Import organization rules following established patterns
+        - Accessibility rule consistency
+        - Integration with existing toolchain
+    
+    # Documentation
+    - path: "**/README.md"
+      instructions: |
+        Review documentation for:
+        - Clear usage examples and API documentation
+        - Consistency with design system documentation standards
+        - Accessibility guidelines and examples
+        - Installation and setup instructions
+
+  auto_review:
+    enabled: true
+    ignore_title_keywords:
+      - "Version Packages"
+      - "WIP"
+      - "DO NOT MERGE"
+      - "[WIP]"
+      - "draft"
+      - "Release"
+      - "release"
+    drafts: false
+    base_branches:
+      - "main"
+      - "release/v1"
+    auto_incremental_review: true
+chat:
+  auto_reply: true
