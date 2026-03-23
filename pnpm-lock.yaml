@@ -426,6 +426,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.0
         version: 1.2.3(@types/react@18.3.23)(react@18.3.1)
+      '@sipe-team/tokens':
+        specifier: workspace:*
+        version: link:../tokens
       '@sipe-team/typography':
         specifier: workspace:*
         version: link:../typography
@@ -1299,6 +1302,9 @@ importers:
       '@sipe-team/tokens':
         specifier: workspace:*
         version: link:../tokens
+      '@vanilla-extract/dynamic':
+        specifier: ^2.1.2
+        version: 2.1.5
     devDependencies:
       '@storybook/addon-essentials':
         specifier: 'catalog:'
