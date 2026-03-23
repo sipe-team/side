@@ -1,11 +1,9 @@
+import { vars } from '@sipe-team/tokens';
+
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
-import { ButtonColor, ButtonVariant } from './Button';
 
-const primaryColor = '#00ffff';
-const blackColor = 'black';
-const whiteColor = 'white';
-const transparentColor = 'transparent';
+import { ButtonSize, ButtonVariant } from './Button';
 
 export const disabled = style({
   opacity: 0.4,
@@ -18,164 +16,59 @@ export const button = recipe({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '0 16px',
-    borderRadius: 8,
-    height: 40,
-    fontSize: 22,
-    lineHeight: 30.8,
-    fontWeight: 'bold',
+    borderRadius: vars.radius.md,
+    fontWeight: vars.typography.fontWeight.semiBold,
     cursor: 'pointer',
     transition: 'all 0.2s ease-in-out',
+    border: 'none',
+    fontFamily: vars.typography.fontFamily,
   },
   variants: {
-    color: {
-      [ButtonColor.primary]: {},
-      [ButtonColor.black]: {},
-      [ButtonColor.white]: {},
-    },
     variant: {
       [ButtonVariant.filled]: {
-        border: 'none',
-      },
-      [ButtonVariant.outline]: {
-        backgroundColor: transparentColor,
-      },
-      [ButtonVariant.weak]: {
-        backgroundColor: transparentColor,
+        backgroundColor: vars.color.primary,
+        color: vars.color.background,
         border: 'none',
         ':hover': {
-          opacity: 0.1,
+          opacity: 0.9,
         },
+      },
+      [ButtonVariant.outline]: {
+        backgroundColor: 'transparent',
+        border: `1px solid ${vars.color.primary}`,
+        color: vars.color.primary,
+        ':hover': {
+          backgroundColor: vars.color.primary,
+          color: vars.color.background,
+        },
+      },
+      [ButtonVariant.ghost]: {
+        backgroundColor: 'transparent',
+        border: 'none',
+        color: vars.color.primary,
+        ':hover': {
+          backgroundColor: `color-mix(in srgb, ${vars.color.primary} 10%, transparent)`,
+        },
+      },
+    },
+    size: {
+      [ButtonSize.sm]: {
+        height: '32px',
+        padding: `0 ${vars.spacing.sm}`,
+        fontSize: vars.typography.fontSize['200'],
+        lineHeight: vars.typography.lineHeight.compact,
+      },
+      [ButtonSize.lg]: {
+        height: '48px',
+        padding: `0 ${vars.spacing.lg}`,
+        fontSize: vars.typography.fontSize['400'],
+        lineHeight: vars.typography.lineHeight.regular,
       },
     },
   },
-  compoundVariants: [
-    {
-      variants: {
-        color: ButtonColor.primary,
-        variant: ButtonVariant.filled,
-      },
-      style: {
-        backgroundColor: primaryColor,
-        color: blackColor,
-        ':hover': {
-          backgroundColor: '#00d2d2',
-          color: blackColor,
-        },
-      },
-    },
-    {
-      variants: {
-        color: ButtonColor.primary,
-        variant: ButtonVariant.outline,
-      },
-      style: {
-        border: `1px solid ${primaryColor}`,
-        color: primaryColor,
-        ':hover': {
-          backgroundColor: primaryColor,
-          color: blackColor,
-        },
-      },
-    },
-    {
-      variants: {
-        color: ButtonColor.primary,
-        variant: ButtonVariant.weak,
-      },
-      style: {
-        color: primaryColor,
-        ':hover': {
-          backgroundColor: primaryColor,
-          color: primaryColor,
-        },
-      },
-    },
-    {
-      variants: {
-        color: ButtonColor.black,
-        variant: ButtonVariant.filled,
-      },
-      style: {
-        backgroundColor: blackColor,
-        color: whiteColor,
-        ':hover': {
-          backgroundColor: '#2d3748',
-          color: whiteColor,
-        },
-      },
-    },
-    {
-      variants: {
-        color: ButtonColor.black,
-        variant: ButtonVariant.outline,
-      },
-      style: {
-        border: `1px solid ${blackColor}`,
-        color: blackColor,
-        ':hover': {
-          backgroundColor: blackColor,
-          color: whiteColor,
-        },
-      },
-    },
-    {
-      variants: {
-        color: ButtonColor.black,
-        variant: ButtonVariant.weak,
-      },
-      style: {
-        color: blackColor,
-        ':hover': {
-          backgroundColor: blackColor,
-          color: blackColor,
-        },
-      },
-    },
-    {
-      variants: {
-        color: ButtonColor.white,
-        variant: ButtonVariant.filled,
-      },
-      style: {
-        backgroundColor: whiteColor,
-        color: blackColor,
-        ':hover': {
-          backgroundColor: '#cbd5e0',
-          color: blackColor,
-        },
-      },
-    },
-    {
-      variants: {
-        color: ButtonColor.white,
-        variant: ButtonVariant.outline,
-      },
-      style: {
-        border: `1px solid ${whiteColor}`,
-        color: whiteColor,
-        ':hover': {
-          backgroundColor: whiteColor,
-          color: blackColor,
-        },
-      },
-    },
-    {
-      variants: {
-        color: ButtonColor.white,
-        variant: ButtonVariant.weak,
-      },
-      style: {
-        color: whiteColor,
-        ':hover': {
-          backgroundColor: whiteColor,
-          color: whiteColor,
-        },
-      },
-    },
-  ],
+  compoundVariants: [],
   defaultVariants: {
-    color: ButtonColor.primary,
     variant: ButtonVariant.filled,
+    size: ButtonSize.lg,
   },
 });
