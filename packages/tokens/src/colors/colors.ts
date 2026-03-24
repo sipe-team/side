@@ -125,6 +125,7 @@ export const color = {
 } as const;
 
 export const semanticColor = {
+  success: color.green500,
   warning: color.orange400,
   danger: color.red500,
   positive: color.blue400,

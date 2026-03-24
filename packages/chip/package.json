@@ -1,0 +1,57 @@
+{
+  "name": "@side/chip",
+  "version": "0.0.1",
+  "description": "Chip component for SIDE design system",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.0.2",
+    "@vanilla-extract/css": "^1.14.0",
+    "@vanilla-extract/recipes": "^0.5.1",
+    "clsx": "^2.0.0"
+  },
+  "devDependencies": {
+    "@sipe-team/tokens": "workspace:*",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@testing-library/user-event": "catalog:",
+    "@types/react": "^18.2.0",
+    "jsdom": "^26.1.0",
+    "react": "^18.2.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "keywords": [
+    "chip",
+    "tag",
+    "badge",
+    "design-system",
+    "react"
+  ],
+  "author": "SIDE Team",
+  "license": "MIT"
+}
