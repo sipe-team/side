@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pnpm biome check --write --unsafe --changed",
+            "statusMessage": "Biome 포맷팅 중...",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

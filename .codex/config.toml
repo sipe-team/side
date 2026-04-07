@@ -1,0 +1,25 @@
+# Project-scoped Codex defaults for this repository.
+# Claude Code의 .claude/settings.json과 동일한 정책을 유지합니다.
+
+model = "gpt-5.4"
+model_reasoning_effort = "high"
+web_search = "cached"
+
+# Claude의 approval_policy와 매칭:
+#   allow → auto-edit (자동 허용)
+#   ask   → on-request (확인 후 실행)
+# git push, git commit, git reset, rm 등은 confirm 필요
+approval_policy = "on-request"
+
+# Claude sandbox와 매칭: network 접근은 registry.npmjs.org, npm.pkg.github.com 허용
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+network_access = true
+
+[features]
+codex_hooks = true
+
+# MCP Servers
+[mcp_servers.figma]
+url = "https://mcp.figma.com/mcp"

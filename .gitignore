@@ -180,3 +180,5 @@ storybook-static
 
 # Docusaurus
 build/
+
+.claude/settings.local.json
