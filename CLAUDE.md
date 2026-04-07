@@ -1,79 +1,79 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+이 파일은 Claude Code(claude.ai/code)가 이 저장소의 코드를 다룰 때 참고하는 가이드입니다.
 
-## Project Overview
+## 프로젝트 개요
 
-**Side (Sipe Design System)** — a pnpm monorepo of React component packages published to GitHub Package Registry under `@sipe-team/*`.
+**Side (Sipe Design System)** — `@sipe-team/*` 이름으로 GitHub Package Registry에 배포되는 React 컴포넌트 패키지들의 pnpm 모노레포입니다.
 
-## Commands
+## 명령어
 
 ```bash
-pnpm install                        # Install dependencies (pnpm 9.7.1, Node v22)
-pnpm dev:storybook                  # Run Storybook dev server on :6006
-pnpm build:storybook                # Build Storybook
-pnpm lint                           # Biome lint + fix (changed packages)
-pnpm format                         # Biome format
-pnpm test                           # Vitest (changed packages)
-pnpm create:component               # Scaffold new component from template
-pnpm cz                             # Interactive conventional commit
+pnpm install                        # 의존성 설치 (pnpm 9.7.1, Node v22)
+pnpm dev:storybook                  # Storybook 개발 서버 실행 (:6006)
+pnpm build:storybook                # Storybook 빌드
+pnpm lint                           # Biome 린트 + 수정 (변경된 패키지)
+pnpm format                         # Biome 포맷팅
+pnpm test                           # Vitest (변경된 패키지)
+pnpm create:component               # 템플릿에서 새 컴포넌트 스캐폴딩
+pnpm cz                             # 대화형 conventional commit
 
-# Per-package
+# 패키지 단위
 pnpm --filter @sipe-team/button test
 pnpm --filter @sipe-team/button build
 pnpm --filter @sipe-team/button typecheck
 
-# Run a single test file
+# 단일 테스트 파일 실행
 pnpm --filter @sipe-team/button vitest run src/Button.test.tsx
 ```
 
-## Architecture
+## 아키텍처
 
-- **`packages/*`** — Individual component packages (button, input, card, chip, skeleton, etc.)
-- **`packages/tokens`** — Design tokens (colors, spacing, typography, radius, shadows, z-index) exported as vanilla-extract contract vars
-- **`packages/theme`** — ThemeProvider using vanilla-extract `assignInlineVars` for runtime theme switching (4 themes, light mode default)
-- **`packages/typography`** — Typography component system
-- **`www/`** — Docusaurus documentation site
+- **`packages/*`** — 개별 컴포넌트 패키지 (button, input, card, chip, skeleton 등)
+- **`packages/tokens`** — 디자인 토큰 (색상, 간격, 타이포그래피, 라운딩, 그림자, z-index)을 vanilla-extract contract vars로 export
+- **`packages/theme`** — vanilla-extract `assignInlineVars`를 사용한 ThemeProvider, 런타임 테마 전환 (4개 테마, 라이트 모드 기본)
+- **`packages/typography`** — Typography 컴포넌트 시스템
+- **`www/`** — Docusaurus 문서 사이트
 
-## Component Pattern
+## 컴포넌트 패턴
 
-Every component follows this structure:
+모든 컴포넌트는 다음 구조를 따릅니다:
 
-1. **`Component.tsx`** — `forwardRef` wrapper, extends `ComponentProps<'element'>`, defines variant enums as `const` objects with matching types, supports `asChild` via Radix `Slot`
-2. **`Component.css.ts`** — Vanilla Extract `recipe()` with variant maps keyed by the enum values, uses `vars` from `@sipe-team/tokens`
-3. **`Component.stories.tsx`** — Storybook using `Meta`/`StoryObj` types
-4. **`Component.test.tsx`** — Vitest + `@testing-library/react` (happy-dom environment)
+1. **`Component.tsx`** — `forwardRef` 래퍼, `ComponentProps<'element'>` 확장, variant enum을 `const` 객체로 정의하고 매칭 타입 생성, Radix `Slot`을 통한 `asChild` 지원
+2. **`Component.css.ts`** — Vanilla Extract `recipe()`에 enum 값을 키로 하는 variant 맵, `@sipe-team/tokens`의 `vars` 사용
+3. **`Component.stories.tsx`** — `Meta`/`StoryObj` 타입을 사용하는 Storybook
+4. **`Component.test.tsx`** — Vitest + `@testing-library/react` (happy-dom 환경)
 5. **`index.ts`** — Re-exports
 
-Variant enum pattern (value object + type union):
+Variant enum 패턴 (값 객체 + 타입 유니온):
 ```ts
 export const ButtonSize = { sm: 'sm', lg: 'lg' } as const;
 export type ButtonSize = (typeof ButtonSize)[keyof typeof ButtonSize];
 ```
 
-Class composition: `clsx(styles.recipe({ variant, size }), conditionalStyles, className)`
+클래스 조합: `clsx(styles.recipe({ variant, size }), conditionalStyles, className)`
 
-## Styling Rules
+## 스타일링 규칙
 
-- All styles use **vanilla-extract** with `recipe()` for variants
-- Always import design tokens via `import { vars } from '@sipe-team/tokens'` — never hardcode colors, spacing, or typography values
-- Each package exports `./styles.css` for consumers
+- 모든 스타일은 **vanilla-extract**의 `recipe()`를 사용하여 variant 처리
+- 디자인 토큰은 반드시 `import { vars } from '@sipe-team/tokens'`로 import — 색상, 간격, 타이포그래피 값을 하드코딩하지 말 것
+- 각 패키지는 소비자를 위해 `./styles.css`를 export
 
-## Linting & Formatting
+## 린팅 및 포맷팅
 
-- **Biome** (not ESLint/Prettier) — single quotes, spaces, 120 char line width
-- Import order enforced: node → react → @sipe-team/* → @vanilla-extract/* → @radix-ui/* → external packages → relative paths (with blank lines between groups)
-- Pre-commit hook runs `biome check --write --unsafe` via lint-staged
+- **Biome** (ESLint/Prettier가 아님) — 싱글 쿼트, 스페이스, 줄 너비 120자
+- import 순서 강제: node → react → @sipe-team/* → @vanilla-extract/* → @radix-ui/* → 외부 패키지 → 상대 경로 (그룹 사이 빈 줄)
+- pre-commit hook이 lint-staged를 통해 `biome check --write --unsafe` 실행
 
-## Commit Conventions
+## 커밋 컨벤션
 
-Format: `type(scope): subject` — English only, subject max 50 chars, scope max 20 chars.
-Types: feat, fix, hotfix, chore, refactor, release, test, docs, ci, build.
+형식: `type(scope): subject` — 영어만, subject 최대 50자, scope 최대 20자.
+타입: feat, fix, hotfix, chore, refactor, release, test, docs, ci, build.
 
-## Branch Naming
+## 브랜치 네이밍
 
-`<CATEGORY>/<ISSUENUMBER>-<SUBJECT>` (issue number optional)
+`<CATEGORY>/<ISSUENUMBER>-<SUBJECT>` (이슈 번호는 선택)
 
-## Publishing
+## 배포
 
-Changesets-based releases to GitHub Package Registry. Packages export ESM + CJS with types. Include a `.changeset` file for any public API changes.
+Changesets 기반으로 GitHub Package Registry에 릴리스. 패키지는 타입과 함께 ESM + CJS를 export. 공개 API 변경 시 `.changeset` 파일을 포함하세요.
