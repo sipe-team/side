@@ -1,13 +1,15 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "node_modules/@biomejs/biome/configuration_schema.json",
+  "files": {
+    "ignoreUnknown": false,
+    "includes": ["**", "!**/*.test.js", "!.github"]
+  },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
     "lineWidth": 120
   },
-  "organizeImports": {
-    "enabled": true
-  },
+
   "linter": {
     "enabled": true,
     "rules": {
@@ -28,8 +30,5 @@
     "formatter": {
       "quoteStyle": "single"
     }
-  },
-  "files": {
-    "ignore": ["dist/*.*"]
   }
 }
