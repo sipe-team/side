@@ -23,3 +23,7 @@ codex_hooks = true
 # MCP Servers
 [mcp_servers.figma]
 url = "https://mcp.figma.com/mcp"
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["@playwright/mcp@latest"]
