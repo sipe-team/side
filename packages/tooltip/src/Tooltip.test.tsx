@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
+
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useEffect, useState } from 'react';
 import { describe, expect, test } from 'vitest';
+
 import { Tooltip, type TooltipPosition } from './Tooltip';
 
 describe('Tooltip 기본 동작 테스트', () => {
@@ -97,32 +99,23 @@ describe('Tooltip 위치 테스트', () => {
     expect(tooltip.className).toContain('top');
   });
 
-  test.each([
-    ['top-left'],
-    ['top'],
-    ['top-right'],
-    ['bottom-left'],
-    ['bottom'],
-    ['bottom-right'],
-    ['left'],
-    ['right'],
-  ])('Tooltip이 %s 위치에 올바르게 렌더링된다.', async (placement) => {
-    render(
-      <Tooltip
-        tooltipContent="Tooltip content"
-        placement={placement as TooltipPosition}
-      >
-        <button type="button">Trigger</button>
-      </Tooltip>,
-    );
+  test.each([['top-left'], ['top'], ['top-right'], ['bottom-left'], ['bottom'], ['bottom-right'], ['left'], ['right']])(
+    'Tooltip이 %s 위치에 올바르게 렌더링된다.',
+    async (placement) => {
+      render(
+        <Tooltip tooltipContent="Tooltip content" placement={placement as TooltipPosition}>
+          <button type="button">Trigger</button>
+        </Tooltip>,
+      );
 
-    const trigger = screen.getByText('Trigger');
-    await userEvent.hover(trigger);
+      const trigger = screen.getByText('Trigger');
+      await userEvent.hover(trigger);
 
-    const tooltip = await screen.findByText('Tooltip content');
-    expect(tooltip).toBeInTheDocument();
-    expect(tooltip.className).toContain(placement as string);
-  });
+      const tooltip = await screen.findByText('Tooltip content');
+      expect(tooltip).toBeInTheDocument();
+      expect(tooltip.className).toContain(placement as string);
+    },
+  );
 });
 
 describe('Tooltip 접근성 테스트', () => {
@@ -160,10 +153,7 @@ describe('Tooltip 접근성 테스트', () => {
 describe('Tooltip 스타일 테스트', () => {
   test('props로 주입한 backgroundColor와 padding이 CSS 변수에 반영된다.', async () => {
     render(
-      <Tooltip
-        tooltipContent="Styled Tooltip"
-        tooltipStyle={{ backgroundColor: 'red', padding: '20px' }}
-      >
+      <Tooltip tooltipContent="Styled Tooltip" tooltipStyle={{ backgroundColor: 'red', padding: '20px' }}>
         <button type="button">Hover me</button>
       </Tooltip>,
     );
@@ -216,9 +206,7 @@ describe('Tooltip 스타일 테스트', () => {
 
 test('Tooltip이 비동기 데이터로 업데이트된다.', async () => {
   const fetchMockData = async () => {
-    return new Promise<string>((resolve) =>
-      setTimeout(() => resolve('Fetched Content'), 500),
-    );
+    return new Promise<string>((resolve) => setTimeout(() => resolve('Fetched Content'), 500));
   };
 
   const AsyncTooltip = () => {

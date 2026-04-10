@@ -11,5 +11,6 @@
     "noEmit": true,
     "target": "ESNext",
     "verbatimModuleSyntax": true
-  }
+  },
+  "exclude": ["**/dist", "**/node_modules", "**/storybook-static"]
 }

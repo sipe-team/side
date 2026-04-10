@@ -1,75 +1,111 @@
-import { color } from '@sipe-team/tokens';
-import { clsx as cx } from 'clsx';
-import {
-  type CSSProperties,
-  type ComponentProps,
-  type ForwardedRef,
-  forwardRef,
-} from 'react';
-import styles from './Switch.module.css';
-import { type SwitchSize, switchHeight, switchWidth } from './constants/size';
-import useCheckedController from './hooks/useCheckedController';
+import { type ComponentProps, type CSSProperties, type ForwardedRef, forwardRef, useMemo } from 'react';
+
+import { useControllableState } from '@radix-ui/react-use-controllable-state';
+
+import clsx from 'clsx';
+
+import { SWITCH_SIZES, SwitchSize } from './constants/size';
+import * as styles from './Switch.css';
+
+export type { SwitchSize } from './constants/size';
 
 export interface SwitchProps extends Omit<ComponentProps<'input'>, 'size'> {
+  size?: SwitchSize;
   defaultChecked?: boolean;
   checked?: boolean;
   disabled?: boolean;
-  size?: SwitchSize;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
+  label?: string;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
 }
 
 export const Switch = forwardRef(function Switch(
   {
     className,
+    size = SwitchSize.md,
     defaultChecked,
-    checked,
-    disabled,
+    checked: checkedProp,
+    disabled = false,
     onChange,
-    size = 'md',
+    onKeyDown,
+    label,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledby,
+    style,
     ...props
   }: SwitchProps,
   ref: ForwardedRef<HTMLInputElement>,
 ) {
-  const { checked: overrideChecked, onChange: overrideOnChange } =
-    useCheckedController({
-      defaultChecked,
-      checked,
-      onChange,
-    });
+  const [checked = false, setChecked] = useControllableState({
+    prop: checkedProp,
+    defaultProp: defaultChecked,
+  });
 
-  const style = {
-    '--switch-width': `${switchWidth[size]}px`,
-    '--switch-height': `${switchHeight[size]}px`,
-    '--switch-diff': `${switchWidth[size] - switchHeight[size]}px`,
-    '--switch-border-radius': '100px',
-    '--switch-thumb-color': `${color.white}`,
-    '--switch-background-color': `${color.gray300}`,
-    '--switch-checked-background-color': `${color.blue500}`,
-    '--switch-shadow': `0px 2px 4px color-mix(in srgb, ${color.gray900} 10%, transparent), 0px 0px 1px color-mix(in srgb, ${color.gray900} 30%, transparent)`,
-  } as CSSProperties;
+  const accessibilityProps = useMemo(() => {
+    if (ariaLabel) {
+      return { 'aria-label': ariaLabel };
+    }
+    if (ariaLabelledby) {
+      return { 'aria-labelledby': ariaLabelledby };
+    }
+    if (label) {
+      return { 'aria-label': label };
+    }
+    return {};
+  }, [ariaLabel, ariaLabelledby, label]);
 
-  const state = overrideChecked ? 'checked' : 'unchecked';
+  const cssVariables = useMemo(() => {
+    const sizeConfig = SWITCH_SIZES[size];
+    const translateDistance = sizeConfig.width - sizeConfig.thumbSize;
+
+    return {
+      '--switch-translate-distance': `${translateDistance}px`,
+    } as CSSProperties;
+  }, [size]);
+
+  const combinedStyle = {
+    ...cssVariables,
+    ...style,
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !disabled) {
+      e.preventDefault();
+      setChecked((prev) => !prev);
+    }
+    onKeyDown?.(e);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(e.target.checked);
+    onChange?.(e);
+  };
 
   return (
-    <label className={styles['switch-wrapper']} style={style}>
+    <label className={clsx(styles.wrapper, className)} data-disabled={disabled} style={combinedStyle}>
       <input
         ref={ref}
         type="checkbox"
         role="switch"
-        aria-checked={overrideChecked}
-        className={cx(styles['switch-input'], className)}
-        checked={overrideChecked}
+        className={styles.input}
+        checked={checked}
         disabled={disabled}
-        onChange={overrideOnChange}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        aria-checked={checked}
+        {...accessibilityProps}
         {...props}
       />
-      <span
-        className={styles['switch-track']}
-        data-disabled={disabled}
-        data-state={state}
-      >
-        <span className={styles['switch-thumb']} data-state={state} />
+
+      <span className={styles.track({ size })} data-checked={checked} data-disabled={disabled} aria-hidden="true">
+        <span className={styles.thumb({ size })} data-checked={checked} />
       </span>
+
+      {label && <span className={styles.label}>{label}</span>}
     </label>
   );
 });
+
+Switch.displayName = 'Switch';

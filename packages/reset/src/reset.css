@@ -1,0 +1,268 @@
+/*************************
+ * Root & Document Level Reset
+ *************************/
+#root {
+  isolation: isolate;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  min-height: 100vh;
+  @supports (min-height: 100dvh) {
+    min-height: 100dvh;
+  }
+}
+
+/*************************
+ * Box Model Reset
+ *************************/
+*,
+*::before,
+*::after,
+*::backdrop {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  border-style: solid;
+}
+
+/*************************
+ * Typography Reset
+ *************************/
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/*************************
+ * Form Elements Reset
+ *************************/
+button,
+input,
+select,
+textarea {
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+  user-select: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+::placeholder {
+  opacity: 1;
+}
+
+/*************************
+ * Table Reset
+ *************************/
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-indent: 0;
+}
+
+th {
+  text-align: inherit;
+}
+
+/*************************
+ * Semantic Elements Reset
+ *************************/
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+main {
+  display: block;
+}
+
+/*************************
+ * Media Elements Reset
+ *************************/
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/*************************
+ * Lists & Links Reset
+ *************************/
+ol,
+ul {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/*************************
+ * Box Model Reset
+ *************************/
+*,
+*::before,
+*::after,
+*::backdrop {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  border-style: solid;
+}
+
+/*************************
+ * Document Reset
+ *************************/
+html {
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/*************************
+ * Typography Reset
+ *************************/
+:where(p, h1, h2, h3, h4, h5, h6) {
+  overflow-wrap: break-word;
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+:where(p) {
+  text-wrap: pretty;
+}
+
+/*************************
+ * Form Elements Reset
+ *************************/
+:where(button, input, select, textarea) {
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+}
+
+:where(button, [type="button"], [type="reset"], [type="submit"]) {
+  -webkit-appearance: button;
+  cursor: pointer;
+  user-select: none;
+}
+
+:where(textarea) {
+  resize: vertical;
+}
+
+:where(textarea:not([rows])) {
+  min-height: 10em;
+}
+
+::placeholder {
+  opacity: 1;
+}
+
+/*************************
+ * Table Reset
+ *************************/
+:where(table) {
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-indent: 0;
+}
+
+:where(th) {
+  text-align: inherit;
+}
+
+/*************************
+ * Semantic Elements Reset
+ *************************/
+:where(article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, main) {
+  display: block;
+}
+
+/*************************
+ * Media Elements Reset
+ *************************/
+:where(img, picture, video, canvas, svg) {
+  display: block;
+  max-width: 100%;
+}
+
+/*************************
+ * Lists & Links Reset
+ *************************/
+:where(ol, ul) {
+  list-style: none;
+}
+
+:where(a) {
+  color: inherit;
+  text-decoration: none;
+  text-decoration-skip-ink: auto;
+}
+
+/*************************
+ * Accessibility
+ *************************/
+:where(:target) {
+  scroll-margin-block: 5ex;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *:not(.preserve-motion) {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

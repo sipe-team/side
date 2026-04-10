@@ -147,6 +147,11 @@ Using npm:
 npm install @sipe-team/reset
 ```
 
+Using yarn:
+```bash
+yarn add @sipe-team/reset
+```
+
 Using pnpm:
 ```bash
 pnpm add @sipe-team/reset
@@ -154,43 +159,42 @@ pnpm add @sipe-team/reset
 
 ## Usage
 
-### Global Reset
-Import the CSS file in your application:
+### Using the CSS Directly
+Import the CSS file directly in your application:
+
 ```javascript
-import '@sipe-team/reset/style.css';
+import '@sipe-team/reset/reset.css';
 ```
 
-### Component Reset
-For component-level reset:
+### Using the Reset Component
+Add the Reset component to your application root:
+
 ```tsx
 import { Reset } from '@sipe-team/reset';
 
-// Basic usage
 function App() {
   return (
-    <Reset>
-      <div>Your content here</div>
-    </Reset>
+    <ThemeProvider>
+      <Reset />
+      {children}
+    </ThemeProvider>
   );
 }
+```
 
-// With custom class name
-function CustomApp() {
-  return (
-    <Reset className="custom-class">
-      <div>Your content here</div>
-    </Reset>
-  );
-}
+The `Reset` component applies global CSS styles to the entire application and renders nothing to the DOM. It should be placed once at the top level of your application.
 
-// As a different element
-function MainApp() {
-  return (
-    <Reset asChild>
-      <main>Your content here</main>
-    </Reset>
-  );
-}
+### Recommended Approach
+While both methods work, directly importing the CSS file is recommended for these reasons:
+
+1. **More explicit** - Directly importing CSS clearly communicates the intention
+2. **Performance** - Avoids an unnecessary React component rendering cycle
+3. **Simplicity** - Follows the conventional pattern used by most CSS reset libraries
+4. **Bundle optimization** - May be more efficiently processed by bundlers
+
+```javascript
+// Recommended
+import '@sipe-team/reset/reset.css';
 ```
 
 ---
@@ -266,7 +270,7 @@ textarea {
 ```
 
 ### 4. 테이블 리셋
-테이블 구조를 다음과 같이 정규화합니다:
+테이블 구조를 정규화합니다:
 ```css
 table {
   border-collapse: collapse;
@@ -279,8 +283,8 @@ th {
 }
 ```
 
-### 5. 루트 & 문서 레벨 리셋
-올바른 뷰포트 높이 처리와 쌓임 맥락을 다음과 같이 보장합니다:
+### 5. 루트 및 문서 레벨 리셋
+적절한 뷰포트 높이 처리와 쌓임 맥락을 보장합니다:
 ```css
 body {
   min-height: 100vh;
@@ -295,7 +299,7 @@ body {
 ```
 
 ### 6. 시맨틱 요소 리셋
-시맨틱 HTML 요소의 display 속성을 다음과 같이 정규화합니다:
+시맨틱 HTML 요소의 display 속성을 정규화합니다:
 ```css
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, main {
@@ -304,7 +308,7 @@ footer, header, hgroup, menu, nav, section, main {
 ```
 
 ### 7. 미디어 요소 리셋
-미디어 요소의 반응형 동작을 다음과 같이 보장합니다:
+미디어 요소의 반응형 동작을 보장합니다:
 ```css
 img, picture, video, canvas, svg {
   display: block;
@@ -312,8 +316,8 @@ img, picture, video, canvas, svg {
 }
 ```
 
-### 8. 목록 & 링크 리셋
-목록과 링크의 기본 스타일을 다음과 같이 제거합니다:
+### 8. 목록 및 링크 리셋
+목록과 링크의 기본 스타일을 제거합니다:
 ```css
 ol, ul {
   list-style: none;
@@ -326,7 +330,7 @@ a {
 ```
 
 ### 9. 사용자 경험 리셋
-모션 선호도를 고려한 부드러운 스크롤을 다음과 같이 구현합니다:
+모션 선호도를 고려한 부드러운 스크롤링을 구현합니다:
 ```css
 @media (prefers-reduced-motion: no-preference) {
   html {
@@ -335,11 +339,16 @@ a {
 }
 ```
 
-## 설치 방법
+## 설치
 
 npm 사용:
 ```bash
 npm install @sipe-team/reset
+```
+
+yarn 사용:
+```bash
+yarn add @sipe-team/reset
 ```
 
 pnpm 사용:
@@ -349,41 +358,40 @@ pnpm add @sipe-team/reset
 
 ## 사용 방법
 
-### 전역 리셋
-애플리케이션에 CSS 파일을 임포트해 주세요:
+### CSS 직접 사용하기
+애플리케이션에 CSS 파일을 직접 가져옵니다:
+
 ```javascript
-import '@sipe-team/reset/style.css';
+import '@sipe-team/reset/reset.css';
 ```
 
-### 컴포넌트 리셋
-컴포넌트 레벨의 리셋이 필요한 경우:
+### Reset 컴포넌트 사용하기
+애플리케이션 루트에 Reset 컴포넌트를 추가합니다:
+
 ```tsx
 import { Reset } from '@sipe-team/reset';
 
-// 기본 사용법
 function App() {
   return (
-    <Reset>
-      <div>컨텐츠</div>
-    </Reset>
+    <ThemeProvider>
+      <Reset />
+      {children}
+    </ThemeProvider>
   );
 }
+```
 
-// 커스텀 클래스명 사용
-function CustomApp() {
-  return (
-    <Reset className="custom-class">
-      <div>컨텐츠</div>
-    </Reset>
-  );
-}
+`Reset` 컴포넌트는 전체 애플리케이션에 전역 CSS 스타일을 적용하고 DOM에는 아무것도 렌더링하지 않습니다. 애플리케이션의 최상위 레벨에 한 번만 배치해야 합니다.
 
-// 다른 요소로 렌더링
-function MainApp() {
-  return (
-    <Reset asChild>
-      <main>컨텐츠</main>
-    </Reset>
-  );
-}
+### 권장 접근법
+두 가지 방법 모두 작동하지만, CSS 파일을 직접 가져오는 방식이 다음과 같은 이유로 권장됩니다:
+
+1. **더 명시적** - CSS를 직접 가져오는 것이 의도를 명확하게 전달합니다
+2. **성능** - 불필요한 React 컴포넌트 렌더링 사이클을 피할 수 있습니다
+3. **단순성** - 대부분의 CSS 리셋 라이브러리에서 사용하는 일반적인 패턴을 따릅니다
+4. **번들 최적화** - 번들러에 의해 더 효율적으로 처리될 수 있습니다
+
+```javascript
+// 권장 방법
+import '@sipe-team/reset/reset.css';
 ```

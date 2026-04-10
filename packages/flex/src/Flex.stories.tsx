@@ -13,12 +13,12 @@ const meta = {
     },
     align: {
       control: 'select',
-      options: ['flex-start', 'flex-end', 'center', 'stretch', 'baseline'],
+      options: ['flex-start', 'flex-end', 'center', 'stretch', 'baseline', 'normal'],
       description: 'Align items',
     },
     justify: {
       control: 'select',
-      options: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly'],
+      options: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly', 'normal'],
       description: 'Justify content',
     },
     wrap: {
@@ -33,6 +33,18 @@ const meta = {
     inline: {
       control: 'boolean',
       description: 'Display as inline-flex',
+    },
+    grow: {
+      control: { type: 'number', min: 0, max: 5, step: 1 },
+      description: 'Flex grow factor',
+    },
+    shrink: {
+      control: { type: 'number', min: 0, max: 5, step: 1 },
+      description: 'Flex shrink factor',
+    },
+    basis: {
+      control: 'text',
+      description: 'Flex basis',
     },
   },
 } satisfies Meta<typeof Flex>;
@@ -70,7 +82,7 @@ export const Basic: Story = {
 
 export const Direction: Story = {
   args: {
-    direction: 'column',
+    direction: 'row',
     gap: '1rem',
     style: { width: '100%' },
     children: [<Box key="1" />, <Box key="2" />, <Box key="3" />],
@@ -138,4 +150,27 @@ export const Wrap: Story = {
       <Box key="3" style={{ width: '150px' }} />,
     ],
   },
+};
+
+export const FlexGrowShrink: Story = {
+  render: () => (
+    <Flex gap="1rem" style={{ width: '100%', border: '1px dashed gray', padding: '1rem' }}>
+      <Box style={{ width: '100px' }}>Fixed width</Box>
+      <Box style={{ flexGrow: 1 }}>Grow 1</Box>
+      <Box style={{ flexGrow: 2 }}>Grow 2</Box>
+    </Flex>
+  ),
+};
+
+export const InlineFlex: Story = {
+  render: () => (
+    <div>
+      <p>Text before</p>
+      <Flex inline gap="1rem" style={{ border: '1px dashed gray', padding: '0.5rem' }}>
+        <Box style={{ width: '80px', height: '40px' }}>Item 1</Box>
+        <Box style={{ width: '80px', height: '40px' }}>Item 2</Box>
+      </Flex>
+      <p>Text after</p>
+    </div>
+  ),
 };

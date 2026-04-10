@@ -9,8 +9,10 @@
     "indentStyle": "space",
     "lineWidth": 120
   },
-
   "linter": {
+    "domains": {
+      "react": "recommended"
+    },
     "enabled": true,
     "rules": {
       "correctness": {
@@ -29,6 +31,38 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "single"
+    }
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "root": "."
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              ":NODE:",
+              ":BLANK_LINE:",
+              ["react", "react/**", "react-*", "react-*/**"],
+              ":BLANK_LINE:",
+              ["@sipe-team/tokens", "@sipe-team/typography", "@sipe-team/**"],
+              ":BLANK_LINE:",
+              ["@vanilla-extract/**"],
+              ":BLANK_LINE:",
+              ["@radix-ui/**"],
+              ":BLANK_LINE:",
+              ":PACKAGE:",
+              ":BLANK_LINE:",
+              ":PATH:"
+            ]
+          }
+        }
+      }
     }
   }
 }

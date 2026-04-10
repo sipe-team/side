@@ -13,6 +13,7 @@
   "scripts": {
     "build": "tsup",
     "build:storybook": "storybook build",
+    "clean": "rm -rf node_modules dist",
     "dev:storybook": "storybook dev -p 6006",
     "lint": "biome lint .",
     "test": "vitest",
@@ -37,6 +38,7 @@
     "@types/react": "catalog:react",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
+    "@vanilla-extract/css": "catalog:",
     "happy-dom": "catalog:",
     "react": "catalog:react",
     "react-dom": "catalog:react",
