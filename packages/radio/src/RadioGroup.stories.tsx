@@ -1,8 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+
+import type { Meta, StoryObj } from '@storybook/react';
+
+import { RadioSize } from './constants/sizes';
 import { Radio } from './Radio';
 import { RadioGroup } from './RadioGroup';
-import { RadioSize } from './constants/sizes';
 
 const meta = {
   title: 'Components/RadioGroup',

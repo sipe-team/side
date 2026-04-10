@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, test } from 'vitest';
+
 import { Skeleton } from './Skeleton';
 
 describe('Skeleton', () => {

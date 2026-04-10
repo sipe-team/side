@@ -20,17 +20,16 @@ export const SVGO_CONFIG: Config = {
     },
     // Remove width/height attributes (we'll use size prop)
     {
-      name: 'removeDimensions'
+      name: 'removeDimensions',
     },
     {
-      name: 'removeXMLNS'
+      name: 'removeXMLNS',
     },
     {
       name: 'removeAttrs',
       params: {
-        attrs: '(data-.*)' // This regex matches all data-* attributes
-      }
+        attrs: '(data-.*)', // This regex matches all data-* attributes
+      },
     },
-
-  ]
+  ],
 };

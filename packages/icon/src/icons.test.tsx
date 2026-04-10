@@ -1,6 +1,8 @@
-import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
+
+import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+
 import * as Icons from '.';
 
 describe('Icon Components', () => {
@@ -16,9 +18,7 @@ describe('Icon Components', () => {
     expect(svg).toHaveAttribute('viewBox');
     const viewBox = svg?.getAttribute('viewBox');
     expect(viewBox).toMatch(/^\d+\s+\d+\s+\d+\s+\d+$/);
-    const hasGraphics = Boolean(
-      svg?.querySelector('path, rect, circle, ellipse, line, polyline, polygon')
-    );
+    const hasGraphics = Boolean(svg?.querySelector('path, rect, circle, ellipse, line, polyline, polygon'));
     expect(hasGraphics).toBe(true);
     const paths = svg?.querySelectorAll('path');
     if (paths) {

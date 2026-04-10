@@ -1,8 +1,8 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 import { type RecipeVariants, recipe } from '@vanilla-extract/recipes';
+
 import { COLORS } from './constants/colors';
-import { RadioSize } from './constants/sizes';
-import { RADIO_SIZES } from './constants/sizes';
+import { RADIO_SIZES, RadioSize } from './constants/sizes';
 
 export const radioGroup = style({
   display: 'flex',

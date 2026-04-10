@@ -1,4 +1,5 @@
 import type { Meta, StoryFn } from '@storybook/react';
+
 import { Tooltip, type TooltipProps } from './Tooltip';
 
 export default {

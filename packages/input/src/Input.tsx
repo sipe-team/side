@@ -57,5 +57,5 @@ const InputFieldAction = forwardRef<InputFieldActionElement, InputFieldActionPro
 });
 InputFieldAction.displayName = 'Input.Action';
 
-export { InputFieldAction as Action, Input };
-export type { InputProps, InputFieldActionProps as SlotProps };
+export type { InputFieldActionProps as SlotProps, InputProps };
+export { Input, InputFieldAction as Action };

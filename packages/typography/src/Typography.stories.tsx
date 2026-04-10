@@ -1,5 +1,7 @@
 import { fontSize, fontWeight, lineHeight } from '@sipe-team/tokens';
+
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Typography } from './Typography';
 
 const meta = {

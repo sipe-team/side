@@ -1,7 +1,9 @@
+import { type CSSProperties, createElement } from 'react';
+
 import { faker } from '@faker-js/faker';
 import { render, screen } from '@testing-library/react';
-import { type CSSProperties, createElement } from 'react';
 import { describe, expect, it } from 'vitest';
+
 import { Flex } from './Flex';
 
 describe('Flex', () => {
@@ -39,20 +41,19 @@ describe('Flex', () => {
         { justifyContent: 'space-between' },
         { justifyContent: 'space-around' },
         { justifyContent: 'space-evenly' },
-      ] satisfies Array<{ justifyContent: CSSProperties['justifyContent'] }>)(
-        'flex의 justify prop에 $justifyContent 속성을 주입하면 해당 속성을 적용한다.',
-        ({ justifyContent }) => {
-          render(
-            <Flex data-testid="flex-container" justify={justifyContent}>
-              <div>item 1</div>
-              <div>item 2</div>
-            </Flex>,
-          );
+      ] satisfies Array<{
+        justifyContent: CSSProperties['justifyContent'];
+      }>)('flex의 justify prop에 $justifyContent 속성을 주입하면 해당 속성을 적용한다.', ({ justifyContent }) => {
+        render(
+          <Flex data-testid="flex-container" justify={justifyContent}>
+            <div>item 1</div>
+            <div>item 2</div>
+          </Flex>,
+        );
 
-          const flexContainer = screen.getByTestId('flex-container');
-          expect(flexContainer).toHaveStyle({ justifyContent });
-        },
-      );
+        const flexContainer = screen.getByTestId('flex-container');
+        expect(flexContainer).toHaveStyle({ justifyContent });
+      });
     });
 
     describe('align', () => {
@@ -62,20 +63,19 @@ describe('Flex', () => {
         { alignItems: 'center' },
         { alignItems: 'baseline' },
         { alignItems: 'stretch' },
-      ] satisfies Array<{ alignItems: CSSProperties['alignItems'] }>)(
-        'flex의 align prop에 $alignItems 속성을 주입하면 해당 속성을 적용한다.',
-        ({ alignItems }) => {
-          render(
-            <Flex data-testid="flex-container" align={alignItems}>
-              <div>item 1</div>
-              <div>item 2</div>
-            </Flex>,
-          );
+      ] satisfies Array<{
+        alignItems: CSSProperties['alignItems'];
+      }>)('flex의 align prop에 $alignItems 속성을 주입하면 해당 속성을 적용한다.', ({ alignItems }) => {
+        render(
+          <Flex data-testid="flex-container" align={alignItems}>
+            <div>item 1</div>
+            <div>item 2</div>
+          </Flex>,
+        );
 
-          const flexContainer = screen.getByTestId('flex-container');
-          expect(flexContainer).toHaveStyle({ alignItems });
-        },
-      );
+        const flexContainer = screen.getByTestId('flex-container');
+        expect(flexContainer).toHaveStyle({ alignItems });
+      });
     });
 
     describe('wrap', () => {
@@ -101,20 +101,19 @@ describe('Flex', () => {
         { direction: 'row-reverse' },
         { direction: 'column-reverse' },
         { direction: 'column-reverse' },
-      ] satisfies Array<{ direction: CSSProperties['flexDirection'] }>)(
-        'flex의 direction prop에 $direction 속성을 주입하면 해당 속성을 적용한다.',
-        ({ direction }) => {
-          render(
-            <Flex data-testid="flex-container" direction={direction}>
-              <div>item 1</div>
-              <div>item 2</div>
-            </Flex>,
-          );
+      ] satisfies Array<{
+        direction: CSSProperties['flexDirection'];
+      }>)('flex의 direction prop에 $direction 속성을 주입하면 해당 속성을 적용한다.', ({ direction }) => {
+        render(
+          <Flex data-testid="flex-container" direction={direction}>
+            <div>item 1</div>
+            <div>item 2</div>
+          </Flex>,
+        );
 
-          const flexContainer = screen.getByTestId('flex-container');
-          expect(flexContainer).toHaveStyle({ flexDirection: direction });
-        },
-      );
+        const flexContainer = screen.getByTestId('flex-container');
+        expect(flexContainer).toHaveStyle({ flexDirection: direction });
+      });
 
       describe('basis', () => {
         it.each([
@@ -208,36 +207,39 @@ describe('Flex', () => {
       { style: { alignItems: 'center' } },
       { style: { flexWrap: 'wrap' } },
       { style: { flexDirection: 'column' } },
-    ] satisfies Array<{ style: CSSProperties }>)(
-      'flex의 style prop에 $style 속성을 주입하면 해당 속성을 적용한다.',
-      ({ style }) => {
-        render(
-          <Flex data-testid="flex-container" style={style}>
-            <div>item 1</div>
-            <div>item 2</div>
-          </Flex>,
-        );
+    ] satisfies Array<{ style: CSSProperties }>)('flex의 style prop에 $style 속성을 주입하면 해당 속성을 적용한다.', ({
+      style,
+    }) => {
+      render(
+        <Flex data-testid="flex-container" style={style}>
+          <div>item 1</div>
+          <div>item 2</div>
+        </Flex>,
+      );
 
-        const flexContainer = screen.getByTestId('flex-container');
-        expect(flexContainer).toHaveStyle(style);
-      },
-    );
+      const flexContainer = screen.getByTestId('flex-container');
+      expect(flexContainer).toHaveStyle(style);
+    });
   });
 
   describe('polymorphic', () => {
-    it.each(['span', 'nav', 'button', 'input', 'label', 'div'])(
-      'flex의 asChild prop에 true 속성을 주입하면 자식으로 %s 엘리먼트가 전달되면 해당 엘리먼트의 태그로 렌더링된다',
-      (element) => {
-        render(
-          <Flex data-testid="flex-container" asChild>
-            {createElement(element)}
-          </Flex>,
-        );
+    it.each([
+      'span',
+      'nav',
+      'button',
+      'input',
+      'label',
+      'div',
+    ])('flex의 asChild prop에 true 속성을 주입하면 자식으로 %s 엘리먼트가 전달되면 해당 엘리먼트의 태그로 렌더링된다', (element) => {
+      render(
+        <Flex data-testid="flex-container" asChild>
+          {createElement(element)}
+        </Flex>,
+      );
 
-        const flexContainer = screen.getByTestId('flex-container');
-        expect(flexContainer).toBeInTheDocument();
-        expect(flexContainer.tagName.toLowerCase()).toBe(element);
-      },
-    );
+      const flexContainer = screen.getByTestId('flex-container');
+      expect(flexContainer).toBeInTheDocument();
+      expect(flexContainer.tagName.toLowerCase()).toBe(element);
+    });
   });
 });

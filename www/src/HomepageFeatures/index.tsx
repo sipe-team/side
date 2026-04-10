@@ -1,9 +1,11 @@
+import type { ComponentProps, ComponentType, ReactNode } from 'react';
+
 import Mountain from '@site/static/img/undraw_docusaurus_mountain.svg';
 import React from '@site/static/img/undraw_docusaurus_react.svg';
 import Tree from '@site/static/img/undraw_docusaurus_tree.svg';
 import Heading from '@theme/Heading';
 import clsx from 'clsx';
-import type { ComponentProps, ComponentType, ReactNode } from 'react';
+
 import styles from './index.module.css';
 
 type FeatureItem = {

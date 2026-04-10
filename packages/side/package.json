@@ -9,7 +9,10 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": ["dist", "styles.css"],
+  "files": [
+    "dist",
+    "styles.css"
+  ],
   "scripts": {
     "build": "tsup",
     "clean": "rm -rf node_modules dist",

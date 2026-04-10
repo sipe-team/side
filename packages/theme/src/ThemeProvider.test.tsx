@@ -147,30 +147,31 @@ describe('ThemeProvider', () => {
       { from: themeColor['3rd'], to: themeColor['4th'], buttonTestId: 'set-4th' },
     ];
 
-    it.each(themeChangeTests)(
-      'can change theme from $from.primary to $to.primary',
-      async ({ from, to, buttonTestId }) => {
-        render(
-          <ThemeProvider theme={from}>
-            <TestComponent />
-          </ThemeProvider>,
-        );
+    it.each(themeChangeTests)('can change theme from $from.primary to $to.primary', async ({
+      from,
+      to,
+      buttonTestId,
+    }) => {
+      render(
+        <ThemeProvider theme={from}>
+          <TestComponent />
+        </ThemeProvider>,
+      );
 
-        const currentTheme = screen.getByTestId('current-theme');
-        const changeButton = screen.getByTestId(buttonTestId);
+      const currentTheme = screen.getByTestId('current-theme');
+      const changeButton = screen.getByTestId(buttonTestId);
 
-        // Check initial state
-        expect(currentTheme).toHaveTextContent(from.primary);
+      // Check initial state
+      expect(currentTheme).toHaveTextContent(from.primary);
 
-        // Change theme
-        await act(async () => {
-          changeButton.click();
-        });
+      // Change theme
+      await act(async () => {
+        changeButton.click();
+      });
 
-        // Check changed state
-        expect(currentTheme).toHaveTextContent(to.primary);
-      },
-    );
+      // Check changed state
+      expect(currentTheme).toHaveTextContent(to.primary);
+    });
   });
 
   test('children are rendered correctly', () => {

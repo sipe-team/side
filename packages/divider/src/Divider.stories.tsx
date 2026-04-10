@@ -1,7 +1,9 @@
 import { Typography } from '@sipe-team/typography';
+
 import type { Meta, StoryObj } from '@storybook/react';
-import { Divider } from './Divider';
+
 import { DIVIDER_COLORS, DIVIDER_ORIENTATIONS } from './constants';
+import { Divider } from './Divider';
 
 const meta = {
   title: 'Components/Divider',

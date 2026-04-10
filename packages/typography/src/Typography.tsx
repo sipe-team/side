@@ -1,12 +1,17 @@
-import { Slot } from '@radix-ui/react-slot';
+import { type ComponentProps, type CSSProperties, type ForwardedRef, forwardRef } from 'react';
+
 import type {
   fontSize as fontSizeToken,
   fontWeight as fontWeightToken,
   lineHeight as lineHeightToken,
 } from '@sipe-team/tokens';
+
 import { assignInlineVars } from '@vanilla-extract/dynamic';
+
+import { Slot } from '@radix-ui/react-slot';
+
 import cx from 'clsx';
-import { type CSSProperties, type ComponentProps, type ForwardedRef, forwardRef } from 'react';
+
 import {
   base,
   lineHeightVariants,

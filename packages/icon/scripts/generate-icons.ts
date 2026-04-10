@@ -1,4 +1,5 @@
 import { performance } from 'node:perf_hooks';
+
 import { generateComponents } from './utils/generate-components';
 
 async function main() {
@@ -7,7 +8,7 @@ async function main() {
     console.log('🎨 Generating icons...');
     const results = await generateComponents();
 
-    const successCount = results.filter(r => r.success).length;
+    const successCount = results.filter((r) => r.success).length;
     const failureCount = results.length - successCount;
 
     console.log(`✨ Done in ${Math.round(performance.now() - startTime)}ms`);
@@ -15,12 +16,11 @@ async function main() {
 
     if (failureCount > 0) {
       console.warn(`⚠️ Failed to generate ${failureCount} components`);
-      const failures = results.filter(r => !r.success);
+      const failures = results.filter((r) => !r.success);
       for (const failure of failures) {
         console.error(`  ❌ ${failure.fileName}: ${failure.error}`);
       }
     }
-
   } catch (error) {
     console.error('Error:', error instanceof Error ? error.message : 'Unknown error');
     process.exit(1);

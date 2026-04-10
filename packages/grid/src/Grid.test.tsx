@@ -57,19 +57,18 @@ describe('Grid', () => {
 
     for (const { prop, style, values } of gridProperties) {
       describe(prop, () => {
-        it.each(values.map((value) => ({ [prop]: value })))(
-          `should apply ${style} when ${prop} prop is $${prop}`,
-          (propValue) => {
-            render(
-              <Grid.Root data-testid="grid-container" {...propValue}>
-                <Grid.Item>item 1</Grid.Item>
-              </Grid.Root>,
-            );
+        it.each(
+          values.map((value) => ({ [prop]: value })),
+        )(`should apply ${style} when ${prop} prop is $${prop}`, (propValue) => {
+          render(
+            <Grid.Root data-testid="grid-container" {...propValue}>
+              <Grid.Item>item 1</Grid.Item>
+            </Grid.Root>,
+          );
 
-            const gridContainer = screen.getByTestId('grid-container');
-            expect(gridContainer).toHaveStyle({ [style]: propValue[prop] });
-          },
-        );
+          const gridContainer = screen.getByTestId('grid-container');
+          expect(gridContainer).toHaveStyle({ [style]: propValue[prop] });
+        });
       });
     }
   });
@@ -202,19 +201,23 @@ describe('Grid', () => {
   });
 
   describe('polymorphic behavior', () => {
-    it.each(['span', 'nav', 'button', 'input', 'label', 'div'])(
-      'should render as %s element when asChild is true',
-      (element) => {
-        render(
-          <Grid.Root data-testid="grid-container" asChild>
-            {createElement(element)}
-          </Grid.Root>,
-        );
+    it.each([
+      'span',
+      'nav',
+      'button',
+      'input',
+      'label',
+      'div',
+    ])('should render as %s element when asChild is true', (element) => {
+      render(
+        <Grid.Root data-testid="grid-container" asChild>
+          {createElement(element)}
+        </Grid.Root>,
+      );
 
-        const gridContainer = screen.getByTestId('grid-container');
-        expect(gridContainer).toBeInTheDocument();
-        expect(gridContainer.tagName.toLowerCase()).toBe(element);
-      },
-    );
+      const gridContainer = screen.getByTestId('grid-container');
+      expect(gridContainer).toBeInTheDocument();
+      expect(gridContainer.tagName.toLowerCase()).toBe(element);
+    });
   });
 });
