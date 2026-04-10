@@ -1,7 +1,9 @@
-import { faker } from '@faker-js/faker';
 import { fontWeight, lineHeight } from '@sipe-team/tokens';
+
+import { faker } from '@faker-js/faker';
 import { render, screen, waitFor } from '@testing-library/react';
 import { expect, test } from 'vitest';
+
 import { type FontSize, type FontWeight, type LineHeight, Typography } from './Typography';
 
 test('weight를 주입하지 않으면 기본 값 regular(400)로 글꼴의 두께를 설정한다.', () => {
@@ -15,16 +17,16 @@ test.each([
   { weight: 'medium', numericWeight: fontWeight.medium },
   { weight: 'semiBold', numericWeight: fontWeight.semiBold },
   { weight: 'bold', numericWeight: fontWeight.bold },
-] satisfies Array<{ weight: FontWeight; numericWeight: number }>)(
-  '주입한 $weight($numericWeight) weight을 기준으로 글꼴의 두께를 설정한다.',
-  ({ weight, numericWeight }) => {
-    render(<Typography weight={weight}>테스트</Typography>);
+] satisfies Array<{
+  weight: FontWeight;
+  numericWeight: number;
+}>)('주입한 $weight($numericWeight) weight을 기준으로 글꼴의 두께를 설정한다.', ({ weight, numericWeight }) => {
+  render(<Typography weight={weight}>테스트</Typography>);
 
-    expect(screen.getByText('테스트')).toHaveStyle({
-      fontWeight: numericWeight,
-    });
-  },
-);
+  expect(screen.getByText('테스트')).toHaveStyle({
+    fontWeight: numericWeight,
+  });
+});
 
 test('size를 주입하지 않으면 기본 값 14로 글꼴의 크기를 설정한다.', () => {
   render(<Typography>테스트</Typography>);
@@ -32,14 +34,13 @@ test('size를 주입하지 않으면 기본 값 14로 글꼴의 크기를 설정
   expect(screen.getByText('테스트')).toHaveStyle({ fontSize: '14px' });
 });
 
-test.each([12, 14, 16, 18, 20, 24, 28, 32, 36, 48] satisfies FontSize[])(
-  '주입한 %i size를 기준으로 글꼴의 크기를 설정한다.',
-  (size) => {
-    render(<Typography size={size}>테스트</Typography>);
+test.each([
+  12, 14, 16, 18, 20, 24, 28, 32, 36, 48,
+] satisfies FontSize[])('주입한 %i size를 기준으로 글꼴의 크기를 설정한다.', (size) => {
+  render(<Typography size={size}>테스트</Typography>);
 
-    expect(screen.getByText('테스트')).toHaveStyle({ fontSize: `${size}px` });
-  },
-);
+  expect(screen.getByText('테스트')).toHaveStyle({ fontSize: `${size}px` });
+});
 
 test('lineHeight을 주입하지 않으면 기본 값 regular(1.5)로 줄 높이를 설정한다.', () => {
   render(<Typography>테스트</Typography>);
@@ -50,16 +51,16 @@ test('lineHeight을 주입하지 않으면 기본 값 regular(1.5)로 줄 높이
 test.each([
   { lineHeight: 'regular', numericLineHeight: lineHeight.regular },
   { lineHeight: 'compact', numericLineHeight: lineHeight.compact },
-] satisfies Array<{ lineHeight: LineHeight; numericLineHeight: number }>)(
-  '주입한 %s lineHeight을 기준으로 줄 높이를 설정한다.',
-  ({ lineHeight: lineHeightValue, numericLineHeight }) => {
-    render(<Typography lineHeight={lineHeightValue}>테스트</Typography>);
+] satisfies Array<{
+  lineHeight: LineHeight;
+  numericLineHeight: number;
+}>)('주입한 %s lineHeight을 기준으로 줄 높이를 설정한다.', ({ lineHeight: lineHeightValue, numericLineHeight }) => {
+  render(<Typography lineHeight={lineHeightValue}>테스트</Typography>);
 
-    expect(screen.getByText('테스트')).toHaveStyle({
-      lineHeight: numericLineHeight,
-    });
-  },
-);
+  expect(screen.getByText('테스트')).toHaveStyle({
+    lineHeight: numericLineHeight,
+  });
+});
 
 test('주입한 color를 기준으로 글꼴의 색상을 설정한다.', () => {
   const color = faker.color.rgb();

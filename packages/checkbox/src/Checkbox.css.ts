@@ -1,6 +1,8 @@
 import { color } from '@sipe-team/tokens';
+
 import type { RecipeVariants } from '@vanilla-extract/recipes';
 import { recipe } from '@vanilla-extract/recipes';
+
 import { CheckboxSize } from './Checkbox';
 
 export const CHECKBOX_SIZES = {

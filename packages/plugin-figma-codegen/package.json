@@ -9,7 +9,10 @@
   },
   "type": "module",
   "exports": "./src/index.ts",
-  "files": ["dist", "manifest.json"],
+  "files": [
+    "dist",
+    "manifest.json"
+  ],
   "scripts": {
     "build": "tsup",
     "clean": "rm -rf node_modules dist",

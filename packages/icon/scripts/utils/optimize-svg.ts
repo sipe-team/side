@@ -1,4 +1,5 @@
 import { optimize } from 'svgo';
+
 import { SVGO_CONFIG } from './svgo.config';
 
 export const optimizeSvg = async (svg: string): Promise<string> => {
@@ -11,27 +12,19 @@ export const optimizeSvg = async (svg: string): Promise<string> => {
     let optimizedSvg = result.data;
 
     // Convert kebab-case to camelCase
-    optimizedSvg = optimizedSvg.replace(
-      /-([a-z])/g,
-      (_, letter) => letter.toUpperCase()
-    );
+    optimizedSvg = optimizedSvg.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 
     // Preserve fill="none" and handle other fill/stroke attributes
-    optimizedSvg = optimizedSvg.replace(
-      /(fill|stroke)="(none|[^"]+)"/g,
-      (_, attr, value) =>
-        value === 'none'
-          ? `${attr}="none"`
-          : value === 'currentColor'
-            ? `${attr}={color}`
-            : `${attr}={color || "${value}"}`
+    optimizedSvg = optimizedSvg.replace(/(fill|stroke)="(none|[^"]+)"/g, (_, attr, value) =>
+      value === 'none'
+        ? `${attr}="none"`
+        : value === 'currentColor'
+          ? `${attr}={color}`
+          : `${attr}={color || "${value}"}`,
     );
 
     // Inject SVG props
-    optimizedSvg = optimizedSvg.replace(
-      '<svg',
-      '<svg ref={ref} width={size} height={size} {...props}'
-    );
+    optimizedSvg = optimizedSvg.replace('<svg', '<svg ref={ref} width={size} height={size} {...props}');
 
     return optimizedSvg;
   } catch (error) {

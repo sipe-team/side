@@ -1,5 +1,6 @@
-import { style, styleVariants } from '@vanilla-extract/css';
 import { color as colorToken, fontSize as fontSizeToken } from '@sipe-team/tokens';
+
+import { style, styleVariants } from '@vanilla-extract/css';
 
 // Define the types for our component
 export const BadgeSize = {

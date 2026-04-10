@@ -1,7 +1,9 @@
-import { clsx as cx } from 'clsx';
 import { type ComponentProps, forwardRef } from 'react';
-import * as styles from './Divider.css';
+
+import { clsx as cx } from 'clsx';
+
 import type { ColorType, OrientationType } from './constants';
+import * as styles from './Divider.css';
 
 export interface DividerProps extends ComponentProps<'hr'> {
   orientation?: OrientationType;

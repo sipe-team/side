@@ -1,7 +1,9 @@
+import { color as colorToken } from '@sipe-team/tokens';
+
 import { render, screen } from '@testing-library/react';
 import { expect, test } from 'vitest';
+
 import { Badge } from './Badge';
-import { color as colorToken } from '@sipe-team/tokens';
 
 test('children으로 입력한 텍스트를 표시한다.', () => {
   render(<Badge>테스트</Badge>);

@@ -1,4 +1,5 @@
 import { color } from '@sipe-team/tokens';
+
 import { recipe } from '@vanilla-extract/recipes';
 
 export const CardVariant = {

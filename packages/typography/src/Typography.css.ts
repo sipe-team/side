@@ -1,5 +1,6 @@
 import { fontSize, fontWeight, lineHeight } from '@sipe-team/tokens';
-import { style, styleVariants, createVar } from '@vanilla-extract/css';
+
+import { createVar, style, styleVariants } from '@vanilla-extract/css';
 
 export const textColorVar = createVar();
 

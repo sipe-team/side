@@ -1,7 +1,10 @@
-import { Slot } from '@radix-ui/react-slot';
-import { clsx as cx } from 'clsx';
 import { type ComponentProps, type ForwardedRef, forwardRef } from 'react';
-import { card, type CardVariant, type CardRatio } from './Card.css';
+
+import { Slot } from '@radix-ui/react-slot';
+
+import { clsx as cx } from 'clsx';
+
+import { type CardRatio, type CardVariant, card } from './Card.css';
 
 export interface CardProps extends ComponentProps<'div'> {
   asChild?: boolean;

@@ -1,5 +1,7 @@
 import { color } from '@sipe-team/tokens';
+
 import { style, styleVariants } from '@vanilla-extract/css';
+
 import type { ColorType, OrientationType } from './constants';
 
 export const base = style({

@@ -1,11 +1,14 @@
 import '@testing-library/jest-dom';
+
+import { createRef } from 'react';
+
 import { faker } from '@faker-js/faker';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createRef } from 'react';
 import { describe, expect, test, vi } from 'vitest';
-import { Switch } from './Switch';
+
 import { SWITCH_SIZES, SwitchSize } from './constants/size';
+import { Switch } from './Switch';
 
 describe('Switch 컴포넌트', () => {
   describe('기본 렌더링', () => {

@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+
 import type { GenerateResult } from '../../src/types';
 import { optimizeSvg } from './optimize-svg';
 import { PATHS } from './paths';
@@ -8,9 +9,7 @@ function validateFileName(fileName: string): void {
   const isKebabCase = /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(fileName);
 
   if (!isKebabCase) {
-    throw new Error(
-      `Invalid file name: ${fileName}. File names must be in kebab-case (e.g., my-icon)`
-    );
+    throw new Error(`Invalid file name: ${fileName}. File names must be in kebab-case (e.g., my-icon)`);
   }
 }
 
@@ -23,7 +22,7 @@ function validateSvgContent(content: string, fileName: string): void {
 function toComponentName(fileName: string): string {
   const pascalCase = fileName
     .split('-')
-    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join('');
 
   return `${pascalCase}Icon`;
@@ -50,7 +49,7 @@ export async function generateComponents(): Promise<GenerateResult[]> {
 
   // 2. Get all SVG files
   const files = await fs.readdir(PATHS.ICONS_DIR);
-  const svgFiles = files.filter(file => file.endsWith('.svg'));
+  const svgFiles = files.filter((file) => file.endsWith('.svg'));
 
   // 3. Generate components in parallel
   const results = await Promise.all(
@@ -62,10 +61,7 @@ export async function generateComponents(): Promise<GenerateResult[]> {
         validateFileName(fileName);
 
         // Read and optimize SVG
-        const svgContent = await fs.readFile(
-          path.join(PATHS.ICONS_DIR, file),
-          'utf-8'
-        );
+        const svgContent = await fs.readFile(path.join(PATHS.ICONS_DIR, file), 'utf-8');
 
         validateSvgContent(svgContent, fileName);
 
@@ -75,10 +71,7 @@ export async function generateComponents(): Promise<GenerateResult[]> {
         const componentContent = createComponentTemplate(componentName, optimizedSvg);
 
         // Write component file
-        await fs.writeFile(
-          path.join(PATHS.COMPONENTS_DIR, `${componentName}.tsx`),
-          componentContent
-        );
+        await fs.writeFile(path.join(PATHS.COMPONENTS_DIR, `${componentName}.tsx`), componentContent);
 
         return { fileName, componentName, success: true };
       } catch (error) {
@@ -86,16 +79,16 @@ export async function generateComponents(): Promise<GenerateResult[]> {
           fileName,
           componentName,
           success: false,
-          error: error instanceof Error ? error.message : 'Unknown error'
+          error: error instanceof Error ? error.message : 'Unknown error',
         };
       }
-    })
+    }),
   );
 
   // 4. Generate index file with successful components
-  const successfulResults = results.filter(r => r.success);
+  const successfulResults = results.filter((r) => r.success);
   const componentExports = successfulResults
-    .map(r => `export { ${r.componentName} } from './components/${r.componentName}';`)
+    .map((r) => `export { ${r.componentName} } from './components/${r.componentName}';`)
     .join('\n');
 
   const indexContent = `\
@@ -103,10 +96,7 @@ export type { IconProps } from './types';
 
 ${componentExports}
 `;
-  await fs.writeFile(
-    path.join(PATHS.COMPONENTS_DIR, '../index.ts'),
-    indexContent
-  );
+  await fs.writeFile(path.join(PATHS.COMPONENTS_DIR, '../index.ts'), indexContent);
 
   return results;
- }
+}

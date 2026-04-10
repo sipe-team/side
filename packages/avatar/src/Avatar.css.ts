@@ -1,4 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+
 import { AvatarShape, AvatarSize } from './Avatar';
 
 export const root = style({

@@ -1,6 +1,9 @@
-import { Slot } from '@radix-ui/react-slot';
-import { clsx as cx } from 'clsx';
 import { type ComponentProps, type ForwardedRef, forwardRef } from 'react';
+
+import { Slot } from '@radix-ui/react-slot';
+
+import { clsx as cx } from 'clsx';
+
 import * as styles from './Avatar.css';
 
 export interface AvatarProps extends ComponentProps<'div'> {

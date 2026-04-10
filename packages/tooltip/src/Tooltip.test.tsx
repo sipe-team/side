@@ -99,23 +99,29 @@ describe('Tooltip 위치 테스트', () => {
     expect(tooltip.className).toContain('top');
   });
 
-  test.each([['top-left'], ['top'], ['top-right'], ['bottom-left'], ['bottom'], ['bottom-right'], ['left'], ['right']])(
-    'Tooltip이 %s 위치에 올바르게 렌더링된다.',
-    async (placement) => {
-      render(
-        <Tooltip tooltipContent="Tooltip content" placement={placement as TooltipPosition}>
-          <button type="button">Trigger</button>
-        </Tooltip>,
-      );
+  test.each([
+    ['top-left'],
+    ['top'],
+    ['top-right'],
+    ['bottom-left'],
+    ['bottom'],
+    ['bottom-right'],
+    ['left'],
+    ['right'],
+  ])('Tooltip이 %s 위치에 올바르게 렌더링된다.', async (placement) => {
+    render(
+      <Tooltip tooltipContent="Tooltip content" placement={placement as TooltipPosition}>
+        <button type="button">Trigger</button>
+      </Tooltip>,
+    );
 
-      const trigger = screen.getByText('Trigger');
-      await userEvent.hover(trigger);
+    const trigger = screen.getByText('Trigger');
+    await userEvent.hover(trigger);
 
-      const tooltip = await screen.findByText('Tooltip content');
-      expect(tooltip).toBeInTheDocument();
-      expect(tooltip.className).toContain(placement as string);
-    },
-  );
+    const tooltip = await screen.findByText('Tooltip content');
+    expect(tooltip).toBeInTheDocument();
+    expect(tooltip.className).toContain(placement as string);
+  });
 });
 
 describe('Tooltip 접근성 테스트', () => {

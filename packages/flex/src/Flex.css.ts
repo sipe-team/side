@@ -1,5 +1,6 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import type { FlexDirection, FlexAlign, FlexJustify, FlexWrap } from './constants';
+
+import type { FlexAlign, FlexDirection, FlexJustify, FlexWrap } from './constants';
 
 export const base = style({
   display: 'flex',

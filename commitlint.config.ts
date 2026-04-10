@@ -2,6 +2,7 @@ const englishOnly = /^[A-Za-z0-9\s!@#$%^&*(),.?":{}|<>_-]+$/;
 
 // https://commitlint.js.org/reference/configuration.html#typescript-configuration
 import { RuleConfigSeverity, type UserConfig } from '@commitlint/types';
+
 const Configuration: UserConfig = {
   extends: ['@commitlint/config-conventional'],
   //   parserPreset: '',

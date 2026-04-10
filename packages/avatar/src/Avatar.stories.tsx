@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Avatar } from './Avatar';
 
 const meta = {

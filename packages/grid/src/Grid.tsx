@@ -144,4 +144,4 @@ GridItem.displayName = 'GridItem';
 const Root = Grid;
 const Item = GridItem;
 
-export { Root, Item };
+export { Item, Root };

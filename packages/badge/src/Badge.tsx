@@ -1,6 +1,9 @@
-import { Typography } from '@sipe-team/typography';
-import { clsx as cx } from 'clsx';
 import { type ComponentProps, type ForwardedRef, forwardRef } from 'react';
+
+import { Typography } from '@sipe-team/typography';
+
+import { clsx as cx } from 'clsx';
+
 import * as styles from './Badge.css';
 
 export type BadgeSize = keyof typeof styles.BadgeSize;

@@ -1,6 +1,8 @@
 import { color } from '@sipe-team/tokens';
+
 import { render, screen } from '@testing-library/react';
 import { expect, test } from 'vitest';
+
 import { Card } from './Card';
 
 test('children으로 넘어간 요소를 반환한다. ', () => {

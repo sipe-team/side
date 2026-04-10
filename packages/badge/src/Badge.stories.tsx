@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Badge, type BadgeSize, type BadgeVariant } from './Badge';
 import { BadgeSize as BadgeSizeEnum, BadgeVariant as BadgeVariantEnum } from './Badge.css';
 

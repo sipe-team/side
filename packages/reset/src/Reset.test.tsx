@@ -1,6 +1,8 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
+
+import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+
 import { Reset } from './Reset';
 
 describe('Reset', () => {
@@ -107,25 +109,30 @@ describe('Reset', () => {
       });
     });
 
-    it.each(['article', 'section', 'nav', 'aside', 'header', 'footer', 'main'])(
-      'applies reset styles to %s element',
-      (elementType) => {
-        render(
-          <>
-            <Reset />
-            {React.createElement(
-              elementType,
-              {
-                'data-testid': 'semantic-element',
-              },
-              'Content',
-            )}
-          </>,
-        );
+    it.each([
+      'article',
+      'section',
+      'nav',
+      'aside',
+      'header',
+      'footer',
+      'main',
+    ])('applies reset styles to %s element', (elementType) => {
+      render(
+        <>
+          <Reset />
+          {React.createElement(
+            elementType,
+            {
+              'data-testid': 'semantic-element',
+            },
+            'Content',
+          )}
+        </>,
+      );
 
-        const element = screen.getByTestId('semantic-element');
-        expect(element).toHaveStyle({ display: 'block' });
-      },
-    );
+      const element = screen.getByTestId('semantic-element');
+      expect(element).toHaveStyle({ display: 'block' });
+    });
   });
 });

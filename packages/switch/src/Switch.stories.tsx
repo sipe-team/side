@@ -1,7 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Switch } from './Switch';
+
+import type { Meta, StoryObj } from '@storybook/react';
+
 import { SWITCH_SIZES } from './constants/size';
+import { Switch } from './Switch';
 
 const meta = {
   title: 'Components/Switch',

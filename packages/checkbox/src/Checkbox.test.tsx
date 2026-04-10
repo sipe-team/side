@@ -1,8 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, test, vi } from 'vitest';
-import { Checkbox, CheckboxSize, type CheckBoxRootBaseProps } from './Checkbox';
-import { CHECKBOX_SIZES } from './Checkbox.css';
 import userEvent from '@testing-library/user-event';
+import { describe, expect, test, vi } from 'vitest';
+
+import { type CheckBoxRootBaseProps, Checkbox, CheckboxSize } from './Checkbox';
+import { CHECKBOX_SIZES } from './Checkbox.css';
 
 const RenderBasicCheckbox = ({ label, ...props }: CheckBoxRootBaseProps & { label?: string }) => {
   return (

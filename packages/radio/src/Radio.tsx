@@ -1,8 +1,10 @@
-import clsx from 'clsx';
 import { type ComponentProps, type PropsWithChildren, useContext, useId } from 'react';
+
+import clsx from 'clsx';
+
+import type { RadioSize } from './constants/sizes';
 import * as styles from './Radio.css';
 import { RadioGroupContext } from './RadioGroup';
-import type { RadioSize } from './constants/sizes';
 
 type RadioProps = PropsWithChildren<
   Omit<ComponentProps<'input'>, 'size'> & {

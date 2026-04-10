@@ -1,13 +1,15 @@
-import clsx from 'clsx';
 import {
-  createContext,
-  forwardRef,
-  useContext,
-  useId,
   type ChangeEventHandler,
   type ComponentProps,
+  createContext,
+  forwardRef,
   type Ref,
+  useContext,
+  useId,
 } from 'react';
+
+import clsx from 'clsx';
+
 import { container, input, label } from './Checkbox.css';
 import { useControllableState } from './hooks/useControllableState';
 

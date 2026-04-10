@@ -1,5 +1,7 @@
-import type { StoryObj } from '@storybook/react';
 import { useRef, useState } from 'react';
+
+import type { StoryObj } from '@storybook/react';
+
 import { Action, Input } from './Input';
 
 const meta = {
