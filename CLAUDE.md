@@ -9,6 +9,7 @@
 ## 명령어
 
 ```bash
+mise install                        # Node v22 + pnpm 9.7.1 설치 (.mise.toml 기반)
 pnpm install                        # 의존성 설치 (pnpm 9.7.1, Node v22)
 pnpm dev:storybook                  # Storybook 개발 서버 실행 (:6006)
 pnpm build:storybook                # Storybook 빌드
