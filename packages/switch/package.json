@@ -25,11 +25,11 @@
   "dependencies": {
     "@radix-ui/react-use-controllable-state": "^1.2.2",
     "@sipe-team/tokens": "workspace:^",
-    "@vanilla-extract/recipes": "^0.5.5",
-    "clsx": "^2.1.1"
+    "@vanilla-extract/recipes": "catalog:",
+    "clsx": "catalog:"
   },
   "devDependencies": {
-    "@faker-js/faker": "^9.2.0",
+    "@faker-js/faker": "catalog:",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
     "@storybook/addon-links": "catalog:",
@@ -37,9 +37,9 @@
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@storybook/test": "catalog:",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.0.1",
-    "@testing-library/user-event": "^14.5.2",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@testing-library/user-event": "catalog:",
     "@types/react": "catalog:react",
     "@vanilla-extract/css": "catalog:",
     "@vanilla-extract/vite-plugin": "catalog:",
