@@ -49,12 +49,6 @@ If you use VS Code or Cursor, we recommend these extensions:
 - `hverlin.mise-vscode` for mise integration
 - `tombi-toml.tombi` for `mise.toml` syntax highlighting and completion
 
-### Install Dependencies
-Install the necessary dependencies:
-```sh
-pnpm install
-```
-
 ---
 
 ## Developing
