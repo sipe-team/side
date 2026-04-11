@@ -17,6 +17,38 @@ First, fork the [repository](https://github.com/sipe-team/side) and then clone i
 git clone https://github.com/your-username/side.git
 ```
 
+### Setup Toolchain with mise
+We use **mise** to unify the local Node.js and pnpm versions.
+
+```sh
+mise install
+```
+
+Add the activation command for your shell:
+
+```sh
+# zsh
+echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
+source ~/.zshrc
+
+# bash
+echo 'eval "$(mise activate bash)"' >> ~/.bashrc
+source ~/.bashrc
+
+# PowerShell
+echo 'mise activate pwsh | Out-String | Invoke-Expression' >> ~/.config/powershell/Microsoft.PowerShell_profile.ps1
+```
+
+Then install dependencies:
+
+```sh
+pnpm install
+```
+
+If you use VS Code or Cursor, we recommend these extensions:
+- `hverlin.mise-vscode` for mise integration
+- `tombi-toml.tombi` for `mise.toml` syntax highlighting and completion
+
 ### Install Dependencies
 Install the necessary dependencies:
 ```sh

@@ -13,6 +13,39 @@ if you didn't, you might encounter an error as below
 Make sure you have the following installed on your machine:
 - [Node.js](https://nodejs.org/) (version 22 or higher)
 
+## Local Development with mise
+
+If you are developing this repository locally, we recommend using **mise** to keep the Node.js and pnpm versions in sync.
+
+```sh
+mise install
+```
+
+Add the activation command for your shell:
+
+```sh
+# zsh
+echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
+source ~/.zshrc
+
+# bash
+echo 'eval "$(mise activate bash)"' >> ~/.bashrc
+source ~/.bashrc
+
+# PowerShell
+echo 'mise activate pwsh | Out-String | Invoke-Expression' >> ~/.config/powershell/Microsoft.PowerShell_profile.ps1
+```
+
+Then install dependencies:
+
+```sh
+pnpm install
+```
+
+If you use VS Code or Cursor, we recommend these extensions:
+- `hverlin.mise-vscode` for mise integration
+- `tombi-toml.tombi` for `mise.toml` syntax highlighting and completion
+
 ### Create Github Token ( classic )
 
 1. [Go to developer setting](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization#restricting-access-by-personal-access-tokens)  
