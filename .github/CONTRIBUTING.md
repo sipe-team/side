@@ -20,9 +20,16 @@ git clone https://github.com/your-username/side.git
 ### Setup Toolchain with mise
 We use **mise** to unify the local Node.js and pnpm versions.
 
+Install tools first:
 ```bash
 mise install
 ```
+
+If you see a trust warning, run this once and retry:
+```bash
+mise trust
+```
+Run this only for repositories you trust.
 
 Add the activation command for your shell:
 

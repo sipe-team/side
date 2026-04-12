@@ -21,6 +21,14 @@ For local development, we use **mise** to unify the Node.js and pnpm versions.
 mise install
 ```
 
+If you see a trust warning, run this once and retry:
+
+```sh
+mise trust
+```
+
+Run this only for repositories you trust.
+
 Add the activation command for your shell:
 
 ```sh
