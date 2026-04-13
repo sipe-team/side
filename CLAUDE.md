@@ -9,7 +9,8 @@
 ## 명령어
 
 ```bash
-pnpm install                        # 의존성 설치 (pnpm 9.7.1, Node v22)
+mise install                        # Node v22.22.2 + pnpm 9.7.1 설치 (.mise.toml 기반)
+pnpm install                        # 의존성 설치 (pnpm 9.7.1, Node v22.22.2)
 pnpm dev:storybook                  # Storybook 개발 서버 실행 (:6006)
 pnpm build:storybook                # Storybook 빌드
 pnpm lint                           # Biome 린트 + 수정 (변경된 패키지)

@@ -13,15 +13,52 @@ Side refers to the Sipe Design System, our primary UI component library aimed at
 
 ### Fork and Clone the Repository
 First, fork the [repository](https://github.com/sipe-team/side) and then clone it locally:
-```sh
+```bash
 git clone https://github.com/your-username/side.git
 ```
 
-### Install Dependencies
-Install the necessary dependencies:
-```sh
+### Setup Toolchain with mise
+We use **mise** to unify the local Node.js and pnpm versions.
+
+Install tools first:
+```bash
+mise install
+```
+
+If you see a trust warning, run this once and retry:
+```bash
+mise trust
+```
+Run this only for repositories you trust.
+
+Add the activation command for your shell:
+
+zsh:
+```zsh
+echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+bash:
+```bash
+echo 'eval "$(mise activate bash)"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+PowerShell:
+```powershell
+echo 'mise activate pwsh | Out-String | Invoke-Expression' >> ~/.config/powershell/Microsoft.PowerShell_profile.ps1
+```
+
+Then install dependencies:
+
+```bash
 pnpm install
 ```
+
+If you use VS Code or Cursor, we recommend these extensions:
+- `hverlin.mise-vscode` for mise integration
+- `tombi-toml.tombi` for `mise.toml` syntax highlighting and completion
 
 ---
 
@@ -29,7 +66,7 @@ pnpm install
 
 ### Create New Components
 Use the CLI to create new components. The generated components will be placed under the `packages/` directory:
-```sh
+```bash
 pnpm create:component
 ```
 
@@ -40,7 +77,7 @@ pnpm create:component
 We use **Vitest** for testing.  
 All new features or changes must include **relevant test cases**.
 
-```sh
+```bash
 pnpm test
 ```
 **Minimum Testing Requirements:**
@@ -51,7 +88,7 @@ pnpm test
 We use **Storybook** for visual testing of components.  
 All components must include Storybook documentation.  
 Run the following command to view your components at `http://localhost:6006`:
-```sh
+```bash
 pnpm dev:storybook
 ```
 
@@ -64,7 +101,7 @@ Before proposing changes, please **open an issue** to discuss the bug or feature
 
 1. **Create a Branch**  
    Follow the branch naming convention: `<CATEGORY>/<ISSUENUMBER>-<SUBJECT>` (`ISSUENUMBER` is optional)
-   ```sh
+   ```bash
    git checkout -b your-branch
     ```
 
@@ -83,7 +120,7 @@ Before proposing changes, please **open an issue** to discuss the bug or feature
 
 2. **Commit Changes**  
    Write meaningful commit messages using the [Conventional Commits](https://www.conventionalcommits.org/) format:
-   ```sh
+   ```bash
    git commit -m "<type>(<scope>): <subject>"
    ```
    We recommend following the Conventional Commits standard for clear and consistent commit messages. Below is the suggested structure:
@@ -98,7 +135,7 @@ Before proposing changes, please **open an issue** to discuss the bug or feature
 
 3. **Push Changes**  
    Push the branch to your forked repository:
-   ```sh
+   ```bash
    git push -u origin HEAD
    ```
 

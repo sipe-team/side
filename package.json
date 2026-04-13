@@ -56,6 +56,10 @@
     "vitest": "catalog:"
   },
   "packageManager": "pnpm@9.7.1",
+  "engines": {
+    "node": ">=22.22.2 <23",
+    "pnpm": "9.7.1"
+  },
   "lint-staged": {
     "*.{ts,tsx,css,js}": [
       "biome check --write --unsafe --no-errors-on-unmatched"

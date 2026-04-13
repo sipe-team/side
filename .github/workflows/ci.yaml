@@ -12,15 +12,7 @@ jobs:
       with:
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
-    - name: Install pnpm
-      uses: pnpm/action-setup@v4
-      with:
-        run_install: false
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v4
-      with:
-        cache: pnpm
-        node-version-file: .nvmrc
+    - uses: jdx/mise-action@v2
     - name: Install dependencies
       run: pnpm install
     - name: Lint

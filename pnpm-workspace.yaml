@@ -2,6 +2,8 @@ packages:
   - packages/*
   - www
 
+packageManagerStrictVersion: true
+
 catalog:
   '@storybook/addon-essentials': ^8.4.5
   '@storybook/addon-interactions': ^8.4.5
