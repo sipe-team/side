@@ -31,16 +31,20 @@ Run this only for repositories you trust.
 
 Add the activation command for your shell:
 
-```sh
-# zsh
+zsh:
+```zsh
 echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
 source ~/.zshrc
+```
 
-# bash
+bash:
+```bash
 echo 'eval "$(mise activate bash)"' >> ~/.bashrc
 source ~/.bashrc
+```
 
-# PowerShell
+PowerShell:
+```powershell
 echo 'mise activate pwsh | Out-String | Invoke-Expression' >> ~/.config/powershell/Microsoft.PowerShell_profile.ps1
 ```
 
