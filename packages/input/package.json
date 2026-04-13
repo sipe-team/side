@@ -23,10 +23,10 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-slot": "catalog:",
     "@sipe-team/tokens": "workspace:*",
-    "@vanilla-extract/recipes": "^0.5.5",
-    "clsx": "^2.1.1"
+    "@vanilla-extract/recipes": "catalog:",
+    "clsx": "catalog:"
   },
   "devDependencies": {
     "@vanilla-extract/css": "catalog:",
@@ -37,9 +37,9 @@
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@storybook/test": "catalog:",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.0.1",
-    "@testing-library/user-event": "^14.5.2",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@testing-library/user-event": "catalog:",
     "@types/react": "catalog:react",
     "happy-dom": "catalog:",
     "react": "catalog:react",

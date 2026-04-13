@@ -1,9 +1,8 @@
 import { defineConfig } from 'tsup';
 
+import defaultConfig from '../../tsup.config';
+
 export default defineConfig({
-  entry: ['src/index.ts'],
-  format: ['cjs', 'esm'],
-  dts: true,
-  clean: true,
+  ...defaultConfig,
   external: ['react', '@radix-ui/react-slot', 'clsx'],
 });

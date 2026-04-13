@@ -23,9 +23,9 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-slot": "catalog:",
     "@sipe-team/tokens": "workspace:*",
-    "clsx": "^2.1.1"
+    "clsx": "catalog:"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "catalog:",
@@ -35,11 +35,11 @@
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@storybook/test": "catalog:",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.0.1",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
     "@types/react": "catalog:react",
     "@vanilla-extract/css": "catalog:",
-    "@vanilla-extract/recipes": "^0.5.5",
+    "@vanilla-extract/recipes": "catalog:",
     "happy-dom": "catalog:",
     "react": "catalog:react",
     "react-dom": "catalog:react",

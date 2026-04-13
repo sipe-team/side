@@ -23,11 +23,11 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.1.0",
-    "clsx": "^2.1.1"
+    "@radix-ui/react-slot": "catalog:",
+    "clsx": "catalog:"
   },
   "devDependencies": {
-    "@faker-js/faker": "^9.2.0",
+    "@faker-js/faker": "catalog:",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
     "@storybook/addon-links": "catalog:",
