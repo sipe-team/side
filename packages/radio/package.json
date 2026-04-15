@@ -71,5 +71,7 @@
       "./styles.css": "./dist/index.css"
     }
   },
-  "sideEffects": false
+  "sideEffects": [
+    "**/*.css"
+  ]
 }
