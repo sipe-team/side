@@ -1,40 +1,8 @@
-const englishOnly = /^[A-Za-z0-9\s!@#$%^&*(),.?":{}|<>_-]+$/;
-
-// https://commitlint.js.org/reference/configuration.html#typescript-configuration
-import { RuleConfigSeverity, type UserConfig } from '@commitlint/types';
-
-const Configuration: UserConfig = {
+// https://www.conventionalcommits.org
+// https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional
+//
+// @commitlint/config-conventional 허용 타입:
+// build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test
+export default {
   extends: ['@commitlint/config-conventional'],
-  //   parserPreset: '',
-  //   formatter: '',
-  // https://commitlint.js.org/reference/plugins.html#working-with-plugins
-  plugins: [
-    {
-      rules: {
-        'subject-english-only': ({ subject }) => {
-          if (!subject) return [true, ''];
-          const valid = englishOnly.test(subject);
-          return [valid, 'Commit subject must contain only English characters'];
-        },
-      },
-    },
-  ],
-  rules: {
-    // https://commitlint.js.org/reference/rules.html
-    'type-empty': [RuleConfigSeverity.Error, 'never'],
-    'subject-empty': [RuleConfigSeverity.Error, 'never'],
-    'subject-max-length': [RuleConfigSeverity.Error, 'always', 50],
-    'scope-max-length': [RuleConfigSeverity.Error, 'always', 20],
-
-    // custom rules
-    'subject-english-only': [RuleConfigSeverity.Error, 'always'],
-  },
-
-  prompt: {
-    settings: {},
-    messages: {},
-    questions: {},
-  },
 };
-
-export default Configuration;
