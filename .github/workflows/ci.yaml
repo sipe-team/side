@@ -16,10 +16,10 @@ jobs:
     - name: Install dependencies
       run: pnpm install
     - name: Lint
-      run: pnpm --filter="...[origin/${{ github.base_ref }}]" lint
+      run: pnpm --filter="...[origin/${{ github.base_ref }}]" --if-present lint
     - name: Test
-      run: pnpm --filter="...[origin/${{ github.base_ref }}]" test
+      run: pnpm --filter="...[origin/${{ github.base_ref }}]" --if-present test
     - name: Type check
-      run: pnpm --filter="...[origin/${{ github.base_ref }}]" typecheck
+      run: pnpm --filter="...[origin/${{ github.base_ref }}]" --if-present typecheck
     - name: Build
-      run: pnpm --filter="...[origin/${{ github.base_ref }}]" build
+      run: pnpm --filter="...[origin/${{ github.base_ref }}]" --if-present build
