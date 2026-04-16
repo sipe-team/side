@@ -100,36 +100,36 @@ Before proposing changes, please **open an issue** to discuss the bug or feature
 ### Create a Pull Request
 
 1. **Create a Branch**  
-   Follow the branch naming convention: `<CATEGORY>/<ISSUENUMBER>-<SUBJECT>` (`ISSUENUMBER` is optional)
+   Follow the branch naming convention: `<CATEGORY>/<SUBJECT>-<USERNAME>`
+   - `USERNAME` is required (at least one hyphen must be present)
    ```bash
-   git checkout -b your-branch
+   git checkout -b feature/button-john
     ```
 
-    | **Category** | **Description**                                     |
-    |--------------|-----------------------------------------------------|
-    | **feat**     | Developing a new feature                            |
-    | **fix**      | Fixing a bug                                        |
-    | **hotfix**   | Emergency fixes for immediate release               |
-    | **chore**    | Maintenance tasks or minor updates                  |
-    | **refactor** | Code refactoring without functional changes         |
-    | **release**  | Preparing for a new release version                 |
-    | **test**     | Writing or modifying test cases                     |
-    | **docs**     | Documentation updates or additions                  |
-    | **ci**       | CI/CD pipeline updates                              |
-    | **build**    | Changes to the build system or dependencies         |
+    | **Category**  | **Description**                                     |
+    |---------------|-----------------------------------------------------|
+    | **feature**   | Developing a new feature                            |
+    | **fix**       | Fixing a bug                                        |
+    | **docs**      | Documentation updates or additions                  |
+    | **style**     | Code style changes (formatting, no logic change)    |
+    | **refactor**  | Code refactoring without functional changes         |
+    | **test**      | Writing or modifying test cases                     |
+    | **deploy**    | Deployment-related changes                          |
+    | **chore**     | Maintenance tasks or minor updates                  |
+    | **settings**  | Configuration or settings changes                   |
 
 2. **Commit Changes**  
    Write meaningful commit messages using the [Conventional Commits](https://www.conventionalcommits.org/) format:
    ```bash
    git commit -m "<type>(<scope>): <subject>"
    ```
-   We recommend following the Conventional Commits standard for clear and consistent commit messages. Below is the suggested structure:
- 
+   We follow the [Conventional Commits](https://www.conventionalcommits.org/) standard with [`@commitlint/config-conventional`](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional):
+
    | Element      | Requirement  | Description                                                                                                                                                                    |
    |--------------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-   | `<type>`     | **Required** | Describes the purpose of the commit. Examples: `feat`, `fix`, `docs`, `style`, `refactor`, `test`                                                                              |
-   | `<scope>`    | **Optional** | Specifies the affected module, file, or functionality. Limited to **20 characters** (e.g., `auth`, `header`).                                                                  |
-   | `<subject>`  | **Required** | A concise summary of the changes<br/> - Starts with a lowercase letter<br/> - Avoid ending with a period (.)<br/> - Limited to **50 characters**<br/> - Must contain only English characters, numbers, and basic punctuation (!@#$%^&*(),.?":{}|<>_-)<br/> - Cannot be empty |
+   | `<type>`     | **Required** | Describes the purpose of the commit: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`                                             |
+   | `<scope>`    | **Optional** | Specifies the affected module, file, or functionality (e.g., `auth`, `header`).                                                                                                |
+   | `<subject>`  | **Required** | A concise summary of the changes<br/> - Starts with a lowercase letter<br/> - Avoid ending with a period (.)<br/> - Cannot be empty                                           |
 
 
 

@@ -68,12 +68,14 @@ export type ButtonSize = (typeof ButtonSize)[keyof typeof ButtonSize];
 
 ## 커밋 컨벤션
 
-형식: `type(scope): subject` — 영어만, subject 최대 50자, scope 최대 20자.
-타입: feat, fix, hotfix, chore, refactor, release, test, docs, ci, build.
+`type(scope): subject` — [conventional commits](https://www.conventionalcommits.org/) + [`config-conventional`](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional).
+타입: `build | chore | ci | docs | feat | fix | perf | refactor | revert | style | test`
 
 ## 브랜치 네이밍
 
-`<CATEGORY>/<ISSUENUMBER>-<SUBJECT>` (이슈 번호는 선택)
+`<CATEGORY>/<SUBJECT>-<USERNAME>` — 하이픈 최소 1개 필수.
+카테고리: `feature | fix | docs | style | refactor | test | deploy | chore | settings`
+특수: `main`, `dev/*`
 
 ## 배포
 

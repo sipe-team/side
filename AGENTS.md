@@ -24,4 +24,4 @@ strict TypeScript를 사용하고, 각 패키지의 `src/index.ts`에서 공개 
 
 ## 커밋 및 PR 가이드라인
 
-`feat(chip): add removable variant`와 같은 Conventional Commits를 사용하세요. scope는 짧게, subject는 영어로, `commitlint.config.ts`를 만족하도록 50자 이내로 작성하세요. PR은 `.github/PULL_REQUEST_TEMPLATE.md`를 따르세요: 변경 사항 요약, UI 변경 시 시각 자료 첨부, 스펙과 테스트 추가 여부 확인. 배포 패키지에 영향을 주는 변경이면 `.changeset` 항목을 포함하고 PR 설명에 릴리스 영향을 명시하세요.
+[Conventional Commits](https://www.conventionalcommits.org/) 사용. 커밋 타입: `build | chore | ci | docs | feat | fix | perf | refactor | revert | style | test` ([`config-conventional`](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional) 기준). 브랜치: `<CATEGORY>/<SUBJECT>-<USERNAME>` (하이픈 최소 1개). 카테고리: `feature | fix | docs | style | refactor | test | deploy | chore | settings`. 특수 브랜치 `main`, `dev/*`는 규칙 제외. PR은 `.github/PULL_REQUEST_TEMPLATE.md` 준수. 배포 패키지 변경 시 `.changeset` 항목 포함.
