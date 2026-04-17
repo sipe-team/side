@@ -1,17 +1,32 @@
 # Get the current branch name
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-BRANCH_REGEX='^(feat|fix|hotfix|chore|refactor|release|test|docs|ci|build)\/[a-z0-9-]+$'
+
+# Special branches that skip naming rules
+SPECIAL_REGEX='^(main|dev\/.+)$'
+
+# Standard branch naming: <TYPE>/<SUBJECT>-<USERNAME>
+# At least one hyphen required (to enforce username suffix)
+BRANCH_REGEX='^(feature|fix|docs|style|refactor|test|deploy|chore|settings)\/[a-zA-Z0-9]+(-[a-zA-Z0-9]+)+$'
+
+# Allow special branches to bypass the naming convention
+if [[ $BRANCH_NAME =~ $SPECIAL_REGEX ]]; then
+   exit 0
+fi
 
 # Check if the branch name matches the defined regex
 if ! [[ $BRANCH_NAME =~ $BRANCH_REGEX ]]; then
    echo "Error: Invalid branch name format."
-   echo 
+   echo
    echo "Please rename your branch using:"
-   echo "git branch -m <CATEGORY>/<SUBJECT> or git branch -m <CATEGORY>/<ISSUENUMBER>-<SUBJECT>"
-   echo 
-   echo "CATEGORY: feat, fix, hotfix, chore, refactor, release, test, docs, ci, build"
-   echo "SUBJECT: Use only lowercase letters(a-z), numbers(0-9), and hyphens(-)"
-   echo "ISSUENUMBER: Use only numbers(0-9)"
+   echo "git branch -m <CATEGORY>/<SUBJECT>-<USERNAME>"
+   echo
+   echo "CATEGORY: feature, fix, docs, style, refactor, test, deploy, chore, settings"
+   echo "SUBJECT: Letters(a-zA-Z), numbers(0-9), and hyphens(-)"
+   echo "USERNAME: Your name (e.g., john)"
+   echo
+   echo "Examples:"
+   echo "  feature/button-john"
+   echo "  fix/233-login-bug-john"
    echo
    exit 1
 fi
