@@ -182,3 +182,6 @@ storybook-static
 build/
 
 .claude/settings.local.json
+
+# oh-my-claudecode local state
+.omc/

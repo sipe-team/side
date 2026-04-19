@@ -53,5 +53,7 @@
       "./reset.css": "./dist/reset.css"
     }
   },
-  "sideEffects": false
+  "sideEffects": [
+    "**/*.css"
+  ]
 }
