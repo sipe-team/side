@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "catalog:",
+    "@vanilla-extract/recipes": "catalog:",
     "clsx": "catalog:"
   },
   "devDependencies": {
