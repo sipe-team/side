@@ -1,6 +1,7 @@
 import { type CSSProperties, type KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, useState } from 'react';
 
-import type { TooltipPosition, TooltipTrigger } from '../../Tooltip';
+import type { TooltipPosition } from '../../Tooltip';
+import { TooltipTrigger } from '../../Tooltip';
 
 interface useTooltipProps {
   placement: TooltipPosition;
@@ -78,7 +79,7 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
   };
 
   const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
-    if ((event.code === 'Enter' || event.code === 'Space') && trigger === 'click') {
+    if ((event.code === 'Enter' || event.code === 'Space') && trigger === TooltipTrigger.click) {
       event.preventDefault();
       toggleTooltip(!isVisible);
     }
