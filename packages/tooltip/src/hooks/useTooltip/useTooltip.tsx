@@ -63,6 +63,14 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
     };
 
     handlePosition();
+
+    window.addEventListener('scroll', handlePosition, true);
+    window.addEventListener('resize', handlePosition);
+
+    return () => {
+      window.removeEventListener('scroll', handlePosition, true);
+      window.removeEventListener('resize', handlePosition);
+    };
   }, [isVisible, gap, placement]);
 
   const toggleTooltip = (visible: boolean) => {
@@ -70,7 +78,7 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
   };
 
   const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
-    if ((event.code === 'Enter' || event.code === 'space') && trigger === 'click') {
+    if ((event.code === 'Enter' || event.code === 'Space') && trigger === 'click') {
       event.preventDefault();
       toggleTooltip(!isVisible);
     }
