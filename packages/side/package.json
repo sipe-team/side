@@ -57,5 +57,7 @@
       "./styles.css": "./styles.css"
     }
   },
-  "sideEffects": false
+  "sideEffects": [
+    "**/*.css"
+  ]
 }
