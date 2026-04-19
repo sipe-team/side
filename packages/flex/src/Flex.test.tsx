@@ -8,7 +8,7 @@ import { Flex } from './Flex';
 import { FLEX_ALIGNS, FLEX_DIRECTIONS, FLEX_JUSTIFY_CONTENTS, FLEX_WRAPS } from './constants';
 
 describe('Flex', () => {
-  it('flex 컴포넌트는 props를 전달하지 않으면 flex의 기본값으로 설정된다.', () => {
+  it('uses the default flex styles when no props are provided', () => {
     render(
       <Flex data-testid="flex-container">
         <div>item 1</div>
@@ -27,17 +27,17 @@ describe('Flex', () => {
     });
   });
 
-  it('flex 컴포넌트에 className을 주입하면 추가로 전달한다.', () => {
+  it('passes through a custom className', () => {
     const customClassName = faker.word.noun();
     render(<Flex data-testid="flex-container" className={customClassName} />);
     expect(screen.getByTestId('flex-container')).toHaveClass(customClassName);
   });
 
-  describe('flex 속성', () => {
+  describe('flex props', () => {
     describe('justify', () => {
       it.each(
         FLEX_JUSTIFY_CONTENTS.map((justifyContent) => ({ justifyContent })),
-      )('flex의 justify prop에 $justifyContent 속성을 주입하면 해당 속성을 적용한다.', ({ justifyContent }) => {
+      )('applies justifyContent: $justifyContent when justify is provided', ({ justifyContent }) => {
         render(
           <Flex data-testid="flex-container" justify={justifyContent}>
             <div>item 1</div>
@@ -53,7 +53,7 @@ describe('Flex', () => {
     describe('align', () => {
       it.each(
         FLEX_ALIGNS.map((alignItems) => ({ alignItems })),
-      )('flex의 align prop에 $alignItems 속성을 주입하면 해당 속성을 적용한다.', ({ alignItems }) => {
+      )('applies alignItems: $alignItems when align is provided', ({ alignItems }) => {
         render(
           <Flex data-testid="flex-container" align={alignItems}>
             <div>item 1</div>
@@ -69,7 +69,7 @@ describe('Flex', () => {
     describe('wrap', () => {
       it.each(
         FLEX_WRAPS.map((wrap) => ({ wrap })),
-      )('flex의 wrap prop에 $wrap 속성을 주입하면 해당 속성을 적용한다.', ({ wrap }) => {
+      )('applies flexWrap: $wrap when wrap is provided', ({ wrap }) => {
         render(
           <Flex data-testid="flex-container" wrap={wrap}>
             <div>item 1</div>
@@ -85,7 +85,7 @@ describe('Flex', () => {
     describe('direction', () => {
       it.each(
         FLEX_DIRECTIONS.map((direction) => ({ direction })),
-      )('flex의 direction prop에 $direction 속성을 주입하면 해당 속성을 적용한다.', ({ direction }) => {
+      )('applies flexDirection: $direction when direction is provided', ({ direction }) => {
         render(
           <Flex data-testid="flex-container" direction={direction}>
             <div>item 1</div>
@@ -107,7 +107,7 @@ describe('Flex', () => {
         { basis: 'content' },
       ] satisfies Array<{
         basis: CSSProperties['flexBasis'];
-      }>)('flex의 basis prop에 $basis 속성을 주입하면 해당 속성을 적용한다.', ({ basis }) => {
+      }>)('applies flexBasis: $basis when basis is provided', ({ basis }) => {
         render(
           <Flex data-testid="flex-container" basis={basis}>
             <div>item 1</div>
@@ -123,7 +123,7 @@ describe('Flex', () => {
     describe('grow', () => {
       it.each([{ grow: 0 }, { grow: 1 }, { grow: 2 }] satisfies Array<{
         grow: CSSProperties['flexGrow'];
-      }>)('flex의 grow prop에 $grow 속성을 주입하면 해당 속성을 적용한다.', ({ grow }) => {
+      }>)('applies flexGrow: $grow when grow is provided', ({ grow }) => {
         render(
           <Flex data-testid="flex-container" grow={grow}>
             <div>item 1</div>
@@ -139,7 +139,7 @@ describe('Flex', () => {
     describe('shrink', () => {
       it.each([{ shrink: 0 }, { shrink: 1 }, { shrink: 2 }] satisfies Array<{
         shrink: CSSProperties['flexShrink'];
-      }>)('flex의 shrink prop에 $shrink 속성을 주입하면 해당 속성을 적용한다.', ({ shrink }) => {
+      }>)('applies flexShrink: $shrink when shrink is provided', ({ shrink }) => {
         render(
           <Flex data-testid="flex-container" shrink={shrink}>
             <div>item 1</div>
@@ -153,7 +153,7 @@ describe('Flex', () => {
     });
 
     describe('inline', () => {
-      it('flex의 inline prop에 true 속성을 주입하면 해당 속성을 적용한다.', () => {
+      it('renders with inline-flex display when inline is true', () => {
         render(
           <Flex data-testid="flex-container" inline>
             <div>item 1</div>
@@ -169,7 +169,7 @@ describe('Flex', () => {
     describe('gap', () => {
       it.each([{ gap: '10px' }, { gap: '1rem' }] satisfies Array<{
         gap: CSSProperties['gap'];
-      }>)('flex의 gap prop에 $gap 속성을 주입하면 해당 속성을 적용한다.', ({ gap }) => {
+      }>)('applies gap: $gap when gap is provided', ({ gap }) => {
         render(
           <Flex data-testid="flex-container" gap={gap}>
             <div>item 1</div>
@@ -189,7 +189,7 @@ describe('Flex', () => {
       { style: { alignItems: 'center' } },
       { style: { flexWrap: 'wrap' } },
       { style: { flexDirection: 'column' } },
-    ] satisfies Array<{ style: CSSProperties }>)('flex의 style prop에 $style 속성을 주입하면 해당 속성을 적용한다.', ({
+    ] satisfies Array<{ style: CSSProperties }>)('applies style overrides from the style prop: $style', ({
       style,
     }) => {
       render(
@@ -203,7 +203,7 @@ describe('Flex', () => {
       expect(flexContainer).toHaveStyle(style);
     });
 
-    it('style prop은 동일한 CSS 속성에 대해 기본 inline style을 override 할 수 있다.', () => {
+    it('allows the style prop to override inline style values for the same CSS properties', () => {
       render(
         <Flex
           data-testid="flex-container"
@@ -225,7 +225,7 @@ describe('Flex', () => {
   });
 
   describe('consumer usage patterns', () => {
-    it('direction, align, gap 조합을 함께 사용해도 의도한 레이아웃 속성을 유지한다.', () => {
+    it('preserves the expected layout styles when direction, align, and gap are combined', () => {
       render(
         <Flex data-testid="flex-container" direction="column" align="center" gap="12px">
           <div>item 1</div>
@@ -242,7 +242,7 @@ describe('Flex', () => {
       });
     });
 
-    it('inline, justify, gap 조합을 함께 사용해도 의도한 레이아웃 속성을 유지한다.', () => {
+    it('preserves the expected layout styles when inline, justify, and gap are combined', () => {
       render(
         <Flex data-testid="flex-container" inline justify="center" gap="8px">
           <div>item 1</div>
@@ -267,7 +267,7 @@ describe('Flex', () => {
       'input',
       'label',
       'div',
-    ])('flex의 asChild prop에 true 속성을 주입하면 자식으로 %s 엘리먼트가 전달되면 해당 엘리먼트의 태그로 렌더링된다', (element) => {
+    ])('renders as the child %s element when asChild is true', (element) => {
       render(
         <Flex data-testid="flex-container" asChild>
           {createElement(element)}
@@ -279,7 +279,7 @@ describe('Flex', () => {
       expect(flexContainer.tagName.toLowerCase()).toBe(element);
     });
 
-    it('asChild 사용 시 className, style, rest props를 자식 element에 전달한다.', () => {
+    it('passes className, style, and rest props to the child element when asChild is used', () => {
       render(
         <Flex
           asChild
@@ -306,7 +306,7 @@ describe('Flex', () => {
   });
 
   describe('ref', () => {
-    it('forwarded ref를 최종 렌더링 DOM node에 전달한다.', () => {
+    it('forwards the ref to the final rendered DOM node', () => {
       const ref = createRef<HTMLDivElement>();
 
       render(
