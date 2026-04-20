@@ -7,8 +7,8 @@ import { describe, expect, test } from 'vitest';
 import { calculateTooltipPosition } from './hooks/useTooltip/useTooltip';
 import { Tooltip, type TooltipPosition } from './Tooltip';
 
-describe('Tooltip 기본 동작 테스트', () => {
-  test('Tooltip은 초기 상태에서 보이지 않아야 한다.', () => {
+describe('Tooltip basic behavior', () => {
+  test('Tooltip should not be visible in the initial state.', () => {
     render(
       <Tooltip tooltipContent="Test Tooltip">
         <button type="button">Hover me</button>
@@ -19,7 +19,7 @@ describe('Tooltip 기본 동작 테스트', () => {
     expect(tooltip).not.toBeInTheDocument();
   });
 
-  test('tooltipContent를 주입하지 않으면 Tooltip이 렌더링되지 않는다.', () => {
+  test('Tooltip is not rendered when tooltipContent is not provided.', () => {
     render(
       <Tooltip tooltipContent={null}>
         <button type="button">Hover me</button>
@@ -31,7 +31,7 @@ describe('Tooltip 기본 동작 테스트', () => {
     expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
   });
 
-  test('hover 트리거일 경우 마우스를 올리면 Tooltip이 나타나고 이탈 시 사라진다.', async () => {
+  test('Tooltip appears on mouse enter and disappears on mouse leave when trigger is hover.', async () => {
     render(
       <Tooltip tooltipContent="This is a tooltip" trigger="hover">
         <button type="button">Hover me</button>
@@ -47,7 +47,7 @@ describe('Tooltip 기본 동작 테스트', () => {
     expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
   });
 
-  test('click 트리거일 경우 클릭하면 Tooltip이 표시되고 다시 클릭하면 사라진다.', async () => {
+  test('Tooltip appears on click and disappears on second click when trigger is click.', async () => {
     render(
       <Tooltip tooltipContent="This is a tooltip" trigger="click">
         <button type="button">Click me</button>
@@ -63,7 +63,7 @@ describe('Tooltip 기본 동작 테스트', () => {
     expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
   });
 
-  test('Tooltip 외부 클릭 시 닫힌다.', async () => {
+  test('Tooltip closes when clicking outside.', async () => {
     render(
       <div>
         <Tooltip tooltipContent="This is a tooltip" trigger="click">
@@ -84,8 +84,8 @@ describe('Tooltip 기본 동작 테스트', () => {
   });
 });
 
-describe('Tooltip 위치 테스트', () => {
-  test('Tooltip이 기본적으로 top 위치에 렌더링된다.', async () => {
+describe('Tooltip placement', () => {
+  test('Tooltip renders at the top position by default.', async () => {
     render(
       <Tooltip tooltipContent="This is a tooltip">
         <button type="button">Hover me</button>
@@ -109,7 +109,7 @@ describe('Tooltip 위치 테스트', () => {
     ['bottom-right'],
     ['left'],
     ['right'],
-  ])('Tooltip이 %s 위치에 올바르게 렌더링된다.', async (placement) => {
+  ])('Tooltip renders correctly at %s position.', async (placement) => {
     render(
       <Tooltip tooltipContent="Tooltip content" placement={placement as TooltipPosition}>
         <button type="button">Trigger</button>
@@ -125,8 +125,8 @@ describe('Tooltip 위치 테스트', () => {
   });
 });
 
-describe('Tooltip 접근성 테스트', () => {
-  test('role="tooltip" 속성이 포함되어 접근성을 보장한다.', async () => {
+describe('Tooltip accessibility', () => {
+  test('role="tooltip" attribute is included to ensure accessibility.', async () => {
     render(
       <Tooltip tooltipContent="This is a tooltip">
         <button type="button">Hover me</button>
@@ -140,7 +140,7 @@ describe('Tooltip 접근성 테스트', () => {
     expect(tooltip).toBeInTheDocument();
   });
 
-  test('Esc 키를 누르면 Tooltip이 닫힌다.', async () => {
+  test('Tooltip closes when pressing the Escape key.', async () => {
     render(
       <Tooltip tooltipContent="This is a tooltip" trigger="click">
         <button type="button">Click me</button>
@@ -156,7 +156,7 @@ describe('Tooltip 접근성 테스트', () => {
     expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
   });
 
-  test('Space 키를 누르면 click 트리거 Tooltip이 열린다.', async () => {
+  test('Tooltip opens when pressing the Space key with click trigger.', async () => {
     render(
       <Tooltip tooltipContent="This is a tooltip" trigger="click">
         <button type="button">Click me</button>
@@ -170,7 +170,7 @@ describe('Tooltip 접근성 테스트', () => {
     expect(screen.getByText('This is a tooltip')).toBeInTheDocument();
   });
 
-  test('trigger 요소에 aria-describedby가 있고 tooltip의 id와 연결된다.', async () => {
+  test('trigger element has aria-describedby linked to the tooltip id.', async () => {
     render(
       <Tooltip tooltipContent="This is a tooltip">
         <button type="button">Hover me</button>
@@ -186,7 +186,7 @@ describe('Tooltip 접근성 테스트', () => {
     expect(tooltip.id).toBeTruthy();
   });
 
-  test('click 트리거일 때 aria-expanded가 열림/닫힘 상태를 반영한다.', async () => {
+  test('aria-expanded reflects the open/closed state when trigger is click.', async () => {
     render(
       <Tooltip tooltipContent="This is a tooltip" trigger="click">
         <button type="button">Click me</button>
@@ -202,8 +202,8 @@ describe('Tooltip 접근성 테스트', () => {
   });
 });
 
-describe('Tooltip 스타일 테스트', () => {
-  test('props로 주입한 backgroundColor와 padding이 CSS 변수에 반영된다.', async () => {
+describe('Tooltip style', () => {
+  test('backgroundColor and padding injected via props are reflected in CSS variables.', async () => {
     render(
       <Tooltip tooltipContent="Styled Tooltip" tooltipStyle={{ backgroundColor: 'red', padding: '20px' }}>
         <button type="button">Hover me</button>
@@ -218,7 +218,7 @@ describe('Tooltip 스타일 테스트', () => {
     expect(tooltip).toHaveStyle('padding: 20px');
   });
 
-  test('trigger가 화면 상단에 붙어있을 때 tooltip이 위로 벗어나지 않는다.', () => {
+  test('Tooltip does not overflow upward when the trigger is near the top of the screen.', () => {
     const { top } = calculateTooltipPosition({
       wrapperRect: { top: 5, bottom: 35, left: 100, right: 200, width: 100, height: 30 } as DOMRect,
       tooltipRect: { top: 0, left: 0, bottom: 0, right: 0, width: 100, height: 50 } as DOMRect,
@@ -229,7 +229,7 @@ describe('Tooltip 스타일 테스트', () => {
     expect(top).toBeGreaterThanOrEqual(8);
   });
 
-  test('trigger가 화면 하단에 붙어있을 때 tooltip이 아래로 벗어나지 않는다.', () => {
+  test('Tooltip does not overflow downward when the trigger is near the bottom of the screen.', () => {
     const { top } = calculateTooltipPosition({
       wrapperRect: {
         top: window.innerHeight - 10,
@@ -247,7 +247,7 @@ describe('Tooltip 스타일 테스트', () => {
     expect(top).toBeLessThanOrEqual(window.innerHeight - 50 - 8);
   });
 
-  test('trigger가 화면 왼쪽에 붙어있을 때 tooltip이 왼쪽으로 벗어나지 않는다.', () => {
+  test('Tooltip does not overflow to the left when the trigger is near the left edge of the screen.', () => {
     const { left } = calculateTooltipPosition({
       wrapperRect: { top: 100, bottom: 130, left: 5, right: 55, width: 50, height: 30 } as DOMRect,
       tooltipRect: { top: 0, left: 0, bottom: 0, right: 0, width: 150, height: 40 } as DOMRect,
@@ -258,7 +258,7 @@ describe('Tooltip 스타일 테스트', () => {
     expect(left).toBeGreaterThanOrEqual(8);
   });
 
-  test('긴 텍스트가 툴팁 내에서 줄 바꿈 처리된다.', async () => {
+  test('Long text wraps within the tooltip container.', async () => {
     render(
       <Tooltip
         tooltipContent="This is a very long tooltip text that should wrap within the tooltip container to avoid overflowing the screen."
@@ -277,7 +277,7 @@ describe('Tooltip 스타일 테스트', () => {
   });
 });
 
-test('Tooltip이 비동기 데이터로 업데이트된다.', async () => {
+test('Tooltip updates with async data.', async () => {
   let resolveContent!: (value: string) => void;
 
   const AsyncTooltip = () => {
@@ -309,8 +309,8 @@ test('Tooltip이 비동기 데이터로 업데이트된다.', async () => {
   expect(screen.getByText('Fetched Content')).toBeInTheDocument();
 });
 
-describe('Tooltip asChild 속성 테스트', () => {
-  test('asChild 기본값은 true이며 자식 요소의 태그가 유지된다.', async () => {
+describe('Tooltip asChild prop', () => {
+  test('asChild defaults to true and preserves the child element tag.', async () => {
     render(
       <Tooltip tooltipContent="This is a tooltip">
         <h1>Hover me</h1>
@@ -325,7 +325,7 @@ describe('Tooltip asChild 속성 테스트', () => {
     expect(tooltip).toBeInTheDocument();
   });
 
-  test('asChild가 false일 경우 기본 div로 감싸진다.', async () => {
+  test('When asChild is false, the child is wrapped in a default div.', async () => {
     render(
       <Tooltip tooltipContent="This is a tooltip" asChild={false}>
         <button type="button">Hover me</button>
