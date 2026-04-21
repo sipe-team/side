@@ -94,7 +94,7 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
   };
 }
 
-export interface CalculateTooltipPositionParams {
+interface CalculateTooltipPositionParams {
   wrapperRect: DOMRect;
   tooltipRect: DOMRect;
   placement: TooltipPosition;
