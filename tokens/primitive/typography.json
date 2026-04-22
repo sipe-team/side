@@ -24,6 +24,6 @@
     "lineHeight": {
       "compact": { "value": "1.3", "type": "number" },
       "regular": { "value": "1.5", "type": "number" }
-    },
+    }
   }
 }
