@@ -14,8 +14,9 @@
   ],
   "scripts": {
     "build": "tsup",
-    "lint:biome": "pnpm exec biome lint",
-    "lint:eslint": "pnpm exec eslint",
+    "dev:storybook": "storybook dev -p 6006",
+    "build:storybook": "storybook build",
+    "lint": "pnpm exec biome lint",
     "test": "vitest",
     "typecheck": "tsc",
     "prepack": "pnpm run build"

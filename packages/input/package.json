@@ -14,11 +14,13 @@
   ],
   "scripts": {
     "build": "tsup",
-    "clean": "rm -rf node_modules dist",
+    "dev:storybook": "storybook dev -p 6006",
+    "build:storybook": "storybook build",
     "lint": "pnpm exec biome lint",
     "test": "vitest",
     "typecheck": "tsc",
-    "prepack": "pnpm run build"
+    "prepack": "pnpm run build",
+    "clean": "rm -rf node_modules dist"
   },
   "dependencies": {
     "@radix-ui/react-slot": "catalog:",

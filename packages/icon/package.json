@@ -14,12 +14,14 @@
   ],
   "scripts": {
     "build": "tsup",
-    "clean": "rm -rf node_modules dist",
+    "dev:storybook": "storybook dev -p 6006",
+    "build:storybook": "storybook build",
     "lint": "pnpm exec biome lint",
     "test": "vitest",
     "typecheck": "tsc",
+    "generate-icons": "tsx scripts/generate-icons.ts",
     "prepack": "pnpm run build",
-    "generate-icons": "tsx scripts/generate-icons.ts"
+    "clean": "rm -rf node_modules dist"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "catalog:",
