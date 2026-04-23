@@ -15,11 +15,11 @@
   ],
   "scripts": {
     "build": "tsup",
-    "clean": "rm -rf node_modules dist",
     "dev": "pnpm build --watch",
     "lint": "biome lint .",
     "typecheck": "tsc",
-    "prepack": "pnpm run build"
+    "prepack": "pnpm run build",
+    "clean": "rm -rf node_modules dist"
   },
   "devDependencies": {
     "@figma/plugin-typings": "^1.108.0",
