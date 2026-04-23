@@ -16,7 +16,7 @@
     "build": "tsup",
     "dev:storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build",
-    "lint": "biome lint .",
+    "lint": "pnpm exec biome lint",
     "test": "vitest",
     "typecheck": "tsc",
     "prepack": "pnpm run build",
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "catalog:",
-    "@sipe-team/typography": "workspace:^",
+    "@sipe-team/typography": "workspace:*",
     "@sipe-team/tokens": "workspace:*",
     "clsx": "catalog:"
   },

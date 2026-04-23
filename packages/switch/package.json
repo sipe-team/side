@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@radix-ui/react-use-controllable-state": "^1.2.2",
-    "@sipe-team/tokens": "workspace:^",
+    "@sipe-team/tokens": "workspace:*",
     "@vanilla-extract/recipes": "catalog:",
     "clsx": "catalog:"
   },
@@ -57,6 +57,7 @@
   },
   "publishConfig": {
     "access": "public",
+    "registry": "https://npm.pkg.github.com",
     "exports": {
       ".": {
         "import": {

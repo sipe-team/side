@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "catalog:",
-    "@sipe-team/tokens": "workspace:^",
+    "@sipe-team/tokens": "workspace:*",
     "@vanilla-extract/dynamic": "catalog:",
     "clsx": "catalog:"
   },

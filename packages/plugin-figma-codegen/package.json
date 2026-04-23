@@ -16,7 +16,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "pnpm build --watch",
-    "lint": "biome lint .",
+    "lint": "pnpm exec biome lint",
     "typecheck": "tsc",
     "prepack": "pnpm run build",
     "clean": "rm -rf node_modules dist"
