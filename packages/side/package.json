@@ -15,8 +15,10 @@
   ],
   "scripts": {
     "build": "tsup",
-    "clean": "rm -rf node_modules dist",
-    "prepack": "pnpm run build"
+    "lint": "pnpm exec biome lint",
+    "typecheck": "tsc",
+    "prepack": "pnpm run build",
+    "clean": "rm -rf node_modules dist"
   },
   "dependencies": {
     "@sipe-team/badge": "workspace:*",

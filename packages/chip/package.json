@@ -19,10 +19,12 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "lint": "pnpm exec biome lint",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepack": "pnpm run build"
   },
   "dependencies": {
     "@radix-ui/react-slot": "catalog:",

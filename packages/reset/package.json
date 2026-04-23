@@ -20,6 +20,7 @@
     "lint": "pnpm exec biome lint",
     "test": "vitest",
     "typecheck": "tsc",
+    "prepack": "pnpm run build",
     "clean": "rm -rf node_modules dist"
   },
   "dependencies": {},
