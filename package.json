@@ -12,7 +12,10 @@
     "build:storybook": "storybook build public",
     "serve:storybook": "serve storybook-static -p 6006",
     "create:component": "tsx scripts/createComponent.ts create",
+    "build": "pnpm --filter './packages/*' -r build",
+    "typecheck": "pnpm --filter './packages/*' -r typecheck",
     "test": "vitest",
+    "test:coverage": "vitest --coverage",
     "clean": "pnpm --filter './www' clean && pnpm --filter './packages/*' clean"
   },
   "devDependencies": {
