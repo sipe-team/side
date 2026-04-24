@@ -28,7 +28,8 @@
       "@vanilla-extract/recipes": "catalog:",
       "@vanilla-extract/dynamic": "catalog:",
       "clsx": "catalog:"
-    }
+    },
+    "sideEffectsAllowedValues": [false, ["**/*.css"]]
   },
   "allowlist": [
     {

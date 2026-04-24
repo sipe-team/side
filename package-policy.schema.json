@@ -37,6 +37,13 @@
           "type": "object",
           "description": "Dependency name -> required catalog reference. Any package using a direct version of these is a violation",
           "additionalProperties": { "type": "string" }
+        },
+        "sideEffectsAllowedValues": {
+          "type": "array",
+          "description": "Allowed shapes for the `sideEffects` field. Each item may be a boolean (e.g. false) or a string array of globs (e.g. [\"**/*.css\"]). Packages whose sideEffects value does not deep-equal any entry is a violation.",
+          "items": {
+            "oneOf": [{ "type": "boolean" }, { "type": "array", "items": { "type": "string" } }]
+          }
         }
       }
     },
