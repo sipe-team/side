@@ -1,0 +1,26 @@
+name: Package consistency
+
+on:
+  pull_request:
+
+jobs:
+  consistency:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - uses: jdx/mise-action@v2
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run package consistency checker
+        continue-on-error: true
+        run: |
+          set +e
+          pnpm check:package-consistency --format markdown >> "$GITHUB_STEP_SUMMARY"

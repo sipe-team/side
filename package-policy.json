@@ -1,0 +1,137 @@
+{
+  "$schema": "./package-policy.schema.json",
+  "description": "Hard/soft rules for packages/*/package.json consistency. Hard rules must match 100% across all publishable packages; soft rule violations require an entry in the allowlist with a reason.",
+  "hardRules": {
+    "scripts": {
+      "build": "tsup",
+      "clean": "rm -rf node_modules dist",
+      "lint": "pnpm exec biome lint",
+      "prepack": "pnpm run build",
+      "typecheck": "tsc"
+    },
+    "optionalScripts": {
+      "dev:storybook": "storybook dev -p 6006",
+      "build:storybook": "storybook build",
+      "test": "vitest"
+    },
+    "publishConfig": {
+      "access": "public",
+      "registry": "https://npm.pkg.github.com"
+    },
+    "workspaceDependencySpec": "workspace:*",
+    "catalogDependencies": {
+      "react": "catalog:react",
+      "react-dom": "catalog:react",
+      "@types/react": "catalog:react",
+      "@types/react-dom": "catalog:react",
+      "@vanilla-extract/css": "catalog:",
+      "@vanilla-extract/recipes": "catalog:",
+      "@vanilla-extract/dynamic": "catalog:",
+      "clsx": "catalog:"
+    }
+  },
+  "allowlist": [
+    {
+      "packageName": "@sipe-team/reset",
+      "rule": "optionalScripts.test",
+      "reason": "CSS-only package, no tests"
+    },
+    {
+      "packageName": "@sipe-team/reset",
+      "rule": "optionalScripts.dev:storybook",
+      "reason": "CSS-only package, no storybook"
+    },
+    {
+      "packageName": "@sipe-team/reset",
+      "rule": "optionalScripts.build:storybook",
+      "reason": "CSS-only package, no storybook"
+    },
+    {
+      "packageName": "@sipe-team/tokens",
+      "rule": "optionalScripts.test",
+      "reason": "design tokens only, no tests"
+    },
+    {
+      "packageName": "@sipe-team/tokens",
+      "rule": "optionalScripts.dev:storybook",
+      "reason": "design tokens only, no storybook"
+    },
+    {
+      "packageName": "@sipe-team/tokens",
+      "rule": "optionalScripts.build:storybook",
+      "reason": "design tokens only, no storybook"
+    },
+    {
+      "packageName": "@sipe-team/side",
+      "rule": "optionalScripts.test",
+      "reason": "aggregator package, no tests"
+    },
+    {
+      "packageName": "@sipe-team/side",
+      "rule": "optionalScripts.dev:storybook",
+      "reason": "aggregator package, no storybook"
+    },
+    {
+      "packageName": "@sipe-team/side",
+      "rule": "optionalScripts.build:storybook",
+      "reason": "aggregator package, no storybook"
+    },
+    {
+      "packageName": "@sipe-team/plugin-figma-codegen",
+      "rule": "optionalScripts.test",
+      "reason": "figma plugin, no standard tests"
+    },
+    {
+      "packageName": "@sipe-team/plugin-figma-codegen",
+      "rule": "optionalScripts.dev:storybook",
+      "reason": "figma plugin, no storybook"
+    },
+    {
+      "packageName": "@sipe-team/plugin-figma-codegen",
+      "rule": "optionalScripts.build:storybook",
+      "reason": "figma plugin, no storybook"
+    },
+    {
+      "packageName": "@sipe-team/chip",
+      "rule": "extraScript",
+      "fieldPath": "scripts.test:ui",
+      "reason": "chip-specific vitest UI runner"
+    },
+    {
+      "packageName": "@sipe-team/chip",
+      "rule": "extraScript",
+      "fieldPath": "scripts.test:coverage",
+      "reason": "chip-specific coverage runner"
+    },
+    {
+      "packageName": "@sipe-team/theme",
+      "rule": "extraScript",
+      "fieldPath": "scripts.test:ui",
+      "reason": "theme-specific vitest UI runner"
+    },
+    {
+      "packageName": "@sipe-team/button",
+      "rule": "directDependency",
+      "fieldPath": "devDependencies.sanitize.css",
+      "reason": "sanitize.css is a button-specific reset layer; not shared with other packages"
+    },
+    {
+      "packageName": "@sipe-team/switch",
+      "rule": "directDependency",
+      "fieldPath": "dependencies.@radix-ui/react-use-controllable-state",
+      "reason": "switch-specific radix utility, not used elsewhere"
+    },
+    {
+      "packageName": "@sipe-team/icon",
+      "rule": "extraScript",
+      "fieldPath": "scripts.generate-icons",
+      "reason": "icon-specific codegen script for SVG -> React components"
+    },
+    {
+      "packageName": "@sipe-team/plugin-figma-codegen",
+      "rule": "extraScript",
+      "fieldPath": "scripts.dev",
+      "reason": "figma plugin watch mode"
+    }
+  ]
+}
