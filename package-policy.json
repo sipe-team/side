@@ -10,8 +10,6 @@
       "typecheck": "tsc"
     },
     "optionalScripts": {
-      "dev:storybook": "storybook dev -p 6006",
-      "build:storybook": "storybook build",
       "test": "vitest"
     },
     "publishConfig": {
@@ -53,44 +51,9 @@
       "reason": "design tokens only, no tests"
     },
     {
-      "packageName": "@sipe-team/tokens",
-      "rule": "optionalScripts.dev:storybook",
-      "reason": "design tokens only, no storybook"
-    },
-    {
-      "packageName": "@sipe-team/tokens",
-      "rule": "optionalScripts.build:storybook",
-      "reason": "design tokens only, no storybook"
-    },
-    {
       "packageName": "@sipe-team/side",
       "rule": "optionalScripts.test",
       "reason": "aggregator package, no tests"
-    },
-    {
-      "packageName": "@sipe-team/side",
-      "rule": "optionalScripts.dev:storybook",
-      "reason": "aggregator package, no storybook"
-    },
-    {
-      "packageName": "@sipe-team/side",
-      "rule": "optionalScripts.build:storybook",
-      "reason": "aggregator package, no storybook"
-    },
-    {
-      "packageName": "@sipe-team/plugin-figma-codegen",
-      "rule": "optionalScripts.test",
-      "reason": "figma plugin, no standard tests"
-    },
-    {
-      "packageName": "@sipe-team/plugin-figma-codegen",
-      "rule": "optionalScripts.dev:storybook",
-      "reason": "figma plugin, no storybook"
-    },
-    {
-      "packageName": "@sipe-team/plugin-figma-codegen",
-      "rule": "optionalScripts.build:storybook",
-      "reason": "figma plugin, no storybook"
     },
     {
       "packageName": "@sipe-team/chip",
@@ -127,12 +90,6 @@
       "rule": "extraScript",
       "fieldPath": "scripts.generate-icons",
       "reason": "icon-specific codegen script for SVG -> React components"
-    },
-    {
-      "packageName": "@sipe-team/plugin-figma-codegen",
-      "rule": "extraScript",
-      "fieldPath": "scripts.dev",
-      "reason": "figma plugin watch mode"
     }
   ]
 }

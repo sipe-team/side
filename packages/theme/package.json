@@ -16,8 +16,6 @@
   ],
   "scripts": {
     "build": "tsup",
-    "dev:storybook": "storybook dev -p 6006",
-    "build:storybook": "storybook build",
     "lint": "pnpm exec biome lint",
     "test": "vitest",
     "test:ui": "vitest --ui",
