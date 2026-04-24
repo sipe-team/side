@@ -30,13 +30,6 @@
   },
   "devDependencies": {
     "@vanilla-extract/css": "catalog:",
-    "@storybook/addon-essentials": "catalog:",
-    "@storybook/addon-interactions": "catalog:",
-    "@storybook/addon-links": "catalog:",
-    "@storybook/blocks": "catalog:",
-    "@storybook/react": "catalog:",
-    "@storybook/react-vite": "catalog:",
-    "@storybook/test": "catalog:",
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
     "@testing-library/user-event": "catalog:",
@@ -44,7 +37,6 @@
     "happy-dom": "catalog:",
     "react": "catalog:react",
     "react-dom": "catalog:react",
-    "storybook": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
