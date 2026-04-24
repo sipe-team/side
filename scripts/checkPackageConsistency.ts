@@ -147,7 +147,10 @@ function checkPackage(pkg: Package, policy: Policy): Violation[] {
     }
   }
 
-  if (publishConfig.access !== policy.hardRules.publishConfig.access) {
+  if (
+    publishConfig.access !== policy.hardRules.publishConfig.access &&
+    !isAllowlisted(policy.allowlist, name, 'publishConfig.access')
+  ) {
     violations.push({
       packageName: name,
       severity: 'hard',
@@ -155,7 +158,10 @@ function checkPackage(pkg: Package, policy: Policy): Violation[] {
       message: `publishConfig.access is ${JSON.stringify(publishConfig.access)} (expected: "${policy.hardRules.publishConfig.access}")`,
     });
   }
-  if (publishConfig.registry !== policy.hardRules.publishConfig.registry) {
+  if (
+    publishConfig.registry !== policy.hardRules.publishConfig.registry &&
+    !isAllowlisted(policy.allowlist, name, 'publishConfig.registry')
+  ) {
     violations.push({
       packageName: name,
       severity: 'hard',
