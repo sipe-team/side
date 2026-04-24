@@ -80,3 +80,10 @@ export type ButtonSize = (typeof ButtonSize)[keyof typeof ButtonSize];
 ## 배포
 
 Changesets 기반으로 GitHub Package Registry에 릴리스. 패키지는 타입과 함께 ESM + CJS를 export. 공개 API 변경 시 `.changeset` 파일을 포함하세요.
+
+## package.json 일관성 정책
+
+- 정책 파일: `package-policy.json` (스키마는 `package-policy.schema.json`, 에디터 자동완성용)
+- 로컬 점검: `pnpm check:package-consistency`
+- CI: `.github/workflows/consistency.yaml`이 매 PR에서 실행되어 Step Summary에 리포트 (논블로킹)
+- 의도된 예외는 `package-policy.json`의 `allowlist`에 `reason`과 함께 등록. `reason`은 필수(빈 문자열이면 zod가 rejection)
