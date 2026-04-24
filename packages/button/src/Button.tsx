@@ -29,6 +29,7 @@ export const Button = forwardRef(function Button(
   {
     variant = ButtonVariant.filled,
     size = ButtonSize.lg,
+    type = 'button',
     asChild,
     disabled,
     className: _className,
@@ -39,5 +40,5 @@ export const Button = forwardRef(function Button(
   const Comp = asChild ? Slot : 'button';
   const className = cx(styles.button({ variant, size }), { [styles.disabled]: disabled }, _className);
 
-  return <Comp ref={ref} className={className} disabled={disabled} {...props} />;
+  return <Comp ref={ref} type={type} className={className} disabled={disabled} {...props} />;
 });

@@ -27,15 +27,11 @@
   },
   "devDependencies": {
     "@vanilla-extract/css": "catalog:",
-    "@storybook/addon-essentials": "catalog:",
-    "@storybook/react": "catalog:",
-    "@storybook/react-vite": "catalog:",
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
     "@types/react": "catalog:react",
     "react": "catalog:react",
     "react-dom": "catalog:react",
-    "storybook": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"

@@ -22,6 +22,10 @@ export const button = recipe({
     transition: 'all 0.2s ease-in-out',
     border: 'none',
     fontFamily: vars.typography.fontFamily,
+    ':focus-visible': {
+      outline: `2px solid ${vars.color.primary}`,
+      outlineOffset: '2px',
+    },
   },
   variants: {
     variant: {
