@@ -11,11 +11,12 @@
 ```bash
 mise install                        # Node v22.22.2 + pnpm 10.33.0 설치 (.mise.toml 기반)
 pnpm install                        # 의존성 설치 (pnpm 10.33.0, Node v22.22.2)
-pnpm dev:storybook                  # Storybook 개발 서버 실행 (:6006)
-pnpm build:storybook                # Storybook 빌드
+pnpm dev:storybook                  # Storybook 개발 서버 실행 (:6006) — root에서만
+pnpm build:storybook                # Storybook 빌드 — root에서만
 pnpm lint                           # Biome 린트 + 수정 (변경된 패키지)
 pnpm format                         # Biome 포맷팅
 pnpm test                           # Vitest (변경된 패키지)
+pnpm check:package-consistency      # package.json 정책 점검
 pnpm create:component               # 템플릿에서 새 컴포넌트 스캐폴딩
 pnpm cz                             # 대화형 conventional commit
 
@@ -27,6 +28,8 @@ pnpm --filter @sipe-team/button typecheck
 # 단일 테스트 파일 실행
 pnpm --filter @sipe-team/button vitest run src/Button.test.tsx
 ```
+
+Storybook은 **root 워크스페이스 전용**입니다. 루트 `.storybook/main.ts`가 `packages/**/*.stories.*`를 자동 수집하므로 개별 패키지에 `dev:storybook`/`build:storybook` 스크립트를 추가하지 마세요. 정책 checker가 extra script로 감지합니다.
 
 ## 아키텍처
 
