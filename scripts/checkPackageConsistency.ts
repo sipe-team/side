@@ -46,6 +46,7 @@ const policySchema = z.object({
     }),
     workspaceDependencySpec: z.string(),
     catalogDependencies: z.record(z.string(), z.string()).optional(),
+    sideEffectsAllowedValues: z.array(z.union([z.boolean(), z.array(z.string())])).optional(),
   }),
   allowlist: z.array(allowlistEntrySchema),
 });
@@ -186,6 +187,21 @@ function checkPackage(pkg: Package, policy: Policy): Violation[] {
       rule: 'publishConfig.registry',
       message: `publishConfig.registry is ${JSON.stringify(publishConfig.registry)} (expected: "${policy.hardRules.publishConfig.registry}")`,
     });
+  }
+
+  const allowedSideEffects = policy.hardRules.sideEffectsAllowedValues;
+  if (allowedSideEffects) {
+    const actual = json.sideEffects;
+    const matches = allowedSideEffects.some((allowed) => JSON.stringify(allowed) === JSON.stringify(actual));
+    if (!matches) {
+      const expectedLabel = allowedSideEffects.map((v) => JSON.stringify(v)).join(' | ');
+      violations.push({
+        packageName: name,
+        severity: 'hard',
+        rule: 'sideEffects',
+        message: `sideEffects is ${JSON.stringify(actual)} (expected one of: ${expectedLabel})`,
+      });
+    }
   }
 
   const depBuckets = ['dependencies', 'devDependencies', 'peerDependencies'] as const;
