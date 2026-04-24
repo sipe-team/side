@@ -16,11 +16,6 @@
           "description": "Scripts that MUST exist with the exact declared value in every publishable package",
           "additionalProperties": { "type": "string" }
         },
-        "optionalScripts": {
-          "type": "object",
-          "description": "Scripts that MAY be omitted (allowlist entry required) but MUST match the declared value when present",
-          "additionalProperties": { "type": "string" }
-        },
         "publishConfig": {
           "type": "object",
           "required": ["access", "registry"],
@@ -60,7 +55,7 @@
           },
           "rule": {
             "type": "string",
-            "description": "Rule identifier being exempted (e.g., optionalScripts.test, extraScript, directDependency)"
+            "description": "Rule identifier being exempted (e.g., scripts.test, extraScript, directDependency)"
           },
           "fieldPath": {
             "type": "string",

@@ -1,16 +1,14 @@
 {
   "$schema": "./package-policy.schema.json",
-  "description": "Hard/soft rules for packages/*/package.json consistency. Hard rules must match 100% across all publishable packages; soft rule violations require an entry in the allowlist with a reason.",
+  "description": "Hard rules for packages/*/package.json consistency. Scripts listed under hardRules.scripts must be present with the exact declared value (or have an allowlist entry with a reason).",
   "hardRules": {
     "scripts": {
       "build": "tsup",
       "clean": "rm -rf node_modules dist",
       "lint": "pnpm exec biome lint",
       "prepack": "pnpm run build",
+      "test": "vitest",
       "typecheck": "tsc"
-    },
-    "optionalScripts": {
-      "test": "vitest"
     },
     "publishConfig": {
       "access": "public",
@@ -31,28 +29,13 @@
   },
   "allowlist": [
     {
-      "packageName": "@sipe-team/reset",
-      "rule": "optionalScripts.test",
-      "reason": "CSS-only package, no tests"
-    },
-    {
-      "packageName": "@sipe-team/reset",
-      "rule": "optionalScripts.dev:storybook",
-      "reason": "CSS-only package, no storybook"
-    },
-    {
-      "packageName": "@sipe-team/reset",
-      "rule": "optionalScripts.build:storybook",
-      "reason": "CSS-only package, no storybook"
-    },
-    {
       "packageName": "@sipe-team/tokens",
-      "rule": "optionalScripts.test",
+      "rule": "scripts.test",
       "reason": "design tokens only, no tests"
     },
     {
       "packageName": "@sipe-team/side",
-      "rule": "optionalScripts.test",
+      "rule": "scripts.test",
       "reason": "aggregator package, no tests"
     },
     {

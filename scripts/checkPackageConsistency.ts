@@ -39,7 +39,6 @@ const policySchema = z.object({
   description: z.string().optional(),
   hardRules: z.object({
     scripts: z.record(z.string(), z.string()),
-    optionalScripts: z.record(z.string(), z.string()).optional(),
     publishConfig: z.object({
       access: z.literal('public'),
       registry: z.string().url(),
@@ -134,31 +133,7 @@ function checkPackage(pkg: Package, policy: Policy): Violation[] {
     }
   }
 
-  for (const [key, expected] of Object.entries(policy.hardRules.optionalScripts ?? {})) {
-    const actual = scripts[key];
-    if (actual === undefined) {
-      if (!isAllowlisted(policy.allowlist, name, `optionalScripts.${key}`)) {
-        violations.push({
-          packageName: name,
-          severity: 'hard',
-          rule: `optionalScripts.${key}`,
-          message: `missing optional script "${key}" with no allowlist entry (expected: "${expected}")`,
-        });
-      }
-    } else if (actual !== expected) {
-      violations.push({
-        packageName: name,
-        severity: 'hard',
-        rule: `optionalScripts.${key}`,
-        message: `script "${key}" is "${actual}" (expected: "${expected}")`,
-      });
-    }
-  }
-
-  const expectedScripts = new Set([
-    ...Object.keys(policy.hardRules.scripts),
-    ...Object.keys(policy.hardRules.optionalScripts ?? {}),
-  ]);
+  const expectedScripts = new Set(Object.keys(policy.hardRules.scripts));
   for (const scriptName of Object.keys(scripts)) {
     if (expectedScripts.has(scriptName)) continue;
     if (!isAllowlisted(policy.allowlist, name, 'extraScript', `scripts.${scriptName}`)) {
