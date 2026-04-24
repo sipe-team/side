@@ -9,12 +9,31 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, '..');
 
-const allowlistEntrySchema = z.object({
-  packageName: z.string(),
-  rule: z.string(),
-  fieldPath: z.string().optional(),
-  reason: z.string().min(1, 'allowlist entries require a non-empty reason'),
-});
+const rulesRequiringFieldPath = new Set(['extraScript', 'directDependency']);
+
+const allowlistEntrySchema = z
+  .object({
+    packageName: z.string(),
+    rule: z.string(),
+    fieldPath: z.string().optional(),
+    reason: z.string().min(1, 'allowlist entries require a non-empty reason'),
+  })
+  .superRefine((entry, ctx) => {
+    if (rulesRequiringFieldPath.has(entry.rule) && !entry.fieldPath) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['fieldPath'],
+        message: `rule "${entry.rule}" requires a fieldPath`,
+      });
+    }
+    if (!rulesRequiringFieldPath.has(entry.rule) && entry.fieldPath !== undefined) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['fieldPath'],
+        message: `rule "${entry.rule}" must not specify a fieldPath`,
+      });
+    }
+  });
 
 const policySchema = z.object({
   description: z.string().optional(),
@@ -82,10 +101,7 @@ async function loadPolicy(policyPath: string): Promise<Policy> {
 
 function isAllowlisted(allowlist: Allowlist, packageName: string, rule: string, fieldPath?: string): boolean {
   return allowlist.some(
-    (entry) =>
-      entry.packageName === packageName &&
-      entry.rule === rule &&
-      (entry.fieldPath === undefined || entry.fieldPath === fieldPath),
+    (entry) => entry.packageName === packageName && entry.rule === rule && entry.fieldPath === fieldPath,
   );
 }
 
