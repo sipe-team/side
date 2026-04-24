@@ -108,7 +108,7 @@ function isAllowlisted(allowlist: Allowlist, packageName: string, rule: string, 
 function checkPackage(pkg: Package, policy: Policy): Violation[] {
   const violations: Violation[] = [];
   const name = pkg.packageJson.name;
-  const json = pkg.packageJson as Record<string, unknown>;
+  const json = pkg.packageJson as unknown as Record<string, unknown>;
   const scripts = (json.scripts ?? {}) as Record<string, string>;
   const publishConfig = (json.publishConfig ?? {}) as Record<string, unknown>;
 
