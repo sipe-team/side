@@ -24,4 +24,4 @@ jobs:
         continue-on-error: true
         run: |
           set +e
-          pnpm check:package-consistency --format markdown >> "$GITHUB_STEP_SUMMARY"
+          pnpm lint:package --format markdown >> "$GITHUB_STEP_SUMMARY"

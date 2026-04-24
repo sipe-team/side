@@ -6,8 +6,10 @@
     "prepare": "husky",
     "cz": "cz",
     "format": "biome format --write",
-    "lint": "biome lint",
-    "lint:fix": "biome check --write",
+    "lint": "pnpm lint:biome && pnpm lint:package",
+    "lint:biome": "biome lint",
+    "lint:biome:fix": "biome check --write",
+    "lint:package": "tsx scripts/checkPackageConsistency.ts",
     "dev:storybook": "storybook dev -p 6006 public",
     "build:storybook": "storybook build public",
     "serve:storybook": "serve storybook-static -p 6006",
@@ -16,8 +18,7 @@
     "typecheck": "pnpm --filter './packages/*' -r typecheck",
     "test": "vitest",
     "test:coverage": "vitest --coverage",
-    "clean": "pnpm --filter './www' clean && pnpm --filter './packages/*' clean",
-    "check:package-consistency": "tsx scripts/checkPackageConsistency.ts"
+    "clean": "pnpm --filter './www' clean && pnpm --filter './packages/*' clean"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.10",
