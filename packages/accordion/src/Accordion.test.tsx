@@ -171,6 +171,59 @@ describe('Accordion 동작', () => {
   });
 });
 
+describe('Accordion single 모드', () => {
+  test('type="single"일 때 하나의 아이템을 열면 다른 열린 아이템이 닫힌다', () => {
+    render(
+      <Accordion.Root type="single">
+        <Accordion.Item value="item1">
+          <Accordion.Trigger>Trigger 1</Accordion.Trigger>
+          <Accordion.Content>Content 1</Accordion.Content>
+        </Accordion.Item>
+        <Accordion.Item value="item2">
+          <Accordion.Trigger>Trigger 2</Accordion.Trigger>
+          <Accordion.Content>Content 2</Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>,
+    );
+
+    const trigger1 = screen.getByText('Trigger 1');
+    const trigger2 = screen.getByText('Trigger 2');
+    const wrapper1 = screen.getByText('Content 1').closest('[class*="accordionContentWrapper"]');
+    const wrapper2 = screen.getByText('Content 2').closest('[class*="accordionContentWrapper"]');
+
+    expect(wrapper1).toHaveAttribute('aria-hidden', 'true');
+    expect(wrapper2).toHaveAttribute('aria-hidden', 'true');
+
+    fireEvent.click(trigger1);
+    expect(wrapper1).toHaveAttribute('aria-hidden', 'false');
+    expect(wrapper2).toHaveAttribute('aria-hidden', 'true');
+
+    fireEvent.click(trigger2);
+    expect(wrapper1).toHaveAttribute('aria-hidden', 'true');
+    expect(wrapper2).toHaveAttribute('aria-hidden', 'false');
+  });
+
+  test('type="single"일 때 이미 열린 아이템을 클릭하면 닫힌다', () => {
+    render(
+      <Accordion.Root type="single">
+        <Accordion.Item value="item1">
+          <Accordion.Trigger>Trigger 1</Accordion.Trigger>
+          <Accordion.Content>Content 1</Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>,
+    );
+
+    const trigger = screen.getByText('Trigger 1');
+    const wrapper = screen.getByText('Content 1').closest('[class*="accordionContentWrapper"]');
+
+    fireEvent.click(trigger);
+    expect(wrapper).toHaveAttribute('aria-hidden', 'false');
+
+    fireEvent.click(trigger);
+    expect(wrapper).toHaveAttribute('aria-hidden', 'true');
+  });
+});
+
 describe('Accordion 구조', () => {
   test('Accordion의 children으로 전달한 요소를 올바르게 렌더링할 수 있다', () => {
     render(
