@@ -40,6 +40,8 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
   useEffect(() => {
     if (!isVisible) return;
 
+    let rafId: number;
+
     const handlePosition = () => {
       const wrapper = wrapperRef.current;
       const tooltip = tooltipRef.current;
@@ -62,14 +64,20 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
       });
     };
 
+    const scheduleHandlePosition = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(handlePosition);
+    };
+
     handlePosition();
 
-    window.addEventListener('scroll', handlePosition, true);
-    window.addEventListener('resize', handlePosition);
+    window.addEventListener('scroll', scheduleHandlePosition, true);
+    window.addEventListener('resize', scheduleHandlePosition);
 
     return () => {
-      window.removeEventListener('scroll', handlePosition, true);
-      window.removeEventListener('resize', handlePosition);
+      cancelAnimationFrame(rafId);
+      window.removeEventListener('scroll', scheduleHandlePosition, true);
+      window.removeEventListener('resize', scheduleHandlePosition);
     };
   }, [isVisible, gap, placement]);
 
