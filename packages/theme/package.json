@@ -16,26 +16,22 @@
   ],
   "scripts": {
     "build": "tsup",
-    "build:storybook": "storybook build",
-    "clean": "rm -rf node_modules dist",
     "dev:storybook": "storybook dev -p 6006",
+    "build:storybook": "storybook build",
     "lint": "pnpm exec biome lint",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "typecheck": "tsc",
-    "prepack": "pnpm run build"
+    "prepack": "pnpm run build",
+    "clean": "rm -rf node_modules dist"
   },
   "devDependencies": {
     "@vanilla-extract/css": "^1.14.1",
-    "@storybook/addon-essentials": "catalog:",
-    "@storybook/react": "catalog:",
-    "@storybook/react-vite": "catalog:",
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
     "@types/react": "^18.3.12",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "storybook": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"

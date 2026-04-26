@@ -78,3 +78,21 @@ test('large size works correctly', () => {
   expect(button).toBeInTheDocument();
   expect(button.className).toBeTruthy();
 });
+
+test('type="button" is used as default when type is not provided', () => {
+  render(<Button>Test</Button>);
+
+  const button = screen.getByRole('button');
+
+  // Should default to type="button"
+  expect(button).toHaveAttribute('type', 'button');
+});
+
+test('type="submit" works correctly', () => {
+  render(<Button type="submit">Submit</Button>);
+
+  const button = screen.getByRole('button');
+
+  // Should allow overriding type
+  expect(button).toHaveAttribute('type', 'submit');
+});

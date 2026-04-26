@@ -4,6 +4,9 @@ packages:
 
 packageManagerStrictVersion: true
 
+overrides:
+  esbuild: ~0.27.0
+
 catalog:
   '@faker-js/faker': ^9.2.0
   '@radix-ui/react-slot': ^1.1.0

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Flex } from './Flex';
+import { FLEX_ALIGNS, FLEX_DIRECTIONS, FLEX_JUSTIFY_CONTENTS, FLEX_WRAPS } from './constants';
 
 const meta = {
   title: 'Components/Flex',
@@ -9,22 +10,22 @@ const meta = {
   argTypes: {
     direction: {
       control: 'select',
-      options: ['row', 'column', 'row-reverse', 'column-reverse'],
+      options: FLEX_DIRECTIONS,
       description: 'Flex direction',
     },
     align: {
       control: 'select',
-      options: ['flex-start', 'flex-end', 'center', 'stretch', 'baseline', 'normal'],
+      options: FLEX_ALIGNS,
       description: 'Align items',
     },
     justify: {
       control: 'select',
-      options: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly', 'normal'],
+      options: FLEX_JUSTIFY_CONTENTS,
       description: 'Justify content',
     },
     wrap: {
       control: 'select',
-      options: ['nowrap', 'wrap', 'wrap-reverse'],
+      options: FLEX_WRAPS,
       description: 'Flex wrap',
     },
     gap: {
