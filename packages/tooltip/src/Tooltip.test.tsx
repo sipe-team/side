@@ -47,6 +47,22 @@ describe('Tooltip basic behavior', () => {
     expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
   });
 
+  test('Tooltip appears on focus and disappears on blur when trigger is hover.', async () => {
+    render(
+      <Tooltip tooltipContent="This is a tooltip" trigger="hover">
+        <button type="button">Hover me</button>
+      </Tooltip>,
+    );
+
+    const trigger = screen.getByText('Hover me');
+
+    await act(async () => trigger.focus());
+    expect(screen.getByText('This is a tooltip')).toBeInTheDocument();
+
+    await act(async () => trigger.blur());
+    expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
+  });
+
   test('Tooltip appears on click and disappears on second click when trigger is click.', async () => {
     render(
       <Tooltip tooltipContent="This is a tooltip" trigger="click">

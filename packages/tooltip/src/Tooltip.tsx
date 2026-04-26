@@ -80,9 +80,11 @@ export const Tooltip = forwardRef(function Tooltip(
         aria-expanded={trigger === TooltipTrigger.click ? isVisible : undefined}
         onMouseEnter={trigger === TooltipTrigger.hover ? () => toggleTooltip(true) : undefined}
         onMouseLeave={trigger === TooltipTrigger.hover ? () => toggleTooltip(false) : undefined}
+        onFocus={trigger === TooltipTrigger.hover ? () => toggleTooltip(true) : undefined}
+        onBlur={trigger === TooltipTrigger.hover ? () => toggleTooltip(false) : undefined}
         onClick={trigger === TooltipTrigger.click ? () => toggleTooltip(!isVisible) : undefined}
         onKeyDown={handleKeyDown}
-        tabIndex={trigger === TooltipTrigger.click ? 0 : undefined}
+        tabIndex={0}
         className={styles.button}
       >
         {children}
