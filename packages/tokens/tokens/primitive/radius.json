@@ -1,0 +1,9 @@
+{
+  "radius": {
+    "2":    { "value": "2px",    "type": "other" },
+    "4":    { "value": "4px",    "type": "other" },
+    "8":    { "value": "8px",    "type": "other" },
+    "12":   { "value": "12px",   "type": "other" },
+    "full": { "value": "9999px", "type": "other" }
+  }
+}

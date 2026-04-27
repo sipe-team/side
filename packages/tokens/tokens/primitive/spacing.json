@@ -1,0 +1,17 @@
+{
+  "spacing": {
+    "0":  { "value": "0px",  "type": "other" },
+    "1":  { "value": "4px",  "type": "other" },
+    "2":  { "value": "8px",  "type": "other" },
+    "3":  { "value": "12px", "type": "other" },
+    "4":  { "value": "16px", "type": "other" },
+    "5":  { "value": "20px", "type": "other" },
+    "6":  { "value": "24px", "type": "other" },
+    "8":  { "value": "32px", "type": "other" },
+    "10": { "value": "40px", "type": "other" },
+    "12": { "value": "48px", "type": "other" },
+    "16": { "value": "64px", "type": "other" },
+    "20": { "value": "80px", "type": "other" },
+    "24": { "value": "96px", "type": "other" }
+  }
+}

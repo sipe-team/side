@@ -8,12 +8,18 @@
     "url": "https://github.com/sipe-team/side"
   },
   "type": "module",
-  "exports": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./token-names": "./dist/ts/index.ts"
+  },
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "tsup",
+    "build:tokens": "node config.js",
+    "dev:storybook": "storybook dev -p 6006",
+    "build:storybook": "storybook build",
     "lint": "pnpm exec biome lint",
     "typecheck": "tsc",
     "prepack": "pnpm run build",
@@ -26,6 +32,7 @@
     "@types/react": "catalog:react",
     "react": "catalog:react",
     "react-dom": "catalog:react",
+    "style-dictionary": "^5.4.0",
     "tsup": "catalog:",
     "typescript": "catalog:"
   },
