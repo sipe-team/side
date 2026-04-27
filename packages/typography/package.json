@@ -14,8 +14,6 @@
   ],
   "scripts": {
     "build": "tsup",
-    "dev:storybook": "storybook dev -p 6006",
-    "build:storybook": "storybook build",
     "lint": "pnpm exec biome lint",
     "test": "vitest",
     "typecheck": "tsc",
@@ -24,7 +22,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "catalog:",
-    "@sipe-team/tokens": "workspace:^",
+    "@sipe-team/tokens": "workspace:*",
     "@vanilla-extract/dynamic": "catalog:",
     "clsx": "catalog:"
   },

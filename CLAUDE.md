@@ -11,11 +11,12 @@
 ```bash
 mise install                        # Node v22.22.2 + pnpm 10.33.0 설치 (.mise.toml 기반)
 pnpm install                        # 의존성 설치 (pnpm 10.33.0, Node v22.22.2)
-pnpm dev:storybook                  # Storybook 개발 서버 실행 (:6006)
-pnpm build:storybook                # Storybook 빌드
+pnpm dev:storybook                  # Storybook 개발 서버 실행 (:6006) — root에서만
+pnpm build:storybook                # Storybook 빌드 — root에서만
 pnpm lint                           # Biome 린트 + 수정 (변경된 패키지)
 pnpm format                         # Biome 포맷팅
 pnpm test                           # Vitest (변경된 패키지)
+pnpm lint:package                   # package.json 정책 점검
 pnpm create:component               # 템플릿에서 새 컴포넌트 스캐폴딩
 pnpm cz                             # 대화형 conventional commit
 
@@ -27,6 +28,8 @@ pnpm --filter @sipe-team/button typecheck
 # 단일 테스트 파일 실행
 pnpm --filter @sipe-team/button vitest run src/Button.test.tsx
 ```
+
+Storybook은 **root 워크스페이스 전용**입니다. 루트 `.storybook/main.ts`가 `packages/**/*.stories.*`를 자동 수집하므로 개별 패키지에 `dev:storybook`/`build:storybook` 스크립트를 추가하지 마세요. 정책 checker가 extra script로 감지합니다.
 
 ## 아키텍처
 
@@ -80,3 +83,10 @@ export type ButtonSize = (typeof ButtonSize)[keyof typeof ButtonSize];
 ## 배포
 
 Changesets 기반으로 GitHub Package Registry에 릴리스. 패키지는 타입과 함께 ESM + CJS를 export. 공개 API 변경 시 `.changeset` 파일을 포함하세요.
+
+## package.json 일관성 정책
+
+- 정책 파일: `package-policy.json` (스키마는 `package-policy.schema.json`, 에디터 자동완성용)
+- 로컬 점검: `pnpm lint:package`
+- CI: `.github/workflows/consistency.yaml`이 매 PR에서 실행되어 Step Summary에 리포트 (논블로킹)
+- 의도된 예외는 `package-policy.json`의 `allowlist`에 `reason`과 함께 등록. `reason`은 필수(빈 문자열이면 zod가 rejection)
