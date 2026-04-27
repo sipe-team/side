@@ -14,24 +14,20 @@
   ],
   "scripts": {
     "build": "tsup",
-    "build:storybook": "storybook build",
-    "clean": "rm -rf node_modules dist",
     "dev:storybook": "storybook dev -p 6006",
+    "build:storybook": "storybook build",
     "lint": "pnpm exec biome lint",
     "typecheck": "tsc",
-    "prepack": "pnpm run build"
+    "prepack": "pnpm run build",
+    "clean": "rm -rf node_modules dist"
   },
   "dependencies": {
     "@vanilla-extract/css": "catalog:"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "catalog:",
-    "@storybook/react": "catalog:",
-    "@storybook/react-vite": "catalog:",
     "@types/react": "catalog:react",
     "react": "catalog:react",
     "react-dom": "catalog:react",
-    "storybook": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:"
   },

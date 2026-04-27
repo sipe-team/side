@@ -1,0 +1,29 @@
+{
+  "typography": {
+    "fontFamily": {
+      "base": { "value": "'Pretendard', sans-serif", "type": "fontFamily" }
+    },
+    "fontSize": {
+      "12": { "value": "12px", "type": "dimension" },
+      "14": { "value": "14px", "type": "dimension" },
+      "16": { "value": "16px", "type": "dimension" },
+      "18": { "value": "18px", "type": "dimension" },
+      "20": { "value": "20px", "type": "dimension" },
+      "24": { "value": "24px", "type": "dimension" },
+      "28": { "value": "28px", "type": "dimension" },
+      "32": { "value": "32px", "type": "dimension" },
+      "36": { "value": "36px", "type": "dimension" },
+      "48": { "value": "48px", "type": "dimension" }
+    },
+    "fontWeight": {
+      "regular":  { "value": "400", "type": "fontWeight" },
+      "medium":   { "value": "500", "type": "fontWeight" },
+      "semiBold": { "value": "600", "type": "fontWeight" },
+      "bold":     { "value": "700", "type": "fontWeight" }
+    },
+    "lineHeight": {
+      "compact": { "value": "1.3", "type": "number" },
+      "regular": { "value": "1.5", "type": "number" }
+    }
+  }
+}
