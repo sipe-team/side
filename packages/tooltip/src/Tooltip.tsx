@@ -83,8 +83,8 @@ export const Tooltip = forwardRef(function Tooltip(
       <Component
         ref={wrapperRef}
         aria-describedby={isVisible ? tooltipId : undefined}
-        tabIndex={0}
-        className={styles.button}
+        tabIndex={disableFocusListener ? undefined : 0}
+        className={asChild ? undefined : styles.button}
         {...triggerHandlers}
       >
         {children}
@@ -95,12 +95,12 @@ export const Tooltip = forwardRef(function Tooltip(
             id={tooltipId}
             ref={tooltipRef}
             role="tooltip"
-            className={clsx(styles.tooltip({ placement: placementProp }), tooltipClassName, 'visible')}
+            className={clsx(styles.tooltip({ placement: placementProp }), tooltipClassName)}
             style={
               {
                 ...tooltipStyles,
                 ...tooltipStyle,
-                '--tooltip-bg-color': tooltipStyle?.backgroundColor || '#000000',
+                '--tooltip-bg-color': tooltipStyle?.backgroundColor,
               } as CSSProperties
             }
             {...tooltipHandlers}

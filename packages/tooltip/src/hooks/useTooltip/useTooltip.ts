@@ -106,7 +106,7 @@ export function useTooltip({
       const tooltipRect = tooltip.getBoundingClientRect();
       const { top, left } = calculateTooltipPosition({ wrapperRect, tooltipRect, placement, gap });
 
-      setTooltipStyles({ top: `${top}px`, left: `${left}px`, position: 'fixed' });
+      setTooltipStyles({ top: `${top}px`, left: `${left}px` });
     };
 
     const scheduleHandlePosition = () => {
