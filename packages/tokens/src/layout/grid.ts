@@ -1,3 +1,4 @@
+/** @deprecated Will be removed with all TS primitive files when the JSON token pipeline is complete and components have migrated to `vars.*`. */
 export const grid = {
   columns: 12,
   gutter: {
@@ -14,5 +15,7 @@ export const grid = {
   },
 } as const;
 
+/** @deprecated Will be removed with all TS primitive files when the JSON token pipeline is complete and components have migrated to `vars.*`. */
 export type GridGutter = keyof typeof grid.gutter;
+/** @deprecated Will be removed with all TS primitive files when the JSON token pipeline is complete and components have migrated to `vars.*`. */
 export type GridContainer = keyof typeof grid.container;

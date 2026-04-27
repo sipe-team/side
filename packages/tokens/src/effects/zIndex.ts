@@ -1,3 +1,4 @@
+/** @deprecated Will be removed with all TS primitive files when the JSON token pipeline is complete and components have migrated to `vars.*`. */
 export const zIndex = {
   hide: -1,
   base: 0,
@@ -11,4 +12,5 @@ export const zIndex = {
   tooltip: 1700,
 } as const;
 
+/** @deprecated Will be removed with all TS primitive files when the JSON token pipeline is complete and components have migrated to `vars.*`. */
 export type ZIndex = keyof typeof zIndex;
