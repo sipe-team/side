@@ -1,24 +1,24 @@
 {
   "font-size": {
-    "12": { "value": "12px", "type": "other" },
-    "14": { "value": "14px", "type": "other" },
-    "16": { "value": "16px", "type": "other" },
-    "18": { "value": "18px", "type": "other" },
-    "20": { "value": "20px", "type": "other" },
-    "24": { "value": "24px", "type": "other" },
-    "28": { "value": "28px", "type": "other" },
-    "32": { "value": "32px", "type": "other" },
-    "36": { "value": "36px", "type": "other" },
-    "48": { "value": "48px", "type": "other" }
+    "12": { "$value": "12px", "$type": "dimension" },
+    "14": { "$value": "14px", "$type": "dimension" },
+    "16": { "$value": "16px", "$type": "dimension" },
+    "18": { "$value": "18px", "$type": "dimension" },
+    "20": { "$value": "20px", "$type": "dimension" },
+    "24": { "$value": "24px", "$type": "dimension" },
+    "28": { "$value": "28px", "$type": "dimension" },
+    "32": { "$value": "32px", "$type": "dimension" },
+    "36": { "$value": "36px", "$type": "dimension" },
+    "48": { "$value": "48px", "$type": "dimension" }
   },
   "font-weight": {
-    "regular":   { "value": "400", "type": "other" },
-    "medium":    { "value": "500", "type": "other" },
-    "semi-bold": { "value": "600", "type": "other" },
-    "bold":      { "value": "700", "type": "other" }
+    "regular":   { "$value": 400, "$type": "fontWeight" },
+    "medium":    { "$value": 500, "$type": "fontWeight" },
+    "semi-bold": { "$value": 600, "$type": "fontWeight" },
+    "bold":      { "$value": 700, "$type": "fontWeight" }
   },
   "line-height": {
-    "regular": { "value": "1.5", "type": "other" },
-    "compact":  { "value": "1.3", "type": "other" }
+    "regular": { "$value": 1.5, "$type": "number" },
+    "compact":  { "$value": 1.3, "$type": "number" }
   }
 }

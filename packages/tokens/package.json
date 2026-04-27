@@ -10,7 +10,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./token-names": "./dist/ts/index.ts"
+    "./token-names": "./dist/ts/index.js"
   },
   "files": [
     "dist"
@@ -22,13 +22,14 @@
     "build:storybook": "storybook build",
     "lint": "pnpm exec biome lint",
     "typecheck": "tsc",
-    "prepack": "pnpm run build",
+    "prepack": "pnpm run build && pnpm run build:tokens",
     "clean": "rm -rf node_modules dist"
   },
   "dependencies": {
     "@vanilla-extract/css": "catalog:"
   },
   "devDependencies": {
+    "@types/node": "^22",
     "@types/react": "catalog:react",
     "react": "catalog:react",
     "react-dom": "catalog:react",
@@ -48,6 +49,12 @@
         "require": {
           "types": "./dist/index.d.cts",
           "default": "./dist/index.cjs"
+        }
+      },
+      "./token-names": {
+        "import": {
+          "types": "./dist/ts/index.d.ts",
+          "default": "./dist/ts/index.js"
         }
       }
     }
