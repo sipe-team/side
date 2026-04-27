@@ -1,18 +1,72 @@
-import { type CSSProperties, type KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, useState } from 'react';
+import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 
-import type { TooltipPosition, TooltipTrigger } from '../../Tooltip';
+import type { TooltipPosition } from '../../Tooltip';
 
-interface useTooltipProps {
+interface UseTooltipProps {
   placement: TooltipPosition;
   gap: number;
-  trigger: TooltipTrigger;
+  closeDelay?: number;
+  open?: boolean;
+  onOpen?: () => void;
+  onClose?: () => void;
+  disableHoverListener?: boolean;
+  disableFocusListener?: boolean;
 }
 
-export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
-  const [isVisible, setIsVisible] = useState(false);
+export function useTooltip({
+  placement,
+  gap,
+  closeDelay = 150,
+  open: controlledOpen,
+  onOpen,
+  onClose,
+  disableHoverListener = false,
+  disableFocusListener = false,
+}: UseTooltipProps) {
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isControlled = controlledOpen !== undefined;
+  const isVisible = isControlled ? controlledOpen : internalOpen;
+
   const [tooltipStyles, setTooltipStyles] = useState<CSSProperties>({});
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // latest-ref pattern: always call the most recent callback without adding to deps
+  const onOpenRef = useRef(onOpen);
+  onOpenRef.current = onOpen;
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
+  const clearCloseTimer = useCallback(() => {
+    if (closeTimerRef.current !== null) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  }, []);
+
+  // setInternalOpen is a no-op visually in controlled mode (isVisible = controlledOpen)
+  const requestOpen = useCallback(() => {
+    clearCloseTimer();
+    setInternalOpen(true);
+    onOpenRef.current?.();
+  }, [clearCloseTimer]);
+
+  const requestClose = useCallback(() => {
+    clearCloseTimer();
+    closeTimerRef.current = setTimeout(() => {
+      setInternalOpen(false);
+      onCloseRef.current?.();
+    }, closeDelay);
+  }, [clearCloseTimer, closeDelay]);
+
+  const requestCloseImmediate = useCallback(() => {
+    clearCloseTimer();
+    setInternalOpen(false);
+    onCloseRef.current?.();
+  }, [clearCloseTimer]);
+
+  useEffect(() => () => clearCloseTimer(), [clearCloseTimer]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -20,22 +74,22 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
       const tooltip = tooltipRef.current;
 
       if (wrapper && !wrapper.contains(event.target as Node) && tooltip && !tooltip.contains(event.target as Node)) {
-        setIsVisible(false);
+        requestCloseImmediate();
       }
     };
 
     if (isVisible) document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isVisible]);
+  }, [isVisible, requestCloseImmediate]);
 
   useEffect(() => {
     const handleGlobalKeyDown = (event: KeyboardEvent) => {
-      if (event.code === 'Escape') setIsVisible(false);
+      if (event.code === 'Escape') requestCloseImmediate();
     };
 
     if (isVisible) document.addEventListener('keydown', handleGlobalKeyDown);
     return () => document.removeEventListener('keydown', handleGlobalKeyDown);
-  }, [isVisible]);
+  }, [isVisible, requestCloseImmediate]);
 
   useEffect(() => {
     if (!isVisible) return;
@@ -50,18 +104,9 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
 
       const wrapperRect = wrapper.getBoundingClientRect();
       const tooltipRect = tooltip.getBoundingClientRect();
-      const { top, left } = calculateTooltipPosition({
-        wrapperRect,
-        tooltipRect,
-        placement,
-        gap,
-      });
+      const { top, left } = calculateTooltipPosition({ wrapperRect, tooltipRect, placement, gap });
 
-      setTooltipStyles({
-        top: `${top}px`,
-        left: `${left}px`,
-        position: 'fixed',
-      });
+      setTooltipStyles({ top: `${top}px`, left: `${left}px`, position: 'fixed' });
     };
 
     const scheduleHandlePosition = () => {
@@ -70,7 +115,6 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
     };
 
     handlePosition();
-
     window.addEventListener('scroll', scheduleHandlePosition, true);
     window.addEventListener('resize', scheduleHandlePosition);
 
@@ -81,24 +125,20 @@ export function useTooltip({ placement, gap, trigger }: useTooltipProps) {
     };
   }, [isVisible, gap, placement]);
 
-  const toggleTooltip = (visible: boolean) => {
-    setIsVisible(visible);
+  const triggerHandlers = {
+    ...(!disableHoverListener && { onMouseEnter: requestOpen, onMouseLeave: requestClose }),
+    ...(!disableFocusListener && { onFocus: requestOpen, onBlur: requestCloseImmediate }),
   };
 
-  const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
-    if ((event.code === 'Enter' || event.code === 'Space') && trigger === 'click') {
-      event.preventDefault();
-      toggleTooltip(!isVisible);
-    }
-  };
+  const tooltipHandlers = !disableHoverListener ? { onMouseEnter: requestOpen, onMouseLeave: requestClose } : {};
 
   return {
     isVisible,
-    toggleTooltip,
     tooltipStyles,
     wrapperRef,
     tooltipRef,
-    handleKeyDown,
+    triggerHandlers,
+    tooltipHandlers,
   };
 }
 
@@ -113,10 +153,7 @@ export function calculateTooltipPosition({
   tooltipRect,
   placement,
   gap,
-}: CalculateTooltipPositionParams): {
-  top: number;
-  left: number;
-} {
+}: CalculateTooltipPositionParams): { top: number; left: number } {
   let top = 0;
   let left = 0;
 

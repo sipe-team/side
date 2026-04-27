@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { act, render, screen } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, test } from 'vitest';
 
@@ -15,8 +15,7 @@ describe('Tooltip basic behavior', () => {
       </Tooltip>,
     );
 
-    const tooltip = screen.queryByText('Test Tooltip');
-    expect(tooltip).not.toBeInTheDocument();
+    expect(screen.queryByText('Test Tooltip')).not.toBeInTheDocument();
   });
 
   test('Tooltip is not rendered when tooltipContent is not provided.', () => {
@@ -26,14 +25,13 @@ describe('Tooltip basic behavior', () => {
       </Tooltip>,
     );
 
-    const trigger = screen.queryByText('Hover me');
-    expect(trigger).toBeInTheDocument();
+    expect(screen.queryByText('Hover me')).toBeInTheDocument();
     expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
   });
 
-  test('Tooltip appears on mouse enter and disappears on mouse leave when trigger is hover.', async () => {
+  test('Tooltip appears on mouse enter and disappears on mouse leave.', async () => {
     render(
-      <Tooltip tooltipContent="This is a tooltip" trigger="hover">
+      <Tooltip tooltipContent="This is a tooltip">
         <button type="button">Hover me</button>
       </Tooltip>,
     );
@@ -44,12 +42,12 @@ describe('Tooltip basic behavior', () => {
     expect(screen.getByText('This is a tooltip')).toBeInTheDocument();
 
     await userEvent.unhover(trigger);
-    expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument());
   });
 
-  test('Tooltip appears on focus and disappears on blur when trigger is hover.', async () => {
+  test('Tooltip appears on keyboard focus and disappears on blur.', async () => {
     render(
-      <Tooltip tooltipContent="This is a tooltip" trigger="hover">
+      <Tooltip tooltipContent="This is a tooltip">
         <button type="button">Hover me</button>
       </Tooltip>,
     );
@@ -63,13 +61,81 @@ describe('Tooltip basic behavior', () => {
     expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
   });
 
-  test('Tooltip appears on click and disappears on second click when trigger is click.', async () => {
+  test('Tooltip stays visible when mouse moves from trigger to tooltip content.', async () => {
     render(
-      <Tooltip tooltipContent="This is a tooltip" trigger="click">
-        <button type="button">Click me</button>
+      <Tooltip tooltipContent="This is a tooltip">
+        <button type="button">Hover me</button>
       </Tooltip>,
     );
 
+    const trigger = screen.getByText('Hover me');
+
+    await userEvent.hover(trigger);
+    expect(screen.getByText('This is a tooltip')).toBeInTheDocument();
+
+    await userEvent.unhover(trigger);
+    const tooltip = screen.getByRole('tooltip');
+    await userEvent.hover(tooltip);
+    expect(screen.getByText('This is a tooltip')).toBeInTheDocument();
+  });
+
+  test('Tooltip closes when clicking outside.', async () => {
+    render(
+      <div>
+        <Tooltip tooltipContent="This is a tooltip">
+          <button type="button">Hover me</button>
+        </Tooltip>
+        <button type="button">Outside</button>
+      </div>,
+    );
+
+    const trigger = screen.getByText('Hover me');
+    const outside = screen.getByText('Outside');
+
+    await userEvent.hover(trigger);
+    expect(screen.getByText('This is a tooltip')).toBeInTheDocument();
+
+    await userEvent.click(outside);
+    expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
+  });
+
+  test('Tooltip closes on Escape key.', async () => {
+    render(
+      <Tooltip tooltipContent="This is a tooltip">
+        <button type="button">Hover me</button>
+      </Tooltip>,
+    );
+
+    const trigger = screen.getByText('Hover me');
+    await userEvent.hover(trigger);
+    expect(screen.getByText('This is a tooltip')).toBeInTheDocument();
+
+    await userEvent.keyboard('{Escape}');
+    expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
+  });
+});
+
+describe('Tooltip controlled mode', () => {
+  test('Tooltip is controlled by open prop.', async () => {
+    const ControlledTooltip = () => {
+      const [open, setOpen] = useState(false);
+      return (
+        <Tooltip
+          tooltipContent="This is a tooltip"
+          open={open}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          disableHoverListener
+          disableFocusListener
+        >
+          <button type="button" onClick={() => setOpen((v) => !v)}>
+            Click me
+          </button>
+        </Tooltip>
+      );
+    };
+
+    render(<ControlledTooltip />);
     const trigger = screen.getByText('Click me');
 
     await userEvent.click(trigger);
@@ -79,24 +145,67 @@ describe('Tooltip basic behavior', () => {
     expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
   });
 
-  test('Tooltip closes when clicking outside.', async () => {
-    render(
-      <div>
-        <Tooltip tooltipContent="This is a tooltip" trigger="click">
-          <button type="button">Click me</button>
+  test('onOpen and onClose callbacks are called on hover.', async () => {
+    const ControlledTooltip = () => {
+      const [open, setOpen] = useState(false);
+      return (
+        <Tooltip
+          tooltipContent="This is a tooltip"
+          open={open}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+        >
+          <button type="button">Hover me</button>
         </Tooltip>
-        <button type="button">Outside</button>
-      </div>,
-    );
+      );
+    };
 
-    const trigger = screen.getByText('Click me');
-    const outside = screen.getByText('Outside');
+    render(<ControlledTooltip />);
+    const trigger = screen.getByText('Hover me');
 
-    await userEvent.click(trigger);
+    await userEvent.hover(trigger);
     expect(screen.getByText('This is a tooltip')).toBeInTheDocument();
 
-    await userEvent.click(outside);
+    await userEvent.unhover(trigger);
+    await waitFor(() => expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument());
+  });
+});
+
+describe('Tooltip listener controls', () => {
+  test('Tooltip does not appear on hover when disableHoverListener is true.', async () => {
+    render(
+      <Tooltip tooltipContent="This is a tooltip" disableHoverListener>
+        <button type="button">Hover me</button>
+      </Tooltip>,
+    );
+
+    const trigger = screen.getByText('Hover me');
+    await userEvent.hover(trigger);
     expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
+  });
+
+  test('Tooltip does not appear on focus when disableFocusListener is true.', async () => {
+    render(
+      <Tooltip tooltipContent="This is a tooltip" disableFocusListener>
+        <button type="button">Hover me</button>
+      </Tooltip>,
+    );
+
+    const trigger = screen.getByText('Hover me');
+    await act(async () => trigger.focus());
+    expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
+  });
+
+  test('Tooltip still appears on focus when only disableHoverListener is true.', async () => {
+    render(
+      <Tooltip tooltipContent="This is a tooltip" disableHoverListener>
+        <button type="button">Hover me</button>
+      </Tooltip>,
+    );
+
+    const trigger = screen.getByText('Hover me');
+    await act(async () => trigger.focus());
+    expect(screen.getByText('This is a tooltip')).toBeInTheDocument();
   });
 });
 
@@ -149,41 +258,8 @@ describe('Tooltip accessibility', () => {
       </Tooltip>,
     );
 
-    const trigger = screen.getByText('Hover me');
-    await userEvent.hover(trigger);
-
-    const tooltip = screen.getByRole('tooltip');
-    expect(tooltip).toBeInTheDocument();
-  });
-
-  test('Tooltip closes when pressing the Escape key.', async () => {
-    render(
-      <Tooltip tooltipContent="This is a tooltip" trigger="click">
-        <button type="button">Click me</button>
-      </Tooltip>,
-    );
-
-    const trigger = screen.getByText('Click me');
-
-    await userEvent.click(trigger);
-    expect(screen.getByText('This is a tooltip')).toBeInTheDocument();
-
-    await userEvent.keyboard('{Escape}');
-    expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
-  });
-
-  test('Tooltip opens when pressing the Space key with click trigger.', async () => {
-    render(
-      <Tooltip tooltipContent="This is a tooltip" trigger="click">
-        <button type="button">Click me</button>
-      </Tooltip>,
-    );
-
-    const trigger = screen.getByText('Click me');
-    trigger.focus();
-
-    await userEvent.keyboard(' ');
-    expect(screen.getByText('This is a tooltip')).toBeInTheDocument();
+    await userEvent.hover(screen.getByText('Hover me'));
+    expect(screen.getByRole('tooltip')).toBeInTheDocument();
   });
 
   test('trigger element has aria-describedby linked to the tooltip id.', async () => {
@@ -201,21 +277,6 @@ describe('Tooltip accessibility', () => {
     expect(wrapper?.getAttribute('aria-describedby')).toBe(tooltip.id);
     expect(tooltip.id).toBeTruthy();
   });
-
-  test('aria-expanded reflects the open/closed state when trigger is click.', async () => {
-    render(
-      <Tooltip tooltipContent="This is a tooltip" trigger="click">
-        <button type="button">Click me</button>
-      </Tooltip>,
-    );
-
-    const triggerEl = screen.getByText('Click me');
-
-    expect(triggerEl).toHaveAttribute('aria-expanded', 'false');
-
-    await userEvent.click(triggerEl);
-    expect(triggerEl).toHaveAttribute('aria-expanded', 'true');
-  });
 });
 
 describe('Tooltip style', () => {
@@ -226,8 +287,7 @@ describe('Tooltip style', () => {
       </Tooltip>,
     );
 
-    const trigger = screen.getByText('Hover me');
-    await userEvent.hover(trigger);
+    await userEvent.hover(screen.getByText('Hover me'));
 
     const tooltip = screen.getByText('Styled Tooltip');
     expect(tooltip).toHaveStyle('background-color: red');
@@ -284,8 +344,7 @@ describe('Tooltip style', () => {
       </Tooltip>,
     );
 
-    const trigger = screen.getByText('Hover me');
-    await userEvent.hover(trigger);
+    await userEvent.hover(screen.getByText('Hover me'));
 
     const tooltip = screen.getByText(/This is a very long tooltip text/);
     expect(tooltip).toHaveStyle('max-width: 150px');
@@ -313,9 +372,7 @@ test('Tooltip updates with async data.', async () => {
 
   render(<AsyncTooltip />);
 
-  const trigger = screen.getByText('Hover me');
-  await userEvent.hover(trigger);
-
+  await userEvent.hover(screen.getByText('Hover me'));
   expect(screen.getByText('Loading...')).toBeInTheDocument();
 
   await act(async () => {
@@ -337,8 +394,7 @@ describe('Tooltip asChild prop', () => {
     expect(childElement).toHaveProperty('tagName', 'H1');
 
     await userEvent.hover(childElement);
-    const tooltip = await screen.findByText('This is a tooltip');
-    expect(tooltip).toBeInTheDocument();
+    expect(await screen.findByText('This is a tooltip')).toBeInTheDocument();
   });
 
   test('When asChild is false, the child is wrapped in a default div.', async () => {
@@ -352,7 +408,6 @@ describe('Tooltip asChild prop', () => {
     expect(childElement.parentElement?.tagName).toBe('DIV');
 
     await userEvent.hover(childElement);
-    const tooltip = await screen.findByText('This is a tooltip');
-    expect(tooltip).toBeInTheDocument();
+    expect(await screen.findByText('This is a tooltip')).toBeInTheDocument();
   });
 });

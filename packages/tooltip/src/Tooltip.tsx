@@ -28,40 +28,46 @@ export const TooltipPosition = {
 } as const;
 export type TooltipPosition = (typeof TooltipPosition)[keyof typeof TooltipPosition];
 
-export const TooltipTrigger = {
-  hover: 'hover',
-  click: 'click',
-} as const;
-export type TooltipTrigger = (typeof TooltipTrigger)[keyof typeof TooltipTrigger];
-
 export interface TooltipProps extends ComponentProps<'div'> {
   tooltipContent: ReactNode;
   placement?: TooltipPosition;
   asChild?: boolean;
-  trigger?: TooltipTrigger;
   tooltipStyle?: CSSProperties;
   tooltipClassName?: string;
   gap?: number;
+  open?: boolean;
+  onOpen?: () => void;
+  onClose?: () => void;
+  disableHoverListener?: boolean;
+  disableFocusListener?: boolean;
 }
 
 export const Tooltip = forwardRef(function Tooltip(
   {
     tooltipContent,
     placement: placementProp = TooltipPosition.top,
-    trigger = TooltipTrigger.hover,
     asChild = true,
     children,
     tooltipStyle,
     tooltipClassName,
     gap = 8,
+    open,
+    onOpen,
+    onClose,
+    disableHoverListener = false,
+    disableFocusListener = false,
   }: TooltipProps,
   ref: ForwardedRef<HTMLElement>,
 ) {
   const tooltipId = useId();
-  const { isVisible, toggleTooltip, tooltipStyles, wrapperRef, tooltipRef, handleKeyDown } = useTooltip({
+  const { isVisible, tooltipStyles, wrapperRef, tooltipRef, triggerHandlers, tooltipHandlers } = useTooltip({
     placement: placementProp,
     gap,
-    trigger,
+    ...(open !== undefined && { open }),
+    ...(onOpen !== undefined && { onOpen }),
+    ...(onClose !== undefined && { onClose }),
+    disableHoverListener,
+    disableFocusListener,
   });
 
   useImperativeHandle(ref, () => wrapperRef.current as HTMLElement);
@@ -77,15 +83,9 @@ export const Tooltip = forwardRef(function Tooltip(
       <Component
         ref={wrapperRef}
         aria-describedby={isVisible ? tooltipId : undefined}
-        aria-expanded={trigger === TooltipTrigger.click ? isVisible : undefined}
-        onMouseEnter={trigger === TooltipTrigger.hover ? () => toggleTooltip(true) : undefined}
-        onMouseLeave={trigger === TooltipTrigger.hover ? () => toggleTooltip(false) : undefined}
-        onFocus={trigger === TooltipTrigger.hover ? () => toggleTooltip(true) : undefined}
-        onBlur={trigger === TooltipTrigger.hover ? () => toggleTooltip(false) : undefined}
-        onClick={trigger === TooltipTrigger.click ? () => toggleTooltip(!isVisible) : undefined}
-        onKeyDown={handleKeyDown}
         tabIndex={0}
         className={styles.button}
+        {...triggerHandlers}
       >
         {children}
       </Component>
@@ -103,6 +103,7 @@ export const Tooltip = forwardRef(function Tooltip(
                 '--tooltip-bg-color': tooltipStyle?.backgroundColor || '#000000',
               } as CSSProperties
             }
+            {...tooltipHandlers}
           >
             {tooltipContent}
           </div>,
