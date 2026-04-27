@@ -1,6 +1,6 @@
 import { createGlobalTheme } from '@vanilla-extract/css';
 
-import { color, themeColor } from '../colors/colors';
+import { brandColor, color, themeColor } from '../colors/colors';
 import { shadows } from '../effects/shadows';
 import { fontSize, fontWeight, lineHeight } from '../typography/fonts';
 import { themeLayer, vars } from './contract.css';
@@ -101,9 +101,9 @@ export const defaultTheme = createGlobalTheme(':root', vars, {
   color: {
     ...darkBaseColor,
     accent: {
-      default: color.blue500,
-      hover: color.blue400,
-      subtle: color.blue900,
+      default: brandColor.default,
+      hover: brandColor.hover,
+      subtle: brandColor.subtle,
     },
   },
   mode: 'dark',
