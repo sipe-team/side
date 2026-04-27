@@ -39,7 +39,6 @@ export interface TooltipProps extends ComponentProps<'div'> {
   onOpen?: () => void;
   onClose?: () => void;
   disableHoverListener?: boolean;
-  disableFocusListener?: boolean;
 }
 
 export const Tooltip = forwardRef(function Tooltip(
@@ -55,7 +54,6 @@ export const Tooltip = forwardRef(function Tooltip(
     onOpen,
     onClose,
     disableHoverListener = false,
-    disableFocusListener = false,
   }: TooltipProps,
   ref: ForwardedRef<HTMLElement>,
 ) {
@@ -67,7 +65,6 @@ export const Tooltip = forwardRef(function Tooltip(
     ...(onOpen !== undefined && { onOpen }),
     ...(onClose !== undefined && { onClose }),
     disableHoverListener,
-    disableFocusListener,
   });
 
   useImperativeHandle(ref, () => wrapperRef.current as HTMLElement);
@@ -83,7 +80,7 @@ export const Tooltip = forwardRef(function Tooltip(
       <Component
         ref={wrapperRef}
         aria-describedby={isVisible ? tooltipId : undefined}
-        tabIndex={disableFocusListener ? undefined : 0}
+        tabIndex={0}
         className={asChild ? undefined : styles.button}
         {...triggerHandlers}
       >

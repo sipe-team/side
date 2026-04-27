@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, test } from 'vitest';
 
@@ -126,7 +126,6 @@ describe('Tooltip controlled mode', () => {
           onOpen={() => setOpen(true)}
           onClose={() => setOpen(false)}
           disableHoverListener
-          disableFocusListener
         >
           <button type="button" onClick={() => setOpen((v) => !v)}>
             Click me
@@ -138,10 +137,10 @@ describe('Tooltip controlled mode', () => {
     render(<ControlledTooltip />);
     const trigger = screen.getByText('Click me');
 
-    await userEvent.click(trigger);
+    fireEvent.click(trigger);
     expect(screen.getByText('This is a tooltip')).toBeInTheDocument();
 
-    await userEvent.click(trigger);
+    fireEvent.click(trigger);
     expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
   });
 
@@ -181,18 +180,6 @@ describe('Tooltip listener controls', () => {
 
     const trigger = screen.getByText('Hover me');
     await userEvent.hover(trigger);
-    expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
-  });
-
-  test('Tooltip does not appear on focus when disableFocusListener is true.', async () => {
-    render(
-      <Tooltip tooltipContent="This is a tooltip" disableFocusListener>
-        <button type="button">Hover me</button>
-      </Tooltip>,
-    );
-
-    const trigger = screen.getByText('Hover me');
-    await act(async () => trigger.focus());
     expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
   });
 

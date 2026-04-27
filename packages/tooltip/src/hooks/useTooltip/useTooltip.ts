@@ -10,7 +10,6 @@ interface UseTooltipProps {
   onOpen?: () => void;
   onClose?: () => void;
   disableHoverListener?: boolean;
-  disableFocusListener?: boolean;
 }
 
 export function useTooltip({
@@ -21,7 +20,6 @@ export function useTooltip({
   onOpen,
   onClose,
   disableHoverListener = false,
-  disableFocusListener = false,
 }: UseTooltipProps) {
   const [internalOpen, setInternalOpen] = useState(false);
   const isControlled = controlledOpen !== undefined;
@@ -127,7 +125,8 @@ export function useTooltip({
 
   const triggerHandlers = {
     ...(!disableHoverListener && { onMouseEnter: requestOpen, onMouseLeave: requestClose }),
-    ...(!disableFocusListener && { onFocus: requestOpen, onBlur: requestCloseImmediate }),
+    onFocus: requestOpen,
+    onBlur: requestCloseImmediate,
   };
 
   const tooltipHandlers = !disableHoverListener ? { onMouseEnter: requestOpen, onMouseLeave: requestClose } : {};

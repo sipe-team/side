@@ -19,7 +19,6 @@ export default {
     gap: { control: 'number', description: '툴팁과 트리거 사이의 간격' },
     asChild: { control: { type: 'boolean' }, description: '`true`일 경우, 자식 요소를 그대로 사용합니다.' },
     disableHoverListener: { control: 'boolean', description: 'hover 이벤트 비활성화' },
-    disableFocusListener: { control: 'boolean', description: 'focus 이벤트 비활성화' },
   },
 } as Meta<TooltipProps>;
 
@@ -57,7 +56,6 @@ export const ClickControlled: StoryObj<TooltipProps> = {
           onOpen={() => setOpen(true)}
           onClose={() => setOpen(false)}
           disableHoverListener
-          disableFocusListener
           tooltipStyle={{ backgroundColor: '#000', color: '#fff', padding: '8px 12px', borderRadius: '4px' }}
         >
           <button type="button" style={{ padding: '8px 12px', cursor: 'pointer' }} onClick={() => setOpen((v) => !v)}>
