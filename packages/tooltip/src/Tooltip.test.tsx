@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 
 import { calculateTooltipPosition } from './hooks/useTooltip/useTooltip';
 import { Tooltip, type TooltipPosition } from './Tooltip';
@@ -196,6 +196,20 @@ describe('Tooltip listener controls', () => {
     expect(screen.queryByText('This is a tooltip')).not.toBeInTheDocument();
   });
 
+  test('Tooltip appears on focus after mouseup (mousedown released).', async () => {
+    render(
+      <Tooltip tooltipContent="This is a tooltip" disableHoverListener>
+        <button type="button">Hover me</button>
+      </Tooltip>,
+    );
+
+    const trigger = screen.getByText('Hover me');
+    fireEvent.mouseDown(trigger);
+    fireEvent.mouseUp(trigger);
+    await act(async () => trigger.focus());
+    expect(screen.getByText('This is a tooltip')).toBeInTheDocument();
+  });
+
   test('Tooltip still appears on focus when only disableHoverListener is true.', async () => {
     render(
       <Tooltip tooltipContent="This is a tooltip" disableHoverListener>
@@ -332,6 +346,36 @@ describe('Tooltip style', () => {
     });
 
     expect(left).toBeGreaterThanOrEqual(8);
+  });
+
+  test('Tooltip repositions on scroll and resize events.', async () => {
+    render(
+      <Tooltip tooltipContent="This is a tooltip">
+        <button type="button">Hover me</button>
+      </Tooltip>,
+    );
+
+    await userEvent.hover(screen.getByText('Hover me'));
+    expect(screen.getByText('This is a tooltip')).toBeInTheDocument();
+
+    act(() => {
+      window.dispatchEvent(new Event('scroll'));
+      window.dispatchEvent(new Event('resize'));
+    });
+
+    expect(screen.getByText('This is a tooltip')).toBeInTheDocument();
+  });
+
+  test('calculateTooltipPosition returns {0, 0} for invalid placement.', () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const result = calculateTooltipPosition({
+      wrapperRect: { top: 100, bottom: 130, left: 100, right: 200, width: 100, height: 30 } as DOMRect,
+      tooltipRect: { top: 0, left: 0, bottom: 0, right: 0, width: 100, height: 40 } as DOMRect,
+      placement: 'invalid' as TooltipPosition,
+      gap: 8,
+    });
+    expect(result).toEqual({ top: 0, left: 0 });
+    consoleSpy.mockRestore();
   });
 
   test('Long text wraps within the tooltip container.', async () => {
