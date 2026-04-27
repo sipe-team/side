@@ -29,8 +29,8 @@ export function useTooltip({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isMouseDownRef = useRef(false);
 
-  // latest-ref pattern: always call the most recent callback without adding to deps
   const onOpenRef = useRef(onOpen);
   onOpenRef.current = onOpen;
   const onCloseRef = useRef(onClose);
@@ -43,7 +43,6 @@ export function useTooltip({
     }
   }, []);
 
-  // setInternalOpen is a no-op visually in controlled mode (isVisible = controlledOpen)
   const requestOpen = useCallback(() => {
     clearCloseTimer();
     setInternalOpen(true);
@@ -125,7 +124,15 @@ export function useTooltip({
 
   const triggerHandlers = {
     ...(!disableHoverListener && { onMouseEnter: requestOpen, onMouseLeave: requestClose }),
-    onFocus: requestOpen,
+    onMouseDown: () => {
+      isMouseDownRef.current = true;
+    },
+    onMouseUp: () => {
+      isMouseDownRef.current = false;
+    },
+    onFocus: () => {
+      if (!isMouseDownRef.current) requestOpen();
+    },
     onBlur: requestCloseImmediate,
   };
 
