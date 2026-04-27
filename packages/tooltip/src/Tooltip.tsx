@@ -95,7 +95,7 @@ export const Tooltip = forwardRef(function Tooltip(
             id={tooltipId}
             ref={tooltipRef}
             role="tooltip"
-            className={clsx(styles.tooltip({ placement: placementProp }), tooltipClassName, isVisible && 'visible')}
+            className={clsx(styles.tooltip({ placement: placementProp }), tooltipClassName, 'visible')}
             style={
               {
                 ...tooltipStyles,
