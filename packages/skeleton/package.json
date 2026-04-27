@@ -1,7 +1,7 @@
 {
   "name": "@sipe-team/skeleton",
   "description": "Skeleton component for Sipe Design System",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "repository": {
     "type": "git",
