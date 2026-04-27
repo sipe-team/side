@@ -4,6 +4,7 @@ import {
   type ForwardedRef,
   forwardRef,
   type ReactNode,
+  useId,
   useImperativeHandle,
 } from 'react';
 import { createPortal } from 'react-dom';
@@ -15,17 +16,23 @@ import clsx from 'clsx';
 import { useTooltip } from './hooks/useTooltip';
 import * as styles from './Tooltip.css';
 
-export type TooltipPosition =
-  | 'top-left'
-  | 'top'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom'
-  | 'bottom-right'
-  | 'left'
-  | 'right';
+export const TooltipPosition = {
+  'top-left': 'top-left',
+  top: 'top',
+  'top-right': 'top-right',
+  'bottom-left': 'bottom-left',
+  bottom: 'bottom',
+  'bottom-right': 'bottom-right',
+  left: 'left',
+  right: 'right',
+} as const;
+export type TooltipPosition = (typeof TooltipPosition)[keyof typeof TooltipPosition];
 
-export type TooltipTrigger = 'hover' | 'click';
+export const TooltipTrigger = {
+  hover: 'hover',
+  click: 'click',
+} as const;
+export type TooltipTrigger = (typeof TooltipTrigger)[keyof typeof TooltipTrigger];
 
 export interface TooltipProps extends ComponentProps<'div'> {
   tooltipContent: ReactNode;
@@ -40,8 +47,8 @@ export interface TooltipProps extends ComponentProps<'div'> {
 export const Tooltip = forwardRef(function Tooltip(
   {
     tooltipContent,
-    placement: placementProp = 'top',
-    trigger = 'hover',
+    placement: placementProp = TooltipPosition.top,
+    trigger = TooltipTrigger.hover,
     asChild = true,
     children,
     tooltipStyle,
@@ -50,6 +57,7 @@ export const Tooltip = forwardRef(function Tooltip(
   }: TooltipProps,
   ref: ForwardedRef<HTMLElement>,
 ) {
+  const tooltipId = useId();
   const { isVisible, toggleTooltip, tooltipStyles, wrapperRef, tooltipRef, handleKeyDown } = useTooltip({
     placement: placementProp,
     gap,
@@ -68,12 +76,13 @@ export const Tooltip = forwardRef(function Tooltip(
     <>
       <Component
         ref={wrapperRef}
-        role="tooltip"
-        onMouseEnter={trigger === 'hover' ? () => toggleTooltip(true) : undefined}
-        onMouseLeave={trigger === 'hover' ? () => toggleTooltip(false) : undefined}
-        onClick={trigger === 'click' ? () => toggleTooltip(!isVisible) : undefined}
+        aria-describedby={isVisible ? tooltipId : undefined}
+        aria-expanded={trigger === TooltipTrigger.click ? isVisible : undefined}
+        onMouseEnter={trigger === TooltipTrigger.hover ? () => toggleTooltip(true) : undefined}
+        onMouseLeave={trigger === TooltipTrigger.hover ? () => toggleTooltip(false) : undefined}
+        onClick={trigger === TooltipTrigger.click ? () => toggleTooltip(!isVisible) : undefined}
         onKeyDown={handleKeyDown}
-        tabIndex={trigger === 'click' ? 0 : undefined}
+        tabIndex={trigger === TooltipTrigger.click ? 0 : undefined}
         className={styles.button}
       >
         {children}
@@ -81,8 +90,10 @@ export const Tooltip = forwardRef(function Tooltip(
       {isVisible &&
         createPortal(
           <div
+            id={tooltipId}
             ref={tooltipRef}
-            className={clsx(styles.tooltip, styles.placement[placementProp], tooltipClassName, isVisible && 'visible')}
+            role="tooltip"
+            className={clsx(styles.tooltip({ placement: placementProp }), tooltipClassName, isVisible && 'visible')}
             style={
               {
                 ...tooltipStyles,
