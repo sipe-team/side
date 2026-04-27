@@ -96,7 +96,7 @@ const darkBaseColor = {
   },
 };
 
-export const defaultTheme = createGlobalTheme(':root', vars, {
+createGlobalTheme(':root', vars, {
   ...baseTheme,
   color: {
     ...darkBaseColor,
@@ -110,7 +110,7 @@ export const defaultTheme = createGlobalTheme(':root', vars, {
   theme: 'default',
 });
 
-export const theme1st = createGlobalTheme('[data-theme="1st"]', vars, {
+createGlobalTheme('[data-theme="1st"]', vars, {
   ...baseTheme,
   color: {
     ...darkBaseColor,
@@ -124,7 +124,7 @@ export const theme1st = createGlobalTheme('[data-theme="1st"]', vars, {
   theme: '1st',
 });
 
-export const theme2nd = createGlobalTheme('[data-theme="2nd"]', vars, {
+createGlobalTheme('[data-theme="2nd"]', vars, {
   ...baseTheme,
   color: {
     ...darkBaseColor,
@@ -138,7 +138,7 @@ export const theme2nd = createGlobalTheme('[data-theme="2nd"]', vars, {
   theme: '2nd',
 });
 
-export const theme3rd = createGlobalTheme('[data-theme="3rd"]', vars, {
+createGlobalTheme('[data-theme="3rd"]', vars, {
   ...baseTheme,
   color: {
     ...darkBaseColor,
@@ -152,7 +152,7 @@ export const theme3rd = createGlobalTheme('[data-theme="3rd"]', vars, {
   theme: '3rd',
 });
 
-export const theme4th = createGlobalTheme('[data-theme="4th"]', vars, {
+createGlobalTheme('[data-theme="4th"]', vars, {
   ...baseTheme,
   color: {
     ...darkBaseColor,
