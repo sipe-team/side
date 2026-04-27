@@ -58,17 +58,17 @@
     },
     "accent": {
       "default": {
-        "$value": "{color.blue.500}",
+        "$value": "{color.brand.default}",
         "$type": "color",
         "$description": "1. Primary CTA 버튼 배경 / 2. 인터랙티브 링크 텍스트 (테마별 재정의됨)"
       },
       "hover": {
-        "$value": "{color.blue.400}",
+        "$value": "{color.brand.hover}",
         "$type": "color",
         "$description": "1. Primary 버튼 호버·프레스 배경 / 2. 링크 호버 색상"
       },
       "subtle": {
-        "$value": "{color.blue.900}",
+        "$value": "{color.brand.subtle}",
         "$type": "color",
         "$description": "1. 선택된 칩·태그 배경 / 2. 인포 배너 배경"
       }
