@@ -65,6 +65,15 @@ const primitive = new StyleDictionary({
           '  return `var(--${token})`;',
           '}\n',
         ].join('\n'),
+      'typescript/token-names-cjs': () =>
+        [
+          '/** Auto-generated — do not edit directly. */',
+          "'use strict';",
+          'function cssVar(token) {',
+          '  return `var(--${token})`;',
+          '}',
+          'exports.cssVar = cssVar;\n',
+        ].join('\n'),
     },
   },
   platforms: {
@@ -88,8 +97,16 @@ const primitive = new StyleDictionary({
           format: 'typescript/token-names-dts',
         },
         {
+          destination: 'primitive.d.cts',
+          format: 'typescript/token-names-dts',
+        },
+        {
           destination: 'primitive.js',
           format: 'typescript/token-names-js',
+        },
+        {
+          destination: 'primitive.cjs',
+          format: 'typescript/token-names-cjs',
         },
       ],
     },
@@ -133,4 +150,12 @@ writeFileSync(
   "/** Auto-generated — do not edit directly. */\nexport * from './primitive.js';\n",
 );
 writeFileSync(`${DIST_TS}/index.d.ts`, "/** Auto-generated — do not edit directly. */\nexport * from './primitive';\n");
-console.log(`✓ ${DIST_TS}/index.js generated`);
+writeFileSync(
+  `${DIST_TS}/index.cjs`,
+  "/** Auto-generated — do not edit directly. */\n'use strict';\nmodule.exports = require('./primitive.cjs');\n",
+);
+writeFileSync(
+  `${DIST_TS}/index.d.cts`,
+  "/** Auto-generated — do not edit directly. */\nexport * from './primitive';\n",
+);
+console.log(`✓ ${DIST_TS}/index.js + index.cjs generated`);

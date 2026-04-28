@@ -53,6 +53,10 @@
         "import": {
           "types": "./dist/ts/index.d.ts",
           "default": "./dist/ts/index.js"
+        },
+        "require": {
+          "types": "./dist/ts/index.d.cts",
+          "default": "./dist/ts/index.cjs"
         }
       }
     }
