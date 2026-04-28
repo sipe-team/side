@@ -34,7 +34,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "pnpm biome check --write --unsafe $CLAUDE_FILE_PATHS",
+            "command": "pnpm biome check --write $CLAUDE_FILE_PATHS",
             "timeout": 10,
             "statusMessage": "Biome 포맷팅 중..."
           }
