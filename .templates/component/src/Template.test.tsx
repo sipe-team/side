@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { expect, test } from 'vitest';
 
-import { Component } from './Component';
+import { Template } from './Template';
 
-test('renders Component', () => {
-  render(<Component>Test</Component>);
+test('renders Template', () => {
+  render(<Template>Test</Template>);
 
   expect(screen.getByText('Test')).toBeInTheDocument();
 });

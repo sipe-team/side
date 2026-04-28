@@ -1,20 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Component } from './Component';
+import { Template } from './Template';
 
 const meta = {
-  title: 'Components/Component',
-  component: Component,
+  title: 'Components/Template',
+  component: Template,
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Component>;
+} satisfies Meta<typeof Template>;
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
-    children: 'Component',
+    children: 'Template',
   },
 };

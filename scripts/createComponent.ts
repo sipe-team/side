@@ -25,14 +25,13 @@ class CreateComponentCommand extends Command {
     return str.charAt(0).toLowerCase() + str.slice(1);
   }
 
-  // ComponentProps must come before Component to avoid partial replacement
+  // templateRecipe must come before Template to avoid partial replacement.
   private replacePatterns(kebabCaseName: string, pascalCaseName: string) {
     const camelCaseName = this.pascalToCamel(pascalCaseName);
 
     return [
-      ['ComponentProps', `${pascalCaseName}Props`],
-      ['component', camelCaseName],
-      ['Component', pascalCaseName],
+      ['templateRecipe', camelCaseName],
+      ['Template', pascalCaseName],
       ['package-name', kebabCaseName],
     ] as const;
   }

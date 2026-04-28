@@ -4,18 +4,18 @@ import { Slot } from '@radix-ui/react-slot';
 
 import { clsx as cx } from 'clsx';
 
-import * as styles from './Component.css';
+import * as styles from './Template.css';
 
-export interface ComponentProps extends HTMLAttributes<HTMLDivElement> {
+export interface TemplateProps extends HTMLAttributes<HTMLDivElement> {
   asChild?: boolean;
 }
 
-export const Component = forwardRef(function Component(
-  { asChild, className: _className, ...props }: ComponentProps,
+export const Template = forwardRef(function Template(
+  { asChild, className: _className, ...props }: TemplateProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   const Comp = asChild ? Slot : 'div';
-  const className = cx(styles.component(), _className);
+  const className = cx(styles.templateRecipe(), _className);
 
   return <Comp ref={ref} className={className} {...props} />;
 });
