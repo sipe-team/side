@@ -1,7 +1,7 @@
 {
   "name": "@sipe-team/input",
   "description": "Input component for Sipe Design System",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "repository": {
     "type": "git",

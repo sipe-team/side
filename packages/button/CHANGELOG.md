@@ -1,5 +1,13 @@
 # @sipe-team/button
 
+## 0.0.3
+
+### Patch Changes
+
+- 38faf10: Preserve CSS imports in `sideEffects` so consumer bundlers don't tree-shake `./styles.css`.
+- Updated dependencies [38faf10]
+  - @sipe-team/typography@0.0.6
+
 ## 0.0.2
 
 ### Patch Changes
