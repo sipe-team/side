@@ -169,6 +169,9 @@ color.brand.subtle   #3b2005  ──▶  color.accent.subtle  ──▶  tag/chi
 | `radius.component.lg` | `{radius.8}` | `8px` | 컨테이너 계열의 부드러운 모서리 | 1. 카드 모서리 2. 드롭다운·팝오버 모서리 |
 | `radius.component.xl` | `{radius.12}` | `12px` | 오버레이 계열의 큰 모서리 | 1. 다이얼로그·모달 모서리 2. 바텀 시트 상단 모서리 |
 | `radius.component.full` | `{radius.full}` | `9999px` | 완전한 원형·필(Pill) 처리 | 1. 아바타·프로필 이미지 원형 처리 2. 필(Pill) 스타일 버튼·칩 |
+| `radius.layout.sm` | `{radius.4}` | `4px` | 페이지 레벨 인라인 박스의 모서리 | 1. 콜아웃·배너 모서리 2. 레이아웃 그리드 셀 모서리 |
+| `radius.layout.md` | `{radius.8}` | `8px` | 섹션·패널 수준의 모서리 | 1. 섹션 컨테이너·페이지 카드 모서리 2. 사이드바 패널 모서리 |
+| `radius.layout.lg` | `{radius.12}` | `12px` | 주요 콘텐츠 영역의 큰 모서리 | 1. 히어로·피처 섹션 배경 모서리 2. 주요 콘텐츠 영역 래퍼 모서리 |
 
 ---
 
