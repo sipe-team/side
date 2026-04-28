@@ -17,6 +17,14 @@ redesign token contract structure with semantic color, spacing, and radius hiera
 
 `vars.color.gradient` and `vars.color.secondary` have been removed.
 
+### `defaultTheme` export removed
+
+`defaultTheme` is no longer exported from `@sipe-team/tokens`. Theme variables are now applied automatically via `createGlobalTheme` on `:root`. Remove any explicit `defaultTheme` import or usage.
+
+### Default color mode changed to dark
+
+The `:root` theme now defaults to `mode: 'dark'` (previously `mode: 'light'`). If your app relied on the light-mode defaults from `:root`, you will need to apply a `[data-theme]` attribute or supply your own light-mode overrides.
+
 ### Deprecated named exports
 
 `opacity`, `zIndex`, `borderWidth`, `borderStyle`, `shadows`, `breakpoints`, `breakpointQuery`, `responsiveStyle`, `grid` and their associated types are deprecated and will be removed in a future release.
