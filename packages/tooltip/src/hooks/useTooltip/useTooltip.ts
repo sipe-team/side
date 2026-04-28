@@ -3,8 +3,8 @@ import { type CSSProperties, useCallback, useEffect, useRef, useState } from 're
 import type { TooltipPosition } from '../../Tooltip';
 
 interface UseTooltipProps {
-  placement: TooltipPosition;
-  gap: number;
+  placement?: TooltipPosition;
+  gap?: number;
   closeDelay?: number;
   open?: boolean;
   onOpen?: () => void;
@@ -14,8 +14,8 @@ interface UseTooltipProps {
 }
 
 export function useTooltip({
-  placement,
-  gap,
+  placement = 'top',
+  gap = 8,
   closeDelay = 150,
   open: controlledOpen,
   onOpen,

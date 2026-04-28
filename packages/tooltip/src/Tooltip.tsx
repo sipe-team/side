@@ -1,3 +1,4 @@
+import type React from 'react';
 import {
   type ComponentProps,
   type CSSProperties,
@@ -42,6 +43,18 @@ export interface TooltipProps extends ComponentProps<'div'> {
   disableFocusListener?: boolean;
 }
 
+function composeHandlers<E>(
+  userHandler: React.EventHandler<E & React.SyntheticEvent> | undefined,
+  internalHandler: React.EventHandler<E & React.SyntheticEvent> | undefined,
+): React.EventHandler<E & React.SyntheticEvent> | undefined {
+  if (!userHandler) return internalHandler;
+  if (!internalHandler) return userHandler;
+  return (e) => {
+    userHandler(e);
+    internalHandler(e);
+  };
+}
+
 export const Tooltip = forwardRef(function Tooltip(
   {
     tooltipContent,
@@ -57,6 +70,12 @@ export const Tooltip = forwardRef(function Tooltip(
     disableHoverListener = false,
     disableFocusListener = false,
     className,
+    onMouseEnter,
+    onMouseLeave,
+    onFocus,
+    onBlur,
+    onMouseDown,
+    onMouseUp,
     ...rest
   }: TooltipProps,
   ref: ForwardedRef<HTMLElement>,
@@ -87,7 +106,12 @@ export const Tooltip = forwardRef(function Tooltip(
         ref={wrapperRef}
         aria-describedby={isVisible ? tooltipId : undefined}
         className={clsx(asChild ? undefined : styles.button, className)}
-        {...triggerHandlers}
+        onMouseEnter={composeHandlers(onMouseEnter, triggerHandlers.onMouseEnter)}
+        onMouseLeave={composeHandlers(onMouseLeave, triggerHandlers.onMouseLeave)}
+        onFocus={composeHandlers(onFocus, triggerHandlers.onFocus)}
+        onBlur={composeHandlers(onBlur, triggerHandlers.onBlur)}
+        onMouseDown={composeHandlers(onMouseDown, triggerHandlers.onMouseDown)}
+        onMouseUp={composeHandlers(onMouseUp, triggerHandlers.onMouseUp)}
       >
         {children}
       </Component>
