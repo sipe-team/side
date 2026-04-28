@@ -3,8 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Component } from './Component';
 
 const meta = {
-  component: Component,
   title: 'Components/Component',
+  component: Component,
   parameters: {
     layout: 'centered',
   },
@@ -13,4 +13,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {};
+export const Basic: Story = {
+  args: {
+    children: 'Component',
+  },
+};
