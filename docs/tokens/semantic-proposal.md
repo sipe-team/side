@@ -80,7 +80,7 @@ color.brand.subtle   #3b2005  ──▶  color.accent.subtle  ──▶  tag/chi
 |------|---------------|---------|------|--------------|
 | `color.foreground.default` | `{color.white}` | `#ffffff` | 어두운 배경 위에서 최고 대비를 가지는 기본 전경 | 1. 본문 텍스트 2. 헤딩·레이블 기본 색상 |
 | `color.foreground.subtle` | `{color.gray.400}` | `#a1a1aa` | 보조 정보임을 시각적으로 구분 | 1. 보조 설명 텍스트 2. 인풋 힌트·캡션 |
-| `color.foreground.muted` | `{color.gray.600}` | `#52525b` | 최소한의 대비로 존재감을 낮춤 | 1. 인풋 placeholder 텍스트 2. 비활성 아이콘 |
+| `color.foreground.muted` | `{color.gray.500}` | `#71717a` | 최소한의 대비로 존재감을 낮춤 | 1. 인풋 placeholder 텍스트 2. 비활성 아이콘 |
 | `color.foreground.onAccent` | `{color.white}` | `#ffffff` | 강조색 배경 위에서 가독성 확보 | 1. 강조색 배경 위 버튼 레이블 2. 배지·칩 내부 텍스트 |
 
 ### 1-3. Border
