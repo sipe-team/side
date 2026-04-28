@@ -16,55 +16,55 @@ export const button = recipe({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: vars.radius.md,
+    borderRadius: vars.radius.component.md,
     fontWeight: vars.typography.fontWeight.semiBold,
     cursor: 'pointer',
     transition: 'all 0.2s ease-in-out',
     border: 'none',
     fontFamily: vars.typography.fontFamily,
     ':focus-visible': {
-      outline: `2px solid ${vars.color.primary}`,
+      outline: `2px solid ${vars.color.border.focus}`,
       outlineOffset: '2px',
     },
   },
   variants: {
     variant: {
       [ButtonVariant.filled]: {
-        backgroundColor: vars.color.primary,
-        color: vars.color.background,
+        backgroundColor: vars.color.accent.default,
+        color: vars.color.foreground.onAccent,
         border: 'none',
         ':hover': {
-          opacity: 0.9,
+          backgroundColor: vars.color.accent.hover,
         },
       },
       [ButtonVariant.outline]: {
         backgroundColor: 'transparent',
-        border: `1px solid ${vars.color.primary}`,
-        color: vars.color.primary,
+        border: `1px solid ${vars.color.accent.default}`,
+        color: vars.color.accent.default,
         ':hover': {
-          backgroundColor: vars.color.primary,
-          color: vars.color.background,
+          backgroundColor: vars.color.accent.default,
+          color: vars.color.foreground.onAccent,
         },
       },
       [ButtonVariant.ghost]: {
         backgroundColor: 'transparent',
         border: 'none',
-        color: vars.color.primary,
+        color: vars.color.accent.default,
         ':hover': {
-          backgroundColor: `color-mix(in srgb, ${vars.color.primary} 10%, transparent)`,
+          backgroundColor: vars.color.accent.subtle,
         },
       },
     },
     size: {
       [ButtonSize.sm]: {
         height: '32px',
-        padding: `0 ${vars.spacing.sm}`,
+        padding: `0 ${vars.spacing.component.sm}`,
         fontSize: vars.typography.fontSize['200'],
         lineHeight: vars.typography.lineHeight.compact,
       },
       [ButtonSize.lg]: {
         height: '48px',
-        padding: `0 ${vars.spacing.lg}`,
+        padding: `0 ${vars.spacing.component.lg}`,
         fontSize: vars.typography.fontSize['400'],
         lineHeight: vars.typography.lineHeight.regular,
       },

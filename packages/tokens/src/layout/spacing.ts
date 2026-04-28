@@ -1,3 +1,4 @@
+/** @deprecated Use `vars.spacing.component.*` / `vars.spacing.layout.*` instead. Will be removed when the JSON token pipeline is complete. */
 export const spacing = {
   0: 0,
   1: 4,
@@ -14,4 +15,5 @@ export const spacing = {
   24: 96,
 } as const;
 
+/** @deprecated Use `vars.spacing.component.*` / `vars.spacing.layout.*` instead. Will be removed when the JSON token pipeline is complete. */
 export type Spacing = keyof typeof spacing;

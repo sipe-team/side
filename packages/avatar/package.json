@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "build": "tsup",
-    "lint": "biome lint .",
+    "lint": "pnpm exec biome lint",
     "test": "vitest",
     "typecheck": "tsc",
     "prepack": "pnpm run build",
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "catalog:",
-    "@sipe-team/typography": "workspace:^",
+    "@sipe-team/typography": "workspace:*",
     "@sipe-team/tokens": "workspace:*",
     "clsx": "catalog:"
   },

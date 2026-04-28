@@ -14,8 +14,6 @@
   ],
   "scripts": {
     "build": "tsup",
-    "dev:storybook": "storybook dev -p 6006",
-    "build:storybook": "storybook build",
     "lint": "pnpm exec biome lint",
     "test": "vitest",
     "typecheck": "tsc",
@@ -24,7 +22,7 @@
   },
   "dependencies": {
     "@radix-ui/react-use-controllable-state": "^1.2.2",
-    "@sipe-team/tokens": "workspace:^",
+    "@sipe-team/tokens": "workspace:*",
     "@vanilla-extract/recipes": "catalog:",
     "clsx": "catalog:"
   },
@@ -49,6 +47,7 @@
   },
   "publishConfig": {
     "access": "public",
+    "registry": "https://npm.pkg.github.com",
     "exports": {
       ".": {
         "import": {

@@ -14,8 +14,6 @@
   ],
   "scripts": {
     "build": "tsup",
-    "dev:storybook": "storybook dev -p 6006",
-    "build:storybook": "storybook build",
     "lint": "pnpm exec biome lint",
     "test": "vitest",
     "typecheck": "tsc",
@@ -45,6 +43,7 @@
   },
   "publishConfig": {
     "access": "public",
+    "registry": "https://npm.pkg.github.com",
     "exports": {
       ".": {
         "import": {

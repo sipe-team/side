@@ -14,12 +14,11 @@
   ],
   "scripts": {
     "build": "tsup",
-    "dev:storybook": "storybook dev -p 6006",
-    "build:storybook": "storybook build",
     "lint": "pnpm exec biome lint",
     "test": "vitest",
     "typecheck": "tsc",
-    "prepack": "pnpm run build"
+    "prepack": "pnpm run build",
+    "clean": "rm -rf node_modules dist"
   },
   "dependencies": {
     "@radix-ui/react-slot": "catalog:",
@@ -33,10 +32,10 @@
     "@sipe-team/typography": "workspace:*",
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
-    "@types/react": "^18.3.12",
+    "@types/react": "catalog:react",
     "happy-dom": "catalog:",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "catalog:react",
+    "react-dom": "catalog:react",
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
