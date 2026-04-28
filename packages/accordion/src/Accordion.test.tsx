@@ -3,8 +3,8 @@ import { describe, expect, test } from 'vitest';
 
 import { Accordion } from './Accordion';
 
-describe('Accordion.Root 기본 스타일', () => {
-  test('Accordion의 Root에 border-radius를 주입하지 않으면 기본 값 "12px"으로 border-radius를 설정한다.', () => {
+describe('Accordion.Root default styles', () => {
+  test('sets border-radius to default "12px" when no border-radius is provided', () => {
     render(
       <Accordion.Root>
         <Accordion.Item>
@@ -17,7 +17,7 @@ describe('Accordion.Root 기본 스타일', () => {
     expect(root).toHaveStyle({ borderRadius: '12px' });
   });
 
-  test('Accordion의 Root에 border 옵션을 주입하지 않으면 기본 값 "1px solid #2d3748"로 border를 설정한다.', () => {
+  test('sets border to default "1px solid #2d3748" when no border is provided', () => {
     render(
       <Accordion.Root>
         <Accordion.Item>
@@ -30,7 +30,7 @@ describe('Accordion.Root 기본 스타일', () => {
     expect(root).toHaveStyle({ border: '1px solid #2d3748' });
   });
 
-  test('Accordion의 Root에 background-color 옵션을 주입하지 않으면 기본 값 "#1a202c"로 background-color를 설정한다.', () => {
+  test('sets background-color to default "#1a202c" when no background-color is provided', () => {
     render(
       <Accordion.Root>
         <Accordion.Item>
@@ -43,7 +43,7 @@ describe('Accordion.Root 기본 스타일', () => {
     expect(root).toHaveStyle({ backgroundColor: '#1a202c' });
   });
 
-  test('Accordion의 Root에 padding 옵션을 주입하지 않으면 기본 값 "20px"로 padding을 설정한다.', () => {
+  test('sets padding to default "20px" when no padding is provided', () => {
     render(
       <Accordion.Root>
         <Accordion.Item>
@@ -57,8 +57,8 @@ describe('Accordion.Root 기본 스타일', () => {
   });
 });
 
-describe('Accordion.Trigger 기본 스타일 및 컴포넌트 구조', () => {
-  test('Accordion의 Trigger에 존재하는 텍스트는 기본적으로 왼쪽 정렬된다.', () => {
+describe('Accordion.Trigger default styles and component structure', () => {
+  test('text in Trigger is left-aligned by default', () => {
     render(
       <Accordion.Root>
         <Accordion.Item>
@@ -73,7 +73,7 @@ describe('Accordion.Trigger 기본 스타일 및 컴포넌트 구조', () => {
     });
   });
 
-  test('aria-expanded를 통해 요소 확장 및 축소 여부를 확인할 수 있다', () => {
+  test('aria-expanded reflects the expanded/collapsed state of the element', () => {
     render(
       <Accordion.Root>
         <Accordion.Item>
@@ -90,7 +90,7 @@ describe('Accordion.Trigger 기본 스타일 및 컴포넌트 구조', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
   });
 
-  test('Accordion.Indicator를 사용하여 아이콘을 렌더링할 수 있다', () => {
+  test('renders an icon using Accordion.Indicator', () => {
     render(
       <Accordion.Root>
         <Accordion.Item>
@@ -107,8 +107,8 @@ describe('Accordion.Trigger 기본 스타일 및 컴포넌트 구조', () => {
   });
 });
 
-describe('Accordion.Content 기본 스타일', () => {
-  test('Accordion의 Content에 borderRadius를 주입하지 않으면 기본 값 8px으로 borderRadius를 설정한다.', () => {
+describe('Accordion.Content default styles', () => {
+  test('sets borderRadius to default 8px when no borderRadius is provided', () => {
     render(
       <Accordion.Root>
         <Accordion.Item defaultOpen>
@@ -122,7 +122,7 @@ describe('Accordion.Content 기본 스타일', () => {
     expect(contentElement).toHaveStyle({ borderRadius: '8px' });
   });
 
-  test('Accordion의 Content에 background-color를 주입하지 않으면 기본 값 #2d3748으로 background-color를 설정한다.', () => {
+  test('sets background-color to default #2d3748 when no background-color is provided', () => {
     render(
       <Accordion.Root>
         <Accordion.Item defaultOpen>
@@ -136,7 +136,7 @@ describe('Accordion.Content 기본 스타일', () => {
     expect(contentElement).toHaveStyle({ backgroundColor: '#2d3748' });
   });
 
-  test('Accordion의 Content에 padding을 주입하지 않으면 기본 값 12px 16px으로 padding을 설정한다.', () => {
+  test('sets padding to default "12px 16px" when no padding is provided', () => {
     render(
       <Accordion.Root>
         <Accordion.Item defaultOpen>
@@ -151,8 +151,8 @@ describe('Accordion.Content 기본 스타일', () => {
   });
 });
 
-describe('Accordion 동작', () => {
-  test('Trigger 클릭 시 Content의 내용을 노출 및 숨김 처리할 수 있다', () => {
+describe('Accordion behavior', () => {
+  test('clicking Trigger toggles Content visibility', () => {
     render(
       <Accordion.Root>
         <Accordion.Item>
@@ -171,8 +171,8 @@ describe('Accordion 동작', () => {
   });
 });
 
-describe('Accordion single 모드', () => {
-  test('type="single"일 때 하나의 아이템을 열면 다른 열린 아이템이 닫힌다', () => {
+describe('Accordion single mode', () => {
+  test('opening one item closes the other when type="single"', () => {
     render(
       <Accordion.Root type="single">
         <Accordion.Item value="item1">
@@ -203,7 +203,7 @@ describe('Accordion single 모드', () => {
     expect(wrapper2).toHaveAttribute('aria-hidden', 'false');
   });
 
-  test('type="single"일 때 이미 열린 아이템을 클릭하면 닫힌다', () => {
+  test('clicking an already open item closes it when type="single"', () => {
     render(
       <Accordion.Root type="single">
         <Accordion.Item value="item1">
@@ -224,8 +224,8 @@ describe('Accordion single 모드', () => {
   });
 });
 
-describe('Accordion 구조', () => {
-  test('Accordion의 children으로 전달한 요소를 올바르게 렌더링할 수 있다', () => {
+describe('Accordion structure', () => {
+  test('renders children passed to Accordion correctly', () => {
     render(
       <Accordion.Root>
         <Accordion.Item>

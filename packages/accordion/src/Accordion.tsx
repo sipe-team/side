@@ -16,6 +16,7 @@ export interface AccordionRootProps extends ComponentProps<'div'> {
   children: ReactNode;
   asChild?: boolean;
   type?: 'single' | 'multiple';
+  initialValue?: string | null;
   value?: string | null;
   onValueChange?: (value: string | null) => void;
 }
@@ -39,16 +40,24 @@ export interface AccordionContentProps {
 }
 
 export const AccordionRoot = forwardRef(function AccordionRoot(
-  { children, asChild, className, type = 'multiple', value, onValueChange, ...props }: AccordionRootProps,
+  {
+    children,
+    asChild,
+    className,
+    type = 'multiple',
+    initialValue = null,
+    value,
+    onValueChange,
+    ...props
+  }: AccordionRootProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
-  const [internalValue, setInternalValue] = useState<string | null>(null);
-  const isControlled = value !== undefined;
-  const activeValue = isControlled ? value : internalValue;
+  const [internalValue, setInternalValue] = useState<string | null>(initialValue);
+  const activeValue = value !== undefined ? value : internalValue;
 
   const onItemToggle = (itemValue: string) => {
     const newValue = activeValue === itemValue ? null : itemValue;
-    if (!isControlled) {
+    if (value === undefined) {
       setInternalValue(newValue);
     }
     onValueChange?.(newValue);
@@ -56,7 +65,7 @@ export const AccordionRoot = forwardRef(function AccordionRoot(
 
   const Component = asChild ? Slot : 'div';
   return (
-    <AccordionRootContext.Provider value={{ type, activeValue: activeValue ?? null, onItemToggle }}>
+    <AccordionRootContext.Provider value={{ type, activeValue, onItemToggle }}>
       <Component ref={ref} className={cx(styles.accordionRoot, className)} {...props}>
         {children}
       </Component>
