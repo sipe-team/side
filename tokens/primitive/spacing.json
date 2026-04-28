@@ -1,7 +1,7 @@
 {
   "spacing": {
-    "4":  { "value": "4px",  "type": "dimension" },
-    "8":  { "value": "8px",  "type": "dimension" },
+    "4": { "value": "4px", "type": "dimension" },
+    "8": { "value": "8px", "type": "dimension" },
     "12": { "value": "12px", "type": "dimension" },
     "16": { "value": "16px", "type": "dimension" },
     "20": { "value": "20px", "type": "dimension" },
