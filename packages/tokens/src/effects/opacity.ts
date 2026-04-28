@@ -1,4 +1,4 @@
-/** @deprecated Will be removed with all TS primitive files when the JSON token pipeline is complete and components have migrated to `vars.*`. */
+/** @deprecated No direct replacement. Will be removed when the JSON token pipeline is complete. */
 export const opacity = {
   0: 0,
   5: 0.05,
@@ -17,5 +17,5 @@ export const opacity = {
   100: 1,
 } as const;
 
-/** @deprecated Will be removed with all TS primitive files when the JSON token pipeline is complete and components have migrated to `vars.*`. */
+/** @deprecated No direct replacement. Will be removed when the JSON token pipeline is complete. */
 export type Opacity = keyof typeof opacity;

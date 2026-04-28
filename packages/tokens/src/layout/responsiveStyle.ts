@@ -15,7 +15,7 @@ function mapValues<T extends object, TResult>(obj: T, fn: (value: T[keyof T], ke
 }
 
 const { sm: _, ...breakpointsAboveSm } = breakpoints;
-/** @deprecated Will be removed with all TS primitive files when the JSON token pipeline is complete and components have migrated to `vars.*`. */
+/** @deprecated No direct replacement. Will be removed when the JSON token pipeline is complete. */
 export const breakpointQuery = mapValues(breakpointsAboveSm, (bp) => `screen and (min-width: ${bp}px)`);
 
 const makeMediaQuery = (breakpoint: keyof typeof breakpointQuery) => (styles?: CSSProps) =>
@@ -31,14 +31,14 @@ const mediaQuery = {
 };
 
 type CSSProps = Omit<StyleRule, '@media' | '@supports'>;
-/** @deprecated Will be removed with all TS primitive files when the JSON token pipeline is complete and components have migrated to `vars.*`. */
+/** @deprecated No direct replacement. Will be removed when the JSON token pipeline is complete. */
 export interface ResponsiveStyle {
   sm?: CSSProps;
   md?: CSSProps;
   lg?: CSSProps;
 }
 
-/** @deprecated Will be removed with all TS primitive files when the JSON token pipeline is complete and components have migrated to `vars.*`. */
+/** @deprecated No direct replacement. Will be removed when the JSON token pipeline is complete. */
 export const responsiveStyle = ({ sm, md, lg }: ResponsiveStyle): StyleRule => ({
   ...sm,
   ...(md || lg
