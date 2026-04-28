@@ -18,8 +18,6 @@
   "scripts": {
     "build": "tsup",
     "build:tokens": "node config.js",
-    "dev:storybook": "storybook dev -p 6006",
-    "build:storybook": "storybook build",
     "lint": "pnpm exec biome lint",
     "typecheck": "tsc",
     "prepack": "pnpm run build && pnpm run build:tokens",
