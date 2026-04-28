@@ -131,6 +131,12 @@ export const semanticColor = {
   positive: color.blue400,
 } as const;
 
+export const brandColor = {
+  default: '#ffb24d',
+  hover: '#d9963f',
+  subtle: '#3b2005',
+} as const;
+
 export interface ThemeColor {
   primary: string;
   secondary: string;

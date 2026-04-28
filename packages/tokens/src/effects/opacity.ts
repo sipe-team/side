@@ -1,3 +1,4 @@
+/** @deprecated No direct replacement. Will be removed when the JSON token pipeline is complete. */
 export const opacity = {
   0: 0,
   5: 0.05,
@@ -16,4 +17,5 @@ export const opacity = {
   100: 1,
 } as const;
 
+/** @deprecated No direct replacement. Will be removed when the JSON token pipeline is complete. */
 export type Opacity = keyof typeof opacity;

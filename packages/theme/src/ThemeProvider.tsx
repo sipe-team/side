@@ -40,7 +40,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme: i
     [theme],
   );
 
-  const themeVars = assignInlineVars(vars.color, theme);
+  const themeVars = assignInlineVars(vars.color.accent, {
+    default: theme.primary,
+    hover: theme.secondary,
+    subtle: theme.background,
+  });
 
   return (
     <ThemeContext.Provider value={contextValue}>

@@ -1,3 +1,4 @@
+/** @deprecated Use `vars.shadows.*` instead. Will be removed when the JSON token pipeline is complete. */
 export const shadows = {
   none: 'none',
   sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
@@ -7,4 +8,5 @@ export const shadows = {
   '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
 } as const;
 
+/** @deprecated Use `vars.shadows.*` instead. Will be removed when the JSON token pipeline is complete. */
 export type Shadow = keyof typeof shadows;
