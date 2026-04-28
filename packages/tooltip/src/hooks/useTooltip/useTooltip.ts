@@ -47,23 +47,23 @@ export function useTooltip({
 
   const requestOpen = useCallback(() => {
     clearCloseTimer();
-    setInternalOpen(true);
+    if (!isControlled) setInternalOpen(true);
     onOpenRef.current?.();
-  }, [clearCloseTimer]);
+  }, [clearCloseTimer, isControlled]);
 
   const requestClose = useCallback(() => {
     clearCloseTimer();
     closeTimerRef.current = setTimeout(() => {
-      setInternalOpen(false);
+      if (!isControlled) setInternalOpen(false);
       onCloseRef.current?.();
     }, closeDelay);
-  }, [clearCloseTimer, closeDelay]);
+  }, [clearCloseTimer, closeDelay, isControlled]);
 
   const requestCloseImmediate = useCallback(() => {
     clearCloseTimer();
-    setInternalOpen(false);
+    if (!isControlled) setInternalOpen(false);
     onCloseRef.current?.();
-  }, [clearCloseTimer]);
+  }, [clearCloseTimer, isControlled]);
 
   useEffect(() => () => clearCloseTimer(), [clearCloseTimer]);
 
