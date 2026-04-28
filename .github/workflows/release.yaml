@@ -26,6 +26,7 @@ jobs:
           version: pnpm changeset version
           publish: pnpm changeset publish
           commit: "chore(release): version packages"
+          title: "chore(release): version packages"
         env:
           HUSKY: 0
           GITHUB_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }}
