@@ -18,7 +18,7 @@
   "scripts": {
     "build": "tsup && pnpm build:tokens",
     "build:tokens": "node config.js",
-    "transform:tokens": "token-transformer ../../tokens /tmp/tokens-transformed.json",
+    "transform:tokens": "token-transformer ../../tokens/tokens.json /tmp/tokens-transformed.json",
     "lint": "pnpm exec biome lint",
     "typecheck": "tsc",
     "prepack": "pnpm run build",

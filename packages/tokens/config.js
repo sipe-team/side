@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { chdir } from 'node:process';
 
 import StyleDictionary from 'style-dictionary';
@@ -7,13 +7,23 @@ chdir(import.meta.dirname);
 
 const DIST = 'dist/css';
 const DIST_TS = 'dist/ts';
-const SEMANTIC_LIGHT_DIR = '../../tokens/semantic/light';
 
-/** @param {string} dir */
-function hasJsonFiles(dir) {
-  if (!existsSync(dir)) return false;
-  const entries = readdirSync(dir, { recursive: true });
-  return entries.some((f) => f.toString().endsWith('.json'));
+const allTokens = JSON.parse(readFileSync('../../tokens/tokens.json', 'utf-8'));
+
+/** @param {string[]} setNames */
+function mergeSets(setNames) {
+  const merged = {};
+  for (const name of setNames) {
+    if (allTokens[name]) Object.assign(merged, allTokens[name]);
+  }
+  return merged;
+}
+
+/** @param {string} prefix */
+function hasSetsByPrefix(prefix) {
+  return Object.keys(allTokens).some(
+    (key) => key !== '$metadata' && key.startsWith(prefix) && Object.keys(allTokens[key]).length > 0,
+  );
 }
 
 /** @param {string} str */
@@ -24,9 +34,11 @@ function toPascalCase(str) {
     .join('');
 }
 
+const PRIMITIVE_SETS = ['primitive/color', 'primitive/radius', 'primitive/spacing', 'primitive/typography'];
+
 // Build primitive tokens (CSS + TypeScript types)
 const primitive = new StyleDictionary({
-  source: ['../../tokens/primitive/**/*.json'],
+  tokens: mergeSets(PRIMITIVE_SETS),
   hooks: {
     formats: {
       'typescript/token-names-dts': ({ dictionary }) => {
@@ -114,10 +126,13 @@ const primitive = new StyleDictionary({
 });
 await primitive.buildAllPlatforms();
 
-// Build semantic/light tokens — graceful no-op if directory is empty
-if (hasJsonFiles(SEMANTIC_LIGHT_DIR)) {
+// Build semantic/light tokens — graceful no-op if sets are absent
+if (hasSetsByPrefix('semantic/light')) {
+  const semanticLightSets = Object.keys(allTokens).filter(
+    (key) => key !== '$metadata' && key.startsWith('semantic/light'),
+  );
   const semanticLight = new StyleDictionary({
-    source: [`${SEMANTIC_LIGHT_DIR}/**/*.json`],
+    tokens: mergeSets(semanticLightSets),
     platforms: {
       css: {
         transformGroup: 'css',
