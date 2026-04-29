@@ -16,7 +16,7 @@ export const iconWrapper = style({
 });
 
 export const iconLayout = style({
-  gap: vars.spacing.md,
+  gap: vars.spacing.component.md,
 });
 
 export const button = recipe({
@@ -83,8 +83,8 @@ export const button = recipe({
     size: {
       [ButtonSize.sm]: {
         height: '32px',
-        padding: `0 ${vars.spacing.xs}`,
-        borderRadius: vars.radius.md,
+        padding: `0 ${vars.spacing.component.xs}`,
+        borderRadius: vars.radius.component.md,
         fontSize: vars.typography.fontSize['050'],
       },
       [ButtonSize.md]: {
@@ -95,14 +95,14 @@ export const button = recipe({
       },
       [ButtonSize.lg]: {
         height: '48px',
-        padding: `0 ${vars.spacing.sm}`,
+        padding: `0 ${vars.spacing.component.sm}`,
         borderRadius: '6px',
         fontSize: vars.typography.fontSize['200'],
       },
       [ButtonSize.xl]: {
         height: '64px',
-        padding: `0 ${vars.spacing.md}`,
-        borderRadius: vars.radius.lg,
+        padding: `0 ${vars.spacing.component.md}`,
+        borderRadius: vars.radius.component.lg,
         fontSize: vars.typography.fontSize['500'],
       },
     },
