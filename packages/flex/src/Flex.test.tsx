@@ -4,8 +4,8 @@ import { faker } from '@faker-js/faker';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { Flex } from './Flex';
 import { FLEX_ALIGNS, FLEX_DIRECTIONS, FLEX_JUSTIFY_CONTENTS, FLEX_WRAPS } from './constants';
+import { Flex } from './Flex';
 
 describe('Flex', () => {
   it('uses the default flex styles when no props are provided', () => {
@@ -67,9 +67,7 @@ describe('Flex', () => {
     });
 
     describe('wrap', () => {
-      it.each(
-        FLEX_WRAPS.map((wrap) => ({ wrap })),
-      )('applies flexWrap: $wrap when wrap is provided', ({ wrap }) => {
+      it.each(FLEX_WRAPS.map((wrap) => ({ wrap })))('applies flexWrap: $wrap when wrap is provided', ({ wrap }) => {
         render(
           <Flex data-testid="flex-container" wrap={wrap}>
             <div>item 1</div>
@@ -189,9 +187,7 @@ describe('Flex', () => {
       { style: { alignItems: 'center' } },
       { style: { flexWrap: 'wrap' } },
       { style: { flexDirection: 'column' } },
-    ] satisfies Array<{ style: CSSProperties }>)('applies style overrides from the style prop: $style', ({
-      style,
-    }) => {
+    ] satisfies Array<{ style: CSSProperties }>)('applies style overrides from the style prop: $style', ({ style }) => {
       render(
         <Flex data-testid="flex-container" style={style}>
           <div>item 1</div>
@@ -205,12 +201,7 @@ describe('Flex', () => {
 
     it('allows the style prop to override inline style values for the same CSS properties', () => {
       render(
-        <Flex
-          data-testid="flex-container"
-          basis="100px"
-          gap="8px"
-          style={{ flexBasis: '50%', gap: '16px' }}
-        >
+        <Flex data-testid="flex-container" basis="100px" gap="8px" style={{ flexBasis: '50%', gap: '16px' }}>
           <div>item 1</div>
           <div>item 2</div>
         </Flex>,

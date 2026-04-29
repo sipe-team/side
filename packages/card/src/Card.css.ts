@@ -5,6 +5,7 @@ import { recipe } from '@vanilla-extract/recipes';
 export const CardVariant = {
   filled: 'filled',
   outline: 'outline',
+  ghost: 'ghost',
 } as const;
 
 export const CardRatio = {
@@ -35,6 +36,11 @@ export const card = recipe({
       [CardVariant.outline]: {
         backgroundColor: color.gray50,
         border: `1px solid ${color.cyan300}`,
+      },
+      [CardVariant.ghost]: {
+        backgroundColor: 'transparent',
+        border: 'none',
+        padding: 0,
       },
     },
     ratio: {

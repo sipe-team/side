@@ -41,11 +41,6 @@
       "900": { "$value": "#3b1106", "$type": "color" },
       "950": { "$value": "#220a04", "$type": "color" }
     },
-    "brand": {
-      "default": { "$value": "#ffb24d", "$type": "color", "$description": "브랜드 기본 강조색 (기수별 교체)" },
-      "hover": { "$value": "#d9963f", "$type": "color", "$description": "브랜드 hover 상태색 (기수별 교체)" },
-      "subtle": { "$value": "#3b2005", "$type": "color", "$description": "브랜드 배경용 어두운 색 (기수별 교체)" }
-    },
     "yellow": {
       "50": { "$value": "#fefce8", "$type": "color" },
       "100": { "$value": "#fef9c3", "$type": "color" },
@@ -136,6 +131,11 @@
       "800": { "$value": "#6d0e34", "$type": "color" },
       "900": { "$value": "#45061f", "$type": "color" },
       "950": { "$value": "#2c0514", "$type": "color" }
+    },
+    "brand": {
+      "default": { "$value": "#ffb24d", "$type": "color" },
+      "hover": { "$value": "#d9963f", "$type": "color" },
+      "subtle": { "$value": "#3b2005", "$type": "color" }
     }
   }
 }
