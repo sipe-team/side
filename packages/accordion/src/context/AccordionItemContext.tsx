@@ -5,10 +5,7 @@ interface AccordionItemContextValue {
   toggleAccordion: () => void;
 }
 
-export const AccordionItemContext = createContext<AccordionItemContextValue>({
-  isOpen: false,
-  toggleAccordion: () => {},
-});
+export const AccordionItemContext = createContext<AccordionItemContextValue | null>(null);
 
 export const useAccordionItemContext = () => {
   const context = useContext(AccordionItemContext);
