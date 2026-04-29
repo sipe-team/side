@@ -20,6 +20,8 @@ jobs:
   validate:
     name: Build & validate
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
@@ -93,6 +95,13 @@ jobs:
 
             echo "" >> $GITHUB_STEP_SUMMARY
           done
+
+      - name: Commit transformed tokens
+        if: github.event_name == 'push' && github.ref == 'refs/heads/tokens/figma-sync'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(tokens): transform and build tokens [skip ci]"
+          file_pattern: 'tokens/** packages/tokens/dist/**'
 
   # tokens/figma-sync Push 전용: validate 통과 후 main으로 PR 자동 생성
   sync:
