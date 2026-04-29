@@ -15,7 +15,7 @@ const meta = {
     },
     variant: {
       control: 'select',
-      options: ['filled', 'outline'],
+      options: ['filled', 'outline', 'ghost'],
     },
   },
 } satisfies Meta<typeof Card>;
@@ -133,6 +133,51 @@ export const OutlineVariant: Story = {
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
           <Card variant="outline" ratio="auto" style={{ width: '250px', height: '150px' }}>
+            <RatioVisualizer label="Auto" ratio="Custom" />
+          </Card>
+          <div>Auto (Custom Size)</div>
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+// Ghost variant with all ratios in a row
+export const GhostVariant: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '40px', maxWidth: '1000px' }}>
+      <h3>Ghost Variant - All Ratios</h3>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '30px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+          <Card variant="ghost" ratio="rectangle" style={{ width: '250px' }}>
+            <RatioVisualizer label="Rectangle" ratio="16:9" />
+          </Card>
+          <div>Rectangle (16:9)</div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+          <Card variant="ghost" ratio="square" style={{ width: '250px' }}>
+            <RatioVisualizer label="Square" ratio="1:1" />
+          </Card>
+          <div>Square (1:1)</div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+          <Card variant="ghost" ratio="wide" style={{ width: '250px' }}>
+            <RatioVisualizer label="Wide" ratio="21:9" />
+          </Card>
+          <div>Wide (21:9)</div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+          <Card variant="ghost" ratio="portrait" style={{ width: '200px' }}>
+            <RatioVisualizer label="Portrait" ratio="3:4" />
+          </Card>
+          <div>Portrait (3:4)</div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+          <Card variant="ghost" ratio="auto" style={{ width: '250px', height: '150px' }}>
             <RatioVisualizer label="Auto" ratio="Custom" />
           </Card>
           <div>Auto (Custom Size)</div>

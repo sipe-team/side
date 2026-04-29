@@ -81,3 +81,24 @@ test(`variant가 outline일 때 배경색이 ${color.gray50}이다.`, () => {
     backgroundColor: color.gray50,
   });
 });
+
+test('ghost variant has transparent background', () => {
+  render(<Card variant="ghost">Card</Card>);
+  expect(screen.getByText('Card')).toHaveStyle({
+    backgroundColor: 'transparent',
+  });
+});
+
+test('ghost variant has no border', () => {
+  render(<Card variant="ghost">Card</Card>);
+  expect(screen.getByText('Card')).toHaveStyle({
+    border: 'none',
+  });
+});
+
+test('ghost variant has no padding', () => {
+  render(<Card variant="ghost">Card</Card>);
+  expect(screen.getByText('Card')).toHaveStyle({
+    padding: '0',
+  });
+});
