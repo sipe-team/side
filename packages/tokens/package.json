@@ -16,11 +16,12 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && pnpm build:tokens",
     "build:tokens": "node config.js",
+    "transform:tokens": "token-transformer ../../tokens /tmp/tokens-transformed.json",
     "lint": "pnpm exec biome lint",
     "typecheck": "tsc",
-    "prepack": "pnpm run build && pnpm run build:tokens",
+    "prepack": "pnpm run build",
     "clean": "rm -rf node_modules dist"
   },
   "dependencies": {
@@ -32,6 +33,7 @@
     "react": "catalog:react",
     "react-dom": "catalog:react",
     "style-dictionary": "^5.4.0",
+    "token-transformer": "^0.0.33",
     "tsup": "catalog:",
     "typescript": "catalog:"
   },

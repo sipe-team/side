@@ -1107,6 +1107,9 @@ importers:
       style-dictionary:
         specifier: ^5.4.0
         version: 5.4.0(tslib@2.8.1)
+      token-transformer:
+        specifier: ^0.0.33
+        version: 0.0.33
       tsup:
         specifier: 'catalog:'
         version: 8.5.1(jiti@2.4.1)(postcss@8.5.9)(tsx@4.19.2)(typescript@5.6.3)(yaml@2.6.1)
@@ -8728,6 +8731,11 @@ packages:
   toidentifier@1.0.1:
     resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}
     engines: {node: '>=0.6'}
+
+  token-transformer@0.0.33:
+    resolution: {integrity: sha512-0h7Cvo8trUcv6sZPyA+iNHsFEwIhN4FhXtYqgndHQNYub+dTDW8ZCQURBNDNa0PvJ8Xg2wqG1V/5WSwV0l6yOw==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+    hasBin: true
 
   totalist@3.0.1:
     resolution: {integrity: sha512-sf4i37nQ2LBx4m3wB74y+ubopq6W/dIzXg0FDGjsYnZHVa1Da8FH853wlL2gtUhg+xJXjfk3kUZS3BRoQeoQBQ==}
@@ -18623,6 +18631,10 @@ snapshots:
       is-number: 7.0.0
 
   toidentifier@1.0.1: {}
+
+  token-transformer@0.0.33:
+    dependencies:
+      yargs: 17.7.2
 
   totalist@3.0.1: {}
 

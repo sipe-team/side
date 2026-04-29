@@ -7,7 +7,7 @@ chdir(import.meta.dirname);
 
 const DIST = 'dist/css';
 const DIST_TS = 'dist/ts';
-const SEMANTIC_LIGHT_DIR = 'tokens/semantic/light';
+const SEMANTIC_LIGHT_DIR = '../../tokens/semantic/light';
 
 /** @param {string} dir */
 function hasJsonFiles(dir) {
@@ -26,7 +26,7 @@ function toPascalCase(str) {
 
 // Build primitive tokens (CSS + TypeScript types)
 const primitive = new StyleDictionary({
-  source: ['tokens/primitive/**/*.json'],
+  source: ['../../tokens/primitive/**/*.json'],
   hooks: {
     formats: {
       'typescript/token-names-dts': ({ dictionary }) => {
