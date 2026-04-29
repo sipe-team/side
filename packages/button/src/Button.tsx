@@ -1,6 +1,6 @@
 import { type ComponentProps, type ForwardedRef, forwardRef, type ReactNode } from 'react';
 
-import { Slot } from '@radix-ui/react-slot';
+import { Slot, Slottable } from '@radix-ui/react-slot';
 
 import { clsx as cx } from 'clsx';
 
@@ -51,7 +51,7 @@ export const Button = forwardRef(function Button(
   return (
     <Comp ref={ref} type={type} className={className} disabled={disabled} {...props}>
       {leftIcon && <span className={styles.iconWrapper}>{leftIcon}</span>}
-      {children}
+      <Slottable>{children}</Slottable>
       {rightIcon && <span className={styles.iconWrapper}>{rightIcon}</span>}
     </Comp>
   );
