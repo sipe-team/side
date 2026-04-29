@@ -1,3 +1,4 @@
+import type React from 'react';
 import {
   type ComponentProps,
   type CSSProperties,
@@ -28,40 +29,66 @@ export const TooltipPosition = {
 } as const;
 export type TooltipPosition = (typeof TooltipPosition)[keyof typeof TooltipPosition];
 
-export const TooltipTrigger = {
-  hover: 'hover',
-  click: 'click',
-} as const;
-export type TooltipTrigger = (typeof TooltipTrigger)[keyof typeof TooltipTrigger];
-
 export interface TooltipProps extends ComponentProps<'div'> {
   tooltipContent: ReactNode;
   placement?: TooltipPosition;
   asChild?: boolean;
-  trigger?: TooltipTrigger;
   tooltipStyle?: CSSProperties;
   tooltipClassName?: string;
   gap?: number;
+  open?: boolean;
+  onOpen?: () => void;
+  onClose?: () => void;
+  disableHoverListener?: boolean;
+  disableFocusListener?: boolean;
+}
+
+function composeHandlers<E>(
+  userHandler: React.EventHandler<E & React.SyntheticEvent> | undefined,
+  internalHandler: React.EventHandler<E & React.SyntheticEvent> | undefined,
+): React.EventHandler<E & React.SyntheticEvent> | undefined {
+  if (!userHandler) return internalHandler;
+  if (!internalHandler) return userHandler;
+  return (e) => {
+    userHandler(e);
+    internalHandler(e);
+  };
 }
 
 export const Tooltip = forwardRef(function Tooltip(
   {
     tooltipContent,
     placement: placementProp = TooltipPosition.top,
-    trigger = TooltipTrigger.hover,
     asChild = true,
     children,
     tooltipStyle,
     tooltipClassName,
     gap = 8,
+    open,
+    onOpen,
+    onClose,
+    disableHoverListener = false,
+    disableFocusListener = false,
+    className,
+    onMouseEnter,
+    onMouseLeave,
+    onFocus,
+    onBlur,
+    onMouseDown,
+    onMouseUp,
+    ...rest
   }: TooltipProps,
   ref: ForwardedRef<HTMLElement>,
 ) {
   const tooltipId = useId();
-  const { isVisible, toggleTooltip, tooltipStyles, wrapperRef, tooltipRef, handleKeyDown } = useTooltip({
+  const { isVisible, tooltipStyles, wrapperRef, tooltipRef, triggerHandlers, tooltipHandlers } = useTooltip({
     placement: placementProp,
     gap,
-    trigger,
+    ...(open !== undefined && { open }),
+    ...(onOpen !== undefined && { onOpen }),
+    ...(onClose !== undefined && { onClose }),
+    disableHoverListener,
+    disableFocusListener,
   });
 
   useImperativeHandle(ref, () => wrapperRef.current as HTMLElement);
@@ -75,15 +102,16 @@ export const Tooltip = forwardRef(function Tooltip(
   return (
     <>
       <Component
+        {...rest}
         ref={wrapperRef}
         aria-describedby={isVisible ? tooltipId : undefined}
-        aria-expanded={trigger === TooltipTrigger.click ? isVisible : undefined}
-        onMouseEnter={trigger === TooltipTrigger.hover ? () => toggleTooltip(true) : undefined}
-        onMouseLeave={trigger === TooltipTrigger.hover ? () => toggleTooltip(false) : undefined}
-        onClick={trigger === TooltipTrigger.click ? () => toggleTooltip(!isVisible) : undefined}
-        onKeyDown={handleKeyDown}
-        tabIndex={trigger === TooltipTrigger.click ? 0 : undefined}
-        className={styles.button}
+        className={clsx(asChild ? undefined : styles.button, className)}
+        onMouseEnter={composeHandlers(onMouseEnter, triggerHandlers.onMouseEnter)}
+        onMouseLeave={composeHandlers(onMouseLeave, triggerHandlers.onMouseLeave)}
+        onFocus={composeHandlers(onFocus, triggerHandlers.onFocus)}
+        onBlur={composeHandlers(onBlur, triggerHandlers.onBlur)}
+        onMouseDown={composeHandlers(onMouseDown, triggerHandlers.onMouseDown)}
+        onMouseUp={composeHandlers(onMouseUp, triggerHandlers.onMouseUp)}
       >
         {children}
       </Component>
@@ -93,14 +121,15 @@ export const Tooltip = forwardRef(function Tooltip(
             id={tooltipId}
             ref={tooltipRef}
             role="tooltip"
-            className={clsx(styles.tooltip({ placement: placementProp }), tooltipClassName, isVisible && 'visible')}
+            className={clsx(styles.tooltip({ placement: placementProp }), tooltipClassName)}
             style={
               {
                 ...tooltipStyles,
                 ...tooltipStyle,
-                '--tooltip-bg-color': tooltipStyle?.backgroundColor || '#000000',
+                '--tooltip-bg-color': tooltipStyle?.backgroundColor,
               } as CSSProperties
             }
+            {...tooltipHandlers}
           >
             {tooltipContent}
           </div>,
