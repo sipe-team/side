@@ -1,0 +1,11 @@
+{
+  "primitive": {
+    "glob": "../../tokens/primitive/**/*.json"
+  },
+  "semantic": [
+    { "glob": "../../tokens/semantic/dark/**/*.json", "output": "semantic-dark.css", "required": true },
+    { "glob": "../../tokens/semantic/radius.json", "output": "semantic-radius.css", "required": true },
+    { "glob": "../../tokens/semantic/spacing.json", "output": "semantic-spacing.css", "required": true },
+    { "glob": "../../tokens/semantic/light/**/*.json", "output": "semantic-light.css", "required": false }
+  ]
+}

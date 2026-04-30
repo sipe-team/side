@@ -5,16 +5,22 @@ import StyleDictionary from 'style-dictionary';
 
 chdir(import.meta.dirname);
 
+// ─── Types ───────────────────────────────────────────────────────────────────
+/**
+ * @typedef {{ $value: unknown, $type?: string, $description?: string }} DtcgToken
+ * @typedef {{ [key: string]: DtcgToken | DtcgTokenGroup }} DtcgTokenGroup
+ * @typedef {{ glob: string }} PrimitiveConfig
+ * @typedef {{ glob: string, output: string, required: boolean }} SemanticEntry
+ * @typedef {{ primitive: PrimitiveConfig, semantic: SemanticEntry[] }} BuildManifest
+ */
+
+/** @type {BuildManifest} */
+const manifest = JSON.parse(readFileSync('./tokens.build.json', 'utf-8'));
+
 const DIST = 'dist/css';
 const DIST_TS = 'dist/ts';
-const SEMANTIC_LIGHT_DIR = '../../tokens/semantic/light';
 
-/** @param {string} dir */
-function hasJsonFiles(dir) {
-  if (!existsSync(dir)) return false;
-  const entries = readdirSync(dir, { recursive: true });
-  return entries.some((f) => f.toString().endsWith('.json'));
-}
+// ─── Helpers ─────────────────────────────────────────────────────────────────
 
 /** @param {string} str */
 function toPascalCase(str) {
@@ -25,64 +31,53 @@ function toPascalCase(str) {
 }
 
 /**
- * Primitive + Semantic 토큰을 합칠 때 같은 최상위 키(color, radius 등)가
- * shallow merge로 덮어씌워지지 않도록 재귀 병합.
- * @param {Record<string, unknown>} target
- * @param {Record<string, unknown>} source
+ * 파일 경로 또는 glob 패턴에 해당하는 JSON 파일 존재 여부 확인.
+ * @param {string} globOrPath
+ * @returns {boolean}
  */
-function deepMerge(target, source) {
-  const result = { ...target };
-  for (const key of Object.keys(source)) {
-    if (
-      source[key] !== null &&
-      typeof source[key] === 'object' &&
-      !Array.isArray(source[key]) &&
-      target[key] !== null &&
-      typeof target[key] === 'object' &&
-      !Array.isArray(target[key])
-    ) {
-      result[key] = deepMerge(
-        /** @type {Record<string, unknown>} */ (target[key]),
-        /** @type {Record<string, unknown>} */ (source[key]),
-      );
-    } else {
-      result[key] = source[key];
-    }
+function hasMatchingFiles(globOrPath) {
+  if (!globOrPath.includes('*')) {
+    return existsSync(globOrPath);
   }
-  return result;
+  const baseDir = globOrPath.replace(/\/\*\*\/\*\.json$/, '').replace(/\/\*\.json$/, '');
+  if (!existsSync(baseDir)) return false;
+  return /** @type {string[]} */ (readdirSync(baseDir, { recursive: true })).some((f) =>
+    f.toString().endsWith('.json'),
+  );
 }
 
+// ─── Semantic build ───────────────────────────────────────────────────────────
+
 /**
- * Semantic 토큰 집합을 CSS 변수 파일로 빌드.
- * Primitive 토큰을 함께 로드해 cross-set 참조({color.gray.950} 등)를 해소하되,
- * filter로 참조값을 가진 semantic 토큰만 출력.
- * @param {string} setPrefix
- * @param {string} outputFile
+ * Semantic 토큰을 CSS 변수 파일로 빌드.
+ * Primitive 토큰을 `include`로 로드해 cross-set 참조({color.gray.950} 등)를 해소하되,
+ * `source`에 지정된 semantic 토큰만 출력.
+ * @param {SemanticEntry} entry
  */
-async function _buildSemanticPlatform(setPrefix, outputFile) {
-  if (!hasSetsByPrefix(setPrefix)) {
+async function buildSemanticPlatform({ glob, output, required }) {
+  if (!hasMatchingFiles(glob)) {
+    if (required) {
+      throw new Error(
+        `[tokens] Required semantic token set not found: "${glob}"\n` +
+          `→ Add the token file/directory or remove the entry from tokens.build.json.`,
+      );
+    }
     mkdirSync(DIST, { recursive: true });
-    writeFileSync(`${DIST}/${outputFile}`, `/* ${setPrefix} tokens not yet defined */\n`);
+    writeFileSync(`${DIST}/${output}`, `/* ${glob} not yet defined */\n`);
     return;
   }
 
-  const semanticSets = Object.keys(allTokens).filter((key) => key !== '$metadata' && key.startsWith(setPrefix));
-
   const sd = new StyleDictionary({
-    tokens: deepMerge(mergeSets(PRIMITIVE_SETS), mergeSets(semanticSets)),
+    include: [manifest.primitive.glob],
+    source: [glob],
     platforms: {
       css: {
         transformGroup: 'css',
         buildPath: `${DIST}/`,
         files: [
           {
-            destination: outputFile,
+            destination: output,
             format: 'css/variables',
-            // 참조값({...})을 가진 토큰만 출력 = semantic tokens only
-            filter: (token) => {
-              const origValue = token.original?.$value ?? token.original?.value ?? '';
-              return typeof origValue === 'string' && origValue.startsWith('{');
-            },
             options: { selector: ':root', outputReferences: true },
           },
         ],
@@ -92,11 +87,10 @@ async function _buildSemanticPlatform(setPrefix, outputFile) {
   await sd.buildAllPlatforms();
 }
 
-const PRIMITIVE_SETS = ['primitive/color', 'primitive/radius', 'primitive/spacing', 'primitive/typography'];
+// ─── Primitive build ──────────────────────────────────────────────────────────
 
-// Build primitive tokens (CSS + TypeScript types)
 const primitive = new StyleDictionary({
-  source: ['../../tokens/primitive/**/*.json'],
+  source: [manifest.primitive.glob],
   hooks: {
     formats: {
       'typescript/token-names-dts': ({ dictionary }) => {
@@ -162,69 +156,33 @@ const primitive = new StyleDictionary({
       transforms: ['name/kebab'],
       buildPath: `${DIST_TS}/`,
       files: [
-        {
-          destination: 'primitive.d.ts',
-          format: 'typescript/token-names-dts',
-        },
-        {
-          destination: 'primitive.d.cts',
-          format: 'typescript/token-names-dts',
-        },
-        {
-          destination: 'primitive.js',
-          format: 'typescript/token-names-js',
-        },
-        {
-          destination: 'primitive.cjs',
-          format: 'typescript/token-names-cjs',
-        },
+        { destination: 'primitive.d.ts', format: 'typescript/token-names-dts' },
+        { destination: 'primitive.d.cts', format: 'typescript/token-names-dts' },
+        { destination: 'primitive.js', format: 'typescript/token-names-js' },
+        { destination: 'primitive.cjs', format: 'typescript/token-names-cjs' },
       ],
     },
   },
 });
 await primitive.buildAllPlatforms();
 
-// Build semantic/light tokens — graceful no-op if directory is empty
-if (hasJsonFiles(SEMANTIC_LIGHT_DIR)) {
-  const semanticLight = new StyleDictionary({
-    source: [`${SEMANTIC_LIGHT_DIR}/**/*.json`],
-    platforms: {
-      css: {
-        transformGroup: 'css',
-        buildPath: `${DIST}/`,
-        files: [
-          {
-            destination: 'semantic-light.css',
-            format: 'css/variables',
-            options: { selector: ':root', outputReferences: true },
-          },
-        ],
-      },
-    },
-  });
-  await semanticLight.buildAllPlatforms();
-} else {
-  mkdirSync(DIST, { recursive: true });
-  writeFileSync(`${DIST}/semantic-light.css`, '/* semantic/light tokens not yet defined */\n');
+// ─── Semantic builds (manifest-driven) ───────────────────────────────────────
+
+for (const entry of manifest.semantic) {
+  await buildSemanticPlatform(entry);
 }
 
-// Build semantic tokens — dark color / radius / spacing
-await _buildSemanticPlatform('semantic/dark', 'semantic-dark.css');
-await _buildSemanticPlatform('semantic/radius', 'semantic-radius.css');
-await _buildSemanticPlatform('semantic/spacing', 'semantic-spacing.css');
+// ─── index.css (concat) ───────────────────────────────────────────────────────
 
-// Concatenate all CSS into index.css
 const parts = [
   readFileSync(`${DIST}/primitive.css`, 'utf-8'),
-  readFileSync(`${DIST}/semantic-dark.css`, 'utf-8'),
-  readFileSync(`${DIST}/semantic-radius.css`, 'utf-8'),
-  readFileSync(`${DIST}/semantic-spacing.css`, 'utf-8'),
-  readFileSync(`${DIST}/semantic-light.css`, 'utf-8'),
+  ...manifest.semantic.map(({ output }) => readFileSync(`${DIST}/${output}`, 'utf-8')),
 ];
 writeFileSync(`${DIST}/index.css`, parts.join('\n'));
 console.log(`✓ ${DIST}/index.css generated`);
 
-// token-names barrel (.js + .d.ts — consumed via publishConfig ./token-names export)
+// ─── token-names barrel ───────────────────────────────────────────────────────
+
 mkdirSync(DIST_TS, { recursive: true });
 writeFileSync(
   `${DIST_TS}/index.js`,
