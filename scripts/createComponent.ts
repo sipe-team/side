@@ -25,12 +25,11 @@ class CreateComponentCommand extends Command {
     return str.charAt(0).toLowerCase() + str.slice(1);
   }
 
-  // templateRecipe must come before Template to avoid partial replacement.
   private replacePatterns(kebabCaseName: string, pascalCaseName: string) {
     const camelCaseName = this.pascalToCamel(pascalCaseName);
 
     return [
-      ['templateRecipe', camelCaseName],
+      ['template', camelCaseName],
       ['Template', pascalCaseName],
       ['package-name', kebabCaseName],
     ] as const;

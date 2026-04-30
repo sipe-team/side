@@ -2,7 +2,7 @@ import { vars } from '@sipe-team/tokens';
 
 import { recipe } from '@vanilla-extract/recipes';
 
-export const templateRecipe = recipe({
+export const template = recipe({
   base: {
     display: 'flex',
     alignItems: 'center',

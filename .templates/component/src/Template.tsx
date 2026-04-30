@@ -15,7 +15,7 @@ export const Template = forwardRef(function Template(
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   const Comp = asChild ? Slot : 'div';
-  const className = cx(styles.templateRecipe(), _className);
+  const className = cx(styles.template(), _className);
 
   return <Comp ref={ref} className={className} {...props} />;
 });
