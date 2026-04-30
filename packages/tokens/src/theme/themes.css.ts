@@ -1,52 +1,49 @@
 import { createGlobalTheme } from '@vanilla-extract/css';
 
-import { brandColor, color, themeColor } from '../colors/colors';
-import { radius } from '../effects/radius';
+import { themeColor } from '../colors/colors';
 import { shadows } from '../effects/shadows';
-import { spacing } from '../layout/spacing';
-import { fontSize, fontWeight, lineHeight } from '../typography/fonts';
 import { themeLayer, vars } from './contract.css';
 
 const baseTheme = {
   '@layer': themeLayer,
   spacing: {
     component: {
-      xs: `${spacing[1]}px`,
-      sm: `${spacing[2]}px`,
-      md: `${spacing[3]}px`,
-      lg: `${spacing[4]}px`,
-      xl: `${spacing[6]}px`,
+      xs: 'var(--spacing-component-xs)',
+      sm: 'var(--spacing-component-sm)',
+      md: 'var(--spacing-component-md)',
+      lg: 'var(--spacing-component-lg)',
+      xl: 'var(--spacing-component-xl)',
     },
     layout: {
-      sm: `${spacing[8]}px`,
-      md: `${spacing[10]}px`,
-      lg: `${spacing[12]}px`,
-      xl: `${spacing[16]}px`,
+      sm: 'var(--spacing-layout-sm)',
+      md: 'var(--spacing-layout-md)',
+      lg: 'var(--spacing-layout-lg)',
+      xl: 'var(--spacing-layout-xl)',
     },
   },
   typography: {
-    fontFamily: 'Pretendard, system-ui, sans-serif',
+    fontFamily: 'var(--typography-font-family-base)',
     fontSize: {
-      '050': `${fontSize[12]}px`,
-      '100': `${fontSize[14]}px`,
-      '200': `${fontSize[16]}px`,
-      '300': `${fontSize[18]}px`,
-      '400': `${fontSize[20]}px`,
-      '500': `${fontSize[24]}px`,
-      '600': `${fontSize[28]}px`,
-      '700': `${fontSize[32]}px`,
-      '800': `${fontSize[36]}px`,
-      '900': `${fontSize[48]}px`,
+      '050': 'var(--typography-font-size-12)',
+      '100': 'var(--typography-font-size-14)',
+      '200': 'var(--typography-font-size-16)',
+      '300': 'var(--typography-font-size-18)',
+      '400': 'var(--typography-font-size-20)',
+      '500': 'var(--typography-font-size-24)',
+      '600': 'var(--typography-font-size-28)',
+      '700': 'var(--typography-font-size-32)',
+      '800': 'var(--typography-font-size-36)',
+      '900': 'var(--typography-font-size-48)',
     },
     lineHeight: {
-      regular: `${lineHeight.regular}`,
-      compact: `${lineHeight.compact}`,
+      regular: 'var(--typography-line-height-regular)',
+      compact: 'var(--typography-line-height-compact)',
     },
     fontWeight: {
-      regular: `${fontWeight.regular}`,
-      medium: `${fontWeight.medium}`,
-      semiBold: `${fontWeight.semiBold}`,
-      bold: `${fontWeight.bold}`,
+      regular: 'var(--typography-font-weight-regular)',
+      medium: 'var(--typography-font-weight-medium)',
+      semiBold: 'var(--typography-font-weight-semi-bold)',
+      bold: 'var(--typography-font-weight-bold)',
     },
   },
   shadows: {
@@ -59,42 +56,58 @@ const baseTheme = {
   },
   radius: {
     component: {
-      sm: radius.sm,
-      md: radius.md,
-      lg: radius.lg,
-      xl: radius.xl,
-      full: radius.full,
+      sm: 'var(--radius-component-sm)',
+      md: 'var(--radius-component-md)',
+      lg: 'var(--radius-component-lg)',
+      xl: 'var(--radius-component-xl)',
+      full: 'var(--radius-component-full)',
     },
     layout: {
-      sm: radius.md,
-      md: radius.lg,
-      lg: radius.xl,
+      sm: 'var(--radius-layout-sm)',
+      md: 'var(--radius-layout-md)',
+      lg: 'var(--radius-layout-lg)',
     },
   },
 };
 
 const darkBaseColor = {
   background: {
-    base: color.gray950,
-    subtle: color.gray900,
-    muted: color.gray800,
+    base: 'var(--color-background-base)',
+    subtle: 'var(--color-background-subtle)',
+    muted: 'var(--color-background-muted)',
   },
   foreground: {
-    default: color.white,
-    subtle: color.gray400,
-    muted: color.gray500,
-    onAccent: color.white,
+    default: 'var(--color-foreground-default)',
+    subtle: 'var(--color-foreground-subtle)',
+    muted: 'var(--color-foreground-muted)',
+    onAccent: 'var(--color-foreground-on-accent)',
   },
   border: {
-    default: color.gray700,
-    strong: color.gray500,
-    focus: color.blue400,
+    default: 'var(--color-border-default)',
+    strong: 'var(--color-border-strong)',
+    focus: 'var(--color-border-focus)',
   },
   status: {
-    success: { foreground: color.green400, background: color.green900, border: color.green700 },
-    warning: { foreground: color.orange400, background: color.orange900, border: color.orange700 },
-    danger: { foreground: color.red400, background: color.red900, border: color.red700 },
-    info: { foreground: color.blue400, background: color.blue900, border: color.blue700 },
+    success: {
+      foreground: 'var(--color-status-success-foreground)',
+      background: 'var(--color-status-success-background)',
+      border: 'var(--color-status-success-border)',
+    },
+    warning: {
+      foreground: 'var(--color-status-warning-foreground)',
+      background: 'var(--color-status-warning-background)',
+      border: 'var(--color-status-warning-border)',
+    },
+    danger: {
+      foreground: 'var(--color-status-danger-foreground)',
+      background: 'var(--color-status-danger-background)',
+      border: 'var(--color-status-danger-border)',
+    },
+    info: {
+      foreground: 'var(--color-status-info-foreground)',
+      background: 'var(--color-status-info-background)',
+      border: 'var(--color-status-info-border)',
+    },
   },
 };
 
@@ -103,9 +116,9 @@ createGlobalTheme(':root', vars, {
   color: {
     ...darkBaseColor,
     accent: {
-      default: brandColor.default,
-      hover: brandColor.hover,
-      subtle: brandColor.subtle,
+      default: 'var(--color-accent-default)',
+      hover: 'var(--color-accent-hover)',
+      subtle: 'var(--color-accent-subtle)',
     },
   },
   mode: 'dark',
@@ -119,7 +132,7 @@ createGlobalTheme('[data-theme="1st"]', vars, {
     accent: {
       default: themeColor['1st'].primary,
       hover: themeColor['1st'].secondary,
-      subtle: color.green900,
+      subtle: 'var(--color-green-900)',
     },
   },
   mode: 'dark',
@@ -133,7 +146,7 @@ createGlobalTheme('[data-theme="2nd"]', vars, {
     accent: {
       default: themeColor['2nd'].primary,
       hover: themeColor['2nd'].secondary,
-      subtle: color.teal900,
+      subtle: 'var(--color-teal-900)',
     },
   },
   mode: 'dark',
@@ -147,7 +160,7 @@ createGlobalTheme('[data-theme="3rd"]', vars, {
     accent: {
       default: themeColor['3rd'].primary,
       hover: themeColor['3rd'].secondary,
-      subtle: color.cyan900,
+      subtle: 'var(--color-cyan-900)',
     },
   },
   mode: 'dark',
@@ -161,7 +174,7 @@ createGlobalTheme('[data-theme="4th"]', vars, {
     accent: {
       default: themeColor['4th'].primary,
       hover: themeColor['4th'].secondary,
-      subtle: color.pink900,
+      subtle: 'var(--color-pink-900)',
     },
   },
   mode: 'dark',

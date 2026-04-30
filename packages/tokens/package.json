@@ -10,7 +10,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./token-names": "./dist/ts/index.js"
+    "./token-names": "./dist/ts/index.js",
+    "./styles.css": "./dist/css/index.css"
   },
   "files": [
     "dist"
@@ -60,7 +61,8 @@
           "types": "./dist/ts/index.d.cts",
           "default": "./dist/ts/index.cjs"
         }
-      }
+      },
+      "./styles.css": "./dist/css/index.css"
     }
   },
   "sideEffects": false

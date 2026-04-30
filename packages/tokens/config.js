@@ -24,6 +24,76 @@ function toPascalCase(str) {
     .join('');
 }
 
+/**
+ * Primitive + Semantic 토큰을 합칠 때 같은 최상위 키(color, radius 등)가
+ * shallow merge로 덮어씌워지지 않도록 재귀 병합.
+ * @param {Record<string, unknown>} target
+ * @param {Record<string, unknown>} source
+ */
+function deepMerge(target, source) {
+  const result = { ...target };
+  for (const key of Object.keys(source)) {
+    if (
+      source[key] !== null &&
+      typeof source[key] === 'object' &&
+      !Array.isArray(source[key]) &&
+      target[key] !== null &&
+      typeof target[key] === 'object' &&
+      !Array.isArray(target[key])
+    ) {
+      result[key] = deepMerge(
+        /** @type {Record<string, unknown>} */ (target[key]),
+        /** @type {Record<string, unknown>} */ (source[key]),
+      );
+    } else {
+      result[key] = source[key];
+    }
+  }
+  return result;
+}
+
+/**
+ * Semantic 토큰 집합을 CSS 변수 파일로 빌드.
+ * Primitive 토큰을 함께 로드해 cross-set 참조({color.gray.950} 등)를 해소하되,
+ * filter로 참조값을 가진 semantic 토큰만 출력.
+ * @param {string} setPrefix
+ * @param {string} outputFile
+ */
+async function _buildSemanticPlatform(setPrefix, outputFile) {
+  if (!hasSetsByPrefix(setPrefix)) {
+    mkdirSync(DIST, { recursive: true });
+    writeFileSync(`${DIST}/${outputFile}`, `/* ${setPrefix} tokens not yet defined */\n`);
+    return;
+  }
+
+  const semanticSets = Object.keys(allTokens).filter((key) => key !== '$metadata' && key.startsWith(setPrefix));
+
+  const sd = new StyleDictionary({
+    tokens: deepMerge(mergeSets(PRIMITIVE_SETS), mergeSets(semanticSets)),
+    platforms: {
+      css: {
+        transformGroup: 'css',
+        buildPath: `${DIST}/`,
+        files: [
+          {
+            destination: outputFile,
+            format: 'css/variables',
+            // 참조값({...})을 가진 토큰만 출력 = semantic tokens only
+            filter: (token) => {
+              const origValue = token.original?.$value ?? token.original?.value ?? '';
+              return typeof origValue === 'string' && origValue.startsWith('{');
+            },
+            options: { selector: ':root', outputReferences: true },
+          },
+        ],
+      },
+    },
+  });
+  await sd.buildAllPlatforms();
+}
+
+const PRIMITIVE_SETS = ['primitive/color', 'primitive/radius', 'primitive/spacing', 'primitive/typography'];
+
 // Build primitive tokens (CSS + TypeScript types)
 const primitive = new StyleDictionary({
   source: ['../../tokens/primitive/**/*.json'],
@@ -138,8 +208,19 @@ if (hasJsonFiles(SEMANTIC_LIGHT_DIR)) {
   writeFileSync(`${DIST}/semantic-light.css`, '/* semantic/light tokens not yet defined */\n');
 }
 
+// Build semantic tokens — dark color / radius / spacing
+await _buildSemanticPlatform('semantic/dark', 'semantic-dark.css');
+await _buildSemanticPlatform('semantic/radius', 'semantic-radius.css');
+await _buildSemanticPlatform('semantic/spacing', 'semantic-spacing.css');
+
 // Concatenate all CSS into index.css
-const parts = [readFileSync(`${DIST}/primitive.css`, 'utf-8'), readFileSync(`${DIST}/semantic-light.css`, 'utf-8')];
+const parts = [
+  readFileSync(`${DIST}/primitive.css`, 'utf-8'),
+  readFileSync(`${DIST}/semantic-dark.css`, 'utf-8'),
+  readFileSync(`${DIST}/semantic-radius.css`, 'utf-8'),
+  readFileSync(`${DIST}/semantic-spacing.css`, 'utf-8'),
+  readFileSync(`${DIST}/semantic-light.css`, 'utf-8'),
+];
 writeFileSync(`${DIST}/index.css`, parts.join('\n'));
 console.log(`✓ ${DIST}/index.css generated`);
 
