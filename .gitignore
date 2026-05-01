@@ -185,3 +185,6 @@ build/
 
 # oh-my-claudecode local state
 .omc/
+
+# Style Dictionary intermediate artifacts
+**/tokens-transformed.json
