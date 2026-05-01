@@ -21,11 +21,18 @@ class CreateComponentCommand extends Command {
       .join('');
   }
 
+  private pascalToCamel(str: string): string {
+    return str.charAt(0).toLowerCase() + str.slice(1);
+  }
+
   private replacePatterns(kebabCaseName: string, pascalCaseName: string) {
-    return {
-      Component: pascalCaseName,
-      'package-name': kebabCaseName,
-    } as const;
+    const camelCaseName = this.pascalToCamel(pascalCaseName);
+
+    return [
+      ['template', camelCaseName],
+      ['Template', pascalCaseName],
+      ['package-name', kebabCaseName],
+    ] as const;
   }
 
   private async validateTemplateDir(templateDir: string): Promise<void> {
@@ -53,17 +60,14 @@ class CreateComponentCommand extends Command {
       for (const entry of entries) {
         if (!this.excludePatterns.includes(entry.name)) {
           const sourcePath = path.join(source, entry.name);
-          const newName = entry.name.replaceAll('Component', pascalCaseName);
+          const newName = patterns.reduce((name, [search, replace]) => name.replaceAll(search, replace), entry.name);
           const targetPath = path.join(target, newName);
           await this.copyRecursive(sourcePath, targetPath, kebabCaseName, pascalCaseName);
         }
       }
     } else {
       const content = await fs.readFile(source, 'utf-8');
-      const updatedContent = Object.entries(patterns).reduce(
-        (content, [search, replace]) => content.replace(new RegExp(search, 'g'), replace),
-        content,
-      );
+      const updatedContent = patterns.reduce((acc, [search, replace]) => acc.replaceAll(search, replace), content);
 
       await fs.writeFile(target, updatedContent);
     }
