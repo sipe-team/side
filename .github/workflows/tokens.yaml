@@ -34,11 +34,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # Tokens Studio 포맷(value/type) → W3C DTCG($value/$type) 변환
-      # 현재 tokens/ 파일이 이미 DTCG 포맷이면 변환 없이 통과
-      - name: Transform (Tokens Studio → W3C DTCG)
-        run: pnpm --filter @sipe-team/tokens transform:tokens
-
       # PR 리뷰용: base 브랜치 빌드 결과를 먼저 저장해 diff 비교
       - name: Build base tokens
         id: base-build
@@ -145,9 +140,8 @@ jobs:
 
           ### 파이프라인
           1. Tokens Studio → `tokens/figma-sync` Push
-          2. token-transformer: Tokens Studio 포맷 → W3C DTCG 변환
-          3. Style Dictionary: CSS 빌드
-          4. 이 PR → main 머지 후 VE codegen(추후 추가)
+          2. Style Dictionary + @tokens-studio/sd-transforms: 변환 및 CSS/TS 빌드
+          3. 이 PR → main 머지
 
           ### Review checklist
           - [ ] `validate` 잡 Step Summary에서 CSS diff 확인
