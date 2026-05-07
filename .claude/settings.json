@@ -15,7 +15,19 @@
       "Read"
     ],
     "ask": ["Bash(git push*)", "Bash(git commit*)", "Bash(git reset*)", "Bash(rm *)"],
-    "deny": []
+    "deny": [
+      "Read(./node_modules/)",
+      "Read(./dist/)",
+      "Read(./storybook-static/)",
+      "Read(./www/build/)",
+      "Read(./www/.docusaurus/)",
+      "Read(./coverage/)",
+      "Read(./public/)",
+      "Read(./www/static/)",
+      "Read(./pnpm-lock.yaml)",
+      "Read(**/*.js.map)",
+      "Read(**/*.css.map)"
+    ]
   },
   "enabledPlugins": {
     "codex@openai-codex": true
