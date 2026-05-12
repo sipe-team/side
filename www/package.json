@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "docusaurus start",
     "build": "docusaurus build",
+    "prebuild": "pnpm run extract:props",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -19,15 +20,19 @@
     "@docusaurus/core": "3.6.3",
     "@docusaurus/preset-classic": "3.6.3",
     "@mdx-js/react": "^3.0.0",
+    "@sipe-team/button": "workspace:*",
+    "@sipe-team/tokens": "workspace:^",
     "clsx": "^2.0.0",
     "prism-react-renderer": "^2.3.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-live": "^4.1.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.6.3",
     "@docusaurus/tsconfig": "3.6.3",
     "@docusaurus/types": "3.6.3",
+    "@vanilla-extract/webpack-plugin": "^2.3.27",
     "react-docgen-typescript": "^2.2.2",
     "typescript": "~5.6.2"
   },

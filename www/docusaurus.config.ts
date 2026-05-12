@@ -1,3 +1,5 @@
+import { VanillaExtractPlugin } from '@vanilla-extract/webpack-plugin';
+
 import type * as Preset from '@docusaurus/preset-classic';
 import type { Config } from '@docusaurus/types';
 import { themes as prismThemes } from 'prism-react-renderer';
@@ -30,6 +32,17 @@ export default {
         },
       } satisfies Preset.Options,
     ],
+  ],
+
+  plugins: [
+    () => ({
+      name: 'playground-vanilla-extract',
+      configureWebpack() {
+        return {
+          plugins: [new VanillaExtractPlugin()],
+        };
+      },
+    }),
   ],
 
   themeConfig: {
