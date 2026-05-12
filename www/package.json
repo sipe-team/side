@@ -12,7 +12,8 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
-    "clean": "rm -rf node_modules build .docusaurus"
+    "clean": "rm -rf node_modules build .docusaurus",
+    "extract:props": "node scripts/extract-props.mjs --component button"
   },
   "dependencies": {
     "@docusaurus/core": "3.6.3",
@@ -27,6 +28,7 @@
     "@docusaurus/module-type-aliases": "3.6.3",
     "@docusaurus/tsconfig": "3.6.3",
     "@docusaurus/types": "3.6.3",
+    "react-docgen-typescript": "^2.2.2",
     "typescript": "~5.6.2"
   },
   "browserslist": {
