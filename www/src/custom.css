@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   --ifm-color-primary: #2e8555;
   --ifm-color-primary-dark: #29784c;

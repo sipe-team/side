@@ -2,6 +2,7 @@ import { VanillaExtractPlugin } from '@vanilla-extract/webpack-plugin';
 
 import type * as Preset from '@docusaurus/preset-classic';
 import type { Config } from '@docusaurus/types';
+import tailwindcssPostcss from '@tailwindcss/postcss';
 import { themes as prismThemes } from 'prism-react-renderer';
 
 export default {
@@ -41,6 +42,13 @@ export default {
         return {
           plugins: [new VanillaExtractPlugin()],
         };
+      },
+    }),
+    () => ({
+      name: 'playground-tailwind',
+      configurePostCss(postcssOptions) {
+        postcssOptions.plugins.push(tailwindcssPostcss());
+        return postcssOptions;
       },
     }),
   ],
