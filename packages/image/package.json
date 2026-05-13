@@ -1,7 +1,7 @@
 {
-  "name": "@sipe-team/side",
-  "description": "Sipe Design System",
-  "version": "0.2.5",
+  "name": "@sipe-team/image",
+  "description": "Image for Sipe Design System",
+  "version": "0.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,35 +10,30 @@
   "type": "module",
   "exports": "./src/index.ts",
   "files": [
-    "dist",
-    "styles.css"
+    "dist"
   ],
   "scripts": {
     "build": "tsup",
     "lint": "pnpm exec biome lint",
+    "test": "vitest",
     "typecheck": "tsc",
-    "prepack": "pnpm run build",
-    "clean": "rm -rf node_modules dist"
+    "prepack": "pnpm run build"
   },
   "dependencies": {
-    "@sipe-team/badge": "workspace:*",
-    "@sipe-team/button": "workspace:*",
-    "@sipe-team/card": "workspace:*",
-    "@sipe-team/divider": "workspace:*",
-    "@sipe-team/image": "workspace:*",
-    "@sipe-team/input": "workspace:*",
-    "@sipe-team/radio": "workspace:*",
-    "@sipe-team/skeleton": "workspace:*",
-    "@sipe-team/switch": "workspace:*",
-    "@sipe-team/theme": "workspace:*",
-    "@sipe-team/tokens": "workspace:*",
-    "@sipe-team/tooltip": "workspace:*",
-    "@sipe-team/typography": "workspace:*",
-    "@sipe-team/flex": "workspace:*"
+    "clsx": "catalog:"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@types/react": "catalog:react",
+    "@vanilla-extract/css": "catalog:",
+    "@vanilla-extract/dynamic": "catalog:",
+    "happy-dom": "catalog:",
+    "react": "catalog:react",
+    "react-dom": "catalog:react",
     "tsup": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "peerDependencies": {
     "react": ">= 18",
@@ -58,7 +53,7 @@
           "default": "./dist/index.cjs"
         }
       },
-      "./styles.css": "./styles.css"
+      "./styles.css": "./dist/index.css"
     }
   },
   "sideEffects": [
