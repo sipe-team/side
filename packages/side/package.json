@@ -25,6 +25,7 @@
     "@sipe-team/button": "workspace:*",
     "@sipe-team/card": "workspace:*",
     "@sipe-team/divider": "workspace:*",
+    "@sipe-team/image": "workspace:*",
     "@sipe-team/input": "workspace:*",
     "@sipe-team/radio": "workspace:*",
     "@sipe-team/skeleton": "workspace:*",

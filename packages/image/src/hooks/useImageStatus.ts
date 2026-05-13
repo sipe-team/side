@@ -1,4 +1,4 @@
-import { type SyntheticEvent, useCallback, useState } from 'react';
+import { type SyntheticEvent, useCallback, useEffect, useState } from 'react';
 
 export type ImageStatus = 'loading' | 'normal' | 'fallback' | 'error';
 
@@ -22,7 +22,11 @@ export function useImageStatus({
 }: UseImageStatusParams): UseImageStatusResult {
   const [status, setStatus] = useState<ImageStatus>('loading');
   const [imgSrc, setImgSrc] = useState(src);
-  const [hasTriedFallback, setHasTriedFallback] = useState(false);
+
+  useEffect(() => {
+    setImgSrc(src);
+    setStatus('loading');
+  }, [src]);
 
   const handleLoad = useCallback((_event: SyntheticEvent<HTMLImageElement>) => {
     setStatus('normal');
@@ -32,16 +36,15 @@ export function useImageStatus({
     (event: SyntheticEvent<HTMLImageElement>) => {
       onErrorFromProps?.(event);
 
-      if (!hasTriedFallback && fallbackSrc) {
+      if (status !== 'fallback' && fallbackSrc) {
         setImgSrc(fallbackSrc);
-        setHasTriedFallback(true);
-        setStatus('loading');
+        setStatus('fallback');
         return;
       }
 
       setStatus('error');
     },
-    [fallbackSrc, hasTriedFallback, onErrorFromProps],
+    [fallbackSrc, onErrorFromProps, status],
   );
 
   return {

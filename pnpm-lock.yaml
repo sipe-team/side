@@ -726,6 +726,10 @@ importers:
         version: 2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(jsdom@26.1.0)(lightningcss@1.32.0)(terser@5.37.0)
 
   packages/image:
+    dependencies:
+      clsx:
+        specifier: 'catalog:'
+        version: 2.1.1
     devDependencies:
       '@testing-library/jest-dom':
         specifier: 'catalog:'
@@ -736,6 +740,12 @@ importers:
       '@types/react':
         specifier: catalog:react
         version: 18.3.13
+      '@vanilla-extract/css':
+        specifier: 'catalog:'
+        version: 1.20.1
+      '@vanilla-extract/dynamic':
+        specifier: 'catalog:'
+        version: 2.1.5
       happy-dom:
         specifier: 'catalog:'
         version: 15.11.7
@@ -904,6 +914,9 @@ importers:
       '@sipe-team/flex':
         specifier: workspace:*
         version: link:../flex
+      '@sipe-team/image':
+        specifier: workspace:*
+        version: link:../image
       '@sipe-team/input':
         specifier: workspace:*
         version: link:../input
