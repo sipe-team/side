@@ -111,8 +111,6 @@ export const vars = createGlobalThemeContract(
       xl: 'shadow-xl',
       '2xl': 'shadow-2xl',
     },
-    mode: 'theme-mode',
-    theme: 'theme-name',
   },
   (value) => `side-${value}`,
 );

@@ -1,6 +1,6 @@
 import { createGlobalTheme } from '@vanilla-extract/css';
 
-import { brandColor, color, themeColor } from '../colors/colors';
+import { brandColor, color } from '../colors/colors';
 import { radius } from '../effects/radius';
 import { shadows } from '../effects/shadows';
 import { spacing } from '../layout/spacing';
@@ -73,7 +73,7 @@ const baseTheme = {
   },
 };
 
-const darkBaseColor = {
+const darkColor = {
   background: {
     base: color.gray950,
     subtle: color.gray900,
@@ -90,6 +90,11 @@ const darkBaseColor = {
     strong: color.gray500,
     focus: color.blue400,
   },
+  accent: {
+    default: brandColor.default,
+    hover: brandColor.hover,
+    subtle: brandColor.subtle,
+  },
   status: {
     success: { foreground: color.green400, background: color.green900, border: color.green700 },
     warning: { foreground: color.orange400, background: color.orange900, border: color.orange700 },
@@ -100,70 +105,10 @@ const darkBaseColor = {
 
 createGlobalTheme(':root', vars, {
   ...baseTheme,
-  color: {
-    ...darkBaseColor,
-    accent: {
-      default: brandColor.default,
-      hover: brandColor.hover,
-      subtle: brandColor.subtle,
-    },
-  },
-  mode: 'dark',
-  theme: 'default',
+  color: darkColor,
 });
 
-createGlobalTheme('[data-theme="1st"]', vars, {
+createGlobalTheme('[data-theme="dark"]', vars, {
   ...baseTheme,
-  color: {
-    ...darkBaseColor,
-    accent: {
-      default: themeColor['1st'].primary,
-      hover: themeColor['1st'].secondary,
-      subtle: color.green900,
-    },
-  },
-  mode: 'dark',
-  theme: '1st',
-});
-
-createGlobalTheme('[data-theme="2nd"]', vars, {
-  ...baseTheme,
-  color: {
-    ...darkBaseColor,
-    accent: {
-      default: themeColor['2nd'].primary,
-      hover: themeColor['2nd'].secondary,
-      subtle: color.teal900,
-    },
-  },
-  mode: 'dark',
-  theme: '2nd',
-});
-
-createGlobalTheme('[data-theme="3rd"]', vars, {
-  ...baseTheme,
-  color: {
-    ...darkBaseColor,
-    accent: {
-      default: themeColor['3rd'].primary,
-      hover: themeColor['3rd'].secondary,
-      subtle: color.cyan900,
-    },
-  },
-  mode: 'dark',
-  theme: '3rd',
-});
-
-createGlobalTheme('[data-theme="4th"]', vars, {
-  ...baseTheme,
-  color: {
-    ...darkBaseColor,
-    accent: {
-      default: themeColor['4th'].primary,
-      hover: themeColor['4th'].secondary,
-      subtle: color.pink900,
-    },
-  },
-  mode: 'dark',
-  theme: '4th',
+  color: darkColor,
 });
