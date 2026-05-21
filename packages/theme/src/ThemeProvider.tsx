@@ -1,11 +1,11 @@
 import type React from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
-import { type ColorTheme, vars } from '@sipe-team/tokens';
+import { type ThemeMode, vars } from '@sipe-team/tokens';
 
 interface ThemeContextType {
-  theme: ColorTheme;
-  setTheme: (theme: ColorTheme) => void;
+  theme: ThemeMode;
+  setTheme: (theme: ThemeMode) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -20,11 +20,11 @@ export const useTheme = (): ThemeContextType => {
 
 interface ThemeProviderProps {
   children?: React.ReactNode;
-  theme?: ColorTheme;
+  theme?: ThemeMode;
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme: initialTheme = 'dark' }) => {
-  const [theme, setTheme] = useState<ColorTheme>(initialTheme);
+  const [theme, setTheme] = useState<ThemeMode>(initialTheme);
 
   useEffect(() => {
     setTheme(initialTheme);

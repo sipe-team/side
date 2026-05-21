@@ -1,6 +1,6 @@
 import { createGlobalThemeContract, globalLayer } from '@vanilla-extract/css';
 
-export type ColorTheme = 'light' | 'dark';
+export type ThemeMode = 'light' | 'dark';
 
 export const themeLayer = globalLayer('theme');
 

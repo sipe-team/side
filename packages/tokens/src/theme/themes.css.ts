@@ -2,19 +2,7 @@ import { createGlobalTheme } from '@vanilla-extract/css';
 
 import { shadows } from '../effects/shadows';
 import { themeLayer, vars } from './contract.css';
-
-type MapLeaves<T> = T extends string ? string : { [K in keyof T]: MapLeaves<T[K]> };
-
-const cssVar = (token: string) => `var(--${token})`;
-
-/**
- * Strips the `side-` prefix from every leaf value in a vars subtree,
- * converting `'var(--side-*)'` references into SD CSS variable references (`'var(--*)'`).
- */
-function mapVars<T>(obj: T): MapLeaves<T> {
-  if (typeof obj === 'string') return obj.replace('var(--side-', 'var(--') as MapLeaves<T>;
-  return Object.fromEntries(Object.entries(obj as object).map(([k, v]) => [k, mapVars(v)])) as MapLeaves<T>;
-}
+import { cssVar, mapVars } from './utils';
 
 const baseTheme = {
   '@layer': themeLayer,
@@ -32,7 +20,7 @@ const baseTheme = {
       '600': cssVar('typography-font-size-28'),
       '700': cssVar('typography-font-size-32'),
       '800': cssVar('typography-font-size-36'),
-      '900': cssVar('typography-font-size-40'),
+      '900': cssVar('typography-font-size-48'),
     },
     lineHeight: {
       regular: cssVar('typography-line-height-regular'),
@@ -58,11 +46,13 @@ const baseTheme = {
 
 const darkColor = mapVars(vars.color);
 
+// :root — global dark fallback for contexts without an explicit data-theme attribute
 createGlobalTheme(':root', vars, {
   ...baseTheme,
   color: darkColor,
 });
 
+// [data-theme="dark"] — allows a dark sub-region inside a future light-mode root
 createGlobalTheme('[data-theme="dark"]', vars, {
   ...baseTheme,
   color: darkColor,
