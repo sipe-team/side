@@ -1,53 +1,48 @@
 import { createGlobalTheme } from '@vanilla-extract/css';
 
-import { radius } from '../effects/radius';
 import { shadows } from '../effects/shadows';
-import { spacing } from '../layout/spacing';
-import { fontSize, fontWeight, lineHeight } from '../typography/fonts';
 import { themeLayer, vars } from './contract.css';
+
+type MapLeaves<T> = T extends string ? string : { [K in keyof T]: MapLeaves<T[K]> };
 
 const cssVar = (token: string) => `var(--${token})`;
 
+/**
+ * Strips the `side-` prefix from every leaf value in a vars subtree,
+ * converting `'var(--side-*)'` references into SD CSS variable references (`'var(--*)'`).
+ */
+function mapVars<T>(obj: T): MapLeaves<T> {
+  if (typeof obj === 'string') return obj.replace('var(--side-', 'var(--') as MapLeaves<T>;
+  return Object.fromEntries(Object.entries(obj as object).map(([k, v]) => [k, mapVars(v)])) as MapLeaves<T>;
+}
+
 const baseTheme = {
   '@layer': themeLayer,
-  spacing: {
-    component: {
-      xs: `${spacing[1]}px`,
-      sm: `${spacing[2]}px`,
-      md: `${spacing[3]}px`,
-      lg: `${spacing[4]}px`,
-      xl: `${spacing[6]}px`,
-    },
-    layout: {
-      sm: `${spacing[8]}px`,
-      md: `${spacing[10]}px`,
-      lg: `${spacing[12]}px`,
-      xl: `${spacing[16]}px`,
-    },
-  },
+  spacing: mapVars(vars.spacing),
   typography: {
-    fontFamily: 'Pretendard, system-ui, sans-serif',
+    // typography contract values don't align with SD path-based naming — referenced manually
+    fontFamily: cssVar('typography-font-family-base'),
     fontSize: {
-      '050': `${fontSize[12]}px`,
-      '100': `${fontSize[14]}px`,
-      '200': `${fontSize[16]}px`,
-      '300': `${fontSize[18]}px`,
-      '400': `${fontSize[20]}px`,
-      '500': `${fontSize[24]}px`,
-      '600': `${fontSize[28]}px`,
-      '700': `${fontSize[32]}px`,
-      '800': `${fontSize[36]}px`,
-      '900': `${fontSize[48]}px`,
+      '050': cssVar('typography-font-size-12'),
+      '100': cssVar('typography-font-size-14'),
+      '200': cssVar('typography-font-size-16'),
+      '300': cssVar('typography-font-size-18'),
+      '400': cssVar('typography-font-size-20'),
+      '500': cssVar('typography-font-size-24'),
+      '600': cssVar('typography-font-size-28'),
+      '700': cssVar('typography-font-size-32'),
+      '800': cssVar('typography-font-size-36'),
+      '900': cssVar('typography-font-size-40'),
     },
     lineHeight: {
-      regular: `${lineHeight.regular}`,
-      compact: `${lineHeight.compact}`,
+      regular: cssVar('typography-line-height-regular'),
+      compact: cssVar('typography-line-height-compact'),
     },
     fontWeight: {
-      regular: `${fontWeight.regular}`,
-      medium: `${fontWeight.medium}`,
-      semiBold: `${fontWeight.semiBold}`,
-      bold: `${fontWeight.bold}`,
+      regular: cssVar('typography-font-weight-regular'),
+      medium: cssVar('typography-font-weight-medium'),
+      semiBold: cssVar('typography-font-weight-semi-bold'),
+      bold: cssVar('typography-font-weight-bold'),
     },
   },
   shadows: {
@@ -58,68 +53,10 @@ const baseTheme = {
     xl: shadows.xl,
     '2xl': shadows['2xl'],
   },
-  radius: {
-    component: {
-      sm: radius.sm,
-      md: radius.md,
-      lg: radius.lg,
-      xl: radius.xl,
-      full: radius.full,
-    },
-    layout: {
-      sm: radius.md,
-      md: radius.lg,
-      lg: radius.xl,
-    },
-  },
+  radius: mapVars(vars.radius),
 };
 
-// SD semantic CSS variable references — values resolved from dist/css/semantic-dark.css
-const darkColor = {
-  background: {
-    base: cssVar('color-background-base'),
-    subtle: cssVar('color-background-subtle'),
-    muted: cssVar('color-background-muted'),
-  },
-  foreground: {
-    default: cssVar('color-foreground-default'),
-    subtle: cssVar('color-foreground-subtle'),
-    muted: cssVar('color-foreground-muted'),
-    onAccent: cssVar('color-foreground-on-accent'),
-  },
-  border: {
-    default: cssVar('color-border-default'),
-    strong: cssVar('color-border-strong'),
-    focus: cssVar('color-border-focus'),
-  },
-  accent: {
-    default: cssVar('color-accent-default'),
-    hover: cssVar('color-accent-hover'),
-    subtle: cssVar('color-accent-subtle'),
-  },
-  status: {
-    success: {
-      foreground: cssVar('color-status-success-foreground'),
-      background: cssVar('color-status-success-background'),
-      border: cssVar('color-status-success-border'),
-    },
-    warning: {
-      foreground: cssVar('color-status-warning-foreground'),
-      background: cssVar('color-status-warning-background'),
-      border: cssVar('color-status-warning-border'),
-    },
-    danger: {
-      foreground: cssVar('color-status-danger-foreground'),
-      background: cssVar('color-status-danger-background'),
-      border: cssVar('color-status-danger-border'),
-    },
-    info: {
-      foreground: cssVar('color-status-info-foreground'),
-      background: cssVar('color-status-info-background'),
-      border: cssVar('color-status-info-border'),
-    },
-  },
-};
+const darkColor = mapVars(vars.color);
 
 createGlobalTheme(':root', vars, {
   ...baseTheme,
