@@ -1000,9 +1000,6 @@ importers:
       '@sipe-team/tokens':
         specifier: workspace:*
         version: link:../tokens
-      '@vanilla-extract/dynamic':
-        specifier: 'catalog:'
-        version: 2.1.5
     devDependencies:
       '@testing-library/jest-dom':
         specifier: 'catalog:'
