@@ -12,12 +12,13 @@
       "Bash(ls*)",
       "Edit",
       "Write",
-      "Read"
+      "Read",
+      "Read(./packages/tokens/dist/*)"
     ],
     "ask": ["Bash(git push*)", "Bash(git commit*)", "Bash(git reset*)", "Bash(rm *)"],
     "deny": [
+      "Read(**/dist/**)",
       "Read(./node_modules/)",
-      "Read(./dist/)",
       "Read(./storybook-static/)",
       "Read(./www/build/)",
       "Read(./www/.docusaurus/)",
