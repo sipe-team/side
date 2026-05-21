@@ -1,11 +1,12 @@
 import { createGlobalTheme } from '@vanilla-extract/css';
 
-import { brandColor, color } from '../colors/colors';
 import { radius } from '../effects/radius';
 import { shadows } from '../effects/shadows';
 import { spacing } from '../layout/spacing';
 import { fontSize, fontWeight, lineHeight } from '../typography/fonts';
 import { themeLayer, vars } from './contract.css';
+
+const cssVar = (token: string) => `var(--${token})`;
 
 const baseTheme = {
   '@layer': themeLayer,
@@ -73,33 +74,50 @@ const baseTheme = {
   },
 };
 
+// SD semantic CSS variable references — values resolved from dist/css/semantic-dark.css
 const darkColor = {
   background: {
-    base: color.gray950,
-    subtle: color.gray900,
-    muted: color.gray800,
+    base: cssVar('color-background-base'),
+    subtle: cssVar('color-background-subtle'),
+    muted: cssVar('color-background-muted'),
   },
   foreground: {
-    default: color.white,
-    subtle: color.gray400,
-    muted: color.gray500,
-    onAccent: color.white,
+    default: cssVar('color-foreground-default'),
+    subtle: cssVar('color-foreground-subtle'),
+    muted: cssVar('color-foreground-muted'),
+    onAccent: cssVar('color-foreground-on-accent'),
   },
   border: {
-    default: color.gray700,
-    strong: color.gray500,
-    focus: color.blue400,
+    default: cssVar('color-border-default'),
+    strong: cssVar('color-border-strong'),
+    focus: cssVar('color-border-focus'),
   },
   accent: {
-    default: brandColor.default,
-    hover: brandColor.hover,
-    subtle: brandColor.subtle,
+    default: cssVar('color-accent-default'),
+    hover: cssVar('color-accent-hover'),
+    subtle: cssVar('color-accent-subtle'),
   },
   status: {
-    success: { foreground: color.green400, background: color.green900, border: color.green700 },
-    warning: { foreground: color.orange400, background: color.orange900, border: color.orange700 },
-    danger: { foreground: color.red400, background: color.red900, border: color.red700 },
-    info: { foreground: color.blue400, background: color.blue900, border: color.blue700 },
+    success: {
+      foreground: cssVar('color-status-success-foreground'),
+      background: cssVar('color-status-success-background'),
+      border: cssVar('color-status-success-border'),
+    },
+    warning: {
+      foreground: cssVar('color-status-warning-foreground'),
+      background: cssVar('color-status-warning-background'),
+      border: cssVar('color-status-warning-border'),
+    },
+    danger: {
+      foreground: cssVar('color-status-danger-foreground'),
+      background: cssVar('color-status-danger-background'),
+      border: cssVar('color-status-danger-border'),
+    },
+    info: {
+      foreground: cssVar('color-status-info-foreground'),
+      background: cssVar('color-status-info-background'),
+      border: cssVar('color-status-info-border'),
+    },
   },
 };
 
