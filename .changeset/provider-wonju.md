@@ -1,6 +1,6 @@
 ---
 "@sipe-team/theme": major
-"@sipe-team/tokens": major
+"@sipe-team/tokens": minor
 ---
 
 Replace brand-color ThemeProvider with light/dark mode toggle and align design tokens with SSOT.
