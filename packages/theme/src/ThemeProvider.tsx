@@ -19,7 +19,7 @@ export const useTheme = (): ThemeContextType => {
 };
 
 interface ThemeProviderProps {
-  children?: React.ReactNode;
+  children: React.ReactNode;
   theme?: ThemeMode;
 }
 
