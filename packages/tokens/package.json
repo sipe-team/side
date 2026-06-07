@@ -29,6 +29,7 @@
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@types/react": "catalog:react",
+    "@vanilla-extract/esbuild-plugin": "^2.3.22",
     "react": "catalog:react",
     "react-dom": "catalog:react",
     "storybook": "catalog:",
