@@ -1047,6 +1047,9 @@ importers:
       '@types/react':
         specifier: catalog:react
         version: 18.3.13
+      '@vanilla-extract/esbuild-plugin':
+        specifier: ^2.3.22
+        version: 2.3.22(esbuild@0.27.7)
       react:
         specifier: catalog:react
         version: 18.3.1
