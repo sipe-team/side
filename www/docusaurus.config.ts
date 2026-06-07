@@ -1,9 +1,15 @@
-import { VanillaExtractPlugin } from '@vanilla-extract/webpack-plugin';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import type * as Preset from '@docusaurus/preset-classic';
 import type { Config } from '@docusaurus/types';
 import tailwindcssPostcss from '@tailwindcss/postcss';
 import { themes as prismThemes } from 'prism-react-renderer';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const buttonDist = path.resolve(__dirname, '../packages/button/dist/index.js');
+const tokensCss = path.resolve(__dirname, 'src/.generated/tokens.css');
+const buttonCss = path.resolve(__dirname, '../packages/button/dist/index.css');
 
 export default {
   title: 'Side',
@@ -29,7 +35,7 @@ export default {
         },
         blog: false,
         theme: {
-          customCss: './src/custom.css',
+          customCss: ['./src/custom.css', tokensCss, buttonCss],
         },
       } satisfies Preset.Options,
     ],
@@ -37,10 +43,14 @@ export default {
 
   plugins: [
     () => ({
-      name: 'playground-vanilla-extract',
+      name: 'playground-workspace-dist-aliases',
       configureWebpack() {
         return {
-          plugins: [new VanillaExtractPlugin()],
+          resolve: {
+            alias: {
+              '@sipe-team/button': buttonDist,
+            },
+          },
         };
       },
     }),

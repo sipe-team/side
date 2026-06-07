@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "docusaurus start",
     "build": "docusaurus build",
-    "prebuild": "pnpm run extract:props",
+    "prebuild": "pnpm --filter @sipe-team/button build && pnpm --filter @sipe-team/tokens build && node scripts/copy-tokens-css.mjs && pnpm run extract:props",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
