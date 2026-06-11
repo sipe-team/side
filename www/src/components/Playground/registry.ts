@@ -1,4 +1,4 @@
-import { Button } from '@sipe-team/button';
+import { Button } from '@sipe-team/side';
 
 import buttonProps from '../../.generated/props/button.json';
 

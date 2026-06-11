@@ -7,9 +7,8 @@ import tailwindcssPostcss from '@tailwindcss/postcss';
 import { themes as prismThemes } from 'prism-react-renderer';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const buttonDist = path.resolve(__dirname, '../packages/button/dist/index.js');
-const tokensCss = path.resolve(__dirname, 'src/.generated/tokens.css');
-const buttonCss = path.resolve(__dirname, '../packages/button/dist/index.css');
+const sideDist = path.resolve(__dirname, '../packages/side/dist/index.js');
+const sideCss = path.resolve(__dirname, '../packages/side/dist/index.css');
 
 export default {
   title: 'Side',
@@ -35,7 +34,7 @@ export default {
         },
         blog: false,
         theme: {
-          customCss: ['./src/custom.css', tokensCss, buttonCss],
+          customCss: ['./src/custom.css', sideCss],
         },
       } satisfies Preset.Options,
     ],
@@ -48,7 +47,7 @@ export default {
         return {
           resolve: {
             alias: {
-              '@sipe-team/button': buttonDist,
+              '@sipe-team/side': sideDist,
             },
           },
         };
