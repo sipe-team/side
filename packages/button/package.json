@@ -8,10 +8,7 @@
     "url": "https://github.com/sipe-team/side"
   },
   "type": "module",
-  "exports": {
-    ".": "./src/index.ts",
-    "./styles.css": "./dist/index.css"
-  },
+  "exports": "./src/index.ts",
   "files": [
     "dist"
   ],

@@ -29,7 +29,6 @@
   "devDependencies": {
     "@types/node": "^22",
     "@types/react": "catalog:react",
-    "@vanilla-extract/esbuild-plugin": "^2.3.22",
     "react": "catalog:react",
     "react-dom": "catalog:react",
     "@tokens-studio/sd-transforms": "^2.0.0",

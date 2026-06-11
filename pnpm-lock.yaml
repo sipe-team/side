@@ -1050,9 +1050,6 @@ importers:
       '@types/react':
         specifier: catalog:react
         version: 18.3.13
-      '@vanilla-extract/esbuild-plugin':
-        specifier: ^2.3.22
-        version: 2.3.22(esbuild@0.27.7)
       react:
         specifier: catalog:react
         version: 18.3.1
@@ -1215,9 +1212,6 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.3.0
         version: 4.3.0
-      '@vanilla-extract/webpack-plugin':
-        specifier: ^2.3.27
-        version: 2.3.27(webpack@5.97.1(esbuild@0.27.7))
       react-docgen-typescript:
         specifier: ^2.2.2
         version: 2.2.2(typescript@5.6.3)
@@ -4422,11 +4416,6 @@ packages:
     resolution: {integrity: sha512-AUyB4fDR2b/Mo0lcXhhlf6RxnDPYwFMyKKopalJ4BwQNKYzZSoTwHJ1PLPO9SKhpz7lzXc0Z18GHQZOewzl3YA==}
     peerDependencies:
       vite: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
-
-  '@vanilla-extract/webpack-plugin@2.3.27':
-    resolution: {integrity: sha512-i/GFQPifTkGYXYpkVYzScBPwXB82f+5GMLg9rh9UBgTG6M/YUebIDVjVOC9Mn5VMvc8Fk2w/FmagDRLugHA09w==}
-    peerDependencies:
-      webpack: ^4.30.0 || ^5.20.2
 
   '@vitest/coverage-v8@2.1.8':
     resolution: {integrity: sha512-2Y7BPlKH18mAZYAW1tYByudlCYrQyl5RGvnnDYJKW5tCiO5qg3KSAy3XAxcxKz900a0ZXxWtKrMuZLe3lKBpJw==}
@@ -13811,17 +13800,6 @@ snapshots:
       - terser
       - tsx
       - yaml
-
-  '@vanilla-extract/webpack-plugin@2.3.27(webpack@5.97.1(esbuild@0.27.7))':
-    dependencies:
-      '@vanilla-extract/integration': 8.0.10
-      debug: 4.4.0
-      loader-utils: 2.0.4
-      picocolors: 1.1.1
-      webpack: 5.97.1(esbuild@0.27.7)
-    transitivePeerDependencies:
-      - babel-plugin-macros
-      - supports-color
 
   '@vitest/coverage-v8@2.1.8(vitest@2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(jsdom@26.1.0)(lightningcss@1.32.0)(terser@5.37.0))':
     dependencies:
