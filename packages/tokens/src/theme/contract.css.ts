@@ -1,5 +1,6 @@
 import { createGlobalThemeContract, globalLayer } from '@vanilla-extract/css';
 
+// TODO: dark is the default mode; light mode will be added later.
 export type ThemeMode = 'light' | 'dark';
 
 export const themeLayer = globalLayer('theme');

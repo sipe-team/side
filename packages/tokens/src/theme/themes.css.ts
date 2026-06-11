@@ -57,3 +57,5 @@ createGlobalTheme('[data-theme="dark"]', vars, {
   ...baseTheme,
   color: darkColor,
 });
+
+// TODO: dark is the default mode; light mode will be added later.
