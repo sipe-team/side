@@ -5,10 +5,9 @@ import { radius } from '../effects/radius';
 import { shadows } from '../effects/shadows';
 import { spacing } from '../layout/spacing';
 import { fontSize, fontWeight, lineHeight } from '../typography/fonts';
-import { themeLayer, vars } from './contract.css';
+import { vars } from './contract.css';
 
 const baseTheme = {
-  '@layer': themeLayer,
   spacing: {
     component: {
       xs: `${spacing[1]}px`,

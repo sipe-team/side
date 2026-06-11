@@ -1,6 +1,4 @@
-import { createGlobalThemeContract, globalLayer } from '@vanilla-extract/css';
-
-export const themeLayer = globalLayer('theme');
+import { createGlobalThemeContract } from '@vanilla-extract/css';
 
 export const vars = createGlobalThemeContract(
   {
