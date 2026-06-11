@@ -36,6 +36,7 @@
     "@sipe-team/flex": "workspace:*"
   },
   "devDependencies": {
+    "@vanilla-extract/esbuild-plugin": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:"
   },
