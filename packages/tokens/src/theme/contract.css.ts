@@ -1,5 +1,8 @@
 import { createGlobalThemeContract, globalLayer } from '@vanilla-extract/css';
 
+// TODO: dark is the default mode; light mode will be added later.
+export type ThemeMode = 'light' | 'dark';
+
 export const themeLayer = globalLayer('theme');
 
 export const vars = createGlobalThemeContract(
@@ -111,8 +114,6 @@ export const vars = createGlobalThemeContract(
       xl: 'shadow-xl',
       '2xl': 'shadow-2xl',
     },
-    mode: 'theme-mode',
-    theme: 'theme-name',
   },
   (value) => `side-${value}`,
 );

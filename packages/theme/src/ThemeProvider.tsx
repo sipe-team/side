@@ -1,13 +1,11 @@
 import type React from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
-import { type ThemeColor, themeColor, vars } from '@sipe-team/tokens';
-
-import { assignInlineVars } from '@vanilla-extract/dynamic';
+import { type ThemeMode, vars } from '@sipe-team/tokens';
 
 interface ThemeContextType {
-  theme: ThemeColor;
-  setTheme: (theme: ThemeColor) => void;
+  theme: ThemeMode;
+  setTheme: (theme: ThemeMode) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -22,11 +20,11 @@ export const useTheme = (): ThemeContextType => {
 
 interface ThemeProviderProps {
   children: React.ReactNode;
-  theme?: ThemeColor;
+  theme?: ThemeMode;
 }
 
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme: initialTheme = themeColor['4th'] }) => {
-  const [theme, setTheme] = useState<ThemeColor>(initialTheme);
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme: initialTheme = 'dark' }) => {
+  const [theme, setTheme] = useState<ThemeMode>(initialTheme);
 
   useEffect(() => {
     setTheme(initialTheme);
@@ -40,15 +38,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme: i
     [theme],
   );
 
-  const themeVars = assignInlineVars(vars.color.accent, {
-    default: theme.primary,
-    hover: theme.secondary,
-    subtle: theme.background,
-  });
-
   return (
     <ThemeContext.Provider value={contextValue}>
-      <div style={{ ...themeVars, display: 'contents' }}>{children}</div>
+      <div data-theme={theme} style={{ display: 'contents' }}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   );
 };
