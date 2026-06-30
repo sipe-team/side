@@ -6,13 +6,32 @@ export const base = style({
   display: 'flex',
 });
 
+const mediaQuery = {
+  md: 'screen and (min-width: 780px)',
+  lg: 'screen and (min-width: 1060px)',
+} as const;
+
+const createResponsiveStyleVariants = <T extends string, TStyle extends Record<T, object>>(styles: TStyle) => ({
+  sm: styleVariants(styles),
+  md: styleVariants(styles, (style) => ({
+    '@media': {
+      [mediaQuery.md]: style,
+    },
+  })),
+  lg: styleVariants(styles, (style) => ({
+    '@media': {
+      [mediaQuery.lg]: style,
+    },
+  })),
+});
+
 const directionStyles: Record<FlexDirection, { flexDirection: FlexDirection }> = {
   row: { flexDirection: 'row' },
   column: { flexDirection: 'column' },
   'row-reverse': { flexDirection: 'row-reverse' },
   'column-reverse': { flexDirection: 'column-reverse' },
 };
-export const direction = styleVariants(directionStyles);
+export const direction = createResponsiveStyleVariants(directionStyles);
 
 const alignStyles: Record<FlexAlign, { alignItems: FlexAlign }> = {
   'flex-start': { alignItems: 'flex-start' },
@@ -22,7 +41,7 @@ const alignStyles: Record<FlexAlign, { alignItems: FlexAlign }> = {
   baseline: { alignItems: 'baseline' },
   normal: { alignItems: 'normal' },
 };
-export const align = styleVariants(alignStyles);
+export const align = createResponsiveStyleVariants(alignStyles);
 
 const justifyStyles: Record<FlexJustify, { justifyContent: FlexJustify }> = {
   'flex-start': { justifyContent: 'flex-start' },
@@ -33,14 +52,26 @@ const justifyStyles: Record<FlexJustify, { justifyContent: FlexJustify }> = {
   'space-evenly': { justifyContent: 'space-evenly' },
   normal: { justifyContent: 'normal' },
 };
-export const justify = styleVariants(justifyStyles);
+export const justify = createResponsiveStyleVariants(justifyStyles);
 
 const wrapStyles: Record<FlexWrap, { flexWrap: FlexWrap }> = {
   nowrap: { flexWrap: 'nowrap' },
   wrap: { flexWrap: 'wrap' },
   'wrap-reverse': { flexWrap: 'wrap-reverse' },
 };
-export const wrap = styleVariants(wrapStyles);
+export const wrap = createResponsiveStyleVariants(wrapStyles);
+
+export const responsiveGap = style({
+  gap: 'var(--side-flex-gap-sm)',
+  '@media': {
+    [mediaQuery.md]: {
+      gap: 'var(--side-flex-gap-md, var(--side-flex-gap-sm))',
+    },
+    [mediaQuery.lg]: {
+      gap: 'var(--side-flex-gap-lg, var(--side-flex-gap-md, var(--side-flex-gap-sm)))',
+    },
+  },
+});
 
 export const display = styleVariants({
   flex: { display: 'flex' },
