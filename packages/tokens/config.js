@@ -285,6 +285,7 @@ console.log('✓ dist/styles.css generated');
 
 // token-names barrel (.js + .d.ts — consumed via publishConfig ./token-names export)
 mkdirSync(DIST_TS, { recursive: true });
+
 writeFileSync(
   `${DIST_TS}/index.js`,
   "/** Auto-generated — do not edit directly. */\nexport * from './primitive.js';\n",
@@ -294,14 +295,21 @@ writeFileSync(
   "/** Auto-generated — do not edit directly. */\n'use strict';\nmodule.exports = require('./primitive.cjs');\n",
 );
 
-const barrelDts = [
-  '/** Auto-generated — do not edit directly. */',
-  "export * from './primitive';",
-  "export * from './semantic';",
-  'export type DesignToken = PrimitiveToken | SemanticToken;',
-  '/** Wraps a design token name in `var()` for use in inline styles. */',
-  'export declare function cssVar<T extends DesignToken>(token: T): `var(--${T})`;\n',
-].join('\n');
-writeFileSync(`${DIST_TS}/index.d.ts`, barrelDts);
-writeFileSync(`${DIST_TS}/index.d.cts`, barrelDts);
+/**
+ * Relative specifiers in declaration files must carry the runtime extension, otherwise node16 ESM
+ * resolution fails to find the sibling modules. The semantic layer is types-only and needs no
+ * runtime module: TypeScript resolves `./semantic.js` to `semantic.d.ts` by extension substitution.
+ * @param {'.js' | '.cjs'} ext
+ */
+const barrelDts = (ext) =>
+  [
+    '/** Auto-generated — do not edit directly. */',
+    `export * from './primitive${ext}';`,
+    `export * from './semantic${ext}';`,
+    'export type DesignToken = PrimitiveToken | SemanticToken;',
+    '/** Wraps a design token name in `var()` for use in inline styles. */',
+    'export declare function cssVar<T extends DesignToken>(token: T): `var(--${T})`;\n',
+  ].join('\n');
+writeFileSync(`${DIST_TS}/index.d.ts`, barrelDts('.js'));
+writeFileSync(`${DIST_TS}/index.d.cts`, barrelDts('.cjs'));
 console.log(`✓ ${DIST_TS}/index.js + index.cjs generated`);
