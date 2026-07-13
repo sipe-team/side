@@ -1,5 +1,12 @@
 # @sipe-team/avatar
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [38faf10]
+  - @sipe-team/typography@0.0.6
+
 ## 0.0.1
 
 ### Patch Changes

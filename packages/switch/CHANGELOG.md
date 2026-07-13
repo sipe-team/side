@@ -1,5 +1,11 @@
 # @sipe-team/switch
 
+## 0.0.4
+
+### Patch Changes
+
+- 38faf10: Preserve CSS imports in `sideEffects` so consumer bundlers don't tree-shake `./styles.css`.
+
 ## 0.0.3
 
 ### Patch Changes

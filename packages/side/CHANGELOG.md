@@ -1,5 +1,24 @@
 # @sipe-team/side
 
+## 0.2.6
+
+### Patch Changes
+
+- 38faf10: Preserve CSS imports in `sideEffects` so consumer bundlers don't tree-shake `./styles.css`.
+- Updated dependencies [38faf10]
+- Updated dependencies [38faf10]
+  - @sipe-team/skeleton@0.0.4
+  - @sipe-team/divider@0.0.4
+  - @sipe-team/tooltip@0.0.5
+  - @sipe-team/button@0.0.3
+  - @sipe-team/switch@0.0.4
+  - @sipe-team/badge@0.0.5
+  - @sipe-team/input@0.0.5
+  - @sipe-team/radio@0.1.1
+  - @sipe-team/card@0.1.2
+  - @sipe-team/flex@0.1.4
+  - @sipe-team/typography@0.0.6
+
 ## 0.2.5
 
 ### Patch Changes
