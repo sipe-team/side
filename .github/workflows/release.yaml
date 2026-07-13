@@ -5,6 +5,13 @@ on:
     branches:
       - main
 
+# Two merges landing while a release is in flight would otherwise run `changeset publish`
+# concurrently against the registry. Never cancel a run that has started: interrupting a publish
+# mid-flight is how packages end up half-released.
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -24,7 +31,8 @@ jobs:
         uses: changesets/action@v1
         with:
           version: pnpm changeset version
-          publish: pnpm changeset publish
+          # `pnpm release` gates `changeset publish` behind publint + attw on the packed tarballs.
+          publish: pnpm release
           commit: "chore(release): version packages"
           title: "chore(release): version packages"
         env:
