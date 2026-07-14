@@ -1,13 +1,7 @@
-# @sipe-team/checkbox
+# @sipe-team/accordion
 
-## 0.0.2
+## 0.1.1
 
 ### Patch Changes
 
 - 38faf10: Preserve CSS imports in `sideEffects` so consumer bundlers don't tree-shake `./styles.css`.
-
-## 0.0.1
-
-### Patch Changes
-
-- 235be5d: fix: add react-dom into peerDependencies

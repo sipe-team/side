@@ -1,5 +1,12 @@
 # @sipe-team/tooltip
 
+## 0.0.5
+
+### Patch Changes
+
+- 38faf10: Preserve CSS imports in `sideEffects` so consumer bundlers don't tree-shake `./styles.css`.
+- 38faf10: improve accessibility and refactor styles for Tooltip
+
 ## 0.0.4
 
 ### Patch Changes
