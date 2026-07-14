@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Image } from './Image';
+import { Image, ImageRadius } from './Image';
 
 const meta: Meta<typeof Image> = {
   title: 'Components/Image',
@@ -143,6 +143,26 @@ export const Fits: Story = {
     width: 300,
     height: 300,
   },
+};
+
+export const Radiuses: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'radius 토큰(`none` ~ `full`)을 적용한 예시입니다.',
+      },
+    },
+  },
+  render: (args) => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+      {Object.values(ImageRadius).map((radius) => (
+        <div key={radius} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <Image {...args} radius={radius} alt={`radius ${radius}`} width={120} height={120} />
+          <span style={{ fontSize: 12, color: '#71717a' }}>radius: {radius}</span>
+        </div>
+      ))}
+    </div>
+  ),
 };
 
 export const ResponsiveWidth: Story = {
