@@ -20,6 +20,7 @@ export interface ImageProps
   fill?: boolean;
   fallbackSrc?: string;
   placeholder?: ReactNode;
+  onLoad?: ComponentPropsWithoutRef<'img'>['onLoad'];
   onError?: ComponentPropsWithoutRef<'img'>['onError'];
 }
 
@@ -34,6 +35,7 @@ export const Image = forwardRef(function Image(
     fallbackSrc,
     placeholder,
     loading = 'lazy',
+    onLoad,
     onError,
     className: _className,
     style,
@@ -44,6 +46,7 @@ export const Image = forwardRef(function Image(
   const { status, imgSrc, handleLoad, handleError } = useImageStatus({
     src,
     ...(fallbackSrc ? { fallbackSrc } : {}),
+    ...(onLoad ? { onLoad } : {}),
     ...(onError ? { onError } : {}),
   });
 

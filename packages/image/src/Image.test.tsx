@@ -154,6 +154,34 @@ describe('Image', () => {
     expect(img).toHaveAttribute('loading', 'lazy');
   });
 
+  it('always calls user onLoad callback', () => {
+    const onLoad = vi.fn();
+    render(<Image src="https://picsum.photos/400/300" alt="onLoad test" onLoad={onLoad} />);
+
+    const img = screen.getByRole('img', { name: 'onLoad test' });
+    fireEvent.load(img);
+
+    expect(onLoad).toHaveBeenCalledTimes(1);
+  });
+
+  it('calls user onLoad callback when fallback image loads', () => {
+    const onLoad = vi.fn();
+    render(
+      <Image
+        src="https://invalid-url.com/broken.jpg"
+        fallbackSrc="https://dummyimage.com/400x300/e5e7eb/111827&text=FALLBACK"
+        alt="fallback onLoad test"
+        onLoad={onLoad}
+      />,
+    );
+
+    const img = screen.getByRole('img', { name: 'fallback onLoad test' });
+    fireEvent.error(img);
+    fireEvent.load(img);
+
+    expect(onLoad).toHaveBeenCalledTimes(1);
+  });
+
   it('always calls user onError callback', () => {
     const onError = vi.fn();
     render(<Image src="https://invalid-url.com/broken.jpg" alt="onError test" onError={onError} />);

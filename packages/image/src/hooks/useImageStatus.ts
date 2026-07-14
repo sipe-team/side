@@ -5,6 +5,7 @@ export type ImageStatus = 'loading' | 'normal' | 'fallback' | 'error';
 interface UseImageStatusParams {
   src: string;
   fallbackSrc?: string;
+  onLoad?: (event: SyntheticEvent<HTMLImageElement>) => void;
   onError?: (event: SyntheticEvent<HTMLImageElement>) => void;
 }
 
@@ -18,6 +19,7 @@ interface UseImageStatusResult {
 export function useImageStatus({
   src,
   fallbackSrc,
+  onLoad: onLoadFromProps,
   onError: onErrorFromProps,
 }: UseImageStatusParams): UseImageStatusResult {
   const [status, setStatus] = useState<ImageStatus>('loading');
@@ -28,9 +30,13 @@ export function useImageStatus({
     setStatus('loading');
   }, [src]);
 
-  const handleLoad = useCallback((_event: SyntheticEvent<HTMLImageElement>) => {
-    setStatus('normal');
-  }, []);
+  const handleLoad = useCallback(
+    (event: SyntheticEvent<HTMLImageElement>) => {
+      onLoadFromProps?.(event);
+      setStatus('normal');
+    },
+    [onLoadFromProps],
+  );
 
   const handleError = useCallback(
     (event: SyntheticEvent<HTMLImageElement>) => {
