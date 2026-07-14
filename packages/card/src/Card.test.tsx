@@ -1,11 +1,32 @@
-import { color } from '@sipe-team/tokens';
-
 import { render, screen } from '@testing-library/react';
 import { expect, test } from 'vitest';
 
 import { Card } from './Card';
 
-test('children으로 넘어간 요소를 반환한다. ', () => {
+function ruleForClass(className: string): string {
+  const target = `.${className}`;
+  for (const sheet of Array.from(document.styleSheets)) {
+    let rules: CSSRuleList;
+    try {
+      rules = sheet.cssRules;
+    } catch {
+      continue;
+    }
+    for (const rule of Array.from(rules)) {
+      if (!('selectorText' in rule)) continue;
+      const selectorText = (rule as CSSStyleRule).selectorText ?? '';
+      const matches = selectorText.split(',').some((s) => s.trim() === target);
+      if (matches) return rule.cssText;
+    }
+  }
+  return '';
+}
+
+function rulesForElement(el: HTMLElement): string {
+  return el.className.split(/\s+/).filter(Boolean).map(ruleForClass).join('\n');
+}
+
+test('children으로 넘어간 요소를 반환한다.', () => {
   render(
     <Card>
       <span>Card</span>
@@ -15,12 +36,7 @@ test('children으로 넘어간 요소를 반환한다. ', () => {
   expect(screen.getByText('Card')).toBeInTheDocument();
 });
 
-test('Card는 default로 padding(20px)을 갖는다.', () => {
-  render(<Card>Card</Card>);
-  expect(screen.getByText('Card')).toHaveStyle({ padding: '20px' });
-});
-
-test('Card는 default로 요소를 중앙정렬을 한다.', () => {
+test('Card는 default로 요소를 중앙정렬한다.', () => {
   render(<Card>Card</Card>);
   expect(screen.getByText('Card')).toHaveStyle({
     display: 'flex',
@@ -54,32 +70,28 @@ test('ratio에 auto로 넣으면 aspect-ratio는 auto로 반환한다.', () => {
   expect(screen.getByText('Card')).toHaveStyle('aspect-ratio: auto');
 });
 
-test('variant는 default로 filled를 적용한다.', () => {
+test('variant는 default로 filled이며 subtle 배경과 default 보더 semantic 토큰을 참조한다.', () => {
   render(<Card>Card</Card>);
-  expect(screen.getByText('Card')).toHaveStyle({
-    border: `1px solid ${color.gray200}`,
-  });
+  const applied = rulesForElement(screen.getByText('Card'));
+  expect(applied).toContain('var(--side-color-background-subtle)');
+  expect(applied).toContain('var(--side-color-border-default)');
 });
 
-test(`variant가 outline으로 넣으면 border(${color.cyan300}) 색상을 적용한다.`, () => {
+test('variant가 outline이면 base 배경과 border.strong semantic 토큰을 참조한다.', () => {
   render(<Card variant="outline">Card</Card>);
-  expect(screen.getByText('Card')).toHaveStyle({
-    border: `1px solid ${color.cyan300}`,
-  });
+  const applied = rulesForElement(screen.getByText('Card'));
+  expect(applied).toContain('var(--side-color-background-base)');
+  expect(applied).toContain('var(--side-color-border-strong)');
 });
 
-test(`variant가 filled일 때 배경색이 ${color.gray100}이다.`, () => {
+test('variant가 filled일 때 subtle 배경 토큰을 사용한다.', () => {
   render(<Card variant="filled">Card</Card>);
-  expect(screen.getByText('Card')).toHaveStyle({
-    backgroundColor: color.gray100,
-  });
+  expect(rulesForElement(screen.getByText('Card'))).toContain('var(--side-color-background-subtle)');
 });
 
-test(`variant가 outline일 때 배경색이 ${color.gray50}이다.`, () => {
+test('variant가 outline일 때 base 배경 토큰을 사용한다.', () => {
   render(<Card variant="outline">Card</Card>);
-  expect(screen.getByText('Card')).toHaveStyle({
-    backgroundColor: color.gray50,
-  });
+  expect(rulesForElement(screen.getByText('Card'))).toContain('var(--side-color-background-base)');
 });
 
 test('ghost variant has transparent background', () => {
@@ -91,9 +103,8 @@ test('ghost variant has transparent background', () => {
 
 test('ghost variant has no border', () => {
   render(<Card variant="ghost">Card</Card>);
-  expect(screen.getByText('Card')).toHaveStyle({
-    border: 'none',
-  });
+  const applied = rulesForElement(screen.getByText('Card'));
+  expect(applied).toMatch(/border-style:\s*none/);
 });
 
 test('ghost variant has no padding', () => {
@@ -101,4 +112,14 @@ test('ghost variant has no padding', () => {
   expect(screen.getByText('Card')).toHaveStyle({
     padding: '0',
   });
+});
+
+test('Card는 semantic 컴포넌트 패딩 토큰을 적용한다.', () => {
+  render(<Card>Card</Card>);
+  expect(rulesForElement(screen.getByText('Card'))).toContain('var(--side-spacing-component-lg)');
+});
+
+test('Card는 semantic 컴포넌트 반경 토큰을 적용한다.', () => {
+  render(<Card>Card</Card>);
+  expect(rulesForElement(screen.getByText('Card'))).toContain('var(--side-radius-component-lg)');
 });
