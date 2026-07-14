@@ -1,5 +1,12 @@
+import { color, opacity, themeColor, vars, zIndex } from '@sipe-team/tokens';
+
 import { keyframes, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
+
+const tooltipBackgroundColor = `var(--tooltip-bg-color, ${themeColor['1st'].background})`;
+const tooltipArrowSize = `calc(${vars.spacing.component.md} / 2)`;
+const tooltipArrowOffset = `calc(${vars.spacing.component.md} / -2)`;
+const tooltipShadow = `0 ${vars.spacing.component.xs} ${vars.spacing.component.sm} rgba(0, 0, 0, ${opacity[20]})`;
 
 const fadeIn = keyframes({
   from: { opacity: 0, transform: 'scale(0.95)' },
@@ -9,17 +16,17 @@ const fadeIn = keyframes({
 export const tooltip = recipe({
   base: {
     position: 'fixed',
-    backgroundColor: 'var(--tooltip-bg-color, #000000)',
-    color: '#ffffff',
-    padding: '8px 12px',
-    borderRadius: '8px',
-    fontSize: '12px',
-    lineHeight: 1.5,
+    backgroundColor: tooltipBackgroundColor,
+    color: color.white,
+    padding: `${vars.spacing.component.sm} ${vars.spacing.component.md}`,
+    borderRadius: vars.radius.component.lg,
+    fontSize: vars.typography.fontSize['050'],
+    lineHeight: vars.typography.lineHeight.regular,
     whiteSpace: 'normal',
     wordWrap: 'break-word',
     maxWidth: '250px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-    zIndex: 1000,
+    boxShadow: tooltipShadow,
+    zIndex: zIndex.dropdown,
     animation: `${fadeIn} 0.15s ease`,
     '@media': {
       '(prefers-reduced-motion: reduce)': {
@@ -41,84 +48,84 @@ export const tooltip = recipe({
       'top-left': {
         selectors: {
           '&::after': {
-            bottom: '-6px',
-            left: '8px',
-            borderWidth: '6px 6px 0 6px',
-            borderColor: 'var(--tooltip-bg-color, #000000) transparent transparent transparent',
+            bottom: tooltipArrowOffset,
+            left: vars.spacing.component.sm,
+            borderWidth: `${tooltipArrowSize} ${tooltipArrowSize} 0 ${tooltipArrowSize}`,
+            borderColor: `${tooltipBackgroundColor} transparent transparent transparent`,
           },
         },
       },
       'top-right': {
         selectors: {
           '&::after': {
-            bottom: '-6px',
-            right: '8px',
-            borderWidth: '6px 6px 0 6px',
-            borderColor: 'var(--tooltip-bg-color, #000000) transparent transparent transparent',
+            bottom: tooltipArrowOffset,
+            right: vars.spacing.component.sm,
+            borderWidth: `${tooltipArrowSize} ${tooltipArrowSize} 0 ${tooltipArrowSize}`,
+            borderColor: `${tooltipBackgroundColor} transparent transparent transparent`,
           },
         },
       },
       'bottom-left': {
         selectors: {
           '&::after': {
-            top: '-6px',
-            left: '8px',
-            borderWidth: '0 6px 6px 6px',
-            borderColor: 'transparent transparent var(--tooltip-bg-color, #000000) transparent',
+            top: tooltipArrowOffset,
+            left: vars.spacing.component.sm,
+            borderWidth: `0 ${tooltipArrowSize} ${tooltipArrowSize} ${tooltipArrowSize}`,
+            borderColor: `transparent transparent ${tooltipBackgroundColor} transparent`,
           },
         },
       },
       'bottom-right': {
         selectors: {
           '&::after': {
-            top: '-6px',
-            right: '8px',
-            borderWidth: '0 6px 6px 6px',
-            borderColor: 'transparent transparent var(--tooltip-bg-color, #000000) transparent',
+            top: tooltipArrowOffset,
+            right: vars.spacing.component.sm,
+            borderWidth: `0 ${tooltipArrowSize} ${tooltipArrowSize} ${tooltipArrowSize}`,
+            borderColor: `transparent transparent ${tooltipBackgroundColor} transparent`,
           },
         },
       },
       top: {
         selectors: {
           '&::after': {
-            bottom: '-6px',
+            bottom: tooltipArrowOffset,
             left: '50%',
             transform: 'translateX(-50%)',
-            borderWidth: '6px 6px 0 6px',
-            borderColor: 'var(--tooltip-bg-color, #000000) transparent transparent transparent',
+            borderWidth: `${tooltipArrowSize} ${tooltipArrowSize} 0 ${tooltipArrowSize}`,
+            borderColor: `${tooltipBackgroundColor} transparent transparent transparent`,
           },
         },
       },
       bottom: {
         selectors: {
           '&::after': {
-            top: '-6px',
+            top: tooltipArrowOffset,
             left: '50%',
             transform: 'translateX(-50%)',
-            borderWidth: '0 6px 6px 6px',
-            borderColor: 'transparent transparent var(--tooltip-bg-color, #000000) transparent',
+            borderWidth: `0 ${tooltipArrowSize} ${tooltipArrowSize} ${tooltipArrowSize}`,
+            borderColor: `transparent transparent ${tooltipBackgroundColor} transparent`,
           },
         },
       },
       left: {
         selectors: {
           '&::after': {
-            right: '-6px',
+            right: tooltipArrowOffset,
             top: '50%',
             transform: 'translateY(-50%)',
-            borderWidth: '6px 0 6px 6px',
-            borderColor: 'transparent transparent transparent var(--tooltip-bg-color, #000000)',
+            borderWidth: `${tooltipArrowSize} 0 ${tooltipArrowSize} ${tooltipArrowSize}`,
+            borderColor: `transparent transparent transparent ${tooltipBackgroundColor}`,
           },
         },
       },
       right: {
         selectors: {
           '&::after': {
-            left: '-6px',
+            left: tooltipArrowOffset,
             top: '50%',
             transform: 'translateY(-50%)',
-            borderWidth: '6px 6px 6px 0',
-            borderColor: 'transparent var(--tooltip-bg-color, #000000) transparent transparent',
+            borderWidth: `${tooltipArrowSize} ${tooltipArrowSize} ${tooltipArrowSize} 0`,
+            borderColor: `transparent ${tooltipBackgroundColor} transparent transparent`,
           },
         },
       },
@@ -127,10 +134,10 @@ export const tooltip = recipe({
 });
 
 export const button = style({
-  padding: '8px 12px',
-  fontSize: '14px',
+  padding: `${vars.spacing.component.sm} ${vars.spacing.component.md}`,
+  fontSize: vars.typography.fontSize['100'],
   border: '1px solid #ccc',
-  borderRadius: '4px',
+  borderRadius: vars.radius.component.md,
   backgroundColor: '#f9f9f9',
   cursor: 'pointer',
   ':hover': {
