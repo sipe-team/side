@@ -1,0 +1,59 @@
+/*
+ * Neutral, low-contrast frame. Most Side components are dark-only with hardcoded colors, so they
+ * land as a dark card in a light page — the muted surface and padding frame that as an example
+ * rather than a broken render.
+ */
+
+.preview {
+  margin: 1.5rem 0;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--ifm-global-radius);
+  background: var(--ifm-background-surface-color);
+  overflow: hidden;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2.5rem 2rem;
+  background: var(--ifm-color-emphasis-100);
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 0.75rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.toggle {
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-global-radius);
+  background: transparent;
+  color: var(--ifm-color-emphasis-700);
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background-color var(--ifm-transition-fast) ease;
+}
+
+.toggle:hover {
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-900);
+}
+
+.code {
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+/* The code block already carries the page's outer spacing; strip its stray bottom margin. */
+.code :global(.theme-code-block) {
+  margin-bottom: 0;
+  border-radius: 0;
+  box-shadow: none;
+}

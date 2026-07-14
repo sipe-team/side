@@ -1,3 +1,5 @@
+import { VanillaExtractPlugin } from '@vanilla-extract/webpack-plugin';
+
 import type * as Preset from '@docusaurus/preset-classic';
 import type { Config } from '@docusaurus/types';
 import { themes as prismThemes } from 'prism-react-renderer';
@@ -30,6 +32,17 @@ export default {
         },
       } satisfies Preset.Options,
     ],
+  ],
+
+  plugins: [
+    // Compile the workspace's vanilla-extract `.css.ts` on the fly, so docs pages import
+    // @sipe-team/* straight from source — no prebuilt dist, alias table, or CSS injection.
+    () => ({
+      name: 'side-vanilla-extract',
+      configureWebpack: () => ({
+        plugins: [new VanillaExtractPlugin()],
+      }),
+    }),
   ],
 
   themeConfig: {

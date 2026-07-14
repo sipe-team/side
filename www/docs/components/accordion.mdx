@@ -1,0 +1,280 @@
+---
+sidebar_label: Accordion
+---
+
+import { Accordion } from '@sipe-team/accordion';
+
+# Accordion
+
+A vertically stacked set of headers that each reveal a section of content.
+
+## Installation
+
+```sh
+npm install @sipe-team/accordion
+```
+
+```ts
+import '@sipe-team/accordion/styles.css';
+```
+
+## Usage
+
+<Preview
+  code={`<Accordion>
+  <Accordion.Item>
+    <Accordion.Trigger>
+      What is Side?
+      <Accordion.Indicator />
+    </Accordion.Trigger>
+    <Accordion.Content>
+      Side is the Sipe design system.
+    </Accordion.Content>
+  </Accordion.Item>
+</Accordion>`}
+>
+  <Accordion>
+    <Accordion.Item>
+      <Accordion.Trigger>
+        What is Side?
+        <Accordion.Indicator />
+      </Accordion.Trigger>
+      <Accordion.Content>Side is the Sipe design system.</Accordion.Content>
+    </Accordion.Item>
+  </Accordion>
+</Preview>
+
+## Examples
+
+### Multiple (default)
+
+Independent items — any number open at once, no `value` needed.
+
+<Preview
+  code={`<Accordion>
+  <Accordion.Item>
+    <Accordion.Trigger>
+      First
+      <Accordion.Indicator />
+    </Accordion.Trigger>
+    <Accordion.Content>Both items can be open at the same time.</Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item>
+    <Accordion.Trigger>
+      Second
+      <Accordion.Indicator />
+    </Accordion.Trigger>
+    <Accordion.Content>Opening this one does not close the other.</Accordion.Content>
+  </Accordion.Item>
+</Accordion>`}
+>
+  <Accordion>
+    <Accordion.Item>
+      <Accordion.Trigger>
+        First
+        <Accordion.Indicator />
+      </Accordion.Trigger>
+      <Accordion.Content>Both items can be open at the same time.</Accordion.Content>
+    </Accordion.Item>
+    <Accordion.Item>
+      <Accordion.Trigger>
+        Second
+        <Accordion.Indicator />
+      </Accordion.Trigger>
+      <Accordion.Content>Opening this one does not close the other.</Accordion.Content>
+    </Accordion.Item>
+  </Accordion>
+</Preview>
+
+### Single
+
+Mutually exclusive — each item needs a `value`.
+
+<Preview
+  code={`<Accordion type="single">
+  <Accordion.Item value="one">
+    <Accordion.Trigger>
+      First
+      <Accordion.Indicator />
+    </Accordion.Trigger>
+    <Accordion.Content>Opening another item closes this one.</Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="two">
+    <Accordion.Trigger>
+      Second
+      <Accordion.Indicator />
+    </Accordion.Trigger>
+    <Accordion.Content>Only one item is open at a time.</Accordion.Content>
+  </Accordion.Item>
+</Accordion>`}
+>
+  <Accordion type="single">
+    <Accordion.Item value="one">
+      <Accordion.Trigger>
+        First
+        <Accordion.Indicator />
+      </Accordion.Trigger>
+      <Accordion.Content>Opening another item closes this one.</Accordion.Content>
+    </Accordion.Item>
+    <Accordion.Item value="two">
+      <Accordion.Trigger>
+        Second
+        <Accordion.Indicator />
+      </Accordion.Trigger>
+      <Accordion.Content>Only one item is open at a time.</Accordion.Content>
+    </Accordion.Item>
+  </Accordion>
+</Preview>
+
+### Initially open
+
+`initialValue` opens an item in single mode; `defaultOpen` does the same per-item in multiple mode.
+
+<Preview
+  code={`<Accordion type="single" initialValue="shipping">
+  <Accordion.Item value="shipping">
+    <Accordion.Trigger>
+      Shipping
+      <Accordion.Indicator />
+    </Accordion.Trigger>
+    <Accordion.Content>Open on first render.</Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="returns">
+    <Accordion.Trigger>
+      Returns
+      <Accordion.Indicator />
+    </Accordion.Trigger>
+    <Accordion.Content>Closed on first render.</Accordion.Content>
+  </Accordion.Item>
+</Accordion>`}
+>
+  <Accordion type="single" initialValue="shipping">
+    <Accordion.Item value="shipping">
+      <Accordion.Trigger>
+        Shipping
+        <Accordion.Indicator />
+      </Accordion.Trigger>
+      <Accordion.Content>Open on first render.</Accordion.Content>
+    </Accordion.Item>
+    <Accordion.Item value="returns">
+      <Accordion.Trigger>
+        Returns
+        <Accordion.Indicator />
+      </Accordion.Trigger>
+      <Accordion.Content>Closed on first render.</Accordion.Content>
+    </Accordion.Item>
+  </Accordion>
+</Preview>
+
+### `asChild`
+
+`Root`, `Trigger`, and `Content` merge their props onto the child instead of rendering a `div` / `button` / `div`. With `asChild` on `Trigger`, pass a genuinely focusable element — the default `type="button"` is not applied.
+
+<Preview
+  code={`<Accordion asChild>
+  <section>
+    <Accordion.Item>
+      <Accordion.Trigger asChild>
+        <button type="button">
+          Rendered as a section + explicit button
+          <Accordion.Indicator />
+        </button>
+      </Accordion.Trigger>
+      <Accordion.Content asChild>
+        <article>Content rendered as an article element.</article>
+      </Accordion.Content>
+    </Accordion.Item>
+  </section>
+</Accordion>`}
+>
+  <Accordion asChild>
+    <section>
+      <Accordion.Item>
+        <Accordion.Trigger asChild>
+          <button type="button">
+            Rendered as a section + explicit button
+            <Accordion.Indicator />
+          </button>
+        </Accordion.Trigger>
+        <Accordion.Content asChild>
+          <article>Content rendered as an article element.</article>
+        </Accordion.Content>
+      </Accordion.Item>
+    </section>
+  </Accordion>
+</Preview>
+
+## Anatomy
+
+```tsx
+import { Accordion } from '@sipe-team/accordion';
+
+export default () => (
+  <Accordion.Root>
+    <Accordion.Item>
+      <Accordion.Trigger>
+        {/* header label */}
+        <Accordion.Indicator />
+      </Accordion.Trigger>
+      <Accordion.Content>{/* panel content */}</Accordion.Content>
+    </Accordion.Item>
+  </Accordion.Root>
+);
+```
+
+`Accordion` and `Accordion.Root` are the same component. Parts are also exported standalone (`AccordionRoot`, `AccordionItem`, …). `Trigger`, `Content`, and `Indicator` read state from context and throw outside their parent.
+
+## API Reference
+
+### `Accordion.Root`
+
+`div`, forwards `ref`.
+
+| Prop            | Type                              | Default      | Description                                       |
+| --------------- | --------------------------------- | ------------ | ------------------------------------------------- |
+| `children`      | `ReactNode`                       | —            | Required.                                         |
+| `type`          | `'single' \| 'multiple'`          | `'multiple'` | `'single'` makes items with a `value` exclusive.  |
+| `initialValue`  | `string \| null`                  | `null`       | Uncontrolled initial selection (single mode).     |
+| `value`         | `string \| null`                  | —            | Controlled selection (single mode).               |
+| `onValueChange` | `(value: string \| null) => void` | —            | Fires with the new value, or `null` when toggled shut. |
+| `asChild`       | `boolean`                         | `false`      | Merge props onto the child instead of a `div`.    |
+| `className`     | `string`                          | —            | Appended to the component's class.                |
+
+Also accepts `ComponentProps<'div'>`. In `multiple` mode the root holds no state — `initialValue`, `value`, and `onValueChange` are ignored, and each item uses its own `defaultOpen`.
+
+### `Accordion.Item`
+
+`div`, forwards `ref`. Does not extend `ComponentProps`.
+
+| Prop          | Type        | Default | Description                                     |
+| ------------- | ----------- | ------- | ----------------------------------------------- |
+| `children`    | `ReactNode` | —       | Required. Usually a `Trigger` and a `Content`.  |
+| `value`       | `string`    | —       | Required in single mode; unused otherwise.      |
+| `defaultOpen` | `boolean`   | `false` | Initial open state. Ignored in single mode.     |
+| `className`   | `string`    | —       | Appended to the component's class.              |
+
+### `Accordion.Trigger`
+
+`<button type="button">`, forwards `ref`. Sets `aria-expanded`.
+
+| Prop        | Type        | Default | Description                                    |
+| ----------- | ----------- | ------- | ---------------------------------------------- |
+| `children`  | `ReactNode` | —       | Required. Header label, usually with `Indicator`. |
+| `asChild`   | `boolean`   | `false` | Merge props onto the child instead of a `button`. |
+| `className` | `string`    | —       | Appended to the component's class.             |
+
+Also accepts `ComponentProps<'button'>`.
+
+### `Accordion.Indicator`
+
+No props. Renders the arrow icon and rotates it with the item's open state.
+
+### `Accordion.Content`
+
+Height-animated wrapper (`aria-hidden`) around an inner element. Does not forward a `ref`.
+
+| Prop        | Type        | Default | Description                                      |
+| ----------- | ----------- | ------- | ------------------------------------------------ |
+| `children`  | `ReactNode` | —       | Required. Panel content.                         |
+| `asChild`   | `boolean`   | `false` | Merge props onto the child instead of a `div`.   |
+| `className` | `string`    | —       | Applied to the **inner** element, not the wrapper. |
