@@ -17,7 +17,14 @@
     "lint": "pnpm exec biome lint",
     "test": "vitest",
     "typecheck": "tsc",
-    "prepack": "pnpm run build"
+    "prepack": "pnpm run build",
+    "clean": "rm -rf node_modules dist"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "catalog:",
+    "@sipe-team/tokens": "workspace:*",
+    "@vanilla-extract/recipes": "catalog:",
+    "clsx": "catalog:"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "catalog:",

@@ -1,3 +1,4 @@
+/** @deprecated No direct replacement. Will be removed when the JSON token pipeline is complete. */
 export const zIndex = {
   hide: -1,
   base: 0,
@@ -11,4 +12,5 @@ export const zIndex = {
   tooltip: 1700,
 } as const;
 
+/** @deprecated No direct replacement. Will be removed when the JSON token pipeline is complete. */
 export type ZIndex = keyof typeof zIndex;

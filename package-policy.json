@@ -1,0 +1,78 @@
+{
+  "$schema": "./package-policy.schema.json",
+  "description": "Hard rules for packages/*/package.json consistency. Scripts listed under hardRules.scripts must be present with the exact declared value (or have an allowlist entry with a reason).",
+  "hardRules": {
+    "scripts": {
+      "build": "tsup",
+      "clean": "rm -rf node_modules dist",
+      "lint": "pnpm exec biome lint",
+      "prepack": "pnpm run build",
+      "test": "vitest",
+      "typecheck": "tsc"
+    },
+    "publishConfig": {
+      "access": "public",
+      "registry": "https://npm.pkg.github.com"
+    },
+    "workspaceDependencySpec": "workspace:*",
+    "catalogDependencies": {
+      "react": "catalog:react",
+      "react-dom": "catalog:react",
+      "@types/react": "catalog:react",
+      "@types/react-dom": "catalog:react",
+      "@vanilla-extract/css": "catalog:",
+      "@vanilla-extract/recipes": "catalog:",
+      "@vanilla-extract/dynamic": "catalog:",
+      "clsx": "catalog:"
+    },
+    "sideEffectsAllowedValues": [false, ["**/*.css"]]
+  },
+  "allowlist": [
+    {
+      "packageName": "@sipe-team/tokens",
+      "rule": "scripts.test",
+      "reason": "design tokens only, no tests"
+    },
+    {
+      "packageName": "@sipe-team/side",
+      "rule": "scripts.test",
+      "reason": "aggregator package, no tests"
+    },
+    {
+      "packageName": "@sipe-team/chip",
+      "rule": "extraScript",
+      "fieldPath": "scripts.test:ui",
+      "reason": "chip-specific vitest UI runner"
+    },
+    {
+      "packageName": "@sipe-team/chip",
+      "rule": "extraScript",
+      "fieldPath": "scripts.test:coverage",
+      "reason": "chip-specific coverage runner"
+    },
+    {
+      "packageName": "@sipe-team/theme",
+      "rule": "extraScript",
+      "fieldPath": "scripts.test:ui",
+      "reason": "theme-specific vitest UI runner"
+    },
+    {
+      "packageName": "@sipe-team/button",
+      "rule": "directDependency",
+      "fieldPath": "devDependencies.sanitize.css",
+      "reason": "sanitize.css is a button-specific reset layer; not shared with other packages"
+    },
+    {
+      "packageName": "@sipe-team/switch",
+      "rule": "directDependency",
+      "fieldPath": "dependencies.@radix-ui/react-use-controllable-state",
+      "reason": "switch-specific radix utility, not used elsewhere"
+    },
+    {
+      "packageName": "@sipe-team/icon",
+      "rule": "extraScript",
+      "fieldPath": "scripts.generate-icons",
+      "reason": "icon-specific codegen script for SVG -> React components"
+    }
+  ]
+}

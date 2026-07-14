@@ -2,7 +2,7 @@
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 
 # Special branches that skip naming rules
-SPECIAL_REGEX='^(main|dev\/.+)$'
+SPECIAL_REGEX='^(main|dev)$'
 
 # Standard branch naming: <TYPE>/<SUBJECT>-<USERNAME>
 # At least one hyphen required (to enforce username suffix)

@@ -134,6 +134,52 @@ export const AccordionList: Story = {
   ),
 };
 
+export const SingleOpen: Story = {
+  render: () => (
+    <Accordion.Root type="single">
+      <Accordion.Item value="q1">
+        <Accordion.Trigger>
+          <Typography weight="bold">4기 선발 기준은 어떻게 되나요?</Typography>
+          <Accordion.Indicator />
+        </Accordion.Trigger>
+        <Accordion.Content>
+          <Typography weight="semiBold" color={contentTextColor}>
+            함께 대화하고 싶은, 구성원들의 기술적 성장에 기여할 수 있는, 그리고 동아리 활동에 성실하게 참여 가능한 현직
+            개발자를 저희의 인재상으로 삼고 있습니다.
+          </Typography>
+        </Accordion.Content>
+      </Accordion.Item>
+
+      <Accordion.Item value="q2">
+        <Accordion.Trigger>
+          <Typography weight="bold">
+            수도권에 거주하고 있지 않지만 주요 활동 지역은 수도권인데 활동을 할 수 있나요?
+          </Typography>
+          <Accordion.Indicator />
+        </Accordion.Trigger>
+        <Accordion.Content>
+          <Typography weight="semiBold" color={contentTextColor}>
+            네 가능합니다. 다만, 모든 활동이 수도권에서 진행될 예정으로, 결석이나 지각을 하는 경우 수료 조건에 영향이
+            있을 수 있습니다.
+          </Typography>
+        </Accordion.Content>
+      </Accordion.Item>
+
+      <Accordion.Item value="q3">
+        <Accordion.Trigger>
+          <Typography weight="bold">4기 선발 인원은 몇명인가요?</Typography>
+          <Accordion.Indicator />
+        </Accordion.Trigger>
+        <Accordion.Content>
+          <Typography weight="semiBold" color={contentTextColor}>
+            4기는 40명 내외로 구성할 예정이며, 선발 인원은 지원자 수에 따라서 변동될 수 있습니다.
+          </Typography>
+        </Accordion.Content>
+      </Accordion.Item>
+    </Accordion.Root>
+  ),
+};
+
 export const TriggerUsingAsChild: Story = {
   render: () => (
     <Accordion.Root>

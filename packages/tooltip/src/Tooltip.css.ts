@@ -1,5 +1,10 @@
-import { style } from '@vanilla-extract/css';
+import { keyframes, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
+
+const fadeIn = keyframes({
+  from: { opacity: 0, transform: 'scale(0.95)' },
+  to: { opacity: 1, transform: 'scale(1)' },
+});
 
 export const tooltip = recipe({
   base: {
@@ -15,16 +20,13 @@ export const tooltip = recipe({
     maxWidth: '250px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
     zIndex: 1000,
-    opacity: 0,
-    transform: 'scale(0.95)',
-    transition: 'opacity 0.3s ease, transform 0.3s ease',
-    pointerEvents: 'none',
-    selectors: {
-      '&.visible': {
-        opacity: 1,
-        transform: 'scale(1)',
-        pointerEvents: 'auto',
+    animation: `${fadeIn} 0.15s ease`,
+    '@media': {
+      '(prefers-reduced-motion: reduce)': {
+        animation: 'none',
       },
+    },
+    selectors: {
       '&::after': {
         content: '""',
         position: 'absolute',

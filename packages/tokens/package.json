@@ -8,14 +8,16 @@
     "url": "https://github.com/sipe-team/side"
   },
   "type": "module",
-  "exports": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./token-names": "./dist/ts/index.js"
+  },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev:storybook": "storybook dev -p 6006",
-    "build:storybook": "storybook build",
+    "build": "tsup && pnpm build:tokens",
+    "build:tokens": "node config.js",
     "lint": "pnpm exec biome lint",
     "typecheck": "tsc",
     "prepack": "pnpm run build",
@@ -25,9 +27,12 @@
     "@vanilla-extract/css": "catalog:"
   },
   "devDependencies": {
+    "@types/node": "^22",
     "@types/react": "catalog:react",
     "react": "catalog:react",
     "react-dom": "catalog:react",
+    "@tokens-studio/sd-transforms": "^2.0.0",
+    "style-dictionary": "^5.4.0",
     "tsup": "catalog:",
     "typescript": "catalog:"
   },
@@ -43,6 +48,16 @@
         "require": {
           "types": "./dist/index.d.cts",
           "default": "./dist/index.cjs"
+        }
+      },
+      "./token-names": {
+        "import": {
+          "types": "./dist/ts/index.d.ts",
+          "default": "./dist/ts/index.js"
+        },
+        "require": {
+          "types": "./dist/ts/index.d.cts",
+          "default": "./dist/ts/index.cjs"
         }
       }
     }

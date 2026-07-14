@@ -1,81 +1,61 @@
 import { createGlobalTheme } from '@vanilla-extract/css';
 
-import { themeColor } from '../colors/colors';
-import { radius } from '../effects/radius';
 import { shadows } from '../effects/shadows';
-import { spacing } from '../layout/spacing';
-import { fontSize, fontWeight, lineHeight } from '../typography/fonts';
 import { themeLayer, vars } from './contract.css';
+import { cssVar, mapVars } from './utils';
 
 const baseTheme = {
   '@layer': themeLayer,
-  spacing: {
-    xs: `${spacing[2]}px`,
-    sm: `${spacing[4]}px`,
-    md: `${spacing[6]}px`,
-    lg: `${spacing[8]}px`,
-    xl: `${spacing[12]}px`,
-  },
+  spacing: mapVars(vars.spacing),
   typography: {
-    fontFamily: 'Pretendard, system-ui, sans-serif',
+    // typography contract values don't align with SD path-based naming — referenced manually
+    fontFamily: cssVar('typography-font-family-base'),
     fontSize: {
-      '050': `${fontSize[12]}px`,
-      '100': `${fontSize[14]}px`,
-      '200': `${fontSize[16]}px`,
-      '300': `${fontSize[18]}px`,
-      '400': `${fontSize[20]}px`,
-      '500': `${fontSize[24]}px`,
-      '600': `${fontSize[28]}px`,
-      '700': `${fontSize[32]}px`,
-      '800': `${fontSize[36]}px`,
-      '900': `${fontSize[48]}px`,
+      '050': cssVar('typography-font-size-12'),
+      '100': cssVar('typography-font-size-14'),
+      '200': cssVar('typography-font-size-16'),
+      '300': cssVar('typography-font-size-18'),
+      '400': cssVar('typography-font-size-20'),
+      '500': cssVar('typography-font-size-24'),
+      '600': cssVar('typography-font-size-28'),
+      '700': cssVar('typography-font-size-32'),
+      '800': cssVar('typography-font-size-36'),
+      '900': cssVar('typography-font-size-48'),
     },
     lineHeight: {
-      regular: `${lineHeight.regular}`,
-      compact: `${lineHeight.compact}`,
+      regular: cssVar('typography-line-height-regular'),
+      compact: cssVar('typography-line-height-compact'),
     },
     fontWeight: {
-      regular: `${fontWeight.regular}`,
-      medium: `${fontWeight.medium}`,
-      semiBold: `${fontWeight.semiBold}`,
-      bold: `${fontWeight.bold}`,
+      regular: cssVar('typography-font-weight-regular'),
+      medium: cssVar('typography-font-weight-medium'),
+      semiBold: cssVar('typography-font-weight-semi-bold'),
+      bold: cssVar('typography-font-weight-bold'),
     },
   },
   shadows: {
-    none: `${shadows.none}`,
-    sm: `${shadows.sm}`,
-    md: `${shadows.md}`,
-    lg: `${shadows.lg}`,
-    xl: `${shadows.xl}`,
-    '2xl': `${shadows['2xl']}`,
+    none: shadows.none,
+    sm: shadows.sm,
+    md: shadows.md,
+    lg: shadows.lg,
+    xl: shadows.xl,
+    '2xl': shadows['2xl'],
   },
-  radius: {
-    none: `${radius.none}`,
-    sm: `${radius.sm}`,
-    md: `${radius.md}`,
-    lg: `${radius.lg}`,
-    xl: `${radius.xl}`,
-    full: `${radius.full}`,
-  },
+  radius: mapVars(vars.radius),
 };
 
-export const defaultTheme = createGlobalTheme(':root', vars, {
+const darkColor = mapVars(vars.color);
+
+// :root — global dark fallback for contexts without an explicit data-theme attribute
+createGlobalTheme(':root', vars, {
   ...baseTheme,
-  color: themeColor['4th'],
-  mode: 'light',
-  theme: '4th',
+  color: darkColor,
 });
 
-// TODO: 다크 모드 추가 필요
-// export const darkTheme1st = createGlobalTheme('[data-theme="1st"][data-mode="dark"]', vars, {
-//   ...baseTheme,
-//   color: {
-//     primary: themeColor['1st'].primary,
-//     secondary: themeColor['1st'].secondary,
-//     background: themeColor['1st'].background,
-//     text: themeColor['1st'].text,
-//     gradient: themeColor['1st'].gradient,
-//   },
-//   mode: 'dark',
-//   theme: '1st',
-// });
+// [data-theme="dark"] — allows a dark sub-region inside a future light-mode root
+createGlobalTheme('[data-theme="dark"]', vars, {
+  ...baseTheme,
+  color: darkColor,
+});
+
+// TODO: dark is the default mode; light mode will be added later.

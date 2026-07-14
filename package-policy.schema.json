@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Package Policy",
+  "description": "Schema for package.json consistency rules across the monorepo",
+  "type": "object",
+  "required": ["hardRules", "allowlist"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "description": { "type": "string" },
+    "hardRules": {
+      "type": "object",
+      "required": ["scripts", "publishConfig", "workspaceDependencySpec"],
+      "properties": {
+        "scripts": {
+          "type": "object",
+          "description": "Scripts that MUST exist with the exact declared value in every publishable package",
+          "additionalProperties": { "type": "string" }
+        },
+        "publishConfig": {
+          "type": "object",
+          "required": ["access", "registry"],
+          "properties": {
+            "access": { "const": "public" },
+            "registry": { "type": "string", "format": "uri" }
+          }
+        },
+        "workspaceDependencySpec": {
+          "type": "string",
+          "description": "Expected spec for intra-workspace dependencies (e.g., workspace:*)"
+        },
+        "catalogDependencies": {
+          "type": "object",
+          "description": "Dependency name -> required catalog reference. Any package using a direct version of these is a violation",
+          "additionalProperties": { "type": "string" }
+        },
+        "sideEffectsAllowedValues": {
+          "type": "array",
+          "description": "Allowed shapes for the `sideEffects` field. Each item may be a boolean (e.g. false) or a string array of globs (e.g. [\"**/*.css\"]). Packages whose sideEffects value does not deep-equal any entry is a violation.",
+          "items": {
+            "oneOf": [{ "type": "boolean" }, { "type": "array", "items": { "type": "string" } }]
+          }
+        }
+      }
+    },
+    "allowlist": {
+      "type": "array",
+      "description": "Intentional exceptions. Each entry requires a human-readable reason.",
+      "items": {
+        "type": "object",
+        "required": ["packageName", "rule", "reason"],
+        "properties": {
+          "packageName": {
+            "type": "string",
+            "description": "Full package name (e.g., @sipe-team/chip)"
+          },
+          "rule": {
+            "type": "string",
+            "description": "Rule identifier being exempted (e.g., scripts.test, extraScript, directDependency)"
+          },
+          "fieldPath": {
+            "type": "string",
+            "description": "Optional: specific field path for extraScript/directDependency exemptions"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable justification for this exception"
+          }
+        }
+      }
+    }
+  }
+}

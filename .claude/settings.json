@@ -12,10 +12,22 @@
       "Bash(ls*)",
       "Edit",
       "Write",
-      "Read"
+      "Read",
+      "Read(./packages/tokens/dist/**)"
     ],
     "ask": ["Bash(git push*)", "Bash(git commit*)", "Bash(git reset*)", "Bash(rm *)"],
-    "deny": []
+    "deny": [
+      "Read(./node_modules/)",
+      "Read(./storybook-static/)",
+      "Read(./www/build/)",
+      "Read(./www/.docusaurus/)",
+      "Read(./coverage/)",
+      "Read(./public/)",
+      "Read(./www/static/)",
+      "Read(./pnpm-lock.yaml)",
+      "Read(**/*.js.map)",
+      "Read(**/*.css.map)"
+    ]
   },
   "enabledPlugins": {
     "codex@openai-codex": true
@@ -34,7 +46,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "pnpm biome check --write --unsafe $CLAUDE_FILE_PATHS",
+            "command": "pnpm biome check --write $CLAUDE_FILE_PATHS",
             "timeout": 10,
             "statusMessage": "Biome 포맷팅 중..."
           }
