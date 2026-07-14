@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { FLEX_ALIGNS, FLEX_DIRECTIONS, FLEX_JUSTIFY_CONTENTS, FLEX_WRAPS } from './constants';
-import { Flex } from './Flex';
+import { Flex, type FlexBreakpoint, type ResponsiveValue } from './Flex';
 import * as styles from './Flex.css';
 
 describe('Flex', () => {
@@ -217,6 +217,14 @@ describe('Flex', () => {
   });
 
   describe('responsive props', () => {
+    it('exports responsive prop helper types for consumers', () => {
+      const breakpoint: FlexBreakpoint = 'md';
+      const responsiveGap: ResponsiveValue<CSSProperties['gap']> = { sm: '8px', md: '12px', lg: '16px' };
+
+      expect(breakpoint).toBe('md');
+      expect(responsiveGap).toEqual({ sm: '8px', md: '12px', lg: '16px' });
+    });
+
     it('applies sm breakpoint values as base flex styles', () => {
       render(
         <Flex

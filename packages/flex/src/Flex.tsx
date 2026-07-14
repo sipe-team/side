@@ -7,8 +7,8 @@ import { clsx as cx } from 'clsx';
 import type { FlexAlign, FlexDirection, FlexJustify, FlexWrap } from './constants';
 import * as styles from './Flex.css';
 
-type FlexBreakpoint = 'sm' | 'md' | 'lg';
-type ResponsiveValue<T> = T | Partial<Record<FlexBreakpoint, T>>;
+export type FlexBreakpoint = 'sm' | 'md' | 'lg';
+export type ResponsiveValue<T> = T | Partial<Record<FlexBreakpoint, T>>;
 type ResponsiveStyleVariants<T extends string> = Record<FlexBreakpoint, Record<T, string>>;
 type FlexStyle = CSSProperties & {
   '--side-flex-gap-sm'?: CSSProperties['gap'];

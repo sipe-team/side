@@ -6,6 +6,8 @@ export const base = style({
   display: 'flex',
 });
 
+// Mirrors the current @sipe-team/tokens layout breakpoints. The token export is deprecated,
+// so Flex keeps these values local until replacement breakpoint tokens are available.
 const mediaQuery = {
   md: 'screen and (min-width: 780px)',
   lg: 'screen and (min-width: 1060px)',
