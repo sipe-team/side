@@ -20,6 +20,7 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
+    "@sipe-team/tokens": "workspace:*",
     "clsx": "catalog:"
   },
   "devDependencies": {

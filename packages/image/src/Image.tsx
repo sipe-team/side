@@ -10,6 +10,16 @@ import * as styles from './Image.css';
 type ImageSize = number | string;
 type ImageFit = 'contain' | 'cover' | 'fill';
 
+export const ImageRadius = {
+  none: 'none',
+  sm: 'sm',
+  md: 'md',
+  lg: 'lg',
+  xl: 'xl',
+  full: 'full',
+} as const;
+export type ImageRadius = (typeof ImageRadius)[keyof typeof ImageRadius];
+
 export interface ImageProps
   extends Omit<ComponentPropsWithoutRef<'img'>, 'src' | 'alt' | 'width' | 'height' | 'onLoad' | 'onError'> {
   src: string;
@@ -18,6 +28,7 @@ export interface ImageProps
   height?: ImageSize;
   fit?: ImageFit;
   fill?: boolean;
+  radius?: ImageRadius;
   fallbackSrc?: string;
   placeholder?: ReactNode;
   onLoad?: ComponentPropsWithoutRef<'img'>['onLoad'];
@@ -32,6 +43,7 @@ export const Image = forwardRef(function Image(
     height,
     fit = 'cover',
     fill = false,
+    radius = ImageRadius.none,
     fallbackSrc,
     placeholder,
     loading = 'lazy',
@@ -72,6 +84,7 @@ export const Image = forwardRef(function Image(
         ref={ref}
         className={cx(
           styles.fit[fit],
+          styles.radius[radius],
           fill && styles.fill,
           useSized && styles.sized,
           isHidden && styles.hidden,

@@ -727,6 +727,9 @@ importers:
 
   packages/image:
     dependencies:
+      '@sipe-team/tokens':
+        specifier: workspace:*
+        version: link:../tokens
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
