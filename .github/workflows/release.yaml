@@ -26,13 +26,16 @@ jobs:
           scope: "@sipe-team"
       - name: Install dependencies
         run: pnpm install
+      # A failure here fails the job, so nothing reaches the registry. changesets/action does not
+      # run `publish` through a shell, so the check cannot be chained onto it — it goes before.
+      - name: Check publishability
+        run: pnpm lint:publish
       - name: Create Release Pull Request or Publish to Github Package Registry
         id: changesets
         uses: changesets/action@v1
         with:
           version: pnpm changeset version
-          # `pnpm release` gates `changeset publish` behind publint + attw on the packed tarballs.
-          publish: pnpm release
+          publish: pnpm changeset publish
           commit: "chore(release): version packages"
           title: "chore(release): version packages"
         env:
