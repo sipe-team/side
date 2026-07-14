@@ -111,6 +111,9 @@ importers:
       '@manypkg/get-packages':
         specifier: ^3.1.0
         version: 3.1.0
+      '@sipe-team/tokens':
+        specifier: workspace:*
+        version: link:packages/tokens
       '@storybook/addon-docs':
         specifier: ^10.0.0
         version: 10.3.5(@types/react@18.3.13)(esbuild@0.27.7)(rollup@4.60.1)(storybook@10.3.5(@testing-library/dom@10.4.0)(prettier@3.8.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@5.4.11(@types/node@22.10.1)(lightningcss@1.32.0)(terser@5.37.0))(webpack@5.97.1(esbuild@0.27.7))

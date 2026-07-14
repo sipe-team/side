@@ -275,6 +275,14 @@ const parts = [readFileSync(`${DIST}/primitive.css`, 'utf-8'), readFileSync(`${D
 writeFileSync(`${DIST}/index.css`, parts.join('\n'));
 console.log(`✓ ${DIST}/index.css generated`);
 
+// Single public CSS entrypoint: Style Dictionary values + the vanilla-extract `--side-*` bridge.
+// Both layers are required — the bridge maps `--side-x` onto `--x`, and only Style Dictionary
+// defines `--x`. Shipping them as one file means a consumer cannot import half the chain.
+// `dist/index.css` is emitted by tsup's vanilla-extract plugin, which runs before this script.
+const bridgeCss = readFileSync('dist/index.css', 'utf-8');
+writeFileSync('dist/styles.css', `${parts.join('\n')}\n${bridgeCss}`);
+console.log('✓ dist/styles.css generated');
+
 // token-names barrel (.js + .d.ts — consumed via publishConfig ./token-names export)
 mkdirSync(DIST_TS, { recursive: true });
 writeFileSync(
