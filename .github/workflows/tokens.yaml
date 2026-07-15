@@ -1,0 +1,151 @@
+name: Tokens
+
+on:
+  push:
+    branches:
+      - 'tokens/figma-sync'
+    paths:
+      - 'tokens/**'
+  pull_request:
+    paths:
+      - 'tokens/**'
+      - 'packages/tokens/config.js'
+
+concurrency:
+  group: tokens-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # PR · push 공통: 변환 → 빌드 → 타입체크 → diff
+  validate:
+    name: Build & validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - uses: jdx/mise-action@v2
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # PR 리뷰용: base 브랜치 빌드 결과를 먼저 저장해 diff 비교
+      - name: Build base tokens
+        id: base-build
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        run: |
+          git checkout origin/${{ github.base_ref }} -- tokens
+          pnpm --filter @sipe-team/tokens build:tokens
+          mkdir -p /tmp/base-css
+          cp packages/tokens/dist/css/*.css /tmp/base-css/
+
+      - name: Restore head tokens
+        if: github.event_name == 'pull_request'
+        run: git checkout ${{ github.event.pull_request.head.sha }} -- tokens
+
+      - name: Build tokens
+        run: pnpm --filter @sipe-team/tokens build:tokens
+
+      - name: Typecheck
+        run: pnpm --filter @sipe-team/tokens typecheck
+
+      - name: Upload token artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokens-${{ github.event.pull_request.number || github.run_id }}
+          path: packages/tokens/dist/
+          retention-days: 7
+
+      - name: CSS diff summary
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "## Token build" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          for f in packages/tokens/dist/css/*.css; do
+            name=$(basename "$f")
+            echo "### \`$name\`" >> $GITHUB_STEP_SUMMARY
+
+            if [ -f "/tmp/base-css/$name" ]; then
+              diff_output=$(diff -u "/tmp/base-css/$name" "$f" || true)
+              if [ -z "$diff_output" ]; then
+                echo "_no changes_" >> $GITHUB_STEP_SUMMARY
+              else
+                echo '```diff' >> $GITHUB_STEP_SUMMARY
+                echo "$diff_output" >> $GITHUB_STEP_SUMMARY
+                echo '```' >> $GITHUB_STEP_SUMMARY
+              fi
+            else
+              echo "_new file_" >> $GITHUB_STEP_SUMMARY
+              echo '```css' >> $GITHUB_STEP_SUMMARY
+              cat "$f" >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+            fi
+
+            echo "" >> $GITHUB_STEP_SUMMARY
+          done
+
+      - name: Commit transformed tokens
+        if: github.event_name == 'push' && github.ref == 'refs/heads/tokens/figma-sync'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(tokens): transform and build tokens [skip ci]"
+          file_pattern: 'tokens/** packages/tokens/dist/**'
+
+  # tokens/figma-sync Push 전용: validate 통과 후 main으로 PR 자동 생성
+  sync:
+    name: Open sync PR to main
+    if: github.event_name == 'push'
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: tokens/figma-sync
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Open or update sync PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          existing=$(gh pr list \
+            --head tokens/figma-sync \
+            --base main \
+            --json number \
+            --jq '.[0].number // empty')
+
+          if [ -n "$existing" ]; then
+            echo "PR #$existing already open — skipping creation"
+            exit 0
+          fi
+
+          gh pr create \
+            --base main \
+            --head tokens/figma-sync \
+            --title "chore(tokens): sync Figma tokens" \
+            --body "$(cat <<'BODY'
+          ## Figma Token Sync
+
+          Tokens Studio에서 자동으로 생성된 PR입니다.
+
+          ### 파이프라인
+          1. Tokens Studio → `tokens/figma-sync` Push
+          2. Style Dictionary + @tokens-studio/sd-transforms: 변환 및 CSS/TS 빌드
+          3. 이 PR → main 머지
+
+          ### Review checklist
+          - [ ] `validate` 잡 Step Summary에서 CSS diff 확인
+          - [ ] 의도하지 않은 토큰 삭제 없음
+          - [ ] 머지 후 Storybook에서 시각적 변경 확인
+          BODY
+          )"

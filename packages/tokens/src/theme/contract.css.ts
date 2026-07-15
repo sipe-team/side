@@ -1,22 +1,71 @@
 import { createGlobalThemeContract, globalLayer } from '@vanilla-extract/css';
 
+// TODO: dark is the default mode; light mode will be added later.
+export type ThemeMode = 'light' | 'dark';
+
 export const themeLayer = globalLayer('theme');
 
 export const vars = createGlobalThemeContract(
   {
     color: {
-      primary: 'color-primary',
-      secondary: 'color-secondary',
-      background: 'color-background',
-      text: 'color-text',
-      gradient: 'color-gradient',
+      background: {
+        base: 'color-background-base',
+        subtle: 'color-background-subtle',
+        muted: 'color-background-muted',
+      },
+      foreground: {
+        default: 'color-foreground-default',
+        subtle: 'color-foreground-subtle',
+        muted: 'color-foreground-muted',
+        onAccent: 'color-foreground-on-accent',
+      },
+      border: {
+        default: 'color-border-default',
+        strong: 'color-border-strong',
+        focus: 'color-border-focus',
+      },
+      accent: {
+        default: 'color-accent-default',
+        hover: 'color-accent-hover',
+        subtle: 'color-accent-subtle',
+      },
+      status: {
+        success: {
+          foreground: 'color-status-success-foreground',
+          background: 'color-status-success-background',
+          border: 'color-status-success-border',
+        },
+        warning: {
+          foreground: 'color-status-warning-foreground',
+          background: 'color-status-warning-background',
+          border: 'color-status-warning-border',
+        },
+        danger: {
+          foreground: 'color-status-danger-foreground',
+          background: 'color-status-danger-background',
+          border: 'color-status-danger-border',
+        },
+        info: {
+          foreground: 'color-status-info-foreground',
+          background: 'color-status-info-background',
+          border: 'color-status-info-border',
+        },
+      },
     },
     spacing: {
-      xs: 'spacing-xs',
-      sm: 'spacing-sm',
-      md: 'spacing-md',
-      lg: 'spacing-lg',
-      xl: 'spacing-xl',
+      component: {
+        xs: 'spacing-component-xs',
+        sm: 'spacing-component-sm',
+        md: 'spacing-component-md',
+        lg: 'spacing-component-lg',
+        xl: 'spacing-component-xl',
+      },
+      layout: {
+        sm: 'spacing-layout-sm',
+        md: 'spacing-layout-md',
+        lg: 'spacing-layout-lg',
+        xl: 'spacing-layout-xl',
+      },
     },
     typography: {
       fontFamily: 'font-family',
@@ -44,12 +93,18 @@ export const vars = createGlobalThemeContract(
       },
     },
     radius: {
-      none: 'radius-none',
-      sm: 'radius-sm',
-      md: 'radius-md',
-      lg: 'radius-lg',
-      xl: 'radius-xl',
-      full: 'radius-full',
+      component: {
+        sm: 'radius-component-sm',
+        md: 'radius-component-md',
+        lg: 'radius-component-lg',
+        xl: 'radius-component-xl',
+        full: 'radius-component-full',
+      },
+      layout: {
+        sm: 'radius-layout-sm',
+        md: 'radius-layout-md',
+        lg: 'radius-layout-lg',
+      },
     },
     shadows: {
       none: 'shadow-none',
@@ -59,8 +114,6 @@ export const vars = createGlobalThemeContract(
       xl: 'shadow-xl',
       '2xl': 'shadow-2xl',
     },
-    mode: 'theme-mode',
-    theme: 'theme-name',
   },
   (value) => `side-${value}`,
 );

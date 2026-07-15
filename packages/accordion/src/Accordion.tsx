@@ -9,15 +9,22 @@ import { clsx as cx } from 'clsx';
 
 import * as styles from './Accordion.css';
 import { AccordionItemContext, useAccordionItemContext } from './context/AccordionItemContext';
+import { AccordionRootContext, useAccordionRootContext } from './context/AccordionRootContext';
 import { useAccordionAnimation } from './hooks/useAccordionAnimation';
+
 export interface AccordionRootProps extends ComponentProps<'div'> {
   children: ReactNode;
   asChild?: boolean;
+  type?: 'single' | 'multiple';
+  initialValue?: string | null;
+  value?: string | null;
+  onValueChange?: (value: string | null) => void;
 }
 export interface AccordionItemProps {
   children: ReactNode;
   className?: string;
   defaultOpen?: boolean;
+  value?: string;
 }
 
 export interface AccordionTriggerProps extends ComponentProps<'button'> {
@@ -33,25 +40,56 @@ export interface AccordionContentProps {
 }
 
 export const AccordionRoot = forwardRef(function AccordionRoot(
-  { children, asChild, className, ...props }: AccordionRootProps,
+  {
+    children,
+    asChild,
+    className,
+    type = 'multiple',
+    initialValue = null,
+    value,
+    onValueChange,
+    ...props
+  }: AccordionRootProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
+  const [internalValue, setInternalValue] = useState<string | null>(initialValue);
+  const activeValue = value !== undefined ? value : internalValue;
+
+  const onItemToggle = (itemValue: string) => {
+    const newValue = activeValue === itemValue ? null : itemValue;
+    if (value === undefined) {
+      setInternalValue(newValue);
+    }
+    onValueChange?.(newValue);
+  };
+
   const Component = asChild ? Slot : 'div';
   return (
-    <Component ref={ref} className={cx(styles.accordionRoot, className)} {...props}>
-      {children}
-    </Component>
+    <AccordionRootContext.Provider value={{ type, activeValue, onItemToggle }}>
+      <Component ref={ref} className={cx(styles.accordionRoot, className)} {...props}>
+        {children}
+      </Component>
+    </AccordionRootContext.Provider>
   );
 });
 
 export const AccordionItem = forwardRef(function AccordionItem(
-  { children, className, defaultOpen = false, ...props }: AccordionItemProps,
+  { children, className, defaultOpen = false, value, ...props }: AccordionItemProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
-  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
+  const rootContext = useAccordionRootContext();
+  const isSingleMode = rootContext?.type === 'single' && value !== undefined;
+
+  const [localIsOpen, setLocalIsOpen] = useState<boolean>(defaultOpen);
+
+  const isOpen = isSingleMode ? rootContext.activeValue === value : localIsOpen;
 
   const toggleAccordion = () => {
-    setIsOpen((prev) => !prev);
+    if (isSingleMode) {
+      rootContext.onItemToggle(value);
+    } else {
+      setLocalIsOpen((prev) => !prev);
+    }
   };
 
   const contextValue = { isOpen, toggleAccordion };

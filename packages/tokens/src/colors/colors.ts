@@ -131,6 +131,12 @@ export const semanticColor = {
   positive: color.blue400,
 } as const;
 
+export const brandColor = {
+  default: '#ffb24d',
+  hover: '#d9963f',
+  subtle: '#3b2005',
+} as const;
+
 export interface ThemeColor {
   primary: string;
   secondary: string;
@@ -171,9 +177,18 @@ export const theme4th: ThemeColor = {
   gradient: 'linear-gradient(45deg, #FF9595 0%, #FFE5B1 100%)',
 };
 
+export const theme5th: ThemeColor = {
+  primary: '#FF7C27',
+  secondary: '#FE4E07',
+  background: '#000000',
+  text: '#000000',
+  gradient: 'linear-gradient(225deg, #FF4500 0%, #FFB24D 100%)',
+};
+
 export const themeColor = {
   '1st': theme1st,
   '2nd': theme2nd,
   '3rd': theme3rd,
   '4th': theme4th,
+  '5th': theme5th,
 } as const;
