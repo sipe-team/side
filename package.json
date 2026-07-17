@@ -10,6 +10,7 @@
     "lint:biome": "biome lint",
     "lint:biome:fix": "biome check --write",
     "lint:package": "tsx scripts/checkPackageConsistency.ts",
+    "lint:publish": "bash scripts/checkPublishability.sh",
     "dev:storybook": "pnpm --filter @sipe-team/tokens build && storybook dev -p 6006",
     "build:storybook": "pnpm --filter @sipe-team/tokens build && storybook build",
     "serve:storybook": "npx http-server storybook-static -p 6006",
@@ -21,6 +22,7 @@
     "clean": "pnpm --filter './www' clean && pnpm --filter './packages/*' clean"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
     "@biomejs/biome": "^2.4.10",
     "@changesets/cli": "^2.27.9",
     "@clack/prompts": "^0.9.0",
@@ -47,6 +49,7 @@
     "inquirer": "^9.3.8",
     "knip": "catalog:",
     "lint-staged": "^15.3.0",
+    "publint": "^0.3.21",
     "sanitize.css": "^13.0.0",
     "storybook": "catalog:",
     "tsup": "catalog:",
