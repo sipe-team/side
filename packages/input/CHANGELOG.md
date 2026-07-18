@@ -4,6 +4,16 @@
 
 ### Patch Changes
 
+- 1e7bb22: Preserve CSS imports in `sideEffects` so consumer bundlers don't tree-shake `./styles.css`.
+- Updated dependencies [1e7bb22]
+- Updated dependencies [1e7bb22]
+- Updated dependencies [1e7bb22]
+  - @sipe-team/tokens@1.0.0
+
+## 0.0.5
+
+### Patch Changes
+
 - 38faf10: Preserve CSS imports in `sideEffects` so consumer bundlers don't tree-shake `./styles.css`.
 
 ## 0.0.4

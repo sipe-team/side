@@ -1,5 +1,16 @@
 # @sipe-team/tooltip
 
+## 1.0.0
+
+### Major Changes
+
+- 1e7bb22: Refactor tooltip API: replace trigger prop with disableHoverListener, add controlled mode (open/onOpen/onClose), improve WCAG compliance, and fix animation on mount
+
+### Patch Changes
+
+- 1e7bb22: Preserve CSS imports in `sideEffects` so consumer bundlers don't tree-shake `./styles.css`.
+- 1e7bb22: improve accessibility and refactor styles for Tooltip
+
 ## 0.0.5
 
 ### Patch Changes

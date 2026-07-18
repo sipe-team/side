@@ -4,6 +4,12 @@
 
 ### Patch Changes
 
+- 1e7bb22: Preserve CSS imports in `sideEffects` so consumer bundlers don't tree-shake `./styles.css`.
+
+## 0.1.2
+
+### Patch Changes
+
 - 38faf10: Preserve CSS imports in `sideEffects` so consumer bundlers don't tree-shake `./styles.css`.
 
 ## 0.1.1
