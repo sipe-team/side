@@ -1,5 +1,19 @@
 # @sipe-team/card
 
+## 0.2.0
+
+### Minor Changes
+
+- 1e7bb22: Add ghost variant to Card component with transparent background, no border, and no padding
+
+### Patch Changes
+
+- 1e7bb22: Preserve CSS imports in `sideEffects` so consumer bundlers don't tree-shake `./styles.css`.
+- Updated dependencies [1e7bb22]
+- Updated dependencies [1e7bb22]
+- Updated dependencies [1e7bb22]
+  - @sipe-team/tokens@1.0.0
+
 ## 0.1.2
 
 ### Patch Changes
