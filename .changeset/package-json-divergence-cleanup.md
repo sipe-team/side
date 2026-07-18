@@ -3,7 +3,6 @@
 "@sipe-team/avatar": patch
 "@sipe-team/checkbox": patch
 "@sipe-team/divider": patch
-"@sipe-team/plugin-figma-codegen": patch
 "@sipe-team/radio": patch
 "@sipe-team/side": patch
 "@sipe-team/switch": patch
