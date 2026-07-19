@@ -4,7 +4,13 @@ sidebar_label: Button
 
 import { Button } from '@sipe-team/button';
 
-export const Arrow = () => (
+export const ArrowLeft = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M10 3l-5 5 5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+export const ArrowRight = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
     <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
@@ -36,7 +42,7 @@ import '@sipe-team/button/styles.css';
 
 ### Variant
 
-`fill` (default), `outline`, and `ghost`.
+`fill` (default) for the primary action, `outline` for secondary, `ghost` for low-emphasis.
 
 <Preview
   code={`<Button variant="fill">Fill</Button>
@@ -52,7 +58,7 @@ import '@sipe-team/button/styles.css';
 
 ### Size
 
-`sm`, `md`, `lg` (default), and `xl`.
+`lg` (default) suits most UI; `sm`/`md` for dense layouts, `xl` for prominent calls to action.
 
 <Preview
   code={`<Button size="sm">Small</Button>
@@ -73,26 +79,27 @@ import '@sipe-team/button/styles.css';
 `leftIcon` and `rightIcon` accept any `ReactNode`.
 
 <Preview
-  code={`<Button leftIcon={<Arrow />}>Back</Button>
-<Button rightIcon={<Arrow />}>Next</Button>`}
+  code={`<Button leftIcon={<ArrowLeft />}>Back</Button>
+<Button rightIcon={<ArrowRight />}>Next</Button>`}
 >
   <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
-    <Button leftIcon={<Arrow />}>Back</Button>
-    <Button rightIcon={<Arrow />}>Next</Button>
+    <Button leftIcon={<ArrowLeft />}>Back</Button>
+    <Button rightIcon={<ArrowRight />}>Next</Button>
   </div>
 </Preview>
 
 ### Disabled
 
-The native `disabled` attribute is forwarded and styled.
+The native `disabled` attribute is forwarded and styled the same for every variant — a disabled
+`fill` and a disabled `outline` render identically.
 
 <Preview
-  code={`<Button disabled>Disabled</Button>
-<Button variant="outline" disabled>Disabled</Button>`}
+  code={`<Button variant="fill" disabled>Fill</Button>
+<Button variant="outline" disabled>Outline</Button>`}
 >
   <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
-    <Button disabled>Disabled</Button>
-    <Button variant="outline" disabled>Disabled</Button>
+    <Button variant="fill" disabled>Fill</Button>
+    <Button variant="outline" disabled>Outline</Button>
   </div>
 </Preview>
 
