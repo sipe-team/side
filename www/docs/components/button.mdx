@@ -1,0 +1,142 @@
+---
+sidebar_label: Button
+---
+
+import { Button } from '@sipe-team/button';
+
+export const Arrow = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+# Button
+
+A clickable action styled with the design system's tokens.
+
+## Installation
+
+```sh
+npm install @sipe-team/button
+```
+
+```ts
+import '@sipe-team/button/styles.css';
+```
+
+## Usage
+
+<Preview
+  code={`<Button>Get started</Button>`}
+>
+  <Button>Get started</Button>
+</Preview>
+
+## Examples
+
+### Variant
+
+`fill` (default), `outline`, and `ghost`.
+
+<Preview
+  code={`<Button variant="fill">Fill</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="ghost">Ghost</Button>`}
+>
+  <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+    <Button variant="fill">Fill</Button>
+    <Button variant="outline">Outline</Button>
+    <Button variant="ghost">Ghost</Button>
+  </div>
+</Preview>
+
+### Size
+
+`sm`, `md`, `lg` (default), and `xl`.
+
+<Preview
+  code={`<Button size="sm">Small</Button>
+<Button size="md">Medium</Button>
+<Button size="lg">Large</Button>
+<Button size="xl">Extra large</Button>`}
+>
+  <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+    <Button size="sm">Small</Button>
+    <Button size="md">Medium</Button>
+    <Button size="lg">Large</Button>
+    <Button size="xl">Extra large</Button>
+  </div>
+</Preview>
+
+### With icons
+
+`leftIcon` and `rightIcon` accept any `ReactNode`.
+
+<Preview
+  code={`<Button leftIcon={<Arrow />}>Back</Button>
+<Button rightIcon={<Arrow />}>Next</Button>`}
+>
+  <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+    <Button leftIcon={<Arrow />}>Back</Button>
+    <Button rightIcon={<Arrow />}>Next</Button>
+  </div>
+</Preview>
+
+### Disabled
+
+The native `disabled` attribute is forwarded and styled.
+
+<Preview
+  code={`<Button disabled>Disabled</Button>
+<Button variant="outline" disabled>Disabled</Button>`}
+>
+  <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+    <Button disabled>Disabled</Button>
+    <Button variant="outline" disabled>Disabled</Button>
+  </div>
+</Preview>
+
+### `asChild`
+
+Render as a different element (e.g. a link) while keeping the button's styles.
+
+<Preview
+  code={`<Button asChild>
+  <a href="#aschild">Link button</a>
+</Button>`}
+>
+  <Button asChild>
+    <a href="#aschild">Link button</a>
+  </Button>
+</Preview>
+
+## Anatomy
+
+```tsx
+import { Button } from '@sipe-team/button';
+
+export default () => (
+  <Button variant="fill" size="lg" leftIcon={<Icon />}>
+    Label
+  </Button>
+);
+```
+
+Renders a native `<button type="button">` by default. `leftIcon` / `rightIcon` are wrapped in a
+`span` on either side of the label.
+
+## API Reference
+
+Renders a `<button type="button">` and forwards its `ref`.
+
+| Prop        | Type                              | Default  | Description                                          |
+| ----------- | --------------------------------- | -------- | ---------------------------------------------------- |
+| `children`  | `ReactNode`                       | —        | The button label.                                    |
+| `variant`   | `'fill' \| 'outline' \| 'ghost'`  | `'fill'` | Visual style.                                        |
+| `size`      | `'sm' \| 'md' \| 'lg' \| 'xl'`    | `'lg'`   | Height, padding, radius, and font size.              |
+| `leftIcon`  | `ReactNode`                       | —        | Rendered before the label.                           |
+| `rightIcon` | `ReactNode`                       | —        | Rendered after the label.                            |
+| `asChild`   | `boolean`                         | `false`  | Merge props onto the child instead of a `button`.    |
+
+Also accepts every `ComponentProps<'button'>` (`disabled`, `onClick`, `type`, …), forwarded to the
+rendered element. `type` defaults to `"button"`.
