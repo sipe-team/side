@@ -1,9 +1,3 @@
-/*
- * Neutral, low-contrast frame. Most Side components are dark-only with hardcoded colors, so they
- * land as a dark card in a light page — the muted surface and padding frame that as an example
- * rather than a broken render.
- */
-
 .preview {
   margin: 1.5rem 0;
   border: 1px solid var(--ifm-color-emphasis-200);
@@ -15,35 +9,36 @@
 .stage {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-  gap: 1rem;
-  padding: 2.5rem 2rem;
+  gap: 0.75rem;
+  padding: 1.5rem;
   background: var(--ifm-color-emphasis-100);
+}
+
+/* Dark-only components (hardcoded dark colors) opt into an intentional dark canvas via
+   <Preview theme="dark">, so they read as a deliberate example rather than a dark card
+   floating on a light frame. */
+.stageDark {
+  background: #0d1117;
 }
 
 .toolbar {
   display: flex;
-  justify-content: flex-end;
-  padding: 0.5rem 0.75rem;
   border-top: 1px solid var(--ifm-color-emphasis-200);
 }
 
 .toggle {
-  padding: 0.25rem 0.75rem;
-  border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: var(--ifm-global-radius);
+  padding: 0.4rem 1rem;
+  border: 0;
   background: transparent;
-  color: var(--ifm-color-emphasis-700);
+  color: var(--ifm-color-emphasis-600);
   font-family: var(--ifm-font-family-base);
   font-size: 0.8125rem;
   line-height: 1.5;
   cursor: pointer;
-  transition: background-color var(--ifm-transition-fast) ease;
+  transition: color var(--ifm-transition-fast) ease;
 }
 
 .toggle:hover {
-  background: var(--ifm-color-emphasis-200);
   color: var(--ifm-color-emphasis-900);
 }
 
