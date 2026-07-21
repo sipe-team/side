@@ -1,0 +1,228 @@
+---
+sidebar_label: Radio
+---
+
+import { useState } from 'react';
+import { Radio, RadioGroup } from '@sipe-team/radio';
+
+export const ControlledRadio = () => {
+  const [value, setValue] = useState('apple');
+  return (
+    <RadioGroup labelText={`Picked: ${value}`} value={value} onChangeValue={setValue}>
+      <Radio value="apple">Apple</Radio>
+      <Radio value="orange">Orange</Radio>
+      <Radio value="grape">Grape</Radio>
+    </RadioGroup>
+  );
+};
+
+# Radio
+
+A grouped single-choice control — a `RadioGroup` that owns the selected value, wrapping one `Radio`
+per option.
+
+## Installation
+
+```sh
+npm install @sipe-team/radio
+```
+
+```ts
+import '@sipe-team/radio/styles.css';
+```
+
+## Usage
+
+`RadioGroup` renders a `<fieldset>` and shares a `name`, `size`, and the selected value through
+context, so every `Radio` inside it is wired into one group automatically — picking one clears the
+rest. Clicking a `Radio`'s label selects it.
+
+<Preview
+  code={`<RadioGroup labelText="Pick a fruit" defaultValue="orange">
+  <Radio value="apple">Apple</Radio>
+  <Radio value="orange">Orange</Radio>
+  <Radio value="grape">Grape</Radio>
+</RadioGroup>`}
+>
+  <RadioGroup labelText="Pick a fruit" defaultValue="orange">
+    <Radio value="apple">Apple</Radio>
+    <Radio value="orange">Orange</Radio>
+    <Radio value="grape">Grape</Radio>
+  </RadioGroup>
+</Preview>
+
+## Examples
+
+### Uncontrolled
+
+Give `RadioGroup` a `defaultValue` and let it track the selection itself — the common case for forms
+that read the value on submit. `RadioGroup` generates a `name` when you do not pass one, so the
+options are still submitted as a single field.
+
+<Preview
+  code={`<RadioGroup labelText="Shipping" defaultValue="standard">
+  <Radio value="standard">Standard</Radio>
+  <Radio value="express">Express</Radio>
+</RadioGroup>`}
+>
+  <RadioGroup labelText="Shipping" defaultValue="standard">
+    <Radio value="standard">Standard</Radio>
+    <Radio value="express">Express</Radio>
+  </RadioGroup>
+</Preview>
+
+### Controlled
+
+Own the state yourself with `value` and `onChangeValue` when another part of the UI has to react to
+the selection. `onChangeValue` receives the next value string.
+
+<Preview
+  code={`const [value, setValue] = useState('apple');
+
+<RadioGroup labelText={\`Picked: \${value}\`} value={value} onChangeValue={setValue}>
+  <Radio value="apple">Apple</Radio>
+  <Radio value="orange">Orange</Radio>
+  <Radio value="grape">Grape</Radio>
+</RadioGroup>`}
+>
+  <ControlledRadio />
+</Preview>
+
+### Sizes
+
+`medium` (default) fits most forms; `small` for dense rows, `large` for touch targets. Set `size` on
+`RadioGroup` to scale every option, and the dot, font, and spacing all scale together.
+
+<Preview
+  code={`<RadioGroup size="small" labelText="Small" defaultValue="a">
+  <Radio value="a">Option A</Radio>
+  <Radio value="b">Option B</Radio>
+</RadioGroup>
+<RadioGroup size="medium" labelText="Medium" defaultValue="a">
+  <Radio value="a">Option A</Radio>
+  <Radio value="b">Option B</Radio>
+</RadioGroup>
+<RadioGroup size="large" labelText="Large" defaultValue="a">
+  <Radio value="a">Option A</Radio>
+  <Radio value="b">Option B</Radio>
+</RadioGroup>`}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <RadioGroup size="small" labelText="Small" defaultValue="a">
+      <Radio value="a">Option A</Radio>
+      <Radio value="b">Option B</Radio>
+    </RadioGroup>
+    <RadioGroup size="medium" labelText="Medium" defaultValue="a">
+      <Radio value="a">Option A</Radio>
+      <Radio value="b">Option B</Radio>
+    </RadioGroup>
+    <RadioGroup size="large" labelText="Large" defaultValue="a">
+      <Radio value="a">Option A</Radio>
+      <Radio value="b">Option B</Radio>
+    </RadioGroup>
+  </div>
+</Preview>
+
+### Disabled
+
+`disabled` on `RadioGroup` disables every option via the native `<fieldset disabled>`; `disabled` on
+a single `Radio` disables just that one. Both dim the affected labels.
+
+<Preview
+  code={`<RadioGroup labelText="Whole group" disabled defaultValue="a">
+  <Radio value="a">Selected but disabled</Radio>
+  <Radio value="b">Also disabled</Radio>
+</RadioGroup>
+<RadioGroup labelText="Single option" defaultValue="a">
+  <Radio value="a">Enabled</Radio>
+  <Radio value="b" disabled>Disabled</Radio>
+</RadioGroup>`}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <RadioGroup labelText="Whole group" disabled defaultValue="a">
+      <Radio value="a">Selected but disabled</Radio>
+      <Radio value="b">Also disabled</Radio>
+    </RadioGroup>
+    <RadioGroup labelText="Single option" defaultValue="a">
+      <Radio value="a">Enabled</Radio>
+      <Radio value="b" disabled>Disabled</Radio>
+    </RadioGroup>
+  </div>
+</Preview>
+
+## Anatomy
+
+```tsx
+import { Radio, RadioGroup } from '@sipe-team/radio';
+
+export default () => (
+  <RadioGroup labelText="Label" defaultValue="a">
+    <Radio value="a">Option A</Radio>
+    <Radio value="b">Option B</Radio>
+  </RadioGroup>
+);
+```
+
+`RadioGroup` renders a `<fieldset>` (with a `<legend>` when `labelText` is set) and provides context;
+each `Radio` reads from it and renders a `<label>` wrapping an `<input type="radio">`. The selected
+value, `name`, `size`, and `disabled` live on `RadioGroup` — a `Radio` should be rendered inside one
+so the options share a group.
+
+## API Reference
+
+Neither part forwards a `ref`.
+
+### `RadioGroup`
+
+Renders a `<fieldset>`. Provides the selection, `name`, `size`, and `disabled` to its `Radio`
+children through context.
+
+| Prop            | Type                             | Default    | Description                                                              |
+| --------------- | -------------------------------- | ---------- | ------------------------------------------------------------------------ |
+| `children`      | `ReactNode`                      | —          | Required. The `Radio` options.                                           |
+| `value`         | `string`                         | —          | Controlled selected value. Pair with `onChangeValue`.                    |
+| `defaultValue`  | `string`                         | —          | Initial selected value when uncontrolled.                                |
+| `onChangeValue` | `(value: string) => void`        | —          | Called with the next value when a `Radio` is chosen.                     |
+| `labelText`     | `string`                         | `''`       | Rendered as the fieldset's `<legend>`. Omitted when empty.               |
+| `name`          | `string`                         | auto       | Shared `name` for the inputs. Generated via `useId` when not provided.   |
+| `size`          | `'small' \| 'medium' \| 'large'` | `'medium'` | Scales the dot, font size, and spacing of every option.                  |
+| `disabled`      | `boolean`                        | `false`    | Disables the whole group via `<fieldset disabled>`.                      |
+| `className`     | `string`                         | —          | Appended to the fieldset class.                                          |
+
+Extra props are not spread onto the `<fieldset>`; only those above are used.
+
+### `Radio`
+
+Renders a `<label>` wrapping an `<input type="radio">`, plus a `<span>` for the label text when
+`children` are given. Reads the selected value, `name`, `size`, and group `disabled` from
+`RadioGroup`.
+
+| Prop             | Type                             | Default        | Description                                                          |
+| ---------------- | -------------------------------- | -------------- | ------------------------------------------------------------------- |
+| `value`          | `string`                         | —              | Required. This option's value, compared against the group's value.  |
+| `children`       | `ReactNode`                      | —              | Label text. When omitted, no `<span>` is rendered.                  |
+| `size`           | `'small' \| 'medium' \| 'large'` | group / `'medium'` | Overrides the group `size` for this option.                    |
+| `disabled`       | `boolean`                        | `false`        | Disables just this option. The group `disabled` also forces it on.  |
+| `defaultChecked` | `boolean`                        | —              | Marks this option checked when uncontrolled. Usually prefer `RadioGroup`'s `defaultValue`. |
+| `className`      | `string`                         | —              | Appended to the `<label>` (container) class.                        |
+
+Also accepts the rest of `ComponentProps<'input'>` except `size` (`onChange`, `required`, `id`, …),
+spread onto the underlying `<input>`. `name` and `checked` are supplied by `RadioGroup`.
+
+## Accessibility
+
+- `RadioGroup` renders a native `<fieldset>`; `labelText` becomes its `<legend>`, labelling the group
+  for screen readers.
+- Each `Radio` is a native `<input type="radio">` sharing the group's `name`, so the browser provides
+  roving focus and arrow-key navigation between options for free.
+- Every `Radio` wraps its `<input>` in a `<label>` with a matching generated `id`, so clicking the
+  label selects the option.
+- `disabled` sets the native `disabled` attribute (on the `<fieldset>` for the group, or the `<input>`
+  for a single option).
+
+## Known limitations
+
+- `RadioGroup` always stacks its options vertically (`flex-direction: column`); there is no
+  `orientation` prop for a horizontal layout.
+- The `<legend>` is rendered without the component's styles, so `labelText` shows in the browser's
+  default legend styling rather than a token-driven treatment.
