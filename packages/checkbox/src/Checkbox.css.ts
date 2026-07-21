@@ -38,12 +38,18 @@ const COLORS = {
   hover: color.gray100 || '#F3F4F6',
 };
 
-// SVG 애셋을 data-URI로 인라인해 esbuild(tsup)와 webpack(docs) 양쪽 번들러에서
-// 외부 경로 해석 없이 동일하게 동작하도록 한다.
-const CHECK_ICON_URL =
-  "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='white'%3E%20%3Cpath%20d='M9%2016.17L4.83%2012l-1.42%201.41L9%2019%2021%207l-1.41-1.41L9%2016.17z'/%3E%20%3C/svg%3E";
-const INDETERMINATE_ICON_URL =
-  "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='white'%3E%20%3Cpath%20d='M19%2013H5v-2h14v2z'/%3E%20%3C/svg%3E";
+// 체크 마크는 <input> 자체의 background-image로 얹히므로(자식을 넣을 수 없는 void 요소)
+// SVG를 data-URI로 인라인한다. 이렇게 하면 esbuild(tsup)와 webpack(docs) 양쪽 번들러가
+// 외부 경로 해석 없이 동일하게 렌더한다. 마크업은 읽고 수정할 수 있게 그대로 두고,
+// 빌드타임에 vanilla-extract가 .css.ts를 평가할 때 encodeURIComponent로 인코딩한다.
+const svgToDataUri = (svg: string) => `data:image/svg+xml,${encodeURIComponent(svg)}`;
+
+const CHECK_ICON_URL = svgToDataUri(
+  `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'><path d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/></svg>`,
+);
+const INDETERMINATE_ICON_URL = svgToDataUri(
+  `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'><path d='M19 13H5v-2h14v2z'/></svg>`,
+);
 
 const CHECKBOX_STYLE = {
   borderRadius: BORDER_RADIUS_PX,
