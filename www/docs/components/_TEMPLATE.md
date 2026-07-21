@@ -47,8 +47,10 @@ sidebar_label: ComponentName
         <Thing variant="fill">Hello</Thing>
       </Preview>
 
-  A workspace package must be aliased to its `dist` build in `www/docusaurus.config.ts`, and its
-  stylesheet added to `customCss` there, before it can be used on a docs page.
+  To use a component on a docs page, add its workspace package to `www/package.json` dependencies
+  and import it in the MDX. The `side-vanilla-extract` webpack plugin compiles the package's
+  `.css.ts` straight from source, so no dist alias or `customCss` entry is needed. (Only
+  `@sipe-team/tokens` is special-cased in `docusaurus.config.ts`, for its Style Dictionary layer.)
 -->
 
 # ComponentName

@@ -26,6 +26,7 @@
     "@sipe-team/checkbox": "workspace:*",
     "@sipe-team/icon": "workspace:*",
     "@sipe-team/tokens": "workspace:*",
+    "@sipe-team/typography": "workspace:*",
     "clsx": "^2.0.0",
     "prism-react-renderer": "^2.3.0",
     "react": "catalog:react",

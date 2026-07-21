@@ -1199,6 +1199,9 @@ importers:
       '@sipe-team/tokens':
         specifier: workspace:*
         version: link:../packages/tokens
+      '@sipe-team/typography':
+        specifier: workspace:*
+        version: link:../packages/typography
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
