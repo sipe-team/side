@@ -116,24 +116,19 @@ export default {
         },
       ],
     },
-    // No `style: 'dark'` — that class hardcodes a blue-grey background (#303846)
-    // on the footer element itself, where the token overrides can't reach it.
+    // A flat `links` array (no `title`/`items`) is Docusaurus's simple footer: one
+    // row instead of columns. Columns split the container evenly, which left two
+    // links stranded at either end of a 1320px gap.
+    //
+    // No `style: 'dark'` either — that class hardcodes a blue-grey background
+    // (#303846) on the footer element itself, out of reach of the token overrides.
+    //
+    // Overview and Components live in the navbar one click away, so repeating
+    // them here would only pad the row out.
     footer: {
       links: [
-        {
-          title: 'Side',
-          items: [
-            { label: 'Overview', to: '/docs/overview/Installation' },
-            { label: 'Components', to: '/docs/components/accordion' },
-          ],
-        },
-        {
-          title: 'Sipe',
-          items: [
-            { label: 'GitHub', href: 'https://github.com/sipe-team/side' },
-            { label: 'sipe.team', href: 'https://sipe.team' },
-          ],
-        },
+        { label: 'GitHub', href: 'https://github.com/sipe-team/side' },
+        { label: 'sipe.team', href: 'https://sipe.team' },
       ],
       copyright: `All rights reserved ⓒ SIPE ${new Date().getFullYear()}`,
     },
