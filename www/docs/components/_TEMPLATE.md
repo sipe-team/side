@@ -38,8 +38,7 @@ sidebar_label: ComponentName
   you are demonstrating does.
 
   `children` is rendered live (and server-side, so it lands in the static HTML); `code` is the
-  source shown behind the "Show code" toggle. Keep the two in sync by hand. Pass `theme="dark"`
-  for dark-only components so the stage renders as an intentional dark canvas.
+  source shown behind the "Show code" toggle. Keep the two in sync by hand.
 
       import { Thing } from '@sipe-team/thing';
 

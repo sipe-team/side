@@ -1,18 +1,38 @@
+/* sipe.team leads with a centered hero on a flat dark ground — no full-bleed
+   accent panel, which is what Infima's `hero--primary` would give us. */
 .heroBanner {
-  padding: 4rem 0;
+  padding: var(--side-spacing-layout-xl) 0;
   text-align: center;
-  position: relative;
-  overflow: hidden;
+  background: var(--side-color-background-base);
+  border-bottom: 1px solid var(--side-color-border-default);
+}
+
+.heroTitle {
+  margin-bottom: var(--side-spacing-component-lg);
+  font-size: var(--side-font-size-900);
+  font-weight: var(--side-font-weight-bold);
+  line-height: var(--side-line-height-compact);
+  letter-spacing: -0.02em;
+}
+
+/* 24px semibold, matching the sub-headline on sipe.team's hero. */
+.heroSubtitle {
+  margin: 0;
+  color: var(--side-color-foreground-subtle);
+  font-size: var(--side-font-size-500);
+  font-weight: var(--side-font-weight-semi-bold);
 }
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 2rem;
+    padding: var(--side-spacing-layout-md) var(--side-spacing-component-xl);
   }
-}
 
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  .heroTitle {
+    font-size: var(--side-font-size-700);
+  }
+
+  .heroSubtitle {
+    font-size: var(--side-font-size-300);
+  }
 }
