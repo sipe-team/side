@@ -1181,6 +1181,18 @@ importers:
       '@mdx-js/react':
         specifier: ^3.0.0
         version: 3.1.0(@types/react@18.3.13)(react@18.3.1)
+      '@sipe-team/accordion':
+        specifier: workspace:*
+        version: link:../packages/accordion
+      '@sipe-team/button':
+        specifier: workspace:*
+        version: link:../packages/button
+      '@sipe-team/icon':
+        specifier: workspace:*
+        version: link:../packages/icon
+      '@sipe-team/tokens':
+        specifier: workspace:*
+        version: link:../packages/tokens
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -1188,10 +1200,10 @@ importers:
         specifier: ^2.3.0
         version: 2.4.1(react@18.3.1)
       react:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: catalog:react
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@docusaurus/module-type-aliases':
@@ -1203,6 +1215,9 @@ importers:
       '@docusaurus/types':
         specifier: 3.6.3
         version: 3.6.3(acorn@8.16.0)(esbuild@0.27.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@vanilla-extract/webpack-plugin':
+        specifier: ^2.3.0
+        version: 2.3.27(webpack@5.97.1(esbuild@0.27.7))
       typescript:
         specifier: ~5.6.2
         version: 5.6.3
@@ -4327,6 +4342,11 @@ packages:
     resolution: {integrity: sha512-AUyB4fDR2b/Mo0lcXhhlf6RxnDPYwFMyKKopalJ4BwQNKYzZSoTwHJ1PLPO9SKhpz7lzXc0Z18GHQZOewzl3YA==}
     peerDependencies:
       vite: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
+
+  '@vanilla-extract/webpack-plugin@2.3.27':
+    resolution: {integrity: sha512-i/GFQPifTkGYXYpkVYzScBPwXB82f+5GMLg9rh9UBgTG6M/YUebIDVjVOC9Mn5VMvc8Fk2w/FmagDRLugHA09w==}
+    peerDependencies:
+      webpack: ^4.30.0 || ^5.20.2
 
   '@vitest/coverage-v8@2.1.8':
     resolution: {integrity: sha512-2Y7BPlKH18mAZYAW1tYByudlCYrQyl5RGvnnDYJKW5tCiO5qg3KSAy3XAxcxKz900a0ZXxWtKrMuZLe3lKBpJw==}
@@ -13711,6 +13731,17 @@ snapshots:
       - terser
       - tsx
       - yaml
+
+  '@vanilla-extract/webpack-plugin@2.3.27(webpack@5.97.1(esbuild@0.27.7))':
+    dependencies:
+      '@vanilla-extract/integration': 8.0.10
+      debug: 4.4.0
+      loader-utils: 2.0.4
+      picocolors: 1.1.1
+      webpack: 5.97.1(esbuild@0.27.7)
+    transitivePeerDependencies:
+      - babel-plugin-macros
+      - supports-color
 
   '@vitest/coverage-v8@2.1.8(vitest@2.1.8(@types/node@22.10.1)(happy-dom@15.11.7)(jsdom@26.1.0)(lightningcss@1.32.0)(terser@5.37.0))':
     dependencies:
