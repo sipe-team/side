@@ -59,12 +59,16 @@ function getResponsiveGapStyle(gap: FlexProps['gap']) {
     };
   }
 
+  const sm = gap.sm ?? 'normal';
+  const md = gap.md ?? sm;
+  const lg = gap.lg ?? md;
+
   return {
     className: styles.responsiveGap,
     style: {
-      '--side-flex-gap-sm': gap.sm,
-      '--side-flex-gap-md': gap.md,
-      '--side-flex-gap-lg': gap.lg,
+      '--side-flex-gap-sm': sm,
+      '--side-flex-gap-md': md,
+      '--side-flex-gap-lg': lg,
     } satisfies FlexStyle,
   };
 }

@@ -279,6 +279,36 @@ describe('Flex', () => {
       expect(flexContainer).toHaveClass(styles.wrap.lg['wrap-reverse']);
     });
 
+    it('uses the default gap until the first responsive gap value is defined', () => {
+      render(
+        <Flex data-testid="flex-container" gap={{ md: '16px', lg: '24px' }}>
+          <div>item 1</div>
+          <div>item 2</div>
+        </Flex>,
+      );
+
+      const flexContainer = screen.getByTestId('flex-container');
+      expect(flexContainer.style.getPropertyValue('--side-flex-gap-sm')).toBe('normal');
+      expect(flexContainer.style.getPropertyValue('--side-flex-gap-md')).toBe('16px');
+      expect(flexContainer.style.getPropertyValue('--side-flex-gap-lg')).toBe('24px');
+    });
+
+    it('keeps nested responsive gap values independent from the parent Flex', () => {
+      render(
+        <Flex data-testid="parent-flex" gap={{ sm: '8px' }}>
+          <Flex data-testid="child-flex" gap={{ lg: '2px' }}>
+            <div>child item 1</div>
+            <div>child item 2</div>
+          </Flex>
+        </Flex>,
+      );
+
+      const childFlex = screen.getByTestId('child-flex');
+      expect(childFlex.style.getPropertyValue('--side-flex-gap-sm')).toBe('normal');
+      expect(childFlex.style.getPropertyValue('--side-flex-gap-md')).toBe('normal');
+      expect(childFlex.style.getPropertyValue('--side-flex-gap-lg')).toBe('2px');
+    });
+
     it('allows style to override responsive inline gap values', () => {
       render(
         <Flex data-testid="flex-container" gap={{ sm: '8px', md: '12px', lg: '16px' }} style={{ gap: '24px' }}>
