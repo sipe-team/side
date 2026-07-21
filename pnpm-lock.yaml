@@ -1184,9 +1184,6 @@ importers:
       '@sipe-team/accordion':
         specifier: workspace:*
         version: link:../packages/accordion
-      '@sipe-team/button':
-        specifier: workspace:*
-        version: link:../packages/button
       '@sipe-team/icon':
         specifier: workspace:*
         version: link:../packages/icon
