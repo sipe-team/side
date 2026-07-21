@@ -169,3 +169,39 @@ html[data-theme="dark"] {
 .navbar__logo {
   height: 1.25rem;
 }
+
+/* sipe.team runs its footer as a single ~100px line: copyright left, links
+   right. Docusaurus stacks the two blocks and centers both, so this puts them
+   back on one row — `row-reverse` because the links come first in the DOM. */
+.footer .container {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--side-spacing-component-xl);
+}
+
+.footer__links,
+.footer__bottom {
+  margin: 0;
+  text-align: left;
+}
+
+/* Body size on the right would outweigh the 12px copyright on the left; 14px
+   keeps the row balanced without shrinking the links below a comfortable
+   target. */
+.footer__link-item {
+  font-size: var(--side-font-size-100);
+}
+
+.footer__copyright {
+  font-size: var(--side-font-size-050);
+}
+
+@media screen and (max-width: 996px) {
+  .footer .container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--side-spacing-component-lg);
+  }
+}
