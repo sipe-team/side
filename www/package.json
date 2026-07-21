@@ -23,6 +23,7 @@
     "@sipe-team/accordion": "workspace:*",
     "@sipe-team/avatar": "workspace:*",
     "@sipe-team/button": "workspace:*",
+    "@sipe-team/checkbox": "workspace:*",
     "@sipe-team/icon": "workspace:*",
     "@sipe-team/tokens": "workspace:*",
     "clsx": "^2.0.0",

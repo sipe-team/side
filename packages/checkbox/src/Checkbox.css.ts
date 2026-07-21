@@ -38,6 +38,19 @@ const COLORS = {
   hover: color.gray100 || '#F3F4F6',
 };
 
+// 체크 마크는 <input> 자체의 background-image로 얹히므로(자식을 넣을 수 없는 void 요소)
+// SVG를 data-URI로 인라인한다. 이렇게 하면 esbuild(tsup)와 webpack(docs) 양쪽 번들러가
+// 외부 경로 해석 없이 동일하게 렌더한다. 마크업은 읽고 수정할 수 있게 그대로 두고,
+// 빌드타임에 vanilla-extract가 .css.ts를 평가할 때 encodeURIComponent로 인코딩한다.
+const svgToDataUri = (svg: string) => `data:image/svg+xml,${encodeURIComponent(svg)}`;
+
+const CHECK_ICON_URL = svgToDataUri(
+  `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'><path d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/></svg>`,
+);
+const INDETERMINATE_ICON_URL = svgToDataUri(
+  `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'><path d='M19 13H5v-2h14v2z'/></svg>`,
+);
+
 const CHECKBOX_STYLE = {
   borderRadius: BORDER_RADIUS_PX,
   borderWidth: BORDER_WIDTH_PX,
@@ -118,14 +131,14 @@ export const input = recipe({
       true: {
         backgroundColor: CHECKBOX_STYLE.checkedColor,
         borderColor: CHECKBOX_STYLE.checkedColor,
-        backgroundImage: `url("public/check.svg")`,
+        backgroundImage: `url("${CHECK_ICON_URL}")`,
       },
     },
     indeterminate: {
       true: {
         backgroundColor: CHECKBOX_STYLE.checkedColor,
         borderColor: CHECKBOX_STYLE.checkedColor,
-        backgroundImage: `url("public/indeterminate.svg")`,
+        backgroundImage: `url("${INDETERMINATE_ICON_URL}")`,
       },
     },
     disabled: {
@@ -146,7 +159,7 @@ export const input = recipe({
       style: {
         backgroundColor: CHECKBOX_STYLE.disabledColor,
         borderColor: CHECKBOX_STYLE.disabledColor,
-        backgroundImage: `url("public/check.svg")`,
+        backgroundImage: `url("${CHECK_ICON_URL}")`,
         opacity: 0.6,
       },
     },
@@ -158,7 +171,7 @@ export const input = recipe({
       style: {
         backgroundColor: CHECKBOX_STYLE.disabledColor,
         borderColor: CHECKBOX_STYLE.disabledColor,
-        backgroundImage: `url("public/indeterminate.svg")`,
+        backgroundImage: `url("${INDETERMINATE_ICON_URL}")`,
         opacity: 0.6,
       },
     },
