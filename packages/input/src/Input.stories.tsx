@@ -76,6 +76,13 @@ export const disabled: Story = {
   },
 };
 
+export const ReadOnly: Story = {
+  args: {
+    readOnly: true,
+    defaultValue: 'read only value',
+  },
+};
+
 export const ValidationError: Story = {
   args: {
     validation: 'error',
