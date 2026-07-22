@@ -1,45 +1,42 @@
-import { type ComponentPropsWithoutRef, type ElementRef, forwardRef } from 'react';
+import { Children, type ComponentPropsWithoutRef, type ElementRef, forwardRef } from 'react';
 
 import { Slot } from '@radix-ui/react-slot';
 
 import cx from 'clsx';
 
-import { defaultFontSize, defaultFontWeight, inputAction, inputElement, inputWrapper, type weight } from './Input.css';
+import { defaultFontSize, inputAction, inputElement, inputElementWithAction, inputWrapper } from './Input.css';
 
+// TODO(design): fontSize API naming (px vs sm/md/lg) — pending designer sync
 export type InputFontSize = 12 | 14 | 16 | 18 | 20 | 24 | 28 | 32 | 36 | 48;
-export type InputFontWeight = keyof typeof weight;
+
+// TODO(design): confirm with design whether to expose fontWeight as a prop; currently fixed to regular
 type AllowedInputTypes = 'email' | 'password' | 'search' | 'tel' | 'text' | 'url';
 type InputFieldElement = ElementRef<'input'>;
 
 interface InputProps extends Omit<ComponentPropsWithoutRef<'input'>, 'type'> {
   type?: AllowedInputTypes;
   fontSize?: InputFontSize;
-  fontWeight?: InputFontWeight;
 }
 
 const Input = forwardRef<InputFieldElement, InputProps>((props, forwardedRef) => {
-  const {
-    children,
-    type = 'text',
-    fontWeight = defaultFontWeight,
-    fontSize = defaultFontSize,
-    className,
-    name,
-    ...inputProps
-  } = props;
+  const { children, type = 'text', fontSize = defaultFontSize, className, name, ...inputProps } = props;
+  const hasAction = Children.count(children) > 0;
 
   return (
-    <div role="presentation" className={cx(inputWrapper({ fontSize, fontWeight }), className)}>
-      <input name={name} type={type} spellCheck="false" ref={forwardedRef} className={inputElement} {...inputProps} />
+    <span role="presentation" className={cx(inputWrapper({ fontSize }), className)}>
+      <input
+        name={name}
+        type={type}
+        spellCheck="false"
+        ref={forwardedRef}
+        className={cx(inputElement, hasAction && inputElementWithAction)}
+        {...inputProps}
+      />
       {children}
-    </div>
+    </span>
   );
 });
 Input.displayName = 'Input';
-
-// * ****************************************
-// *               Input Action
-// * ****************************************
 
 type InputFieldActionElement = ElementRef<'button'>;
 type InputFieldActionType = 'button' | 'reset';

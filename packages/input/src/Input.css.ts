@@ -1,60 +1,53 @@
-import { color } from '@sipe-team/tokens';
+import { vars } from '@sipe-team/tokens';
 
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import type { InputFontSize, InputFontWeight } from './Input';
-
-// TODO ThemeProvider 적용
-export const colors = {
-  inputRing: color.gray800,
-  defaultInputOutline: color.gray400,
-  disabledBackground: color.gray300,
-} as const;
-
-export const spacing = {
-  defaultInputPadding: '8px',
-  defaultBorderRadius: '8px',
-  defaultActionSize: '24px',
-} as const;
-
-export const weight = {
-  regular: 400,
-  medium: 500,
-  semiBold: 600,
-  bold: 700,
-} as const;
+import type { InputFontSize } from './Input';
 
 export const defaultFontSize: InputFontSize = 16;
-export const defaultFontWeight: InputFontWeight = 'regular';
 
 export const inputWrapper = recipe({
   base: {
-    display: 'flex',
+    position: 'relative',
+    display: 'block',
     flex: 1,
-    alignItems: 'center',
     fontStyle: 'normal',
     textAlign: 'start',
-    padding: spacing.defaultInputPadding,
-    borderRadius: spacing.defaultBorderRadius,
-    outline: `1px solid ${colors.defaultInputOutline}`,
+    color: vars.color.foreground.default,
+    fontFamily: vars.typography.fontFamily,
+    fontWeight: vars.typography.fontWeight.regular,
+    borderRadius: vars.radius.component.md,
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: vars.color.border.default,
+    backgroundColor: 'transparent',
 
     '@supports': {
       'selector(:has(*))': {
         selectors: {
+          '&:where(:hover:not(:has(input:disabled, input:focus)))': {
+            borderColor: vars.color.border.strong,
+          },
           '&:where(:has(input:focus))': {
-            outline: `2px solid ${colors.defaultInputOutline}`,
+            borderColor: vars.color.border.focus,
+            outline: `2px solid ${vars.color.border.focus}`,
             outlineOffset: '-1px',
           },
           '&:where(:has(input:disabled))': {
-            backgroundColor: colors.disabledBackground,
+            backgroundColor: vars.color.background.muted,
+            borderColor: vars.color.border.default,
           },
         },
       },
       'not selector(:has(*))': {
         selectors: {
+          '&:where(:hover:not(:focus-within))': {
+            borderColor: vars.color.border.strong,
+          },
           '&:where(:focus-within)': {
-            outline: `2px solid ${colors.defaultInputOutline}`,
+            borderColor: vars.color.border.focus,
+            outline: `2px solid ${vars.color.border.focus}`,
             outlineOffset: '-1px',
           },
         },
@@ -63,43 +56,45 @@ export const inputWrapper = recipe({
   },
   variants: {
     fontSize: {
-      12: { fontSize: '12px' },
-      14: { fontSize: '14px' },
-      16: { fontSize: '16px' },
-      18: { fontSize: '18px' },
-      20: { fontSize: '20px' },
-      24: { fontSize: '24px' },
-      28: { fontSize: '28px' },
-      32: { fontSize: '32px' },
-      36: { fontSize: '36px' },
-      48: { fontSize: '48px' },
-    },
-    fontWeight: {
-      regular: { fontWeight: weight.regular },
-      medium: { fontWeight: weight.medium },
-      semiBold: { fontWeight: weight.semiBold },
-      bold: { fontWeight: weight.bold },
+      12: { fontSize: vars.typography.fontSize['050'] },
+      14: { fontSize: vars.typography.fontSize['100'] },
+      16: { fontSize: vars.typography.fontSize['200'] },
+      18: { fontSize: vars.typography.fontSize['300'] },
+      20: { fontSize: vars.typography.fontSize['400'] },
+      24: { fontSize: vars.typography.fontSize['500'] },
+      28: { fontSize: vars.typography.fontSize['600'] },
+      32: { fontSize: vars.typography.fontSize['700'] },
+      36: { fontSize: vars.typography.fontSize['800'] },
+      48: { fontSize: vars.typography.fontSize['900'] },
     },
   },
   defaultVariants: {
     fontSize: defaultFontSize,
-    fontWeight: defaultFontWeight,
   },
 });
 
 export const inputElement = style({
+  boxSizing: 'border-box',
+  display: 'block',
   width: '100%',
-  display: 'flex',
-  alignItems: 'center',
   textAlign: 'inherit',
-  outline: '1px solid transparent',
+  color: vars.color.foreground.default,
+  fontFamily: 'inherit',
+  outline: 'none',
   border: 'none',
+  backgroundColor: 'transparent',
   fontSize: 'inherit',
   fontWeight: 'inherit',
+  margin: 0,
+  paddingBlock: vars.spacing.component.sm,
+  paddingInline: vars.spacing.component.md,
 
   selectors: {
     '&::-webkit-search-cancel-button': {
       appearance: 'none',
+    },
+    '&::placeholder': {
+      color: vars.color.foreground.muted,
     },
   },
 
@@ -108,33 +103,52 @@ export const inputElement = style({
       selectors: {
         '&:where(:autofill, [data-com-onepassword-filled])': {
           backgroundClip: 'text',
-          WebkitTextFillColor: color.gray900,
+          WebkitTextFillColor: vars.color.foreground.default,
         },
         '&:where(:disabled)': {
           backgroundColor: 'transparent',
+          color: vars.color.foreground.subtle,
+          cursor: 'not-allowed',
         },
       },
     },
   },
 });
 
+/** Reserve trailing space so text/caret never sit under the absolute action. */
+export const inputElementWithAction = style({
+  paddingInlineEnd: `calc(${vars.spacing.component.xl} + ${vars.spacing.component.md} + ${vars.spacing.component.xs})`,
+});
+
 export const inputAction = style({
   all: 'unset',
-  width: spacing.defaultActionSize,
-  height: spacing.defaultActionSize,
+  boxSizing: 'border-box',
+  position: 'absolute',
+  top: '50%',
+  right: vars.spacing.component.md,
+  transform: 'translateY(-50%)',
+  width: vars.spacing.component.xl,
+  height: vars.spacing.component.xl,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  borderRadius: spacing.defaultBorderRadius,
+  color: vars.color.foreground.subtle,
+  borderRadius: vars.radius.component.md,
+  cursor: 'pointer',
+  transition: 'color 0.15s ease, background-color 0.15s ease',
 
-  '@supports': {
-    'selector(:has(*))': {
-      selectors: {
-        '&:focus': {
-          outline: `2px solid ${colors.defaultInputOutline}`,
-          outlineOffset: '3px',
-        },
-      },
+  selectors: {
+    '&:hover': {
+      color: vars.color.foreground.default,
+      backgroundColor: vars.color.background.muted,
+    },
+    '&:active': {
+      color: vars.color.foreground.default,
+      backgroundColor: vars.color.background.subtle,
+    },
+    '&:focus-visible': {
+      outline: `2px solid ${vars.color.border.focus}`,
+      outlineOffset: '3px',
     },
   },
 });
