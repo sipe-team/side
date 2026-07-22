@@ -43,13 +43,19 @@ export const inputField = recipe({
       '&::placeholder': {
         color: vars.color.foreground.muted,
       },
-      '&:hover:not(:disabled):not(:focus)': {
+      '&:hover:not(:disabled):not(:focus):not(:read-only)': {
         borderColor: vars.color.border.strong,
       },
       '&:focus': {
         borderColor: vars.color.border.focus,
         outline: `2px solid ${vars.color.border.focus}`,
         outlineOffset: '-1px',
+      },
+      '&:read-only:not(:disabled)': {
+        backgroundColor: vars.color.background.muted,
+        borderColor: vars.color.border.default,
+        color: vars.color.foreground.default,
+        cursor: 'default',
       },
       '&:disabled': {
         backgroundColor: vars.color.background.muted,
@@ -81,7 +87,7 @@ export const inputField = recipe({
       error: {
         borderColor: vars.color.status.danger.border,
         selectors: {
-          '&:hover:not(:disabled):not(:focus)': {
+          '&:hover:not(:disabled):not(:focus):not(:read-only)': {
             borderColor: vars.color.status.danger.border,
           },
           '&:disabled': {
@@ -92,7 +98,7 @@ export const inputField = recipe({
       success: {
         borderColor: vars.color.status.success.border,
         selectors: {
-          '&:hover:not(:disabled):not(:focus)': {
+          '&:hover:not(:disabled):not(:focus):not(:read-only)': {
             borderColor: vars.color.status.success.border,
           },
           '&:disabled': {

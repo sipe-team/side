@@ -11,6 +11,7 @@ import { defaultFontSize } from './Input.css';
 
 function ruleForClass(className: string): string {
   const target = `.${className}`;
+  const matched: string[] = [];
   for (const sheet of Array.from(document.styleSheets)) {
     let rules: CSSRuleList;
     try {
@@ -21,11 +22,14 @@ function ruleForClass(className: string): string {
     for (const rule of Array.from(rules)) {
       if (!('selectorText' in rule)) continue;
       const selectorText = (rule as CSSStyleRule).selectorText ?? '';
-      const matches = selectorText.split(',').some((s) => s.trim() === target);
-      if (matches) return rule.cssText;
+      const matches = selectorText.split(',').some((s) => {
+        const part = s.trim();
+        return part === target || part.startsWith(`${target}:`) || part.startsWith(`${target}.`);
+      });
+      if (matches) matched.push(rule.cssText);
     }
   }
-  return '';
+  return matched.join('\n');
 }
 
 function rulesForElement(el: HTMLElement): string {
@@ -54,6 +58,16 @@ describe('Input 컴포넌트', () => {
       render(<Input disabled={true} />);
       const input = screen.getByRole('textbox');
       expect(input).toBeDisabled();
+    });
+
+    test('readOnly 상태가 올바르게 설정된다', () => {
+      render(<Input readOnly defaultValue="locked" />);
+      expect(screen.getByRole('textbox')).toHaveAttribute('readonly');
+    });
+
+    test('readOnly일 때 muted 배경 semantic 토큰을 참조한다', () => {
+      render(<Input readOnly defaultValue="locked" />);
+      expect(rulesForElement(screen.getByRole('textbox'))).toContain('var(--side-color-background-muted)');
     });
 
     test('classNames가 올바르게 적용된다', () => {
