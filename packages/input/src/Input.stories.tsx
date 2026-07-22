@@ -43,6 +43,10 @@ const meta = {
       options: ['email', 'password', 'search', 'tel', 'text', 'url'],
       control: { type: 'radio' },
     },
+    validation: {
+      options: ['default', 'error', 'success'],
+      control: { type: 'radio' },
+    },
   },
 } satisfies Meta<typeof Input>;
 export default meta;
@@ -69,6 +73,20 @@ export const disabled: Story = {
   args: {
     disabled: true,
     value: 'test',
+  },
+};
+
+export const ValidationError: Story = {
+  args: {
+    validation: 'error',
+    defaultValue: 'invalid value',
+  },
+};
+
+export const ValidationSuccess: Story = {
+  args: {
+    validation: 'success',
+    defaultValue: 'valid value',
   },
 };
 

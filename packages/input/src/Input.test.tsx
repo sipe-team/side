@@ -67,35 +67,36 @@ describe('Input 컴포넌트', () => {
     });
 
     test(`fontSize 미지정시 ${defaultFontSize}, fontWeight는 regular semantic 토큰을 참조한다`, () => {
-      const { container } = render(<Input />);
-      const applied = rulesForElement(container.firstChild as HTMLElement);
+      render(<Input />);
+      const applied = rulesForElement(screen.getByRole('textbox'));
 
       expect(applied).toContain('var(--side-font-size-200)');
       expect(applied).toContain('var(--side-font-weight-regular)');
     });
 
     test('변경 폰트 사이즈 semantic 토큰을 참조한다', () => {
-      const { container } = render(<Input fontSize={24} />);
-      const applied = rulesForElement(container.firstChild as HTMLElement);
+      render(<Input fontSize={24} />);
+      const applied = rulesForElement(screen.getByRole('textbox'));
 
       expect(applied).toContain('var(--side-font-size-500)');
       expect(applied).toContain('var(--side-font-weight-regular)');
     });
 
     test('인풋 기본 테두리·패딩·반경 semantic 토큰을 참조한다', () => {
-      const { container } = render(<Input />);
-      const wrapper = container.firstChild as HTMLElement;
-      const field = screen.getByRole('textbox');
-      const wrapperRules = rulesForElement(wrapper);
-      const fieldRules = rulesForElement(field);
+      render(<Input />);
+      const fieldRules = rulesForElement(screen.getByRole('textbox'));
 
-      expect(wrapperRules).toContain('var(--side-color-border-default)');
-      expect(wrapperRules).toContain('var(--side-radius-component-md)');
+      expect(fieldRules).toContain('var(--side-color-border-default)');
+      expect(fieldRules).toContain('var(--side-radius-component-md)');
       expect(fieldRules).toContain('var(--side-spacing-component-sm)');
       expect(fieldRules).toContain('var(--side-spacing-component-md)');
     });
-  });
 
+    test('래퍼는 span이다', () => {
+      const { container } = render(<Input />);
+      expect((container.firstChild as HTMLElement).tagName).toBe('SPAN');
+    });
+  });
   describe('상호작용', () => {
     test('사용자 입력', async () => {
       render(<Input name="test" />);
@@ -140,6 +141,23 @@ describe('Input 컴포넌트', () => {
     test('Input 컴포넌트가 textbox role을 가진다', () => {
       render(<Input name="email" />);
       expect(screen.getByRole('textbox')).toBeInTheDocument();
+    });
+
+    test('validation이 error이면 aria-invalid가 설정된다', () => {
+      render(<Input validation="error" />);
+      expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true');
+    });
+  });
+
+  describe('validation', () => {
+    test('error일 때 danger border semantic 토큰을 참조한다', () => {
+      render(<Input validation="error" />);
+      expect(rulesForElement(screen.getByRole('textbox'))).toContain('var(--side-color-status-danger-border)');
+    });
+
+    test('success일 때 success border semantic 토큰을 참조한다', () => {
+      render(<Input validation="success" />);
+      expect(rulesForElement(screen.getByRole('textbox'))).toContain('var(--side-color-status-success-border)');
     });
   });
 });
