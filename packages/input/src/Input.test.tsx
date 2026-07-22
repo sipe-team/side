@@ -7,7 +7,30 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, test } from 'vitest';
 
 import { Action, Input } from './Input';
-import { defaultFontSize, defaultFontWeight, weight } from './Input.css';
+import { defaultFontSize } from './Input.css';
+
+function ruleForClass(className: string): string {
+  const target = `.${className}`;
+  for (const sheet of Array.from(document.styleSheets)) {
+    let rules: CSSRuleList;
+    try {
+      rules = sheet.cssRules;
+    } catch {
+      continue;
+    }
+    for (const rule of Array.from(rules)) {
+      if (!('selectorText' in rule)) continue;
+      const selectorText = (rule as CSSStyleRule).selectorText ?? '';
+      const matches = selectorText.split(',').some((s) => s.trim() === target);
+      if (matches) return rule.cssText;
+    }
+  }
+  return '';
+}
+
+function rulesForElement(el: HTMLElement): string {
+  return el.className.split(/\s+/).filter(Boolean).map(ruleForClass).join('\n');
+}
 
 describe('Input 컴포넌트', () => {
   describe('렌더링', () => {
@@ -43,24 +66,33 @@ describe('Input 컴포넌트', () => {
       expect(screen.getByRole('textbox')).toHaveAttribute('spellCheck', 'false');
     });
 
-    test(`fontWeight가 미지정시 ${defaultFontWeight}, fontSize가 미지정시 ${defaultFontSize}px이 기본값으로 적용된다`, () => {
+    test(`fontSize 미지정시 ${defaultFontSize}, fontWeight는 regular semantic 토큰을 참조한다`, () => {
       const { container } = render(<Input />);
-      const element = container.firstChild as HTMLElement;
-      const computedStyle = getComputedStyle(element);
+      const applied = rulesForElement(container.firstChild as HTMLElement);
 
-      expect(computedStyle.fontSize).toBe(`${defaultFontSize}px`);
-      expect(computedStyle.fontWeight).toBe(`${weight[defaultFontWeight]}`);
+      expect(applied).toContain('var(--side-font-size-200)');
+      expect(applied).toContain('var(--side-font-weight-regular)');
     });
 
-    test('변경 폰트 사이즈, 폰트 웨이트 적용된다.', () => {
-      const fontSize = 24;
-      const fontWeight = 'semiBold';
-      const { container } = render(<Input fontSize={fontSize} fontWeight={fontWeight} />);
-      const element = container.firstChild as HTMLElement;
-      const computedStyle = getComputedStyle(element);
+    test('변경 폰트 사이즈 semantic 토큰을 참조한다', () => {
+      const { container } = render(<Input fontSize={24} />);
+      const applied = rulesForElement(container.firstChild as HTMLElement);
 
-      expect(computedStyle.fontSize).toBe(`${fontSize}px`);
-      expect(computedStyle.fontWeight).toBe(`${weight[fontWeight]}`);
+      expect(applied).toContain('var(--side-font-size-500)');
+      expect(applied).toContain('var(--side-font-weight-regular)');
+    });
+
+    test('인풋 기본 테두리·패딩·반경 semantic 토큰을 참조한다', () => {
+      const { container } = render(<Input />);
+      const wrapper = container.firstChild as HTMLElement;
+      const field = screen.getByRole('textbox');
+      const wrapperRules = rulesForElement(wrapper);
+      const fieldRules = rulesForElement(field);
+
+      expect(wrapperRules).toContain('var(--side-color-border-default)');
+      expect(wrapperRules).toContain('var(--side-radius-component-md)');
+      expect(fieldRules).toContain('var(--side-spacing-component-sm)');
+      expect(fieldRules).toContain('var(--side-spacing-component-md)');
     });
   });
 
