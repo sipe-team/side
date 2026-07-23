@@ -1,35 +1,6 @@
-/* Docs chrome, expressed in design tokens.
- *
- * Infima re-declares 36 of its own variables under `html[data-theme='dark']`
- * (specificity 0,1,1). A bare `:root` (0,1,0) loses to that no matter how late
- * this file loads, so every override below is scoped to all three selectors at
- * once. Listing `light` too covers visitors whose stored preference predates the
- * pinned theme — `disableSwitch` hides the toggle but does not reset what's
- * already in localStorage, so those sessions still render as `data-theme=light`.
- *
- * Two things to know before editing:
- *
- * 1. Keep this file unlayered. `tokens/dist/styles.css` emits `--side-*` inside
- *    `@layer theme`; wrapping this file in a layer too recreates the duplicate
- *    `@layer theme` shape that cssnano once collapsed, stripping every token in
- *    production. See the alias note in docusaurus.config.ts.
- *
- * 2. `data-theme` is shared ground. The tokens package also emits cohort themes
- *    under `[data-theme="1st"]`…`[data-theme="5th"]` that redefine the accent. If
- *    a playground ever mounts those, the two features are fighting over one
- *    attribute and need separate namespaces.
- */
-
 :root,
 html[data-theme="light"],
 html[data-theme="dark"] {
-  /* Infima derives most component colors from this ramp, so overriding it here
-     reaches far more than the eleven declarations suggest. It runs light→dark,
-     which Infima inverts for dark mode; the semantic layer has no neutral ramp
-     to offer, so these point at primitives. Twelve token steps into eleven slots
-     means one gets dropped — `gray-800` goes, because `gray-900` (#18181b) and
-     `gray-700` (#3f3f46) are the surface/border pair the components actually
-     read. */
   --ifm-color-gray-0: var(--color-white);
   --ifm-color-gray-100: var(--color-gray-50);
   --ifm-color-gray-200: var(--color-gray-100);
@@ -42,9 +13,6 @@ html[data-theme="dark"] {
   --ifm-color-gray-900: var(--color-gray-900);
   --ifm-color-gray-1000: var(--color-gray-950);
 
-  /* Pinned rather than left to Infima's per-mode inversion: the dark branch only
-     fires under `data-theme=dark`, so a stored-light session would otherwise get
-     a light emphasis scale on a dark background. */
   --ifm-color-emphasis-0: var(--color-gray-950);
   --ifm-color-emphasis-100: var(--color-gray-900);
   --ifm-color-emphasis-200: var(--color-gray-700);
@@ -85,16 +53,11 @@ html[data-theme="dark"] {
   --ifm-color-danger-contrast-foreground: var(--side-color-status-danger-foreground);
 
   --ifm-background-color: var(--side-color-background-base);
-  /* `subtle` sits only 14 RGB steps off the page, which leaves the border doing
-     all the lifting — the opposite of sipe.team, where the surface leads and the
-     border follows. `muted` puts the two signals back in balance. */
   --ifm-background-surface-color: var(--side-color-background-muted);
   --ifm-color-content: var(--side-color-foreground-default);
   --ifm-color-content-secondary: var(--side-color-foreground-subtle);
   --ifm-heading-color: var(--side-color-foreground-default);
 
-  /* Infima wants literal white-alpha here. Mixing against the foreground token
-     keeps the reference intact and lands on the same value. */
   --ifm-hover-overlay: color-mix(in srgb, var(--side-color-foreground-default) 6%, transparent);
   --ifm-code-background: color-mix(in srgb, var(--side-color-foreground-default) 10%, transparent);
   --ifm-table-stripe-background: color-mix(in srgb, var(--side-color-foreground-default) 4%, transparent);
@@ -113,9 +76,6 @@ html[data-theme="dark"] {
   --ifm-menu-color-background-active: var(--side-color-background-subtle);
   --ifm-tabs-color-active: var(--side-color-accent-default);
   --ifm-tabs-color-active-border: var(--side-color-accent-default);
-  /* The active crumb is the current page, not a destination. Amber made it read
-     like a link; neutral says "you are here". Amber stays on things you can act
-     on — sidebar active, links, TOC. */
   --ifm-breadcrumb-color-active: var(--side-color-foreground-default);
   --ifm-pagination-nav-color-hover: var(--side-color-accent-default);
 
@@ -137,11 +97,6 @@ html[data-theme="dark"] {
   --ifm-scrollbar-thumb-background-color: var(--side-color-border-default);
   --ifm-scrollbar-thumb-hover-background-color: var(--side-color-border-strong);
 
-  /* The accent is a high-luminance amber; white label text on it lands around
-     1.7:1. Dark text clears AA comfortably. The tokens package says otherwise
-     (`--color-foreground-on-accent: #ffffff`) — that's a bug on its side, and
-     reaching for it here would put a contrast failure on the page that documents
-     the system. */
   --ifm-button-color: var(--side-color-background-base);
 
   --ifm-global-radius: var(--side-radius-component-lg);
@@ -149,12 +104,9 @@ html[data-theme="dark"] {
   --ifm-code-border-radius: var(--side-radius-component-md);
   --ifm-pre-background: var(--side-color-background-subtle);
 
-  /* Infima defaults to 1140/1320px; sipe.team holds everything to 1060px, which
-     also stops the home cards from drifting apart on wide screens. */
   --ifm-container-width: 1060px;
   --ifm-container-width-xl: 1060px;
 
-  /* Depth comes from surface + border contrast, not shadow. */
   --ifm-global-shadow-lw: none;
   --ifm-global-shadow-md: none;
   --ifm-global-shadow-tl: none;
@@ -172,24 +124,15 @@ html[data-theme="dark"] {
   --ifm-code-font-size: 95%;
 }
 
-/* The wordmark is drawn at 72×20. Infima's default 2rem would scale it up 60%
-   and leave it shouting next to the title. */
 .navbar__logo {
   height: 1.25rem;
 }
 
-/* Focus was left to the browser default (a thin blue ring), while the token
-   that exists for it — `--side-color-border-focus` — went unused. Route
-   keyboard focus through the token so the ring matches the rest of the chrome.
-   Scoped to `:focus-visible` so it only shows for keyboard users. */
 :focus-visible {
   outline: 2px solid var(--side-color-border-focus);
   outline-offset: 2px;
 }
 
-/* sipe.team runs its footer as a single ~100px line: copyright left, links
-   right. Docusaurus stacks the two blocks and centers both, so this puts them
-   back on one row — `row-reverse` because the links come first in the DOM. */
 .footer .container {
   display: flex;
   flex-direction: row-reverse;
@@ -204,9 +147,6 @@ html[data-theme="dark"] {
   text-align: left;
 }
 
-/* Body size on the right would outweigh the 12px copyright on the left; 14px
-   keeps the row balanced without shrinking the links below a comfortable
-   target. */
 .footer__link-item {
   font-size: var(--side-font-size-100);
 }
