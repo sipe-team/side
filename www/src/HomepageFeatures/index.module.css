@@ -1,11 +1,28 @@
 .features {
   display: flex;
-  align-items: center;
-  padding: 2rem 0;
+  align-items: stretch;
+  padding: var(--side-spacing-layout-lg) 0;
   width: 100%;
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
+/* Surface a step up from the page, separated by a hairline rather than a shadow. */
+.card {
+  height: 100%;
+  padding: var(--side-spacing-component-xl);
+  border: 1px solid var(--side-color-border-default);
+  border-radius: var(--side-radius-component-xl);
+  background: var(--side-color-background-muted);
+}
+
+.cardTitle {
+  margin-bottom: var(--side-spacing-component-md);
+  font-size: var(--side-font-size-400);
+  font-weight: var(--side-font-weight-semi-bold);
+}
+
+.cardBody {
+  margin: 0;
+  color: var(--side-color-foreground-subtle);
+  font-size: var(--side-font-size-200);
+  line-height: var(--side-line-height-regular);
 }

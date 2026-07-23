@@ -28,6 +28,7 @@
     "@sipe-team/tokens": "workspace:*",
     "@sipe-team/typography": "workspace:*",
     "clsx": "^2.0.0",
+    "pretendard": "^1.3.9",
     "prism-react-renderer": "^2.3.0",
     "react": "catalog:react",
     "react-dom": "catalog:react"

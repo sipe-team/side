@@ -1,53 +1,52 @@
-import type { ComponentProps, ComponentType, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-import Mountain from '@site/static/img/undraw_docusaurus_mountain.svg';
-import React from '@site/static/img/undraw_docusaurus_react.svg';
-import Tree from '@site/static/img/undraw_docusaurus_tree.svg';
 import Heading from '@theme/Heading';
-import clsx from 'clsx';
 
 import styles from './index.module.css';
 
 type FeatureItem = {
   title: string;
-  Svg: ComponentType<ComponentProps<'svg'>>;
   description: ReactNode;
 };
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: Mountain,
-    description:
-      'Docusaurus was designed from the ground up to be easily installed and used to get your website up and running quickly.',
-  },
-  {
-    title: 'Focus on What Matters',
-    Svg: Tree,
+    title: 'Tokens first',
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go ahead and move your docs into the{' '}
-        <code>docs</code> directory.
+        Color, spacing, radius and type all resolve through <code>@sipe-team/tokens</code>. Components read the contract
+        rather than literal values, so a token change lands everywhere at once.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: React,
-    description:
-      'Extend or customize your website layout by reusing React. Docusaurus can be extended while reusing the same header and footer.',
+    title: 'Typed and tested',
+    description: (
+      <>
+        Every package ships ESM and CJS with types, and each component carries Vitest coverage for its variants,
+        accessibility states and controlled behavior.
+      </>
+    ),
+  },
+  {
+    title: 'Composable by default',
+    description: (
+      <>
+        Components forward refs, extend their native element props and support <code>asChild</code> through Radix Slot —
+        so they fit the markup you already have.
+      </>
+    ),
   },
 ];
 
-function Feature({ title, Svg, description }: FeatureItem) {
+function Feature({ title, description }: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
+    <div className="col col--4">
+      <div className={styles.card}>
+        <Heading as="h3" className={styles.cardTitle}>
+          {title}
+        </Heading>
+        <p className={styles.cardBody}>{description}</p>
       </div>
     </div>
   );

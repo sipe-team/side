@@ -1,22 +1,171 @@
-:root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+/* Docs chrome, expressed in design tokens.
+ *
+ * Infima re-declares 36 of its own variables under `html[data-theme='dark']`
+ * (specificity 0,1,1). A bare `:root` (0,1,0) loses to that no matter how late
+ * this file loads, so every override below is scoped to all three selectors at
+ * once. Listing `light` too covers visitors whose stored preference predates the
+ * pinned theme — `disableSwitch` hides the toggle but does not reset what's
+ * already in localStorage, so those sessions still render as `data-theme=light`.
+ *
+ * Two things to know before editing:
+ *
+ * 1. Keep this file unlayered. `tokens/dist/styles.css` emits `--side-*` inside
+ *    `@layer theme`; wrapping this file in a layer too recreates the duplicate
+ *    `@layer theme` shape that cssnano once collapsed, stripping every token in
+ *    production. See the alias note in docusaurus.config.ts.
+ *
+ * 2. `data-theme` is shared ground. The tokens package also emits cohort themes
+ *    under `[data-theme="1st"]`…`[data-theme="5th"]` that redefine the accent. If
+ *    a playground ever mounts those, the two features are fighting over one
+ *    attribute and need separate namespaces.
+ */
+
+:root,
+html[data-theme="light"],
+html[data-theme="dark"] {
+  /* Infima derives most component colors from this ramp, so overriding it here
+     reaches far more than the eleven declarations suggest. It runs light→dark,
+     which Infima inverts for dark mode; the semantic layer has no neutral ramp
+     to offer, so these point at primitives. Twelve token steps into eleven slots
+     means one gets dropped — `gray-800` goes, because `gray-900` (#18181b) and
+     `gray-700` (#3f3f46) are the surface/border pair the components actually
+     read. */
+  --ifm-color-gray-0: var(--color-white);
+  --ifm-color-gray-100: var(--color-gray-50);
+  --ifm-color-gray-200: var(--color-gray-100);
+  --ifm-color-gray-300: var(--color-gray-200);
+  --ifm-color-gray-400: var(--color-gray-300);
+  --ifm-color-gray-500: var(--color-gray-400);
+  --ifm-color-gray-600: var(--color-gray-500);
+  --ifm-color-gray-700: var(--color-gray-600);
+  --ifm-color-gray-800: var(--color-gray-700);
+  --ifm-color-gray-900: var(--color-gray-900);
+  --ifm-color-gray-1000: var(--color-gray-950);
+
+  /* Pinned rather than left to Infima's per-mode inversion: the dark branch only
+     fires under `data-theme=dark`, so a stored-light session would otherwise get
+     a light emphasis scale on a dark background. */
+  --ifm-color-emphasis-0: var(--color-gray-950);
+  --ifm-color-emphasis-100: var(--color-gray-900);
+  --ifm-color-emphasis-200: var(--color-gray-700);
+  --ifm-color-emphasis-300: var(--color-gray-600);
+  --ifm-color-emphasis-400: var(--color-gray-500);
+  --ifm-color-emphasis-500: var(--color-gray-400);
+  --ifm-color-emphasis-600: var(--color-gray-300);
+  --ifm-color-emphasis-700: var(--color-gray-200);
+  --ifm-color-emphasis-800: var(--color-gray-100);
+  --ifm-color-emphasis-900: var(--color-gray-50);
+  --ifm-color-emphasis-1000: var(--color-white);
+
+  --ifm-color-primary: var(--side-color-accent-default);
+  --ifm-color-primary-dark: var(--side-color-accent-hover);
+  --ifm-color-primary-darker: var(--side-color-accent-hover);
+  --ifm-color-primary-darkest: var(--side-color-accent-hover);
+  --ifm-color-primary-light: var(--side-color-accent-default);
+  --ifm-color-primary-lighter: var(--side-color-accent-default);
+  --ifm-color-primary-lightest: var(--side-color-accent-default);
+  --ifm-color-primary-contrast-background: var(--side-color-accent-subtle);
+  --ifm-color-primary-contrast-foreground: var(--side-color-accent-default);
+
+  --ifm-color-secondary: var(--side-color-background-muted);
+  --ifm-color-secondary-contrast-background: var(--side-color-background-muted);
+  --ifm-color-secondary-contrast-foreground: var(--side-color-foreground-default);
+
+  --ifm-color-success: var(--side-color-status-success-foreground);
+  --ifm-color-success-contrast-background: var(--side-color-status-success-background);
+  --ifm-color-success-contrast-foreground: var(--side-color-status-success-foreground);
+  --ifm-color-info: var(--side-color-status-info-foreground);
+  --ifm-color-info-contrast-background: var(--side-color-status-info-background);
+  --ifm-color-info-contrast-foreground: var(--side-color-status-info-foreground);
+  --ifm-color-warning: var(--side-color-status-warning-foreground);
+  --ifm-color-warning-contrast-background: var(--side-color-status-warning-background);
+  --ifm-color-warning-contrast-foreground: var(--side-color-status-warning-foreground);
+  --ifm-color-danger: var(--side-color-status-danger-foreground);
+  --ifm-color-danger-contrast-background: var(--side-color-status-danger-background);
+  --ifm-color-danger-contrast-foreground: var(--side-color-status-danger-foreground);
+
+  --ifm-background-color: var(--side-color-background-base);
+  /* `subtle` sits only 14 RGB steps off the page, which leaves the border doing
+     all the lifting — the opposite of sipe.team, where the surface leads and the
+     border follows. `muted` puts the two signals back in balance. */
+  --ifm-background-surface-color: var(--side-color-background-muted);
+  --ifm-color-content: var(--side-color-foreground-default);
+  --ifm-color-content-secondary: var(--side-color-foreground-subtle);
+  --ifm-heading-color: var(--side-color-foreground-default);
+
+  /* Infima wants literal white-alpha here. Mixing against the foreground token
+     keeps the reference intact and lands on the same value. */
+  --ifm-hover-overlay: color-mix(in srgb, var(--side-color-foreground-default) 6%, transparent);
+  --ifm-code-background: color-mix(in srgb, var(--side-color-foreground-default) 10%, transparent);
+  --ifm-table-stripe-background: color-mix(in srgb, var(--side-color-foreground-default) 4%, transparent);
+  --docusaurus-highlighted-code-line-bg: color-mix(in srgb, var(--side-color-foreground-default) 10%, transparent);
+
+  --ifm-toc-border-color: var(--side-color-border-default);
+  --ifm-toc-link-color: var(--side-color-foreground-subtle);
+  --ifm-table-border-color: var(--side-color-border-default);
+  --ifm-hr-border-color: var(--side-color-border-default);
+  --ifm-blockquote-color: var(--side-color-foreground-subtle);
+  --ifm-blockquote-border-color: var(--side-color-border-default);
+
+  --ifm-link-color: var(--side-color-accent-default);
+  --ifm-link-hover-color: var(--side-color-accent-hover);
+  --ifm-menu-color-active: var(--side-color-accent-default);
+  --ifm-menu-color-background-active: var(--side-color-background-subtle);
+  --ifm-tabs-color-active: var(--side-color-accent-default);
+  --ifm-tabs-color-active-border: var(--side-color-accent-default);
+  --ifm-breadcrumb-color-active: var(--side-color-accent-default);
+  --ifm-pagination-nav-color-hover: var(--side-color-accent-default);
+
+  --ifm-navbar-background-color: var(--side-color-background-base);
+  --ifm-navbar-link-hover-color: var(--side-color-accent-default);
+  --ifm-navbar-search-input-background-color: var(--side-color-background-subtle);
+  --ifm-navbar-search-input-color: var(--side-color-foreground-default);
+  --ifm-navbar-search-input-placeholder-color: var(--side-color-foreground-muted);
+  --ifm-dropdown-background-color: var(--side-color-background-subtle);
+  --ifm-card-background-color: var(--side-color-background-muted);
+
+  --ifm-footer-background-color: var(--side-color-background-subtle);
+  --ifm-footer-color: var(--side-color-foreground-subtle);
+  --ifm-footer-title-color: var(--side-color-foreground-default);
+  --ifm-footer-link-color: var(--side-color-foreground-subtle);
+  --ifm-footer-link-hover-color: var(--side-color-accent-default);
+
+  --ifm-scrollbar-track-background-color: var(--side-color-background-subtle);
+  --ifm-scrollbar-thumb-background-color: var(--side-color-border-default);
+  --ifm-scrollbar-thumb-hover-background-color: var(--side-color-border-strong);
+
+  /* The accent is a high-luminance amber; white label text on it lands around
+     1.7:1. Dark text clears AA comfortably. The tokens package says otherwise
+     (`--color-foreground-on-accent: #ffffff`) — that's a bug on its side, and
+     reaching for it here would put a contrast failure on the page that documents
+     the system. */
+  --ifm-button-color: var(--side-color-background-base);
+
+  --ifm-global-radius: var(--side-radius-component-lg);
+  --ifm-card-border-radius: var(--side-radius-component-xl);
+  --ifm-code-border-radius: var(--side-radius-component-md);
+  --ifm-pre-background: var(--side-color-background-subtle);
+
+  /* Depth comes from surface + border contrast, not shadow. */
+  --ifm-global-shadow-lw: none;
+  --ifm-global-shadow-md: none;
+  --ifm-global-shadow-tl: none;
+  --ifm-navbar-shadow: none;
+  --ifm-alert-shadow: none;
+  --ifm-blockquote-shadow: none;
+
+  --ifm-font-family-base: var(--side-font-family);
+  --ifm-heading-font-weight: var(--side-font-weight-bold);
+  --ifm-font-weight-light: var(--side-font-weight-regular);
+  --ifm-font-weight-normal: var(--side-font-weight-regular);
+  --ifm-font-weight-semibold: var(--side-font-weight-semi-bold);
+  --ifm-font-weight-bold: var(--side-font-weight-bold);
+  --ifm-line-height-base: var(--side-line-height-regular);
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
-[data-theme="dark"] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+/* The wordmark is drawn at 72×20. Infima's default 2rem would scale it up 60%
+   and leave it shouting next to the title. */
+.navbar__logo {
+  height: 1.25rem;
 }

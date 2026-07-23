@@ -6,19 +6,16 @@
   overflow: hidden;
 }
 
+/* `align-items` has to be pinned: the default `stretch` was blowing every
+   example out to the full stage width, so a Button rendered as an 800px bar
+   instead of at its own size. */
 .stage {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 0.75rem;
   padding: 1.5rem;
   background: var(--ifm-color-emphasis-100);
-}
-
-/* Dark-only components (hardcoded dark colors) opt into an intentional dark canvas via
-   <Preview theme="dark">, so they read as a deliberate example rather than a dark card
-   floating on a light frame. */
-.stageDark {
-  background: #0d1117;
 }
 
 .toolbar {
