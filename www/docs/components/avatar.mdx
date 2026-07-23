@@ -1,18 +1,125 @@
+---
+sidebar_label: Avatar
+---
+
+import { Avatar } from '@sipe-team/avatar';
+
 # Avatar
 
-## Setup
+A small image that represents a user, with a text fallback when no picture is available.
+
+## Installation
 
 ```sh
 npm install @sipe-team/avatar
 ```
 
+```ts
+import '@sipe-team/avatar/styles.css';
+```
+
 ## Usage
+
+Pass a `src` for the picture and an `alt` describing who it is.
+
+<Preview
+  code={`<Avatar src="/img/avatar/sipe.png" alt="SIPE" />`}
+>
+  <Avatar src="/img/avatar/sipe.png" alt="SIPE" />
+</Preview>
+
+Always set `alt` alongside `src`: it becomes the image's `alt` attribute — its accessible name —
+and is left empty if you omit it.
+
+## Examples
+
+### Size
+
+`md` (default) fits inline with text; step up to `lg`/`xl` for profile headers, down to `xs`/`sm`
+for dense lists.
+
+<Preview
+  code={`<Avatar size="xs" src="/img/avatar/sipe.png" alt="SIPE" />
+<Avatar size="sm" src="/img/avatar/sipe.png" alt="SIPE" />
+<Avatar size="md" src="/img/avatar/sipe.png" alt="SIPE" />
+<Avatar size="lg" src="/img/avatar/sipe.png" alt="SIPE" />
+<Avatar size="xl" src="/img/avatar/sipe.png" alt="SIPE" />`}
+>
+  <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+    <Avatar size="xs" src="/img/avatar/sipe.png" alt="SIPE" />
+    <Avatar size="sm" src="/img/avatar/sipe.png" alt="SIPE" />
+    <Avatar size="md" src="/img/avatar/sipe.png" alt="SIPE" />
+    <Avatar size="lg" src="/img/avatar/sipe.png" alt="SIPE" />
+    <Avatar size="xl" src="/img/avatar/sipe.png" alt="SIPE" />
+  </div>
+</Preview>
+
+### Shape
+
+`circle` (default) is the usual profile look; `rounded` softens the corners of a square, `square`
+keeps them sharp.
+
+<Preview
+  code={`<Avatar shape="circle" size="lg" src="/img/avatar/sipe.png" alt="SIPE" />
+<Avatar shape="rounded" size="lg" src="/img/avatar/sipe.png" alt="SIPE" />
+<Avatar shape="square" size="lg" src="/img/avatar/sipe.png" alt="SIPE" />`}
+>
+  <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+    <Avatar shape="circle" size="lg" src="/img/avatar/sipe.png" alt="SIPE" />
+    <Avatar shape="rounded" size="lg" src="/img/avatar/sipe.png" alt="SIPE" />
+    <Avatar shape="square" size="lg" src="/img/avatar/sipe.png" alt="SIPE" />
+  </div>
+</Preview>
+
+### Text fallback
+
+With no `src`, the avatar shows text instead of an image — `alt` if present, otherwise `fallback`.
+Use it for initials when a user has no picture.
+
+<Preview
+  code={`<Avatar size="lg" alt="AL" />
+<Avatar size="lg" fallback="GH" />`}
+>
+  <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+    <Avatar size="lg" alt="AL" />
+    <Avatar size="lg" fallback="GH" />
+  </div>
+</Preview>
+
+### `asChild`
+
+Drops the wrapping `div` and merges the avatar's layout, size, and shape onto the element it
+renders — the `<img>` (or the text `<span>`) — so the avatar is a single element.
+
+<Preview
+  code={`<Avatar asChild size="lg" src="/img/avatar/sipe.png" alt="SIPE" />`}
+>
+  <Avatar asChild size="lg" src="/img/avatar/sipe.png" alt="SIPE" />
+</Preview>
+
+## Anatomy
 
 ```tsx
 import { Avatar } from '@sipe-team/avatar';
+
+export default () => <Avatar size="md" shape="circle" src="/user.jpg" alt="User name" />;
 ```
 
-```tsx
-<Avatar size="md" src="https://randomuser.me/api/portraits/men/1.jpg" />
-```
+Renders a `<div>` wrapping either an `<img>` (when `src` is set) or a `<span>` holding the text
+fallback (when it is not).
 
+## API Reference
+
+Renders a `<div>` and forwards its `ref`.
+
+| Prop       | Type                                       | Default    | Description                                                           |
+| ---------- | ------------------------------------------ | ---------- | -------------------------------------------------------------------- |
+| `src`      | `string`                                   | —          | Image URL. When set, an `<img>` is rendered.                         |
+| `alt`      | `string`                                   | —          | Alt text for the image; also the text shown when there is no `src`.  |
+| `size`     | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`     | `'md'`     | Width and height (24 / 32 / 40 / 70 / 96 px).                         |
+| `shape`    | `'circle' \| 'rounded' \| 'square'`        | `'circle'` | Corner rounding.                                                     |
+| `fallback` | `string`                                   | —          | Replacement image URL if `src` fails to load; shown as text when there is no `src` and no `alt`. |
+| `asChild`  | `boolean`                                  | `false`    | Merge props onto the child instead of rendering a `div`.             |
+
+Also accepts every `ComponentProps<'div'>` (`className`, `onClick`, …), forwarded to the rendered
+element.

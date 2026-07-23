@@ -5,7 +5,8 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { FLEX_ALIGNS, FLEX_DIRECTIONS, FLEX_JUSTIFY_CONTENTS, FLEX_WRAPS } from './constants';
-import { Flex } from './Flex';
+import { Flex, type FlexBreakpoint, type ResponsiveValue } from './Flex';
+import * as styles from './Flex.css';
 
 describe('Flex', () => {
   it('uses the default flex styles when no props are provided', () => {
@@ -212,6 +213,127 @@ describe('Flex', () => {
         flexBasis: '50%',
         gap: '16px',
       });
+    });
+  });
+
+  describe('responsive props', () => {
+    it('exports responsive prop helper types for consumers', () => {
+      const breakpoint: FlexBreakpoint = 'md';
+      const responsiveGap: ResponsiveValue<CSSProperties['gap']> = { sm: '8px', md: '12px', lg: '16px' };
+
+      expect(breakpoint).toBe('md');
+      expect(responsiveGap).toEqual({ sm: '8px', md: '12px', lg: '16px' });
+    });
+
+    it('applies sm breakpoint values as base flex styles', () => {
+      render(
+        <Flex
+          data-testid="flex-container"
+          align={{ sm: 'stretch' }}
+          direction={{ sm: 'column' }}
+          gap={{ sm: '8px' }}
+          justify={{ sm: 'center' }}
+          wrap={{ sm: 'wrap' }}
+        >
+          <div>item 1</div>
+          <div>item 2</div>
+        </Flex>,
+      );
+
+      const flexContainer = screen.getByTestId('flex-container');
+      expect(flexContainer).toHaveStyle({
+        alignItems: 'stretch',
+        flexDirection: 'column',
+        gap: '8px',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+      });
+    });
+
+    it('adds responsive classes for md and lg breakpoint values', () => {
+      render(
+        <Flex
+          data-testid="flex-container"
+          align={{ sm: 'stretch', md: 'center', lg: 'flex-start' }}
+          direction={{ sm: 'column', md: 'row', lg: 'row-reverse' }}
+          justify={{ sm: 'center', md: 'space-between', lg: 'flex-end' }}
+          wrap={{ sm: 'wrap', md: 'nowrap', lg: 'wrap-reverse' }}
+        >
+          <div>item 1</div>
+          <div>item 2</div>
+        </Flex>,
+      );
+
+      const flexContainer = screen.getByTestId('flex-container');
+      expect(flexContainer).toHaveClass(styles.align.sm.stretch);
+      expect(flexContainer).toHaveClass(styles.align.md.center);
+      expect(flexContainer).toHaveClass(styles.align.lg['flex-start']);
+      expect(flexContainer).toHaveClass(styles.direction.sm.column);
+      expect(flexContainer).toHaveClass(styles.direction.md.row);
+      expect(flexContainer).toHaveClass(styles.direction.lg['row-reverse']);
+      expect(flexContainer).toHaveClass(styles.justify.sm.center);
+      expect(flexContainer).toHaveClass(styles.justify.md['space-between']);
+      expect(flexContainer).toHaveClass(styles.justify.lg['flex-end']);
+      expect(flexContainer).toHaveClass(styles.wrap.sm.wrap);
+      expect(flexContainer).toHaveClass(styles.wrap.md.nowrap);
+      expect(flexContainer).toHaveClass(styles.wrap.lg['wrap-reverse']);
+    });
+
+    it('uses the default gap until the first responsive gap value is defined', () => {
+      render(
+        <Flex data-testid="flex-container" gap={{ md: '16px', lg: '24px' }}>
+          <div>item 1</div>
+          <div>item 2</div>
+        </Flex>,
+      );
+
+      const flexContainer = screen.getByTestId('flex-container');
+      expect(flexContainer.style.getPropertyValue('--side-flex-gap-sm')).toBe('normal');
+      expect(flexContainer.style.getPropertyValue('--side-flex-gap-md')).toBe('16px');
+      expect(flexContainer.style.getPropertyValue('--side-flex-gap-lg')).toBe('24px');
+    });
+
+    it('keeps nested responsive gap values independent from the parent Flex', () => {
+      render(
+        <Flex data-testid="parent-flex" gap={{ sm: '8px' }}>
+          <Flex data-testid="child-flex" gap={{ lg: '2px' }}>
+            <div>child item 1</div>
+            <div>child item 2</div>
+          </Flex>
+        </Flex>,
+      );
+
+      const childFlex = screen.getByTestId('child-flex');
+      expect(childFlex.style.getPropertyValue('--side-flex-gap-sm')).toBe('normal');
+      expect(childFlex.style.getPropertyValue('--side-flex-gap-md')).toBe('normal');
+      expect(childFlex.style.getPropertyValue('--side-flex-gap-lg')).toBe('2px');
+    });
+
+    it('allows style to override responsive inline gap values', () => {
+      render(
+        <Flex data-testid="flex-container" gap={{ sm: '8px', md: '12px', lg: '16px' }} style={{ gap: '24px' }}>
+          <div>item 1</div>
+          <div>item 2</div>
+        </Flex>,
+      );
+
+      expect(screen.getByTestId('flex-container')).toHaveStyle({
+        gap: '24px',
+      });
+    });
+
+    it('passes responsive props through to the child element when asChild is used', () => {
+      render(
+        <Flex asChild data-testid="flex-container" direction={{ sm: 'column', lg: 'row' }} gap={{ sm: '8px' }}>
+          <nav />
+        </Flex>,
+      );
+
+      const flexContainer = screen.getByTestId('flex-container');
+      expect(flexContainer.tagName.toLowerCase()).toBe('nav');
+      expect(flexContainer).toHaveClass(styles.direction.sm.column);
+      expect(flexContainer).toHaveClass(styles.direction.lg.row);
+      expect(flexContainer).toHaveStyle({ gap: '8px' });
     });
   });
 

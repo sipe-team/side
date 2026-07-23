@@ -154,6 +154,27 @@ export const Wrap: Story = {
   },
 };
 
+export const Responsive: Story = {
+  args: {
+    direction: { sm: 'column', lg: 'row' },
+    align: { sm: 'stretch', lg: 'center' },
+    justify: { sm: 'flex-start', lg: 'space-between' },
+    gap: { sm: '0.5rem', md: '1rem', lg: '2rem' },
+    style: { width: '100%', border: '1px dashed gray', padding: '1rem' },
+    children: [
+      <Box key="1" style={{ minWidth: '120px' }}>
+        Item 1
+      </Box>,
+      <Box key="2" style={{ minWidth: '120px' }}>
+        Item 2
+      </Box>,
+      <Box key="3" style={{ minWidth: '120px' }}>
+        Item 3
+      </Box>,
+    ],
+  },
+};
+
 export const FlexGrowShrink: Story = {
   render: () => (
     <Flex gap="1rem" style={{ width: '100%', border: '1px dashed gray', padding: '1rem' }}>
