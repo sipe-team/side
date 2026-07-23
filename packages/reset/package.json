@@ -1,7 +1,7 @@
 {
   "name": "@sipe-team/reset",
   "description": "Reset for Sipe Design System",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -51,7 +51,7 @@
           "default": "./dist/index.cjs"
         }
       },
-      "./reset.css": "./dist/reset.css"
+      "./reset.css": "./dist/index.css"
     }
   },
   "sideEffects": [

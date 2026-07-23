@@ -1,5 +1,11 @@
 # @sipe-team/typography
 
+## 0.0.6
+
+### Patch Changes
+
+- 38faf10: Preserve CSS imports in `sideEffects` so consumer bundlers don't tree-shake `./styles.css`.
+
 ## 0.0.5
 
 ### Patch Changes

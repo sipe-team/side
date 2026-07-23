@@ -1,5 +1,11 @@
 # @sipe-team/flex
 
+## 0.1.4
+
+### Patch Changes
+
+- 38faf10: Preserve CSS imports in `sideEffects` so consumer bundlers don't tree-shake `./styles.css`.
+
 ## 0.1.3
 
 ### Patch Changes
