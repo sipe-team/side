@@ -50,8 +50,7 @@ export const button = recipe({
           backgroundColor: vars.color.accent.hover,
         },
         ':active': {
-          backgroundColor: vars.color.accent.hover,
-          opacity: 0.9,
+          backgroundColor: vars.color.accent.pressed,
         },
       },
       [ButtonVariant.outline]: {
