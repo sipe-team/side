@@ -16,6 +16,15 @@ export const ControlledRadio = () => {
   );
 };
 
+{/* Radio uses hardcoded light-surface colors, so it needs a light backdrop to be legible on the
+    dark-only docs stage. This wrapper is presentational only and is intentionally left out of the
+    `code` strings below. */}
+export const LightStage = ({ children }) => (
+  <div style={{ background: '#ffffff', padding: '1.5rem', borderRadius: '8px', width: '100%', boxSizing: 'border-box' }}>
+    {children}
+  </div>
+);
+
 # Radio
 
 A grouped single-choice control — a `RadioGroup` that owns the selected value, wrapping one `Radio`
@@ -44,11 +53,13 @@ rest. Clicking a `Radio`'s label selects it.
   <Radio value="grape">Grape</Radio>
 </RadioGroup>`}
 >
-  <RadioGroup labelText="Pick a fruit" defaultValue="orange">
-    <Radio value="apple">Apple</Radio>
-    <Radio value="orange">Orange</Radio>
-    <Radio value="grape">Grape</Radio>
-  </RadioGroup>
+  <LightStage>
+    <RadioGroup labelText="Pick a fruit" defaultValue="orange">
+      <Radio value="apple">Apple</Radio>
+      <Radio value="orange">Orange</Radio>
+      <Radio value="grape">Grape</Radio>
+    </RadioGroup>
+  </LightStage>
 </Preview>
 
 ## Examples
@@ -65,10 +76,12 @@ options are still submitted as a single field.
   <Radio value="express">Express</Radio>
 </RadioGroup>`}
 >
-  <RadioGroup labelText="Shipping" defaultValue="standard">
-    <Radio value="standard">Standard</Radio>
-    <Radio value="express">Express</Radio>
-  </RadioGroup>
+  <LightStage>
+    <RadioGroup labelText="Shipping" defaultValue="standard">
+      <Radio value="standard">Standard</Radio>
+      <Radio value="express">Express</Radio>
+    </RadioGroup>
+  </LightStage>
 </Preview>
 
 ### Controlled
@@ -85,7 +98,9 @@ the selection. `onChangeValue` receives the next value string.
   <Radio value="grape">Grape</Radio>
 </RadioGroup>`}
 >
-  <ControlledRadio />
+  <LightStage>
+    <ControlledRadio />
+  </LightStage>
 </Preview>
 
 ### Sizes
@@ -107,20 +122,22 @@ the selection. `onChangeValue` receives the next value string.
   <Radio value="b">Option B</Radio>
 </RadioGroup>`}
 >
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-    <RadioGroup size="small" labelText="Small" defaultValue="a">
-      <Radio value="a">Option A</Radio>
-      <Radio value="b">Option B</Radio>
-    </RadioGroup>
-    <RadioGroup size="medium" labelText="Medium" defaultValue="a">
-      <Radio value="a">Option A</Radio>
-      <Radio value="b">Option B</Radio>
-    </RadioGroup>
-    <RadioGroup size="large" labelText="Large" defaultValue="a">
-      <Radio value="a">Option A</Radio>
-      <Radio value="b">Option B</Radio>
-    </RadioGroup>
-  </div>
+  <LightStage>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <RadioGroup size="small" labelText="Small" defaultValue="a">
+        <Radio value="a">Option A</Radio>
+        <Radio value="b">Option B</Radio>
+      </RadioGroup>
+      <RadioGroup size="medium" labelText="Medium" defaultValue="a">
+        <Radio value="a">Option A</Radio>
+        <Radio value="b">Option B</Radio>
+      </RadioGroup>
+      <RadioGroup size="large" labelText="Large" defaultValue="a">
+        <Radio value="a">Option A</Radio>
+        <Radio value="b">Option B</Radio>
+      </RadioGroup>
+    </div>
+  </LightStage>
 </Preview>
 
 ### Disabled
@@ -138,16 +155,18 @@ a single `Radio` disables just that one. Both dim the affected labels.
   <Radio value="b" disabled>Disabled</Radio>
 </RadioGroup>`}
 >
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-    <RadioGroup labelText="Whole group" disabled defaultValue="a">
-      <Radio value="a">Selected but disabled</Radio>
-      <Radio value="b">Also disabled</Radio>
-    </RadioGroup>
-    <RadioGroup labelText="Single option" defaultValue="a">
-      <Radio value="a">Enabled</Radio>
-      <Radio value="b" disabled>Disabled</Radio>
-    </RadioGroup>
-  </div>
+  <LightStage>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <RadioGroup labelText="Whole group" disabled defaultValue="a">
+        <Radio value="a">Selected but disabled</Radio>
+        <Radio value="b">Also disabled</Radio>
+      </RadioGroup>
+      <RadioGroup labelText="Single option" defaultValue="a">
+        <Radio value="a">Enabled</Radio>
+        <Radio value="b" disabled>Disabled</Radio>
+      </RadioGroup>
+    </div>
+  </LightStage>
 </Preview>
 
 ## Anatomy
@@ -222,7 +241,8 @@ spread onto the underlying `<input>`. `name` and `checked` are supplied by `Radi
 
 ## Known limitations
 
+- Radio uses hardcoded light-surface colors (`constants/colors.ts`) rather than theme-driven tokens,
+  so it does not adapt to this dark-only docs site. The demos above are shown on a light card so the
+  control renders as intended; on a dark background its text would be illegible.
 - `RadioGroup` always stacks its options vertically (`flex-direction: column`); there is no
   `orientation` prop for a horizontal layout.
-- The `<legend>` is rendered without the component's styles, so `labelText` shows in the browser's
-  default legend styling rather than a token-driven treatment.
