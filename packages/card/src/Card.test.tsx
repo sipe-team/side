@@ -22,6 +22,10 @@ function ruleForClass(className: string): string {
   return '';
 }
 
+// happy-dom does not resolve CSS custom properties to computed values, so
+// tests using this helper assert on the token reference (e.g. `var(--side-...)`)
+// rather than the resolved value. Verifying the token-to-value mapping is the
+// responsibility of @sipe-team/tokens.
 function rulesForElement(el: HTMLElement): string {
   return el.className.split(/\s+/).filter(Boolean).map(ruleForClass).join('\n');
 }
