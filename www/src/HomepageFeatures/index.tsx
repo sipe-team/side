@@ -43,7 +43,6 @@ function Feature({ title, description }: FeatureItem) {
   return (
     <div className="col col--4">
       <div className={styles.card}>
-        {/* h2, not h3 — the hero is the only h1, so jumping to h3 would skip a level. */}
         <Heading as="h2" className={styles.cardTitle}>
           {title}
         </Heading>

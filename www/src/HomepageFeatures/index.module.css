@@ -5,7 +5,6 @@
   width: 100%;
 }
 
-/* Surface a step up from the page, separated by a hairline rather than a shadow. */
 .card {
   height: 100%;
   padding: var(--side-spacing-component-xl);

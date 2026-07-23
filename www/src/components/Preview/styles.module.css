@@ -6,9 +6,6 @@
   overflow: hidden;
 }
 
-/* `align-items` has to be pinned: the default `stretch` was blowing every
-   example out to the full stage width, so a Button rendered as an 800px bar
-   instead of at its own size. */
 .stage {
   display: flex;
   flex-direction: column;
