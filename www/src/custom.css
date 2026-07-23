@@ -113,7 +113,10 @@ html[data-theme="dark"] {
   --ifm-menu-color-background-active: var(--side-color-background-subtle);
   --ifm-tabs-color-active: var(--side-color-accent-default);
   --ifm-tabs-color-active-border: var(--side-color-accent-default);
-  --ifm-breadcrumb-color-active: var(--side-color-accent-default);
+  /* The active crumb is the current page, not a destination. Amber made it read
+     like a link; neutral says "you are here". Amber stays on things you can act
+     on — sidebar active, links, TOC. */
+  --ifm-breadcrumb-color-active: var(--side-color-foreground-default);
   --ifm-pagination-nav-color-hover: var(--side-color-accent-default);
 
   --ifm-navbar-background-color: var(--side-color-background-base);
@@ -146,6 +149,11 @@ html[data-theme="dark"] {
   --ifm-code-border-radius: var(--side-radius-component-md);
   --ifm-pre-background: var(--side-color-background-subtle);
 
+  /* Infima defaults to 1140/1320px; sipe.team holds everything to 1060px, which
+     also stops the home cards from drifting apart on wide screens. */
+  --ifm-container-width: 1060px;
+  --ifm-container-width-xl: 1060px;
+
   /* Depth comes from surface + border contrast, not shadow. */
   --ifm-global-shadow-lw: none;
   --ifm-global-shadow-md: none;
@@ -168,6 +176,15 @@ html[data-theme="dark"] {
    and leave it shouting next to the title. */
 .navbar__logo {
   height: 1.25rem;
+}
+
+/* Focus was left to the browser default (a thin blue ring), while the token
+   that exists for it — `--side-color-border-focus` — went unused. Route
+   keyboard focus through the token so the ring matches the rest of the chrome.
+   Scoped to `:focus-visible` so it only shows for keyboard users. */
+:focus-visible {
+  outline: 2px solid var(--side-color-border-focus);
+  outline-offset: 2px;
 }
 
 /* sipe.team runs its footer as a single ~100px line: copyright left, links
