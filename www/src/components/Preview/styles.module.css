@@ -1,0 +1,54 @@
+.preview {
+  margin: 1.5rem 0;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--ifm-global-radius);
+  background: var(--ifm-background-surface-color);
+  overflow: hidden;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  background: var(--ifm-color-emphasis-100);
+}
+
+/* Dark-only components (hardcoded dark colors) opt into an intentional dark canvas via
+   <Preview theme="dark">, so they read as a deliberate example rather than a dark card
+   floating on a light frame. */
+.stageDark {
+  background: #0d1117;
+}
+
+.toolbar {
+  display: flex;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.toggle {
+  padding: 0.4rem 1rem;
+  border: 0;
+  background: transparent;
+  color: var(--ifm-color-emphasis-600);
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: color var(--ifm-transition-fast) ease;
+}
+
+.toggle:hover {
+  color: var(--ifm-color-emphasis-900);
+}
+
+.code {
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+/* The code block already carries the page's outer spacing; strip its stray bottom margin. */
+.code :global(.theme-code-block) {
+  margin-bottom: 0;
+  border-radius: 0;
+  box-shadow: none;
+}

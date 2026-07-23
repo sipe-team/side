@@ -123,7 +123,7 @@ function checkPackage(pkg: Package, policy: Policy): Violation[] {
           message: `missing required script "${key}" (expected: "${expected}")`,
         });
       }
-    } else if (actual !== expected) {
+    } else if (actual !== expected && !isAllowlisted(policy.allowlist, name, `scripts.${key}`)) {
       violations.push({
         packageName: name,
         severity: 'hard',
