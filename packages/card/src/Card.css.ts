@@ -36,7 +36,7 @@ export const card = recipe({
         borderColor: vars.color.border.default,
       },
       [CardVariant.outline]: {
-        backgroundColor: vars.color.background.base,
+        backgroundColor: vars.color.background.default,
         borderWidth: '1px',
         borderStyle: 'solid',
         borderColor: vars.color.border.strong,

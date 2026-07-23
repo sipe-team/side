@@ -77,10 +77,10 @@ test('defaults to filled variant referencing subtle background and default borde
   expect(applied).toContain('var(--side-color-border-default)');
 });
 
-test('outline variant references base background and border.strong tokens', () => {
+test('outline variant references default background and border.strong tokens', () => {
   render(<Card variant="outline">Card</Card>);
   const applied = rulesForElement(screen.getByText('Card'));
-  expect(applied).toContain('var(--side-color-background-base)');
+  expect(applied).toContain('var(--side-color-background-default)');
   expect(applied).toContain('var(--side-color-border-strong)');
 });
 
@@ -89,9 +89,9 @@ test('filled variant uses subtle background token', () => {
   expect(rulesForElement(screen.getByText('Card'))).toContain('var(--side-color-background-subtle)');
 });
 
-test('outline variant uses base background token', () => {
+test('outline variant uses default background token', () => {
   render(<Card variant="outline">Card</Card>);
-  expect(rulesForElement(screen.getByText('Card'))).toContain('var(--side-color-background-base)');
+  expect(rulesForElement(screen.getByText('Card'))).toContain('var(--side-color-background-default)');
 });
 
 test('ghost variant has transparent background', () => {
