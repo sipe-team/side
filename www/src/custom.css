@@ -88,6 +88,7 @@ html[data-theme="dark"] {
   --ifm-card-background-color: var(--side-color-background-muted);
 
   --ifm-footer-background-color: var(--side-color-background-subtle);
+  --ifm-footer-padding-horizontal: 0;
   --ifm-footer-color: var(--side-color-foreground-subtle);
   --ifm-footer-title-color: var(--side-color-foreground-default);
   --ifm-footer-link-color: var(--side-color-foreground-subtle);
@@ -134,6 +135,7 @@ html[data-theme="dark"] {
 }
 
 .footer .container {
+  max-width: none;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
