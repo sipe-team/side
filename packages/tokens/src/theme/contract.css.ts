@@ -9,7 +9,7 @@ export const vars = createGlobalThemeContract(
   {
     color: {
       background: {
-        base: 'color-background-base',
+        default: 'color-background-default',
         subtle: 'color-background-subtle',
         muted: 'color-background-muted',
       },
@@ -27,6 +27,7 @@ export const vars = createGlobalThemeContract(
       accent: {
         default: 'color-accent-default',
         hover: 'color-accent-hover',
+        pressed: 'color-accent-pressed',
         subtle: 'color-accent-subtle',
       },
       status: {
