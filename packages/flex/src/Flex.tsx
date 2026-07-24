@@ -51,6 +51,10 @@ function getResponsiveClassNames<T extends string>(
   });
 }
 
+function normalizeResponsiveGapValue(value: CSSProperties['gap']) {
+  return typeof value === 'number' && value !== 0 ? `${value}px` : value;
+}
+
 function getResponsiveGapStyle(gap: FlexProps['gap']) {
   if (!isResponsiveValue(gap)) {
     return {
@@ -59,9 +63,9 @@ function getResponsiveGapStyle(gap: FlexProps['gap']) {
     };
   }
 
-  const sm = gap.sm ?? 'normal';
-  const md = gap.md ?? sm;
-  const lg = gap.lg ?? md;
+  const sm = normalizeResponsiveGapValue(gap.sm ?? 'normal');
+  const md = normalizeResponsiveGapValue(gap.md ?? sm);
+  const lg = normalizeResponsiveGapValue(gap.lg ?? md);
 
   return {
     className: styles.responsiveGap,
