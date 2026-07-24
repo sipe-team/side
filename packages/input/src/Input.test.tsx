@@ -7,7 +7,34 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, test } from 'vitest';
 
 import { Action, Input } from './Input';
-import { defaultFontSize, defaultFontWeight, weight } from './Input.css';
+import { defaultFontSize } from './Input.css';
+
+function ruleForClass(className: string): string {
+  const target = `.${className}`;
+  const matched: string[] = [];
+  for (const sheet of Array.from(document.styleSheets)) {
+    let rules: CSSRuleList;
+    try {
+      rules = sheet.cssRules;
+    } catch {
+      continue;
+    }
+    for (const rule of Array.from(rules)) {
+      if (!('selectorText' in rule)) continue;
+      const selectorText = (rule as CSSStyleRule).selectorText ?? '';
+      const matches = selectorText.split(',').some((s) => {
+        const part = s.trim();
+        return part === target || part.startsWith(`${target}:`) || part.startsWith(`${target}.`);
+      });
+      if (matches) matched.push(rule.cssText);
+    }
+  }
+  return matched.join('\n');
+}
+
+function rulesForElement(el: HTMLElement): string {
+  return el.className.split(/\s+/).filter(Boolean).map(ruleForClass).join('\n');
+}
 
 describe('Input 컴포넌트', () => {
   describe('렌더링', () => {
@@ -33,6 +60,16 @@ describe('Input 컴포넌트', () => {
       expect(input).toBeDisabled();
     });
 
+    test('readOnly 상태가 올바르게 설정된다', () => {
+      render(<Input readOnly defaultValue="locked" />);
+      expect(screen.getByRole('textbox')).toHaveAttribute('readonly');
+    });
+
+    test('readOnly일 때 muted 배경 semantic 토큰을 참조한다', () => {
+      render(<Input readOnly defaultValue="locked" />);
+      expect(rulesForElement(screen.getByRole('textbox'))).toContain('var(--side-color-background-muted)');
+    });
+
     test('classNames가 올바르게 적용된다', () => {
       const { container } = render(<Input className="custom-class" />);
       expect(container.firstChild).toHaveClass('custom-class');
@@ -43,27 +80,37 @@ describe('Input 컴포넌트', () => {
       expect(screen.getByRole('textbox')).toHaveAttribute('spellCheck', 'false');
     });
 
-    test(`fontWeight가 미지정시 ${defaultFontWeight}, fontSize가 미지정시 ${defaultFontSize}px이 기본값으로 적용된다`, () => {
-      const { container } = render(<Input />);
-      const element = container.firstChild as HTMLElement;
-      const computedStyle = getComputedStyle(element);
+    test(`fontSize 미지정시 ${defaultFontSize}, fontWeight는 regular semantic 토큰을 참조한다`, () => {
+      render(<Input />);
+      const applied = rulesForElement(screen.getByRole('textbox'));
 
-      expect(computedStyle.fontSize).toBe(`${defaultFontSize}px`);
-      expect(computedStyle.fontWeight).toBe(`${weight[defaultFontWeight]}`);
+      expect(applied).toContain('var(--side-font-size-200)');
+      expect(applied).toContain('var(--side-font-weight-regular)');
     });
 
-    test('변경 폰트 사이즈, 폰트 웨이트 적용된다.', () => {
-      const fontSize = 24;
-      const fontWeight = 'semiBold';
-      const { container } = render(<Input fontSize={fontSize} fontWeight={fontWeight} />);
-      const element = container.firstChild as HTMLElement;
-      const computedStyle = getComputedStyle(element);
+    test('변경 폰트 사이즈 semantic 토큰을 참조한다', () => {
+      render(<Input fontSize={24} />);
+      const applied = rulesForElement(screen.getByRole('textbox'));
 
-      expect(computedStyle.fontSize).toBe(`${fontSize}px`);
-      expect(computedStyle.fontWeight).toBe(`${weight[fontWeight]}`);
+      expect(applied).toContain('var(--side-font-size-500)');
+      expect(applied).toContain('var(--side-font-weight-regular)');
+    });
+
+    test('인풋 기본 테두리·패딩·반경 semantic 토큰을 참조한다', () => {
+      render(<Input />);
+      const fieldRules = rulesForElement(screen.getByRole('textbox'));
+
+      expect(fieldRules).toContain('var(--side-color-border-default)');
+      expect(fieldRules).toContain('var(--side-radius-component-md)');
+      expect(fieldRules).toContain('var(--side-spacing-component-sm)');
+      expect(fieldRules).toContain('var(--side-spacing-component-md)');
+    });
+
+    test('래퍼는 span이다', () => {
+      const { container } = render(<Input />);
+      expect((container.firstChild as HTMLElement).tagName).toBe('SPAN');
     });
   });
-
   describe('상호작용', () => {
     test('사용자 입력', async () => {
       render(<Input name="test" />);
@@ -108,6 +155,23 @@ describe('Input 컴포넌트', () => {
     test('Input 컴포넌트가 textbox role을 가진다', () => {
       render(<Input name="email" />);
       expect(screen.getByRole('textbox')).toBeInTheDocument();
+    });
+
+    test('validation이 error이면 aria-invalid가 설정된다', () => {
+      render(<Input validation="error" />);
+      expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true');
+    });
+  });
+
+  describe('validation', () => {
+    test('error일 때 danger border semantic 토큰을 참조한다', () => {
+      render(<Input validation="error" />);
+      expect(rulesForElement(screen.getByRole('textbox'))).toContain('var(--side-color-status-danger-border)');
+    });
+
+    test('success일 때 success border semantic 토큰을 참조한다', () => {
+      render(<Input validation="success" />);
+      expect(rulesForElement(screen.getByRole('textbox'))).toContain('var(--side-color-status-success-border)');
     });
   });
 });

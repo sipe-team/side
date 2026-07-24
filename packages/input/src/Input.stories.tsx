@@ -1,8 +1,23 @@
-import { useRef, useState } from 'react';
+import { type ReactNode, useRef, useState } from 'react';
 
-import type { StoryObj } from '@storybook/react';
+import { vars } from '@sipe-team/tokens';
+
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { Action, Input } from './Input';
+
+const DarkSurface = ({ children }: { children: ReactNode }) => (
+  <div
+    style={{
+      backgroundColor: vars.color.background.base,
+      padding: 24,
+      minWidth: 320,
+      borderRadius: vars.radius.component.lg,
+    }}
+  >
+    {children}
+  </div>
+);
 
 const meta = {
   title: 'Components/Input',
@@ -10,10 +25,16 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
+  decorators: [
+    (Story) => (
+      <DarkSurface>
+        <Story />
+      </DarkSurface>
+    ),
+  ],
   args: {
     disabled: false,
     fontSize: 16,
-    fontWeight: 'regular',
     placeholder: 'placeholder',
     type: 'text',
   },
@@ -22,8 +43,12 @@ const meta = {
       options: ['email', 'password', 'search', 'tel', 'text', 'url'],
       control: { type: 'radio' },
     },
+    validation: {
+      options: ['default', 'error', 'success'],
+      control: { type: 'radio' },
+    },
   },
-};
+} satisfies Meta<typeof Input>;
 export default meta;
 
 type Story = StoryObj<typeof meta>;
@@ -31,7 +56,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     type: 'password',
-    fontWeight: 'regular',
     fontSize: 20,
   },
 
@@ -49,6 +73,27 @@ export const disabled: Story = {
   args: {
     disabled: true,
     value: 'test',
+  },
+};
+
+export const ReadOnly: Story = {
+  args: {
+    readOnly: true,
+    defaultValue: 'read only value',
+  },
+};
+
+export const ValidationError: Story = {
+  args: {
+    validation: 'error',
+    defaultValue: 'invalid value',
+  },
+};
+
+export const ValidationSuccess: Story = {
+  args: {
+    validation: 'success',
+    defaultValue: 'valid value',
   },
 };
 
