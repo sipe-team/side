@@ -1,0 +1,241 @@
+---
+sidebar_label: Input
+---
+
+import { useRef } from 'react';
+import { Input, Action } from '@sipe-team/input';
+
+export const ClearIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path
+      fillRule="evenodd"
+      d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
+export const ResettableInput = () => {
+  const ref = useRef(null);
+  return (
+    <Input ref={ref} defaultValue="Clear me">
+      <Action
+        type="button"
+        aria-label="Clear"
+        onClick={() => {
+          if (ref.current) ref.current.value = '';
+        }}
+      >
+        <ClearIcon />
+      </Action>
+    </Input>
+  );
+};
+
+# Input
+
+A text field styled with the design system's tokens, with an optional trailing action slot.
+
+## Installation
+
+```sh
+npm install @sipe-team/input
+```
+
+```ts
+import '@sipe-team/input/styles.css';
+```
+
+## Usage
+
+An uncontrolled field with a placeholder. `Input` renders a native `<input>` inside a styled
+wrapper, so native `value` / `defaultValue` / `onChange` behave exactly as they do on a plain input.
+
+<Preview
+  code={`<Input placeholder="you@example.com" />`}
+>
+  <div style={{ width: '280px' }}>
+    <Input placeholder="you@example.com" />
+  </div>
+</Preview>
+
+## Examples
+
+### Font size
+
+`fontSize` sets the field's text size in px, in fixed steps from `12` to `48`. Default is `16`.
+
+<Preview
+  code={`<Input fontSize={14} defaultValue="Small" />
+<Input fontSize={16} defaultValue="Default" />
+<Input fontSize={20} defaultValue="Large" />
+<Input fontSize={24} defaultValue="Larger" />`}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '280px' }}>
+    <Input fontSize={14} defaultValue="Small" />
+    <Input fontSize={16} defaultValue="Default" />
+    <Input fontSize={20} defaultValue="Large" />
+    <Input fontSize={24} defaultValue="Larger" />
+  </div>
+</Preview>
+
+### Font weight
+
+`fontWeight` accepts `regular` (default), `medium`, `semiBold`, and `bold`.
+
+<Preview
+  code={`<Input fontWeight="regular" defaultValue="Regular" />
+<Input fontWeight="medium" defaultValue="Medium" />
+<Input fontWeight="semiBold" defaultValue="Semi bold" />
+<Input fontWeight="bold" defaultValue="Bold" />`}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '280px' }}>
+    <Input fontWeight="regular" defaultValue="Regular" />
+    <Input fontWeight="medium" defaultValue="Medium" />
+    <Input fontWeight="semiBold" defaultValue="Semi bold" />
+    <Input fontWeight="bold" defaultValue="Bold" />
+  </div>
+</Preview>
+
+### Type
+
+`type` is restricted to the text-like input types: `email`, `password`, `search`, `tel`, `text`
+(default), and `url`. It is forwarded to the native `<input>`.
+
+<Preview
+  code={`<Input type="text" placeholder="Text" />
+<Input type="email" placeholder="you@example.com" />
+<Input type="password" defaultValue="secret" />
+<Input type="search" placeholder="Search" />`}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '280px' }}>
+    <Input type="text" placeholder="Text" />
+    <Input type="email" placeholder="you@example.com" />
+    <Input type="password" defaultValue="secret" />
+    <Input type="search" placeholder="Search" />
+  </div>
+</Preview>
+
+### Disabled
+
+The native `disabled` attribute is forwarded to the inner `<input>`, and the wrapper takes a muted
+background.
+
+<Preview
+  code={`<Input disabled defaultValue="Can't edit this" />`}
+>
+  <div style={{ width: '280px' }}>
+    <Input disabled defaultValue="Can't edit this" />
+  </div>
+</Preview>
+
+### Action button
+
+Render an `Action` as a child to add a trailing button inside the field — for example a control that
+clears the value. `Action` renders a `<button>` after the input.
+
+<Preview
+  code={`const ref = useRef(null);
+
+<Input ref={ref} defaultValue="Clear me">
+  <Action
+    type="button"
+    aria-label="Clear"
+    onClick={() => {
+      if (ref.current) ref.current.value = '';
+    }}
+  >
+    <ClearIcon />
+  </Action>
+</Input>`}
+>
+  <div style={{ width: '280px' }}>
+    <ResettableInput />
+  </div>
+</Preview>
+
+### `asChild`
+
+Set `asChild` on `Action` to merge its props and styles onto the child element instead of rendering a
+`button` — render it as a link, for instance.
+
+<Preview
+  code={`<Input defaultValue="Action as a link">
+  <Action asChild>
+    <a href="#aschild" aria-label="Help">?</a>
+  </Action>
+</Input>`}
+>
+  <div style={{ width: '280px' }}>
+    <Input defaultValue="Action as a link">
+      <Action asChild>
+        <a href="#aschild" aria-label="Help">?</a>
+      </Action>
+    </Input>
+  </div>
+</Preview>
+
+## Anatomy
+
+```tsx
+import { Input, Action } from '@sipe-team/input';
+
+export default () => (
+  <Input type="text" fontSize={16} fontWeight="regular" placeholder="Search">
+    <Action type="button" onClick={handleClear}>
+      <Icon />
+    </Action>
+  </Input>
+);
+```
+
+`Input` renders a `<div role="presentation">` wrapper around a native `<input>`. `children` (typically
+an `Action`) render after the input, inside the same wrapper. `Action` is meant to be rendered inside
+an `Input`.
+
+## API Reference
+
+### `Input`
+
+Renders a `<div role="presentation">` wrapper and forwards its `ref` to the inner `<input>`.
+
+| Prop         | Type                                                                | Default     | Description                                                       |
+| ------------ | ------------------------------------------------------------------- | ----------- | ---------------------------------------------------------------- |
+| `children`   | `ReactNode`                                                         | —           | Rendered after the input, inside the wrapper. Usually an `Action`. |
+| `type`       | `'email' \| 'password' \| 'search' \| 'tel' \| 'text' \| 'url'`     | `'text'`    | Sets the native input `type`.                                    |
+| `fontSize`   | `12 \| 14 \| 16 \| 18 \| 20 \| 24 \| 28 \| 32 \| 36 \| 48`          | `16`        | Text size of the field, in px.                                   |
+| `fontWeight` | `'regular' \| 'medium' \| 'semiBold' \| 'bold'`                     | `'regular'` | Font weight of the field's text.                                 |
+| `className`  | `string`                                                            | —           | Appended to the wrapper's class.                                 |
+
+Also accepts every `ComponentProps<'input'>` except `type` (`placeholder`, `value`, `defaultValue`,
+`onChange`, `disabled`, `name`, …). `ref` forwards to the `<input>`; `className` goes on the wrapper,
+and every other prop — including `style` — is forwarded to the `<input>`. `spellCheck` is forced to
+`"false"`.
+
+### `Action`
+
+Renders a `<button>` (or the child element when `asChild` is set) and forwards its `ref`. Meant to be
+rendered inside an `Input`.
+
+| Prop        | Type                    | Default | Description                                                     |
+| ----------- | ----------------------- | ------- | --------------------------------------------------------------- |
+| `children`  | `ReactNode`             | —       | The button contents, usually an icon.                           |
+| `asChild`   | `boolean`               | `false` | Merge props onto the child instead of rendering a `button`.     |
+| `type`      | `'button' \| 'reset'`   | —       | The button's `type`. Left unset when omitted.                   |
+| `className` | `string`                | —       | Appended to the action's class.                                 |
+
+Also accepts every `ComponentProps<'button'>` except `type` (`onClick`, `disabled`, `aria-label`, …),
+forwarded to the rendered element.
+
+## Accessibility
+
+- Renders a native `<input>`, so the field is keyboard-focusable and announced as a `textbox`.
+- The component does **not** render or associate a `<label>`. Pair it with your own
+  `<label htmlFor>` or pass an `aria-label` for an accessible name.
+- `Action` renders a native `<button>`; give it an `aria-label` when its content is an icon.
+
+## Known limitations
+
+- No built-in label association — see Accessibility above.
+- Colors are hardcoded to fixed gray tokens (there is a `// TODO ThemeProvider` in the source), so the
+  field does not adapt to a dark theme yet.

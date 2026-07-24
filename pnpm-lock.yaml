@@ -1196,6 +1196,9 @@ importers:
       '@sipe-team/icon':
         specifier: workspace:*
         version: link:../packages/icon
+      '@sipe-team/input':
+        specifier: workspace:*
+        version: link:../packages/input
       '@sipe-team/radio':
         specifier: workspace:*
         version: link:../packages/radio

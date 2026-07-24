@@ -25,6 +25,7 @@
     "@sipe-team/button": "workspace:*",
     "@sipe-team/checkbox": "workspace:*",
     "@sipe-team/icon": "workspace:*",
+    "@sipe-team/input": "workspace:*",
     "@sipe-team/radio": "workspace:*",
     "@sipe-team/tokens": "workspace:*",
     "@sipe-team/typography": "workspace:*",
