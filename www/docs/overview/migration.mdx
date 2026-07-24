@@ -1,49 +1,49 @@
 # Migration Guide
 
-## 배경
+## Background
 
-기존 토큰 시스템은 컴포넌트가 `color.gray500`, `spacing[3]` 같은 **원시값을 직접 참조**하는 구조였습니다. 값과 사용처가 직접 묶여 있어, 브랜드 컬러나 테마를 바꾸려면 참조 지점을 일일이 찾아 수정해야 했습니다.
+The previous token system had components reference **primitive values directly**, such as `color.gray500` or `spacing[3]`. Because values were tied directly to their usage, changing a brand color or theme meant hunting down and editing every reference point.
 
-이번 개편은 이 연결을 **역할(semantic) 계층으로 분리**합니다. 컴포넌트는 `vars.color.accent.default`처럼 "무엇에 쓰이는 색인가"만 참조하고, 실제 값은 Figma에서 결정돼 `tokens.json` → Style Dictionary → CSS 변수 → `vars.*` 파이프라인을 통해 주입됩니다. 그 결과 기수별 브랜드 컬러 교체나 테마 변경이 컴포넌트 수정 없이 한곳에서 전파됩니다.
+This overhaul separates that connection into a **semantic (role) layer**. Components reference only "what is this color used for" — like `vars.color.accent.default` — while the actual value is decided in Figma and injected through the `tokens.json` → Style Dictionary → CSS variables → `vars.*` pipeline. As a result, cohort-specific brand color swaps or theme changes propagate from a single place without touching individual components.
 
 ---
 
-## 토큰 3계층
+## The Three Token Layers
 
 ```
-tokens.json (Figma 원천)
-    ↓ Style Dictionary 빌드
-primitive.css          ← 1계층: 팔레트 원시값
-    ↓ 시맨틱 참조
-semantic-dark.css      ← 2계층: 역할·의도 매핑
+tokens.json (Figma source)
+    ↓ Style Dictionary build
+primitive.css          ← Layer 1: raw palette values
+    ↓ semantic reference
+semantic-dark.css      ← Layer 2: role / intent mapping
     ↓ Vanilla Extract contract
-vars.*                 ← 3계층: 컴포넌트가 소비하는 타입 안전 변수
+vars.*                 ← Layer 3: type-safe variables consumed by components
 ```
 
-### 1계층 — Primitive
+### Layer 1: Primitive
 
-`dist/css/primitive.css`에 자동 생성되는 원시 팔레트입니다. 색상(`--color-gray-500`), spacing(`--spacing-8`), radius(`--radius-4`), typography 기반값이 포함됩니다.
+The raw palette auto-generated into `dist/css/primitive.css`. It includes colors (`--color-gray-500`), spacing (`--spacing-8`), radius (`--radius-4`), and typography base values.
 
-**컴포넌트에서 직접 참조하지 않습니다.** 2계층 시맨틱 토큰이 이 값을 참조합니다.
+**Components never reference these directly.** The Layer 2 semantic tokens reference these values.
 
-### 2계층 — Semantic
+### Layer 2: Semantic
 
-`dist/css/semantic-dark.css`에 자동 생성되는 역할 매핑입니다. "배경색이 무엇이어야 하는가", "강조색 hover 상태는 무엇인가"와 같은 **디자인 의사결정**을 담습니다.
+The role mapping auto-generated into `dist/css/semantic-dark.css`. It captures **design decisions** such as "what should the background color be?" or "what is the hover state of the accent color?".
 
 ```css
---color-background-muted: var(--color-gray-800);  /* disabled 배경 */
---color-accent-default: var(--color-brand-default); /* 브랜드 기본 강조색 */
---spacing-component-md: var(--spacing-12);         /* 인풋 좌우 패딩 */
+--color-background-muted: var(--color-gray-800);  /* disabled background */
+--color-accent-default: var(--color-brand-default); /* default brand accent */
+--spacing-component-md: var(--spacing-12);         /* input horizontal padding */
 ```
 
-### 3계층 — Component (`vars.*`)
+### Layer 3: Component (`vars.*`)
 
-`@sipe-team/tokens`에서 export하는 `vars` 객체입니다. Vanilla Extract의 `createGlobalThemeContract`로 생성되어 **타입 안전하게** 2계층 CSS 변수를 참조할 수 있습니다.
+The `vars` object exported from `@sipe-team/tokens`. Generated via Vanilla Extract's `createGlobalThemeContract`, it lets you reference the Layer 2 CSS variables in a **type-safe** way.
 
 ```ts
 import { vars } from '@sipe-team/tokens';
 
-// 컴포넌트 스타일에서 사용
+// Used in component styles
 const button = style({
   backgroundColor: vars.color.accent.default,
   padding: `${vars.spacing.component.sm} ${vars.spacing.component.md}`,
@@ -53,69 +53,69 @@ const button = style({
 
 ---
 
-## 마이그레이션 매핑표
+## Migration Mapping Tables
 
-:::tip[표를 읽기 전에]
+:::tip[Before reading the tables]
 
-- ✅ 값이 그대로라 안전하게 교체 / ⚠️ 값·계열이 바뀌어 시각 확인 필요
-- `—`는 대응 토큰이 없어 CSS 리터럴을 직접 사용
-- 표의 색상값은 모두 **다크 테마 기준**입니다.
+- ✅ Value is unchanged, safe to swap / ⚠️ Value or hue changed, visual check needed
+- `—` means there is no matching token, so use a CSS literal directly
+- All color values shown are based on the **dark theme**.
 
 :::
 
-### 색상
+### Color
 
-#### Primitive / 하드코딩 → `vars.color.*`
+#### Primitive / hardcoded → `vars.color.*`
 
-`color.*` 원시값은 **사용 목적에 따라** 시맨틱 토큰으로 교체합니다.
+`color.*` primitive values are replaced with semantic tokens **based on their purpose of use**.
 
-| 이전 | 이후 | 실제값 (dark) | 용도 |
+| Before | After | Actual value (dark) | Purpose |
 | --- | --- | --- | --- |
-| `color.black` / `'#000'` | `vars.color.background.default` | #000000 | 페이지·모달 기본 배경 |
-| `color.gray900` / `'#18181b'` | `vars.color.background.subtle` | #18181b | 카드·패널 표면 배경 |
-| `color.gray800` / `'#27272a'` | `vars.color.background.muted` | #27272a | disabled 입력 필드·스켈레톤 배경 |
-| `color.white` (텍스트) | `vars.color.foreground.default` | #ffffff | 본문·헤딩 기본 텍스트 |
-| `color.gray400` | `vars.color.foreground.subtle` | #a1a1aa | 보조 설명·힌트 텍스트 |
-| `color.gray500` | `vars.color.foreground.muted` | #71717a | placeholder·비활성 아이콘 |
-| `color.white` (accent 배경 위) | `vars.color.foreground.onAccent` | #ffffff | CTA 버튼 레이블·배지 텍스트 |
-| `color.gray700` | `vars.color.border.default` | #3f3f46 | 인풋·카드 기본 테두리 |
-| `color.gray500` (강조 보더) | `vars.color.border.strong` | #71717a | 호버 인풋 강조 테두리 |
-| `outline: 2px solid ${buttonOrange}` | `vars.color.border.focus` | #f97316 | 키보드 포커스 링 |
+| `color.black` / `'#000'` | `vars.color.background.default` | #000000 | Default page / modal background |
+| `color.gray900` / `'#18181b'` | `vars.color.background.subtle` | #18181b | Card / panel surface background |
+| `color.gray800` / `'#27272a'` | `vars.color.background.muted` | #27272a | Disabled input field / skeleton background |
+| `color.white` (text) | `vars.color.foreground.default` | #ffffff | Default body / heading text |
+| `color.gray400` | `vars.color.foreground.subtle` | #a1a1aa | Secondary description / hint text |
+| `color.gray500` | `vars.color.foreground.muted` | #71717a | Placeholder / inactive icons |
+| `color.white` (on accent background) | `vars.color.foreground.onAccent` | #ffffff | CTA button label / badge text |
+| `color.gray700` | `vars.color.border.default` | #3f3f46 | Default input / card border |
+| `color.gray500` (emphasized border) | `vars.color.border.strong` | #71717a | Hover input emphasized border |
+| `outline: 2px solid ${buttonOrange}` | `vars.color.border.focus` | #f97316 | Keyboard focus ring |
 
 #### `semanticColor.*` → `vars.color.status.*`
 
-상태 색상은 다크 배경에서의 대비를 위해 foreground를 모두 **400 단계로 정렬**했습니다(기존 `success`/`danger`는 500 단계). `warning`은 기존 orange 계열이 `danger`와 혼동될 수 있어 yellow 계열로 분리했습니다.
+Status colors align all foregrounds to the **400 step** for contrast on dark backgrounds (the old `success`/`danger` were at the 500 step). `warning` moved to the yellow family because the old orange could be confused with `danger`.
 
-| 이전 | 이후 | 이전값 | 이후값 | 비고 |
+| Before | After | Before value | After value | Notes |
 | --- | --- | --- | --- | --- |
-| `semanticColor.success` | `vars.color.status.success.foreground` | #22c55e (green500) | #4ade80 (green400) | ⚠️ 값 변경 (500→400) |
-| `semanticColor.warning` | `vars.color.status.warning.foreground` | #fb923c (orange400) | #facc15 (yellow400) | ⚠️ 계열 변경 (orange→yellow) |
-| `semanticColor.danger` | `vars.color.status.danger.foreground` | #ef4444 (red500) | #f87171 (red400) | ⚠️ 값 변경 (500→400) |
-| `semanticColor.positive` | `vars.color.status.info.foreground` | #60a5fa (blue400) | #60a5fa (blue400) | ✅ 값 동일 |
+| `semanticColor.success` | `vars.color.status.success.foreground` | #22c55e (green500) | #4ade80 (green400) | ⚠️ Value changed (500→400) |
+| `semanticColor.warning` | `vars.color.status.warning.foreground` | #fb923c (orange400) | #facc15 (yellow400) | ⚠️ Hue changed (orange→yellow) |
+| `semanticColor.danger` | `vars.color.status.danger.foreground` | #ef4444 (red500) | #f87171 (red400) | ⚠️ Value changed (500→400) |
+| `semanticColor.positive` | `vars.color.status.info.foreground` | #60a5fa (blue400) | #60a5fa (blue400) | ✅ Value unchanged |
 
 #### `brandColor.*` → `vars.color.accent.*`
 
 :::warning
 
-\#293 브랜드 컬러 조정으로 인해 **실제 색상 값이 변경**되었습니다. 기존 `brandColor.default`(`#ffb24d`)를 직접 하드코딩한 곳은 시각적 변화가 발생합니다.
+Due to the brand color adjustment in \#293, **the actual color values have changed**. Any place that hardcoded the old `brandColor.default` (`#ffb24d`) will see a visual change.
 
 :::
 
-| 이전 | 이후 | 이전값 | 이후값 | 비고 |
+| Before | After | Before value | After value | Notes |
 | --- | --- | --- | --- | --- |
-| `brandColor.default` | `vars.color.accent.default` | #ffb24d | #f97316 (orange500) | ⚠️ 값 변경 |
-| `brandColor.hover` | `vars.color.accent.hover` | #d9963f | #fb923c (orange400) | ⚠️ 값 변경 |
-| `brandColor.subtle` | `vars.color.accent.subtle` | #3b2005 | #3b1106 (orange950) | ⚠️ 값 변경 |
+| `brandColor.default` | `vars.color.accent.default` | #ffb24d | #f97316 (orange500) | ⚠️ Value changed |
+| `brandColor.hover` | `vars.color.accent.hover` | #d9963f | #fb923c (orange400) | ⚠️ Value changed |
+| `brandColor.subtle` | `vars.color.accent.subtle` | #3b2005 | #3b1106 (orange950) | ⚠️ Value changed |
 
 #### `themeColor.*` → `vars.color.accent.*`
 
-| 이전 | 이후 | 비고 |
+| Before | After | Notes |
 | --- | --- | --- |
-| `theme5th.primary` / `'#FF7C27'` | `vars.color.accent.default` | 브랜드 기본색 |
-| `'linear-gradient(225deg, #FF4500 0%, #FFB24D 100%)'` | `vars.color.accent.hover` | 그라디언트 → 단색 대체 |
-| `theme5th.secondary` / `'#FE4E07'` | `vars.color.accent.pressed` | contract에 추가됨 |
-| `'#000'` (fill 버튼 텍스트) | `vars.color.foreground.onAccent` | ⚠️ onAccent는 흰색(#fff). 검은 텍스트가 의도라면 디자인 확인 후 별도 처리 |
-| `theme1st` ~ `theme5th` 객체 전체 | 제거 | `vars.color.*` 직접 사용 |
+| `theme5th.primary` / `'#FF7C27'` | `vars.color.accent.default` | Default brand color |
+| `'linear-gradient(225deg, #FF4500 0%, #FFB24D 100%)'` | `vars.color.accent.hover` | Gradient → solid color replacement |
+| `theme5th.secondary` / `'#FE4E07'` | `vars.color.accent.pressed` | Added to the contract |
+| `'#000'` (fill button text) | `vars.color.foreground.onAccent` | ⚠️ onAccent is white (#fff). If black text is intended, confirm with design and handle separately |
+| Entire `theme1st` ~ `theme5th` objects | Removed | Use `vars.color.*` directly |
 
 ---
 
@@ -123,25 +123,25 @@ const button = style({
 
 :::info
 
-**타입 변경:** 기존 `spacing[n]`은 단위 없는 숫자(`12`)이고, 새 `vars.spacing.*`은 CSS 변수 문자열(`var(--side-spacing-component-md)` → `12px`)입니다.
+**Type change:** The old `spacing[n]` was a unitless number (`12`), whereas the new `vars.spacing.*` is a CSS variable string (`var(--side-spacing-component-md)` → `12px`).
 
 :::
 
-| 이전 (`spacing[n]`) | 이후 (`vars.spacing.*`) | 값 | 비고 |
+| Before (`spacing[n]`) | After (`vars.spacing.*`) | Value | Notes |
 | --- | --- | --- | --- |
-| `spacing[0]` | `0` | 0 | ✅ 직접 사용 |
-| `spacing[1]` | `vars.spacing.component.xs` | 4px | ✅ 값 동일 |
-| `spacing[2]` | `vars.spacing.component.sm` | 8px | ✅ 값 동일 |
-| `spacing[3]` / `'0 12px'` | `vars.spacing.component.md` | 12px | ✅ 값 동일 |
-| `spacing[4]` | `vars.spacing.component.lg` | 16px | ✅ 값 동일 |
-| `spacing[5]` | — | 20px | ⚠️ 시맨틱 없음 → `'20px'` 직접 사용 |
-| `spacing[6]` | `vars.spacing.component.xl` | 24px | ✅ 값 동일 |
-| `spacing[8]` | `vars.spacing.layout.sm` | 32px | ✅ 값 동일 |
-| `spacing[10]` | `vars.spacing.layout.md` | 40px | ✅ 값 동일 |
-| `spacing[12]` | `vars.spacing.layout.lg` | 48px | ✅ 값 동일 |
-| `spacing[16]` | `vars.spacing.layout.xl` | 64px | ✅ 값 동일 |
-| `spacing[20]` | — | 80px | ⚠️ 시맨틱 없음 → `'80px'` 직접 사용 |
-| `spacing[24]` | — | 96px | ⚠️ 시맨틱 없음 → `'96px'` 직접 사용 |
+| `spacing[0]` | `0` | 0 | ✅ Use directly |
+| `spacing[1]` | `vars.spacing.component.xs` | 4px | ✅ Value unchanged |
+| `spacing[2]` | `vars.spacing.component.sm` | 8px | ✅ Value unchanged |
+| `spacing[3]` / `'0 12px'` | `vars.spacing.component.md` | 12px | ✅ Value unchanged |
+| `spacing[4]` | `vars.spacing.component.lg` | 16px | ✅ Value unchanged |
+| `spacing[5]` | — | 20px | ⚠️ No semantic token → use `'20px'` directly |
+| `spacing[6]` | `vars.spacing.component.xl` | 24px | ✅ Value unchanged |
+| `spacing[8]` | `vars.spacing.layout.sm` | 32px | ✅ Value unchanged |
+| `spacing[10]` | `vars.spacing.layout.md` | 40px | ✅ Value unchanged |
+| `spacing[12]` | `vars.spacing.layout.lg` | 48px | ✅ Value unchanged |
+| `spacing[16]` | `vars.spacing.layout.xl` | 64px | ✅ Value unchanged |
+| `spacing[20]` | — | 80px | ⚠️ No semantic token → use `'80px'` directly |
+| `spacing[24]` | — | 96px | ⚠️ No semantic token → use `'96px'` directly |
 
 ---
 
@@ -149,13 +149,13 @@ const button = style({
 
 :::info
 
-**타입 변경:** 기존 `fontSize[n]`, `fontWeight.*`, `lineHeight.*`는 숫자값이고, 새 `vars.typography.*`는 CSS 변수 문자열입니다.
+**Type change:** The old `fontSize[n]`, `fontWeight.*`, and `lineHeight.*` were numeric values, whereas the new `vars.typography.*` are CSS variable strings.
 
 :::
 
 #### Font Size
 
-| 이전 (`fontSize[n]`) | 이후 (`vars.typography.fontSize`) | 값 |
+| Before (`fontSize[n]`) | After (`vars.typography.fontSize`) | Value |
 | --- | --- | --- |
 | `fontSize[12]` | `vars.typography.fontSize['050']` | 12px |
 | `fontSize[14]` | `vars.typography.fontSize['100']` | 14px |
@@ -170,7 +170,7 @@ const button = style({
 
 #### Font Weight
 
-| 이전 (`fontWeight.*`) | 이후 (`vars.typography.fontWeight.*`) | 값 |
+| Before (`fontWeight.*`) | After (`vars.typography.fontWeight.*`) | Value |
 | --- | --- | --- |
 | `fontWeight.regular` | `vars.typography.fontWeight.regular` | 400 |
 | `fontWeight.medium` | `vars.typography.fontWeight.medium` | 500 |
@@ -179,33 +179,33 @@ const button = style({
 
 #### Line Height / Font Family
 
-| 이전 | 이후 (`vars.typography.*`) | 값 |
+| Before | After (`vars.typography.*`) | Value |
 | --- | --- | --- |
 | `lineHeight.regular` / `'150%'` | `vars.typography.lineHeight.regular` | 1.5 |
 | `lineHeight.compact` | `vars.typography.lineHeight.compact` | 1.3 |
-| — | `vars.typography.fontFamily` | `'Pretendard', sans-serif` (신규) |
+| — | `vars.typography.fontFamily` | `'Pretendard', sans-serif` (new) |
 
 ---
 
 ### Radius
 
-| 이전 (`radius.*` / 하드코딩) | 이후 (`vars.radius.*`) | 값 | 비고 |
+| Before (`radius.*` / hardcoded) | After (`vars.radius.*`) | Value | Notes |
 | --- | --- | --- | --- |
-| `radius.none` / `'0'` | `0` | — | contract에 없음, 직접 사용 |
-| `radius.sm` / `'2px'` | `vars.radius.component.sm` | 2px | ✅ 값 동일 |
-| `radius.md` / `'4px'` | `vars.radius.component.md` | 4px | ✅ 값 동일 |
-| `'6px'` (하드코딩) | — | — | ⚠️ 디자인 확인 후 `component.md`(4px) 또는 `component.lg`(8px)로 스냅 |
-| `radius.lg` / `'8px'` | `vars.radius.component.lg` | 8px | ✅ 값 동일 |
-| `radius.xl` / `'12px'` | `vars.radius.component.xl` | 12px | ✅ 값 동일 |
-| `radius.full` / `'9999px'` | `vars.radius.component.full` | 9999px | ✅ 값 동일 |
+| `radius.none` / `'0'` | `0` | — | Not in contract, use directly |
+| `radius.sm` / `'2px'` | `vars.radius.component.sm` | 2px | ✅ Value unchanged |
+| `radius.md` / `'4px'` | `vars.radius.component.md` | 4px | ✅ Value unchanged |
+| `'6px'` (hardcoded) | — | — | ⚠️ Confirm with design, then snap to `component.md` (4px) or `component.lg` (8px) |
+| `radius.lg` / `'8px'` | `vars.radius.component.lg` | 8px | ✅ Value unchanged |
+| `radius.xl` / `'12px'` | `vars.radius.component.xl` | 12px | ✅ Value unchanged |
+| `radius.full` / `'9999px'` | `vars.radius.component.full` | 9999px | ✅ Value unchanged |
 
 ---
 
 ### Shadows
 
-`shadows.*`는 `vars.shadows.*`로 직접 대응됩니다.
+`shadows.*` maps directly to `vars.shadows.*`.
 
-| 이전 (`shadows.*`) | 이후 (`vars.shadows.*`) |
+| Before (`shadows.*`) | After (`vars.shadows.*`) |
 | --- | --- |
 | `shadows.none` | `vars.shadows.none` |
 | `shadows.sm` | `vars.shadows.sm` |
@@ -216,23 +216,23 @@ const button = style({
 
 ---
 
-### Deprecated — 직접 대체 없음
+### Deprecated — No Direct Replacement
 
 :::danger
 
-아래 토큰들은 `@deprecated` 처리되었으며 새 contract에 해당 슬롯이 없습니다. CSS 리터럴 값을 직접 사용하거나 별도 설계가 필요합니다.
+The tokens below are marked `@deprecated` and have no corresponding slot in the new contract. Use CSS literal values directly, or design a separate solution.
 
 :::
 
-| 이전 | 권장 대안 | 비고 |
+| Before | Recommended alternative | Notes |
 | --- | --- | --- |
 | `borderWidth.thin` (1) | `'1px'` | |
 | `borderWidth.medium` (2) | `'2px'` | |
 | `borderWidth.thick` (4) | `'4px'` | |
 | `borderStyle.solid` | `'solid'` | |
 | `opacity[50]` (0.5) | `0.5` | |
-| `zIndex.modal` (1400) | `1400` | ⚠️ 향후 contract 추가 검토 |
+| `zIndex.modal` (1400) | `1400` | ⚠️ Consider adding to contract in the future |
 | `zIndex.tooltip` (1700) | `1700` | |
 | `breakpoints.md` (780) | `'@media (min-width: 780px)'` | |
-| `breakpointQuery.*` / `responsiveStyle` | 미디어 쿼리 직접 작성 | |
-| `grid.columns` / `grid.gutter.*` / `grid.container.*` | — | ⚠️ 대체 없음 |
+| `breakpointQuery.*` / `responsiveStyle` | Write media queries directly | |
+| `grid.columns` / `grid.gutter.*` / `grid.container.*` | — | ⚠️ No replacement |
