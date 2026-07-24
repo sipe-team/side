@@ -1,0 +1,238 @@
+# Migration Guide
+
+## Background
+
+The previous token system had components reference **primitive values directly**, such as `color.gray500` or `spacing[3]`. Because values were tied directly to their usage, changing a brand color or theme meant hunting down and editing every reference point.
+
+This overhaul separates that connection into a **semantic (role) layer**. Components reference only "what is this color used for" — like `vars.color.accent.default` — while the actual value is decided in Figma and injected through the `tokens.json` → Style Dictionary → CSS variables → `vars.*` pipeline. As a result, cohort-specific brand color swaps or theme changes propagate from a single place without touching individual components.
+
+---
+
+## The Three Token Layers
+
+```
+tokens.json (Figma source)
+    ↓ Style Dictionary build
+primitive.css          ← Layer 1: raw palette values
+    ↓ semantic reference
+semantic-dark.css      ← Layer 2: role / intent mapping
+    ↓ Vanilla Extract contract
+vars.*                 ← Layer 3: type-safe variables consumed by components
+```
+
+### Layer 1: Primitive
+
+The raw palette auto-generated into `dist/css/primitive.css`. It includes colors (`--color-gray-500`), spacing (`--spacing-8`), radius (`--radius-4`), and typography base values.
+
+**Components never reference these directly.** The Layer 2 semantic tokens reference these values.
+
+### Layer 2: Semantic
+
+The role mapping auto-generated into `dist/css/semantic-dark.css`. It captures **design decisions** such as "what should the background color be?" or "what is the hover state of the accent color?".
+
+```css
+--color-background-muted: var(--color-gray-800);  /* disabled background */
+--color-accent-default: var(--color-brand-default); /* default brand accent */
+--spacing-component-md: var(--spacing-12);         /* input horizontal padding */
+```
+
+### Layer 3: Component (`vars.*`)
+
+The `vars` object exported from `@sipe-team/tokens`. Generated via Vanilla Extract's `createGlobalThemeContract`, it lets you reference the Layer 2 CSS variables in a **type-safe** way.
+
+```ts
+import { vars } from '@sipe-team/tokens';
+
+// Used in component styles
+const button = style({
+  backgroundColor: vars.color.accent.default,
+  padding: `${vars.spacing.component.sm} ${vars.spacing.component.md}`,
+  borderRadius: vars.radius.component.md,
+});
+```
+
+---
+
+## Migration Mapping Tables
+
+:::tip[Before reading the tables]
+
+- ✅ Value is unchanged, safe to swap / ⚠️ Value or hue changed, visual check needed
+- `—` means there is no matching token, so use a CSS literal directly
+- All color values shown are based on the **dark theme**.
+
+:::
+
+### Color
+
+#### Primitive / hardcoded → `vars.color.*`
+
+`color.*` primitive values are replaced with semantic tokens **based on their purpose of use**.
+
+| Before | After | Actual value (dark) | Purpose |
+| --- | --- | --- | --- |
+| `color.black` / `'#000'` | `vars.color.background.default` | #000000 | Default page / modal background |
+| `color.gray900` / `'#18181b'` | `vars.color.background.subtle` | #18181b | Card / panel surface background |
+| `color.gray800` / `'#27272a'` | `vars.color.background.muted` | #27272a | Disabled input field / skeleton background |
+| `color.white` (text) | `vars.color.foreground.default` | #ffffff | Default body / heading text |
+| `color.gray400` | `vars.color.foreground.subtle` | #a1a1aa | Secondary description / hint text |
+| `color.gray500` | `vars.color.foreground.muted` | #71717a | Placeholder / inactive icons |
+| `color.white` (on accent background) | `vars.color.foreground.onAccent` | #ffffff | CTA button label / badge text |
+| `color.gray700` | `vars.color.border.default` | #3f3f46 | Default input / card border |
+| `color.gray500` (emphasized border) | `vars.color.border.strong` | #71717a | Hover input emphasized border |
+| `outline: 2px solid ${buttonOrange}` | `vars.color.border.focus` | #f97316 | Keyboard focus ring |
+
+#### `semanticColor.*` → `vars.color.status.*`
+
+Status colors align all foregrounds to the **400 step** for contrast on dark backgrounds (the old `success`/`danger` were at the 500 step). `warning` moved to the yellow family because the old orange could be confused with `danger`.
+
+| Before | After | Before value | After value | Notes |
+| --- | --- | --- | --- | --- |
+| `semanticColor.success` | `vars.color.status.success.foreground` | #22c55e (green500) | #4ade80 (green400) | ⚠️ Value changed (500→400) |
+| `semanticColor.warning` | `vars.color.status.warning.foreground` | #fb923c (orange400) | #facc15 (yellow400) | ⚠️ Hue changed (orange→yellow) |
+| `semanticColor.danger` | `vars.color.status.danger.foreground` | #ef4444 (red500) | #f87171 (red400) | ⚠️ Value changed (500→400) |
+| `semanticColor.positive` | `vars.color.status.info.foreground` | #60a5fa (blue400) | #60a5fa (blue400) | ✅ Value unchanged |
+
+#### `brandColor.*` → `vars.color.accent.*`
+
+:::warning
+
+Due to the brand color adjustment in \#293, **the actual color values have changed**. Any place that hardcoded the old `brandColor.default` (`#ffb24d`) will see a visual change.
+
+:::
+
+| Before | After | Before value | After value | Notes |
+| --- | --- | --- | --- | --- |
+| `brandColor.default` | `vars.color.accent.default` | #ffb24d | #f97316 (orange500) | ⚠️ Value changed |
+| `brandColor.hover` | `vars.color.accent.hover` | #d9963f | #fb923c (orange400) | ⚠️ Value changed |
+| `brandColor.subtle` | `vars.color.accent.subtle` | #3b2005 | #3b1106 (orange950) | ⚠️ Value changed |
+
+#### `themeColor.*` → `vars.color.accent.*`
+
+| Before | After | Notes |
+| --- | --- | --- |
+| `theme5th.primary` / `'#FF7C27'` | `vars.color.accent.default` | Default brand color |
+| `'linear-gradient(225deg, #FF4500 0%, #FFB24D 100%)'` | `vars.color.accent.hover` | Gradient → solid color replacement |
+| `theme5th.secondary` / `'#FE4E07'` | `vars.color.accent.pressed` | Added to the contract |
+| `'#000'` (fill button text) | `vars.color.foreground.onAccent` | ⚠️ onAccent is white (#fff). If black text is intended, confirm with design and handle separately |
+| Entire `theme1st` ~ `theme5th` objects | Removed | Use `vars.color.*` directly |
+
+---
+
+### Spacing
+
+:::info
+
+**Type change:** The old `spacing[n]` was a unitless number (`12`), whereas the new `vars.spacing.*` is a CSS variable string (`var(--side-spacing-component-md)` → `12px`).
+
+:::
+
+| Before (`spacing[n]`) | After (`vars.spacing.*`) | Value | Notes |
+| --- | --- | --- | --- |
+| `spacing[0]` | `0` | 0 | ✅ Use directly |
+| `spacing[1]` | `vars.spacing.component.xs` | 4px | ✅ Value unchanged |
+| `spacing[2]` | `vars.spacing.component.sm` | 8px | ✅ Value unchanged |
+| `spacing[3]` / `'0 12px'` | `vars.spacing.component.md` | 12px | ✅ Value unchanged |
+| `spacing[4]` | `vars.spacing.component.lg` | 16px | ✅ Value unchanged |
+| `spacing[5]` | — | 20px | ⚠️ No semantic token → use `'20px'` directly |
+| `spacing[6]` | `vars.spacing.component.xl` | 24px | ✅ Value unchanged |
+| `spacing[8]` | `vars.spacing.layout.sm` | 32px | ✅ Value unchanged |
+| `spacing[10]` | `vars.spacing.layout.md` | 40px | ✅ Value unchanged |
+| `spacing[12]` | `vars.spacing.layout.lg` | 48px | ✅ Value unchanged |
+| `spacing[16]` | `vars.spacing.layout.xl` | 64px | ✅ Value unchanged |
+| `spacing[20]` | — | 80px | ⚠️ No semantic token → use `'80px'` directly |
+| `spacing[24]` | — | 96px | ⚠️ No semantic token → use `'96px'` directly |
+
+---
+
+### Typography
+
+:::info
+
+**Type change:** The old `fontSize[n]`, `fontWeight.*`, and `lineHeight.*` were numeric values, whereas the new `vars.typography.*` are CSS variable strings.
+
+:::
+
+#### Font Size
+
+| Before (`fontSize[n]`) | After (`vars.typography.fontSize`) | Value |
+| --- | --- | --- |
+| `fontSize[12]` | `vars.typography.fontSize['050']` | 12px |
+| `fontSize[14]` | `vars.typography.fontSize['100']` | 14px |
+| `fontSize[16]` | `vars.typography.fontSize['200']` | 16px |
+| `fontSize[18]` | `vars.typography.fontSize['300']` | 18px |
+| `fontSize[20]` | `vars.typography.fontSize['400']` | 20px |
+| `fontSize[24]` | `vars.typography.fontSize['500']` | 24px |
+| `fontSize[28]` | `vars.typography.fontSize['600']` | 28px |
+| `fontSize[32]` | `vars.typography.fontSize['700']` | 32px |
+| `fontSize[36]` | `vars.typography.fontSize['800']` | 36px |
+| `fontSize[48]` | `vars.typography.fontSize['900']` | 48px |
+
+#### Font Weight
+
+| Before (`fontWeight.*`) | After (`vars.typography.fontWeight.*`) | Value |
+| --- | --- | --- |
+| `fontWeight.regular` | `vars.typography.fontWeight.regular` | 400 |
+| `fontWeight.medium` | `vars.typography.fontWeight.medium` | 500 |
+| `fontWeight.semiBold` | `vars.typography.fontWeight.semiBold` | 600 |
+| `fontWeight.bold` | `vars.typography.fontWeight.bold` | 700 |
+
+#### Line Height / Font Family
+
+| Before | After (`vars.typography.*`) | Value |
+| --- | --- | --- |
+| `lineHeight.regular` / `'150%'` | `vars.typography.lineHeight.regular` | 1.5 |
+| `lineHeight.compact` | `vars.typography.lineHeight.compact` | 1.3 |
+| — | `vars.typography.fontFamily` | `'Pretendard', sans-serif` (new) |
+
+---
+
+### Radius
+
+| Before (`radius.*` / hardcoded) | After (`vars.radius.*`) | Value | Notes |
+| --- | --- | --- | --- |
+| `radius.none` / `'0'` | `0` | — | Not in contract, use directly |
+| `radius.sm` / `'2px'` | `vars.radius.component.sm` | 2px | ✅ Value unchanged |
+| `radius.md` / `'4px'` | `vars.radius.component.md` | 4px | ✅ Value unchanged |
+| `'6px'` (hardcoded) | — | — | ⚠️ Confirm with design, then snap to `component.md` (4px) or `component.lg` (8px) |
+| `radius.lg` / `'8px'` | `vars.radius.component.lg` | 8px | ✅ Value unchanged |
+| `radius.xl` / `'12px'` | `vars.radius.component.xl` | 12px | ✅ Value unchanged |
+| `radius.full` / `'9999px'` | `vars.radius.component.full` | 9999px | ✅ Value unchanged |
+
+---
+
+### Shadows
+
+`shadows.*` maps directly to `vars.shadows.*`.
+
+| Before (`shadows.*`) | After (`vars.shadows.*`) |
+| --- | --- |
+| `shadows.none` | `vars.shadows.none` |
+| `shadows.sm` | `vars.shadows.sm` |
+| `shadows.md` | `vars.shadows.md` |
+| `shadows.lg` | `vars.shadows.lg` |
+| `shadows.xl` | `vars.shadows.xl` |
+| `shadows['2xl']` | `vars.shadows['2xl']` |
+
+---
+
+### Deprecated — No Direct Replacement
+
+:::danger
+
+The tokens below are marked `@deprecated` and have no corresponding slot in the new contract. Use CSS literal values directly, or design a separate solution.
+
+:::
+
+| Before | Recommended alternative | Notes |
+| --- | --- | --- |
+| `borderWidth.thin` (1) | `'1px'` | |
+| `borderWidth.medium` (2) | `'2px'` | |
+| `borderWidth.thick` (4) | `'4px'` | |
+| `borderStyle.solid` | `'solid'` | |
+| `opacity[50]` (0.5) | `0.5` | |
+| `zIndex.modal` (1400) | `1400` | ⚠️ Consider adding to contract in the future |
+| `zIndex.tooltip` (1700) | `1700` | |
+| `breakpoints.md` (780) | `'@media (min-width: 780px)'` | |
+| `breakpointQuery.*` / `responsiveStyle` | Write media queries directly | |
+| `grid.columns` / `grid.gutter.*` / `grid.container.*` | — | ⚠️ No replacement |
