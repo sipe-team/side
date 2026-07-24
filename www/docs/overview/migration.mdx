@@ -2,11 +2,9 @@
 
 ## 배경
 
-이번 토큰 시스템 개편은 **Figma → 코드 동기화 구조**를 도입하면서 이루어졌습니다.
+기존 토큰 시스템은 컴포넌트가 `color.gray500`, `spacing[3]` 같은 **원시값을 직접 참조**하는 구조였습니다. 값과 사용처가 직접 묶여 있어, 브랜드 컬러나 테마를 바꾸려면 참조 지점을 일일이 찾아 수정해야 했습니다.
 
-기존에는 컴포넌트 스타일에서 `color.gray500`, `'#FF7C27'`, `spacing[3]` 같은 원시값(primitive)을 직접 참조하거나 색상 코드를 하드코딩해 왔습니다. 이 방식은 Figma의 디자인 의도가 코드에 반영되지 않고, 테마 변경이나 기수별 브랜드 컬러 교체 시 컴포넌트를 일일이 수정해야 하는 문제가 있었습니다.
-
-새 구조에서는 Figma의 토큰 결정이 `tokens.json` → Style Dictionary → CSS 변수 → `vars.*` 순으로 자동 동기화됩니다. 컴포넌트는 `vars.color.accent.default` 같은 **시맨틱 역할**만 참조하면 되고, 실제 색상값은 파이프라인이 주입합니다.
+이번 개편은 이 연결을 **역할(semantic) 계층으로 분리**합니다. 컴포넌트는 `vars.color.accent.default`처럼 "무엇에 쓰이는 색인가"만 참조하고, 실제 값은 Figma에서 결정돼 `tokens.json` → Style Dictionary → CSS 변수 → `vars.*` 파이프라인을 통해 주입됩니다. 그 결과 기수별 브랜드 컬러 교체나 테마 변경이 컴포넌트 수정 없이 한곳에서 전파됩니다.
 
 ---
 
@@ -78,11 +76,13 @@ const button = style({
 
 #### `semanticColor.*` → `vars.color.status.*`
 
+상태 색상은 다크 배경에서의 대비를 위해 foreground를 모두 **400 단계로 정렬**했습니다(기존 `success`/`danger`는 500 단계). `warning`은 기존 orange 계열이 `danger`와 혼동될 수 있어 yellow 계열로 분리했습니다.
+
 | 이전 | 이후 | 이전값 | 이후값 | 비고 |
 | --- | --- | --- | --- | --- |
-| `semanticColor.success` | `vars.color.status.success.foreground` | #22c55e (green500) | #4ade80 (green400) | ⚠️ 값 변경 |
-| `semanticColor.warning` | `vars.color.status.warning.foreground` | #fb923c (orange400) | #facc15 (yellow400) | ⚠️ 색상 계열 변경 |
-| `semanticColor.danger` | `vars.color.status.danger.foreground` | #ef4444 (red500) | #f87171 (red400) | ⚠️ 값 변경 |
+| `semanticColor.success` | `vars.color.status.success.foreground` | #22c55e (green500) | #4ade80 (green400) | ⚠️ 값 변경 (500→400) |
+| `semanticColor.warning` | `vars.color.status.warning.foreground` | #fb923c (orange400) | #facc15 (yellow400) | ⚠️ 계열 변경 (orange→yellow) |
+| `semanticColor.danger` | `vars.color.status.danger.foreground` | #ef4444 (red500) | #f87171 (red400) | ⚠️ 값 변경 (500→400) |
 | `semanticColor.positive` | `vars.color.status.info.foreground` | #60a5fa (blue400) | #60a5fa (blue400) | ✅ 값 동일 |
 | — | `vars.color.status.*.background` | — | 각 색상 900 단계 | 신규 추가 |
 | — | `vars.color.status.*.border` | — | 각 색상 700 단계 | 신규 추가 |
@@ -95,12 +95,12 @@ const button = style({
 
 :::
 
-| 이전 | 이후 | 이전값 | 이후값 |
-| --- | --- | --- | --- |
-| `brandColor.default` | `vars.color.accent.default` | #ffb24d | #f97316 (orange500) |
-| `brandColor.hover` | `vars.color.accent.hover` | #d9963f | #fb923c (orange400) |
-| — | `vars.color.accent.pressed` | — | #ea580c (orange600) |
-| `brandColor.subtle` | `vars.color.accent.subtle` | #3b2005 | #3b1106 (orange950) |
+| 이전 | 이후 | 이전값 | 이후값 | 비고 |
+| --- | --- | --- | --- | --- |
+| `brandColor.default` | `vars.color.accent.default` | #ffb24d | #f97316 (orange500) | ⚠️ 값 변경 |
+| `brandColor.hover` | `vars.color.accent.hover` | #d9963f | #fb923c (orange400) | ⚠️ 값 변경 |
+| — | `vars.color.accent.pressed` | — | #ea580c (orange600) | 신규 추가 |
+| `brandColor.subtle` | `vars.color.accent.subtle` | #3b2005 | #3b1106 (orange950) | ⚠️ 값 변경 |
 
 #### `themeColor.*` → `vars.color.accent.*`
 
@@ -109,7 +109,7 @@ const button = style({
 | `theme5th.primary` / `'#FF7C27'` | `vars.color.accent.default` | 브랜드 기본색 |
 | `'linear-gradient(225deg, #FF4500 0%, #FFB24D 100%)'` | `vars.color.accent.hover` | 그라디언트 → 단색 대체 |
 | `theme5th.secondary` / `'#FE4E07'` | `vars.color.accent.pressed` | contract에 추가됨 |
-| `'#000'` (fill 버튼 텍스트) | `vars.color.foreground.onAccent` | ⚠️ onAccent = white, 의도 재확인 필요 |
+| `'#000'` (fill 버튼 텍스트) | `vars.color.foreground.onAccent` | ⚠️ onAccent는 흰색(#fff). 검은 텍스트가 의도라면 디자인 확인 후 별도 처리 |
 | `theme1st` ~ `theme5th` 객체 전체 | 제거 | `vars.color.*` 직접 사용 |
 
 ---
@@ -122,21 +122,21 @@ const button = style({
 
 :::
 
-| 이전 (`spacing[n]`) | 이전값 | 이후 (`vars.spacing.*`) | 이후값 |
+| 이전 (`spacing[n]`) | 이후 (`vars.spacing.*`) | 값 | 비고 |
 | --- | --- | --- | --- |
-| `spacing[0]` | 0 | `0` | 직접 사용 |
-| `spacing[1]` | 4 | `vars.spacing.component.xs` | 4px |
-| `spacing[2]` | 8 | `vars.spacing.component.sm` | 8px |
-| `spacing[3]` / `'0 12px'` | 12 | `vars.spacing.component.md` | 12px |
-| `spacing[4]` | 16 | `vars.spacing.component.lg` | 16px |
-| `spacing[5]` | 20 | — | ⚠️ 직접 `'20px'` 사용 (시맨틱 없음) |
-| `spacing[6]` | 24 | `vars.spacing.component.xl` | 24px |
-| `spacing[8]` | 32 | `vars.spacing.layout.sm` | 32px |
-| `spacing[10]` | 40 | `vars.spacing.layout.md` | 40px |
-| `spacing[12]` | 48 | `vars.spacing.layout.lg` | 48px |
-| `spacing[16]` | 64 | `vars.spacing.layout.xl` | 64px |
-| `spacing[20]` | 80 | — | ⚠️ 직접 `'80px'` 사용 (시맨틱 없음) |
-| `spacing[24]` | 96 | — | ⚠️ 직접 `'96px'` 사용 (시맨틱 없음) |
+| `spacing[0]` | `0` | 0 | ✅ 직접 사용 |
+| `spacing[1]` | `vars.spacing.component.xs` | 4px | ✅ 값 동일 |
+| `spacing[2]` | `vars.spacing.component.sm` | 8px | ✅ 값 동일 |
+| `spacing[3]` / `'0 12px'` | `vars.spacing.component.md` | 12px | ✅ 값 동일 |
+| `spacing[4]` | `vars.spacing.component.lg` | 16px | ✅ 값 동일 |
+| `spacing[5]` | — | 20px | ⚠️ 시맨틱 없음 → `'20px'` 직접 사용 |
+| `spacing[6]` | `vars.spacing.component.xl` | 24px | ✅ 값 동일 |
+| `spacing[8]` | `vars.spacing.layout.sm` | 32px | ✅ 값 동일 |
+| `spacing[10]` | `vars.spacing.layout.md` | 40px | ✅ 값 동일 |
+| `spacing[12]` | `vars.spacing.layout.lg` | 48px | ✅ 값 동일 |
+| `spacing[16]` | `vars.spacing.layout.xl` | 64px | ✅ 값 동일 |
+| `spacing[20]` | — | 80px | ⚠️ 시맨틱 없음 → `'80px'` 직접 사용 |
+| `spacing[24]` | — | 96px | ⚠️ 시맨틱 없음 → `'96px'` 직접 사용 |
 
 ---
 
@@ -189,7 +189,7 @@ const button = style({
 | `radius.none` / `'0'` | `0` | — | contract에 없음, 직접 사용 |
 | `radius.sm` / `'2px'` | `vars.radius.component.sm` | 2px | ✅ 값 동일 |
 | `radius.md` / `'4px'` | `vars.radius.component.md` | 4px | ✅ 값 동일 |
-| `'6px'` (하드코딩) | — | — | ⚠️ 4px 또는 8px로 조정 필요 |
+| `'6px'` (하드코딩) | — | — | ⚠️ 디자인 확인 후 `component.md`(4px) 또는 `component.lg`(8px)로 스냅 |
 | `radius.lg` / `'8px'` | `vars.radius.component.lg` | 8px | ✅ 값 동일 |
 | `radius.xl` / `'12px'` | `vars.radius.component.xl` | 12px | ✅ 값 동일 |
 | `radius.full` / `'9999px'` | `vars.radius.component.full` | 9999px | ✅ 값 동일 |
@@ -228,5 +228,6 @@ const button = style({
 | `zIndex.modal` (1400) | `1400` | ⚠️ 향후 contract 추가 검토 |
 | `zIndex.tooltip` (1700) | `1700` | |
 | `breakpoints.md` (780) | `'@media (min-width: 780px)'` | |
-| `breakpointQuery.*` / `responsiveStyle` | 미디어 쿼리 직접 작성 | |
+ㅇ| `breakpointQuery.*` / `responsiveStyle` | 미디어 쿼리 직접 작성 | |
 | `grid.columns` / `grid.gutter.*` / `grid.container.*` | — | ⚠️ 대체 없음 |
+에
