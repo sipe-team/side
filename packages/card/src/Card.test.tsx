@@ -1,11 +1,36 @@
-import { color } from '@sipe-team/tokens';
-
 import { render, screen } from '@testing-library/react';
 import { expect, test } from 'vitest';
 
 import { Card } from './Card';
 
-test('children으로 넘어간 요소를 반환한다. ', () => {
+function ruleForClass(className: string): string {
+  const target = `.${className}`;
+  for (const sheet of Array.from(document.styleSheets)) {
+    let rules: CSSRuleList;
+    try {
+      rules = sheet.cssRules;
+    } catch {
+      continue;
+    }
+    for (const rule of Array.from(rules)) {
+      if (!('selectorText' in rule)) continue;
+      const selectorText = (rule as CSSStyleRule).selectorText ?? '';
+      const matches = selectorText.split(',').some((s) => s.trim() === target);
+      if (matches) return rule.cssText;
+    }
+  }
+  return '';
+}
+
+// happy-dom does not resolve CSS custom properties to computed values, so
+// tests using this helper assert on the token reference (e.g. `var(--side-...)`)
+// rather than the resolved value. Verifying the token-to-value mapping is the
+// responsibility of @sipe-team/tokens.
+function rulesForElement(el: HTMLElement): string {
+  return el.className.split(/\s+/).filter(Boolean).map(ruleForClass).join('\n');
+}
+
+test('renders children passed to Card', () => {
   render(
     <Card>
       <span>Card</span>
@@ -15,12 +40,7 @@ test('children으로 넘어간 요소를 반환한다. ', () => {
   expect(screen.getByText('Card')).toBeInTheDocument();
 });
 
-test('Card는 default로 padding(20px)을 갖는다.', () => {
-  render(<Card>Card</Card>);
-  expect(screen.getByText('Card')).toHaveStyle({ padding: '20px' });
-});
-
-test('Card는 default로 요소를 중앙정렬을 한다.', () => {
+test('centers content by default', () => {
   render(<Card>Card</Card>);
   expect(screen.getByText('Card')).toHaveStyle({
     display: 'flex',
@@ -29,57 +49,53 @@ test('Card는 default로 요소를 중앙정렬을 한다.', () => {
   });
 });
 
-test('ratio가 default로 aspect-ratio는 16/9로 반환한다.', () => {
+test('applies default aspect-ratio 16/9 when ratio is not provided', () => {
   render(<Card>Card</Card>);
   expect(screen.getByText('Card')).toHaveStyle('aspect-ratio: 16 / 9');
 });
 
-test('ratio에 wide로 넣으면 aspect-ratio는 21/9로 반환한다.', () => {
+test('applies aspect-ratio 21/9 when ratio is "wide"', () => {
   render(<Card ratio="wide">Card</Card>);
   expect(screen.getByText('Card')).toHaveStyle('aspect-ratio: 21 / 9');
 });
 
-test('ratio에 square로 넣으면 aspect-ratio는 1/1로 반환한다.', () => {
+test('applies aspect-ratio 1/1 when ratio is "square"', () => {
   render(<Card ratio="square">Card</Card>);
   expect(screen.getByText('Card')).toHaveStyle('aspect-ratio: 1 / 1');
 });
 
-test('ratio에 portrait로 넣으면 aspect-ratio는 3/4로 반환한다.', () => {
+test('applies aspect-ratio 3/4 when ratio is "portrait"', () => {
   render(<Card ratio="portrait">Card</Card>);
   expect(screen.getByText('Card')).toHaveStyle('aspect-ratio: 3 / 4');
 });
 
-test('ratio에 auto로 넣으면 aspect-ratio는 auto로 반환한다.', () => {
+test('applies aspect-ratio auto when ratio is "auto"', () => {
   render(<Card ratio="auto">Card</Card>);
   expect(screen.getByText('Card')).toHaveStyle('aspect-ratio: auto');
 });
 
-test('variant는 default로 filled를 적용한다.', () => {
+test('defaults to filled variant referencing subtle background and default border tokens', () => {
   render(<Card>Card</Card>);
-  expect(screen.getByText('Card')).toHaveStyle({
-    border: `1px solid ${color.gray200}`,
-  });
+  const applied = rulesForElement(screen.getByText('Card'));
+  expect(applied).toContain('var(--side-color-background-subtle)');
+  expect(applied).toContain('var(--side-color-border-default)');
 });
 
-test(`variant가 outline으로 넣으면 border(${color.cyan300}) 색상을 적용한다.`, () => {
+test('outline variant references default background and border.strong tokens', () => {
   render(<Card variant="outline">Card</Card>);
-  expect(screen.getByText('Card')).toHaveStyle({
-    border: `1px solid ${color.cyan300}`,
-  });
+  const applied = rulesForElement(screen.getByText('Card'));
+  expect(applied).toContain('var(--side-color-background-default)');
+  expect(applied).toContain('var(--side-color-border-strong)');
 });
 
-test(`variant가 filled일 때 배경색이 ${color.gray100}이다.`, () => {
+test('filled variant uses subtle background token', () => {
   render(<Card variant="filled">Card</Card>);
-  expect(screen.getByText('Card')).toHaveStyle({
-    backgroundColor: color.gray100,
-  });
+  expect(rulesForElement(screen.getByText('Card'))).toContain('var(--side-color-background-subtle)');
 });
 
-test(`variant가 outline일 때 배경색이 ${color.gray50}이다.`, () => {
+test('outline variant uses default background token', () => {
   render(<Card variant="outline">Card</Card>);
-  expect(screen.getByText('Card')).toHaveStyle({
-    backgroundColor: color.gray50,
-  });
+  expect(rulesForElement(screen.getByText('Card'))).toContain('var(--side-color-background-default)');
 });
 
 test('ghost variant has transparent background', () => {
@@ -91,9 +107,8 @@ test('ghost variant has transparent background', () => {
 
 test('ghost variant has no border', () => {
   render(<Card variant="ghost">Card</Card>);
-  expect(screen.getByText('Card')).toHaveStyle({
-    border: 'none',
-  });
+  const applied = rulesForElement(screen.getByText('Card'));
+  expect(applied).toMatch(/border-style:\s*none/);
 });
 
 test('ghost variant has no padding', () => {
@@ -101,4 +116,14 @@ test('ghost variant has no padding', () => {
   expect(screen.getByText('Card')).toHaveStyle({
     padding: '0',
   });
+});
+
+test('applies semantic component spacing token as padding', () => {
+  render(<Card>Card</Card>);
+  expect(rulesForElement(screen.getByText('Card'))).toContain('var(--side-spacing-component-lg)');
+});
+
+test('applies semantic component radius token as border-radius', () => {
+  render(<Card>Card</Card>);
+  expect(rulesForElement(screen.getByText('Card'))).toContain('var(--side-radius-component-lg)');
 });
