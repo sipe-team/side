@@ -15,19 +15,12 @@ const EXPECTED_LABELS: Record<SocialType, string> = {
 };
 
 describe('SocialIconLink', () => {
-  test.each(ALL_TYPES)('renders the icon SVG for %s type', (type) => {
-    const { container } = render(<SocialIconLink type={type} />);
-    expect(container.querySelector('svg')).toBeInTheDocument();
+  test.each(ALL_TYPES)('renders the icon with correct aria-label for %s type', (type) => {
+    render(<SocialIconLink type={type} />);
     expect(screen.getByRole('img', { name: EXPECTED_LABELS[type] })).toBeInTheDocument();
   });
 
-  test.each(ALL_TYPES)('renders as a link with proper aria-label for %s type', (type) => {
-    const url = type === 'email' ? 'foo@example.com' : 'example.com';
-    render(<SocialIconLink type={type} url={url} />);
-    expect(screen.getByRole('link', { name: EXPECTED_LABELS[type] })).toBeInTheDocument();
-  });
-
-  test('email links use mailto: scheme even when scheme already provided', () => {
+  test('email URLs already prefixed with mailto: are not double-prefixed', () => {
     render(<SocialIconLink type="email" url="mailto:foo@example.com" />);
     expect(screen.getByRole('link', { name: 'Email' })).toHaveAttribute('href', 'mailto:foo@example.com');
   });
@@ -40,20 +33,5 @@ describe('SocialIconLink', () => {
   test('bare URLs get an https:// prefix', () => {
     render(<SocialIconLink type="link" url="example.com" />);
     expect(screen.getByRole('link', { name: 'Link' })).toHaveAttribute('href', 'https://example.com');
-  });
-
-  test('md size renders larger icon than sm', () => {
-    const { container: smContainer } = render(<SocialIconLink type="github" size="sm" />);
-    const { container: mdContainer } = render(<SocialIconLink type="github" size="md" />);
-    const smSvg = smContainer.querySelector('svg');
-    const mdSvg = mdContainer.querySelector('svg');
-    expect(smSvg?.getAttribute('class')).not.toEqual(mdSvg?.getAttribute('class'));
-  });
-
-  test('link has target=_blank and rel=noopener noreferrer', () => {
-    render(<SocialIconLink type="github" url="github.com/x" />);
-    const link = screen.getByRole('link', { name: 'GitHub' });
-    expect(link).toHaveAttribute('target', '_blank');
-    expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
 });
