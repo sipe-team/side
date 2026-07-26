@@ -23,7 +23,6 @@ export interface MemberCardLink {
 export interface MemberCardProps extends Omit<ComponentProps<'article'>, 'children'> {
   name: string;
   part: string;
-  period?: string | number;
   imgSrc?: string;
   imgAlt?: string;
   avatarShape?: AvatarShape;
@@ -65,7 +64,6 @@ export const MemberCard = forwardRef(function MemberCard(
     className,
     name,
     part,
-    period,
     imgSrc,
     imgAlt,
     avatarShape = 'rounded',
@@ -88,8 +86,6 @@ export const MemberCard = forwardRef(function MemberCard(
     ...(imgSrc ? { src: imgSrc } : {}),
   };
 
-  const partText = period !== undefined && period !== '' ? `${period}기 · ${part}` : part;
-
   return (
     <article ref={ref} className={cx(styles.root({ variant }), className)} {...props}>
       <header className={styles.header}>
@@ -111,7 +107,7 @@ export const MemberCard = forwardRef(function MemberCard(
           </div>
           <div className={styles.subRow}>
             <Typography asChild size={12} weight="medium" lineHeight="compact" color={vars.color.foreground.muted}>
-              <p>{partText}</p>
+              <p>{part}</p>
             </Typography>
             {isOrganizer && <OrganizerBadge />}
           </div>

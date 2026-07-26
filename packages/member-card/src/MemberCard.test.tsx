@@ -9,11 +9,6 @@ test('renders name and part', () => {
   expect(screen.getByText('Frontend')).toBeInTheDocument();
 });
 
-test('prepends period to part text when provided', () => {
-  render(<MemberCard name="홍길동" part="Frontend" period="1" />);
-  expect(screen.getByText('1기 · Frontend')).toBeInTheDocument();
-});
-
 test('renders introduce text when provided', () => {
   render(<MemberCard name="홍길동" part="Frontend" introduce="반갑습니다." />);
   expect(screen.getByText('반갑습니다.')).toBeInTheDocument();

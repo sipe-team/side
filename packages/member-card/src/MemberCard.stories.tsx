@@ -26,7 +26,6 @@ const meta = {
   args: {
     name: '홍길동',
     part: 'Frontend',
-    period: '1',
     imgSrc: 'https://i.pravatar.cc/140?img=13',
     variant: 'filled',
     avatarShape: 'rounded',
@@ -151,7 +150,6 @@ export const Gallery: Story = {
       <MemberCard
         name="김사이퍼"
         part="Frontend"
-        period="8"
         imgSrc="https://i.pravatar.cc/140?img=32"
         isOrganizer
         introduce="프론트엔드로 사용자에게 즐거움을 주는 걸 좋아합니다."
@@ -163,7 +161,6 @@ export const Gallery: Story = {
       <MemberCard
         name="이사이퍼"
         part="Backend"
-        period="8"
         imgSrc="https://i.pravatar.cc/140?img=15"
         introduce="안정적인 시스템을 설계합니다."
         review="다양한 사람들과 협업하며 새로운 자극을 받았어요."
@@ -175,7 +172,6 @@ export const Gallery: Story = {
       <MemberCard
         name="박사이퍼"
         part="Design"
-        period="8"
         imgSrc="https://i.pravatar.cc/140?img=47"
         introduce="사람 중심의 인터랙션을 고민합니다."
         links={[
