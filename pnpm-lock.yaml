@@ -1269,6 +1269,9 @@ importers:
       '@sipe-team/radio':
         specifier: workspace:*
         version: link:../packages/radio
+      '@sipe-team/switch':
+        specifier: workspace:*
+        version: link:../packages/switch
       '@sipe-team/tokens':
         specifier: workspace:*
         version: link:../packages/tokens

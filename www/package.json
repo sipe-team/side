@@ -31,6 +31,7 @@
     "@sipe-team/icon": "workspace:*",
     "@sipe-team/input": "workspace:*",
     "@sipe-team/radio": "workspace:*",
+    "@sipe-team/switch": "workspace:*",
     "@sipe-team/tokens": "workspace:*",
     "@sipe-team/typography": "workspace:*",
     "clsx": "^2.0.0",
