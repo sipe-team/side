@@ -1,0 +1,111 @@
+---
+sidebar_label: Card
+---
+
+import { Card } from '@sipe-team/card';
+
+# Card
+
+A container that groups related content into a surface, with a fixed aspect ratio.
+
+## Installation
+
+```sh
+npm install @sipe-team/card
+```
+
+```ts
+import '@sipe-team/card/styles.css';
+```
+
+## Usage
+
+Give the card a width; its height follows from the `ratio`. Content is centered inside it.
+
+<Preview
+  code={`<Card style={{ width: 300 }}>Card</Card>`}
+>
+  <Card style={{ width: 300 }}>Card</Card>
+</Preview>
+
+## Examples
+
+### Variant
+
+`filled` (default) sits on a subtle background with a soft border; `outline` uses the default
+background with a stronger border; `ghost` is transparent with no border or padding.
+
+<Preview
+  code={`<Card variant="filled" style={{ width: 200 }}>filled</Card>
+<Card variant="outline" style={{ width: 200 }}>outline</Card>
+<Card variant="ghost" style={{ width: 200 }}>ghost</Card>`}
+>
+  <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+    <Card variant="filled" style={{ width: 200 }}>filled</Card>
+    <Card variant="outline" style={{ width: 200 }}>outline</Card>
+    <Card variant="ghost" style={{ width: 200 }}>ghost</Card>
+  </div>
+</Preview>
+
+### Ratio
+
+The card's height is derived from its width via `aspect-ratio`. `rectangle` (default) is 16:9;
+`square` is 1:1; `wide` is 21:9; `portrait` is 3:4; `auto` lets the content size the height.
+
+<Preview
+  code={`<Card ratio="rectangle" style={{ width: 160 }}>16:9</Card>
+<Card ratio="square" style={{ width: 160 }}>1:1</Card>
+<Card ratio="wide" style={{ width: 160 }}>21:9</Card>
+<Card ratio="portrait" style={{ width: 160 }}>3:4</Card>
+<Card ratio="auto" style={{ width: 160 }}>auto</Card>`}
+>
+  <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+    <Card ratio="rectangle" style={{ width: 160 }}>16:9</Card>
+    <Card ratio="square" style={{ width: 160 }}>1:1</Card>
+    <Card ratio="wide" style={{ width: 160 }}>21:9</Card>
+    <Card ratio="portrait" style={{ width: 160 }}>3:4</Card>
+    <Card ratio="auto" style={{ width: 160 }}>auto</Card>
+  </div>
+</Preview>
+
+### `asChild`
+
+Drops the wrapping `div` and merges the card's styling onto the element it renders, so the card
+becomes a single element — here, an `<a>`.
+
+<Preview
+  code={`<Card asChild ratio="square" style={{ width: 160 }}>
+  <a href="#card">Link card</a>
+</Card>`}
+>
+  <Card asChild ratio="square" style={{ width: 160 }}>
+    <a href="#card">Link card</a>
+  </Card>
+</Preview>
+
+## Anatomy
+
+```tsx
+import { Card } from '@sipe-team/card';
+
+export default () => (
+  <Card variant="filled" ratio="rectangle" style={{ width: 300 }}>
+    Content
+  </Card>
+);
+```
+
+Renders a single `<div role="presentation">` that centers its `children`.
+
+## API Reference
+
+Renders a `<div>` (or the child element when `asChild` is set) and forwards its `ref`.
+
+| Prop       | Type                                                          | Default       | Description                                              |
+| ---------- | ------------------------------------------------------------- | ------------- | -------------------------------------------------------- |
+| `variant`  | `'filled' \| 'outline' \| 'ghost'`                            | `'filled'`    | Surface style — background, border, and padding.         |
+| `ratio`    | `'rectangle' \| 'square' \| 'wide' \| 'portrait' \| 'auto'`   | `'rectangle'` | `aspect-ratio` used to derive height from width.         |
+| `asChild`  | `boolean`                                                     | `false`       | Merge props onto the child instead of rendering a `div`. |
+
+Also accepts every `ComponentProps<'div'>` (`className`, `style`, `onClick`, …), forwarded to the
+rendered element. The element carries `role="presentation"`.

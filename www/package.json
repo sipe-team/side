@@ -24,6 +24,7 @@
     "@sipe-team/avatar": "workspace:*",
     "@sipe-team/badge": "workspace:*",
     "@sipe-team/button": "workspace:*",
+    "@sipe-team/card": "workspace:*",
     "@sipe-team/checkbox": "workspace:*",
     "@sipe-team/icon": "workspace:*",
     "@sipe-team/input": "workspace:*",

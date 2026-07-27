@@ -1193,6 +1193,9 @@ importers:
       '@sipe-team/button':
         specifier: workspace:*
         version: link:../packages/button
+      '@sipe-team/card':
+        specifier: workspace:*
+        version: link:../packages/card
       '@sipe-team/checkbox':
         specifier: workspace:*
         version: link:../packages/checkbox
