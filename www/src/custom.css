@@ -1,6 +1,9 @@
 :root,
 html[data-theme="light"],
 html[data-theme="dark"] {
+  --side-chrome-padding-horizontal: clamp(1rem, 2vw, 2rem);
+  --ifm-navbar-padding-horizontal: var(--side-chrome-padding-horizontal);
+
   --ifm-color-gray-0: var(--color-white);
   --ifm-color-gray-100: var(--color-gray-50);
   --ifm-color-gray-200: var(--color-gray-100);
@@ -136,6 +139,8 @@ html[data-theme="dark"] {
 
 .footer .container {
   max-width: none;
+  padding-left: var(--side-chrome-padding-horizontal);
+  padding-right: var(--side-chrome-padding-horizontal);
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
