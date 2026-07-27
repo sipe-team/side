@@ -26,6 +26,7 @@
     "@sipe-team/button": "workspace:*",
     "@sipe-team/card": "workspace:*",
     "@sipe-team/checkbox": "workspace:*",
+    "@sipe-team/chip": "workspace:*",
     "@sipe-team/divider": "workspace:*",
     "@sipe-team/icon": "workspace:*",
     "@sipe-team/input": "workspace:*",
