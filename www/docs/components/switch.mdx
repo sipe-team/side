@@ -1,0 +1,159 @@
+---
+sidebar_label: Switch
+---
+
+import { useState } from 'react';
+import { Switch } from '@sipe-team/switch';
+
+export const ControlledSwitch = () => {
+  const [checked, setChecked] = useState(false);
+  return <Switch checked={checked} onChange={(e) => setChecked(e.target.checked)} label={`Notifications ${checked ? 'on' : 'off'}`} />;
+};
+
+{/* Switch's `label` text uses a hardcoded near-black color (`color.gray900`), so it needs a light
+    backdrop to be legible on the dark-only docs stage. This wrapper is presentational only and is
+    intentionally left out of the `code` strings below. */}
+export const LightStage = ({ children }) => (
+  <div style={{ background: '#ffffff', padding: '1.5rem', borderRadius: '8px', width: '100%', boxSizing: 'border-box' }}>
+    {children}
+  </div>
+);
+
+# Switch
+
+A single on/off toggle — a `<label>` wrapping a hidden `<input type="checkbox" role="switch">` with
+a sliding thumb, plus an optional text label.
+
+## Installation
+
+```sh
+npm install @sipe-team/switch
+```
+
+```ts
+import '@sipe-team/switch/styles.css';
+```
+
+## Usage
+
+Render a `Switch` and pass a `label` to show text beside the toggle. It works uncontrolled out of
+the box — clicking the track (or its label) flips it, and the thumb slides across.
+
+<Preview
+  code={`<Switch label="Enable notifications" />`}
+>
+  <LightStage>
+    <Switch label="Enable notifications" />
+  </LightStage>
+</Preview>
+
+## Examples
+
+### Uncontrolled
+
+Give `Switch` a `defaultChecked` and let it track its own state — the common case for forms that read
+the value on submit.
+
+<Preview
+  code={`<Switch defaultChecked label="Auto-save" />`}
+>
+  <LightStage>
+    <Switch defaultChecked label="Auto-save" />
+  </LightStage>
+</Preview>
+
+### Controlled
+
+Own the state yourself with `checked` and `onChange` when another part of the UI has to react to it.
+`onChange` receives the native change event — read `event.target.checked` for the next value.
+
+<Preview
+  code={`const [checked, setChecked] = useState(false);
+
+<Switch
+  checked={checked}
+  onChange={(e) => setChecked(e.target.checked)}
+  label={\`Notifications \${checked ? 'on' : 'off'}\`}
+/>`}
+>
+  <LightStage>
+    <ControlledSwitch />
+  </LightStage>
+</Preview>
+
+### Sizes
+
+`md` (default) fits most forms; `sm` for dense rows, `lg` for touch targets. The track and thumb
+scale together — `sm` is 32×16, `md` 40×20, `lg` 48×24.
+
+<Preview
+  code={`<Switch size="sm" defaultChecked label="Small" />
+<Switch size="md" defaultChecked label="Medium" />
+<Switch size="lg" defaultChecked label="Large" />`}
+>
+  <LightStage>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'flex-start' }}>
+      <Switch size="sm" defaultChecked label="Small" />
+      <Switch size="md" defaultChecked label="Medium" />
+      <Switch size="lg" defaultChecked label="Large" />
+    </div>
+  </LightStage>
+</Preview>
+
+### Disabled
+
+`disabled` blocks interaction and dims the whole control. It applies whether the switch is on or off.
+
+<Preview
+  code={`<Switch disabled label="Off and disabled" />
+<Switch disabled defaultChecked label="On and disabled" />`}
+>
+  <LightStage>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'flex-start' }}>
+      <Switch disabled label="Off and disabled" />
+      <Switch disabled defaultChecked label="On and disabled" />
+    </div>
+  </LightStage>
+</Preview>
+
+## API Reference
+
+### `Switch`
+
+Renders a `<label>` wrapping an `<input type="checkbox" role="switch">`. Forwards its `ref` to that
+underlying `<input>`.
+
+| Prop              | Type                                    | Default | Description                                                                                     |
+| ----------------- | --------------------------------------- | ------- | ----------------------------------------------------------------------------------------------- |
+| `size`            | `'sm' \| 'md' \| 'lg'`                  | `'md'`  | Scales the track and thumb.                                                                      |
+| `checked`         | `boolean`                               | —       | Controlled on/off state. Pair with `onChange`.                                                  |
+| `defaultChecked`  | `boolean`                               | `false` | Initial state when uncontrolled.                                                                |
+| `onChange`        | `ChangeEventHandler<HTMLInputElement>`  | —       | Called with the native change event on toggle. Read `event.target.checked` for the next value.  |
+| `disabled`        | `boolean`                               | `false` | Blocks interaction and dims the control.                                                         |
+| `label`           | `string`                                | —       | Text shown beside the toggle. Also used as the accessible name when no `aria-label`/`aria-labelledby` is set. |
+| `aria-label`      | `string`                                | —       | Accessible name. Takes priority over `label`. Use it when there is no visible `label`.          |
+| `aria-labelledby` | `string`                                | —       | `id` of an external element that names the switch. Takes priority over `label`.                 |
+| `onKeyDown`       | `KeyboardEventHandler<HTMLInputElement>`| —       | Called on key down, after the built-in `Enter`-to-toggle handling.                              |
+| `className`       | `string`                                | —       | Appended to the wrapping `<label>` class.                                                        |
+| `style`           | `CSSProperties`                         | —       | Merged onto the wrapping `<label>` (alongside the internal size CSS variable).                   |
+
+Also accepts the rest of `ComponentProps<'input'>` except `size` (`name`, `id`, `required`, …),
+spread onto the underlying `<input>`.
+
+## Accessibility
+
+- The input carries `role="switch"` and `aria-checked` reflects the current state, so screen readers
+  announce it as a switch.
+- Accessible name resolves in priority order: `aria-label`, then `aria-labelledby`, then `label`. Set
+  one of these when the switch has no visible `label`.
+- The input is a native checkbox, so `Space` toggles it. `Enter` also toggles it via a built-in
+  handler.
+- Focusing the switch draws a visible focus ring around the whole control (`:focus-within`).
+
+## Known limitations
+
+- The `label` text uses a hardcoded near-black color (`color.gray900`) rather than a theme-driven
+  token, so it does not adapt to this dark-only docs site. The demos above are shown on a light card
+  so the label stays legible; on a dark background the label text would be illegible (the toggle
+  itself renders fine).
+- `label` accepts a `string` only, not arbitrary `ReactNode`.
