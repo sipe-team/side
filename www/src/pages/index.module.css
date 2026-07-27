@@ -1,5 +1,3 @@
-/* sipe.team leads with a centered hero on a flat dark ground — no full-bleed
-   accent panel, which is what Infima's `hero--primary` would give us. */
 .heroBanner {
   padding: var(--side-spacing-layout-xl) 0;
   text-align: center;
@@ -15,7 +13,6 @@
   letter-spacing: -0.02em;
 }
 
-/* 24px semibold, matching the sub-headline on sipe.team's hero. */
 .heroSubtitle {
   margin: 0;
   color: var(--side-color-foreground-subtle);

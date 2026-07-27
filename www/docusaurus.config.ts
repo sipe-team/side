@@ -13,9 +13,6 @@ const r = (p: string) => path.resolve(__dirname, '..', 'packages', p);
 // components that read `vars` resolve against it. Built once for the whole site, not per component.
 const tokensCss = r('tokens/dist/styles.css');
 
-// The tokens declare `Pretendard` as the base family but ship no font, so every
-// page was falling back to the system sans. The dynamic subset splits by
-// `unicode-range`, so a page only pulls the glyph blocks it actually renders.
 const pretendardCss = require.resolve('pretendard/dist/web/static/pretendard-dynamic-subset.css');
 
 export default {
@@ -28,8 +25,6 @@ export default {
   projectName: 'side',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  // `favicon` above only emits the .ico. The rest of the set mirrors what
-  // sipe.team serves, so the two sites resolve to the same icon everywhere.
   headTags: [
     { tagName: 'link', attributes: { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/img/favicon-32x32.png' } },
     { tagName: 'link', attributes: { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/img/favicon-16x16.png' } },
@@ -80,18 +75,11 @@ export default {
   ],
 
   themeConfig: {
-    // The tokens only define a dark set — `themes.css.ts` gives `:root` and
-    // `[data-theme=dark]` the same values — so a light toggle would put dark-only
-    // components on a white page. Pinning dark matches what the tokens can
-    // actually express, and matches sipe.team, which is dark-only.
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: true,
     },
     navbar: {
-      // The Sipe wordmark, carried over from sipe.team. Its gradient runs
-      // #FF4500 → #FFB24D, which lands on the same amber as the accent token.
-      // It stands alone — no title beside it.
       logo: {
         alt: 'Sipe',
         src: 'img/logo.svg',
@@ -116,32 +104,13 @@ export default {
         },
       ],
     },
-    // No `style: 'dark'` — that class hardcodes a blue-grey background (#303846)
-    // on the footer element itself, where the token overrides can't reach it.
     footer: {
       links: [
-        {
-          title: 'Side',
-          items: [
-            { label: 'Overview', to: '/docs/overview/Installation' },
-            { label: 'Components', to: '/docs/components/accordion' },
-          ],
-        },
-        {
-          title: 'Sipe',
-          items: [
-            { label: 'GitHub', href: 'https://github.com/sipe-team/side' },
-            { label: 'sipe.team', href: 'https://sipe.team' },
-          ],
-        },
+        { label: 'GitHub', href: 'https://github.com/sipe-team/side' },
+        { label: 'sipe.team', href: 'https://sipe.team' },
       ],
       copyright: `All rights reserved ⓒ SIPE ${new Date().getFullYear()}`,
     },
-    // Dracula's purple/pink keywords read as a second accent next to the amber,
-    // and its background carries a purple tint the neutral surfaces don't. vsDark
-    // is grey-based, so the code blocks sit in the page instead of on it. Both
-    // slots point at it because a stored-light session would otherwise surface
-    // the light theme.
     prism: {
       theme: prismThemes.vsDark,
       darkTheme: prismThemes.vsDark,

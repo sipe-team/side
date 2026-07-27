@@ -43,7 +43,7 @@ function Feature({ title, description }: FeatureItem) {
   return (
     <div className="col col--4">
       <div className={styles.card}>
-        <Heading as="h3" className={styles.cardTitle}>
+        <Heading as="h2" className={styles.cardTitle}>
           {title}
         </Heading>
         <p className={styles.cardBody}>{description}</p>
