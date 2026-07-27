@@ -1187,6 +1187,9 @@ importers:
       '@sipe-team/avatar':
         specifier: workspace:*
         version: link:../packages/avatar
+      '@sipe-team/badge':
+        specifier: workspace:*
+        version: link:../packages/badge
       '@sipe-team/button':
         specifier: workspace:*
         version: link:../packages/button
