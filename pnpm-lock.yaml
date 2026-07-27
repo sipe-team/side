@@ -1272,6 +1272,9 @@ importers:
       '@sipe-team/tokens':
         specifier: workspace:*
         version: link:../packages/tokens
+      '@sipe-team/tooltip':
+        specifier: workspace:*
+        version: link:../packages/tooltip
       '@sipe-team/typography':
         specifier: workspace:*
         version: link:../packages/typography
