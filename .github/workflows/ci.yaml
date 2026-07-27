@@ -23,3 +23,20 @@ jobs:
       run: pnpm --filter="...[origin/${{ github.base_ref }}]" --if-present typecheck
     - name: Build
       run: pnpm --filter="...[origin/${{ github.base_ref }}]" --if-present build
+
+  # Runs in parallel with CI. Validates the packed tarballs, which are the only place the
+  # publishConfig.exports swap is ever exercised — no other job can catch a broken export map.
+  # Deliberately unscoped: packing one package builds its workspace dependencies too, so a change
+  # anywhere can break another package's tarball.
+  publishability:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - uses: jdx/mise-action@v2
+    - name: Install dependencies
+      run: pnpm install
+    - name: Check publishability
+      run: pnpm lint:publish

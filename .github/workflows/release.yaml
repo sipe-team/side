@@ -5,6 +5,13 @@ on:
     branches:
       - main
 
+# Two merges landing while a release is in flight would otherwise run `changeset publish`
+# concurrently against the registry. Never cancel a run that has started: interrupting a publish
+# mid-flight is how packages end up half-released.
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -19,6 +26,10 @@ jobs:
           scope: "@sipe-team"
       - name: Install dependencies
         run: pnpm install
+      # A failure here fails the job, so nothing reaches the registry. changesets/action does not
+      # run `publish` through a shell, so the check cannot be chained onto it — it goes before.
+      - name: Check publishability
+        run: pnpm lint:publish
       - name: Create Release Pull Request or Publish to Github Package Registry
         id: changesets
         uses: changesets/action@v1

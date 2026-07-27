@@ -49,6 +49,7 @@ const Root = forwardRef<HTMLInputElement, CheckBoxRootBaseProps>(
       children,
       style,
       checked,
+      defaultChecked,
       ...props
     },
     ref,
@@ -58,7 +59,7 @@ const Root = forwardRef<HTMLInputElement, CheckBoxRootBaseProps>(
 
     const [checkedState, setCheckedState] = useControllableState<boolean | undefined>({
       prop: checked,
-      defaultProp: props.defaultChecked || false,
+      defaultProp: defaultChecked || false,
       onChange: onCheckedChange || (() => {}),
     });
 

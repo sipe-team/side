@@ -1,0 +1,239 @@
+---
+sidebar_label: Checkbox
+---
+
+import { useState } from 'react';
+import { Checkbox } from '@sipe-team/checkbox';
+
+export const ControlledCheckbox = () => {
+  const [checked, setChecked] = useState(true);
+  return (
+    <Checkbox.Root checked={checked} onCheckedChange={setChecked}>
+      <Checkbox.Input />
+      <Checkbox.Label>Subscribe to updates ({checked ? 'on' : 'off'})</Checkbox.Label>
+    </Checkbox.Root>
+  );
+};
+
+# Checkbox
+
+A compound checkbox — a `Root` that owns the checked state, wrapping an `Input` and a `Label`.
+
+## Installation
+
+```sh
+npm install @sipe-team/checkbox
+```
+
+```ts
+import '@sipe-team/checkbox/styles.css';
+```
+
+## Usage
+
+`Root` generates one `id` and shares it, so `Input` and `Label` are wired together automatically —
+clicking the label toggles the box.
+
+<Preview
+  code={`<Checkbox.Root defaultChecked>
+  <Checkbox.Input />
+  <Checkbox.Label>Accept the terms</Checkbox.Label>
+</Checkbox.Root>`}
+>
+  <Checkbox.Root defaultChecked>
+    <Checkbox.Input />
+    <Checkbox.Label>Accept the terms</Checkbox.Label>
+  </Checkbox.Root>
+</Preview>
+
+## Examples
+
+### Uncontrolled
+
+Give `Root` a `defaultChecked` and let it track the state itself — the common case for forms that
+read the value on submit.
+
+<Preview
+  code={`<Checkbox.Root defaultChecked>
+  <Checkbox.Input />
+  <Checkbox.Label>Remember me</Checkbox.Label>
+</Checkbox.Root>`}
+>
+  <Checkbox.Root defaultChecked>
+    <Checkbox.Input />
+    <Checkbox.Label>Remember me</Checkbox.Label>
+  </Checkbox.Root>
+</Preview>
+
+### Controlled
+
+Own the state yourself with `checked` and `onCheckedChange` when another part of the UI has to
+react to it. `onCheckedChange` receives the next boolean.
+
+<Preview
+  code={`const [checked, setChecked] = useState(true);
+
+<Checkbox.Root checked={checked} onCheckedChange={setChecked}>
+  <Checkbox.Input />
+  <Checkbox.Label>Subscribe to updates ({checked ? 'on' : 'off'})</Checkbox.Label>
+</Checkbox.Root>`}
+>
+  <ControlledCheckbox />
+</Preview>
+
+### Sizes
+
+`medium` (default) fits most forms; `small` for dense rows, `large` for touch targets. The box, font,
+and spacing all scale together.
+
+<Preview
+  code={`<Checkbox.Root size="small" defaultChecked>
+  <Checkbox.Input />
+  <Checkbox.Label>Small</Checkbox.Label>
+</Checkbox.Root>
+<Checkbox.Root size="medium" defaultChecked>
+  <Checkbox.Input />
+  <Checkbox.Label>Medium</Checkbox.Label>
+</Checkbox.Root>
+<Checkbox.Root size="large" defaultChecked>
+  <Checkbox.Input />
+  <Checkbox.Label>Large</Checkbox.Label>
+</Checkbox.Root>`}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+    <Checkbox.Root size="small" defaultChecked>
+      <Checkbox.Input />
+      <Checkbox.Label>Small</Checkbox.Label>
+    </Checkbox.Root>
+    <Checkbox.Root size="medium" defaultChecked>
+      <Checkbox.Input />
+      <Checkbox.Label>Medium</Checkbox.Label>
+    </Checkbox.Root>
+    <Checkbox.Root size="large" defaultChecked>
+      <Checkbox.Input />
+      <Checkbox.Label>Large</Checkbox.Label>
+    </Checkbox.Root>
+  </div>
+</Preview>
+
+### Indeterminate
+
+`indeterminate` renders the mixed mark and sets `aria-checked="mixed"` — use it for a "select all"
+box whose children are only partly selected.
+
+<Preview
+  code={`<Checkbox.Root indeterminate>
+  <Checkbox.Input />
+  <Checkbox.Label>Select all</Checkbox.Label>
+</Checkbox.Root>`}
+>
+  <Checkbox.Root indeterminate>
+    <Checkbox.Input />
+    <Checkbox.Label>Select all</Checkbox.Label>
+  </Checkbox.Root>
+</Preview>
+
+### Disabled
+
+`disabled` forwards the native attribute to the `Input` and dims the `Label`. It applies whether the
+box is checked or not.
+
+<Preview
+  code={`<Checkbox.Root disabled>
+  <Checkbox.Input />
+  <Checkbox.Label>Off and disabled</Checkbox.Label>
+</Checkbox.Root>
+<Checkbox.Root disabled defaultChecked>
+  <Checkbox.Input />
+  <Checkbox.Label>On and disabled</Checkbox.Label>
+</Checkbox.Root>`}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+    <Checkbox.Root disabled>
+      <Checkbox.Input />
+      <Checkbox.Label>Off and disabled</Checkbox.Label>
+    </Checkbox.Root>
+    <Checkbox.Root disabled defaultChecked>
+      <Checkbox.Input />
+      <Checkbox.Label>On and disabled</Checkbox.Label>
+    </Checkbox.Root>
+  </div>
+</Preview>
+
+## Anatomy
+
+```tsx
+import { Checkbox } from '@sipe-team/checkbox';
+
+export default () => (
+  <Checkbox.Root defaultChecked>
+    <Checkbox.Input />
+    <Checkbox.Label>Label</Checkbox.Label>
+  </Checkbox.Root>
+);
+```
+
+`Root` renders a `<div>` and provides context; `Input` and `Label` read from it and throw when
+rendered outside a `Root`. State (`checked`, `size`, `disabled`, `indeterminate`) lives on `Root`,
+not on the individual parts.
+
+## API Reference
+
+### `Checkbox.Root`
+
+Renders a `<div>` wrapper and forwards its `ref` to the underlying `<input>`.
+
+| Prop              | Type                                | Default    | Description                                                    |
+| ----------------- | ----------------------------------- | ---------- | -------------------------------------------------------------- |
+| `children`        | `ReactNode`                         | —          | Required. Usually a `Checkbox.Input` and a `Checkbox.Label`.   |
+| `size`            | `'small' \| 'medium' \| 'large'`    | `'medium'` | Scales the box, font size, and spacing.                        |
+| `checked`         | `boolean`                           | —          | Controlled checked state. Pair with `onCheckedChange`.         |
+| `defaultChecked`  | `boolean`                           | `false`    | Initial checked state when uncontrolled.                       |
+| `onCheckedChange` | `(checked: boolean) => void`        | —          | Called with the next checked value on toggle.                  |
+| `indeterminate`   | `boolean`                           | `false`    | Renders the mixed mark and sets `aria-checked="mixed"`.        |
+| `disabled`        | `boolean`                           | —          | Disables the input and dims the label.                         |
+| `className`       | `string`                            | —          | Appended to the container class.                               |
+| `style`           | `CSSProperties`                     | —          | Applied to the container `<div>`.                              |
+
+Also accepts most of `ComponentProps<'input'>` (`id`, `name`, `value`, `required`, `onChange`, …);
+they flow through context onto the rendered `<input>`. When no `id` is given, `Root` generates one.
+
+### `Checkbox.Input`
+
+Renders `<input type="checkbox">` and forwards its `ref`. Reads `checked`, `disabled`, `size`, and
+`indeterminate` from `Root`, so those are **not** set here.
+
+| Prop        | Type                             | Default | Description                                              |
+| ----------- | -------------------------------- | ------- | -------------------------------------------------------- |
+| `onChange`  | `ChangeEventHandler<'input'>`    | —       | Called alongside `Root`'s handlers when the box toggles. |
+| `name`      | `string`                         | —       | Overrides the `name` inherited from `Root`.              |
+| `value`     | `string`                         | `'on'`  | Form value submitted when checked.                       |
+| `className` | `string`                         | —       | Appended to the input class.                             |
+
+Accepts the rest of `ComponentProps<'input'>` except `size`, `checked`, and `id`, which come from
+`Root`.
+
+### `Checkbox.Label`
+
+Renders a `<label>` and forwards its `ref`. Its `htmlFor` is set to the `id` from `Root`, so clicking
+it toggles the input.
+
+| Prop        | Type        | Default | Description                        |
+| ----------- | ----------- | ------- | ---------------------------------- |
+| `children`  | `ReactNode` | —       | Required. Label text.              |
+| `className` | `string`    | —       | Appended to the label class.       |
+
+Also accepts `ComponentProps<'label'>`.
+
+## Accessibility
+
+- `Root` generates a stable `id` (via `useId`) and shares it, so `Label`'s `htmlFor` matches
+  `Input`'s `id`. The label is announced by screen readers and toggles the box on click.
+- `indeterminate` sets `aria-checked="mixed"` on the input.
+- `disabled` sets the native `disabled` attribute on the input.
+
+## Known limitations
+
+`indeterminate` only sets `aria-checked="mixed"` and the mixed visual — it does **not** set the
+native `HTMLInputElement.indeterminate` DOM property, so `:indeterminate` CSS and native form
+semantics do not apply.

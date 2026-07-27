@@ -7,17 +7,70 @@ import { clsx as cx } from 'clsx';
 import type { FlexAlign, FlexDirection, FlexJustify, FlexWrap } from './constants';
 import * as styles from './Flex.css';
 
+export type FlexBreakpoint = 'sm' | 'md' | 'lg';
+export type ResponsiveValue<T> = T | Partial<Record<FlexBreakpoint, T>>;
+type ResponsiveStyleVariants<T extends string> = Record<FlexBreakpoint, Record<T, string>>;
+type FlexStyle = CSSProperties & {
+  '--side-flex-gap-sm'?: CSSProperties['gap'];
+  '--side-flex-gap-md'?: CSSProperties['gap'];
+  '--side-flex-gap-lg'?: CSSProperties['gap'];
+};
+
 export interface FlexProps extends ComponentProps<'div'> {
-  direction?: FlexDirection;
-  align?: FlexAlign;
-  justify?: FlexJustify;
-  wrap?: FlexWrap;
+  direction?: ResponsiveValue<FlexDirection>;
+  align?: ResponsiveValue<FlexAlign>;
+  justify?: ResponsiveValue<FlexJustify>;
+  wrap?: ResponsiveValue<FlexWrap>;
   basis?: CSSProperties['flexBasis'];
   grow?: CSSProperties['flexGrow'];
   shrink?: CSSProperties['flexShrink'];
   inline?: boolean;
-  gap?: CSSProperties['gap'];
+  gap?: ResponsiveValue<CSSProperties['gap']>;
   asChild?: boolean;
+}
+
+const breakpoints: FlexBreakpoint[] = ['sm', 'md', 'lg'];
+
+function isResponsiveValue<T>(value: ResponsiveValue<T> | undefined): value is Partial<Record<FlexBreakpoint, T>> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function getResponsiveClassNames<T extends string>(
+  value: ResponsiveValue<T> | undefined,
+  defaultValue: T,
+  variants: ResponsiveStyleVariants<T>,
+) {
+  if (!isResponsiveValue(value)) {
+    return variants.sm[value ?? defaultValue];
+  }
+
+  return breakpoints.map((breakpoint) => {
+    const breakpointValue = breakpoint === 'sm' ? (value.sm ?? defaultValue) : value[breakpoint];
+
+    return breakpointValue ? variants[breakpoint][breakpointValue] : undefined;
+  });
+}
+
+function getResponsiveGapStyle(gap: FlexProps['gap']) {
+  if (!isResponsiveValue(gap)) {
+    return {
+      className: undefined,
+      style: { gap },
+    };
+  }
+
+  const sm = gap.sm ?? 'normal';
+  const md = gap.md ?? sm;
+  const lg = gap.lg ?? md;
+
+  return {
+    className: styles.responsiveGap,
+    style: {
+      '--side-flex-gap-sm': sm,
+      '--side-flex-gap-md': md,
+      '--side-flex-gap-lg': lg,
+    } satisfies FlexStyle,
+  };
 }
 
 export const Flex = forwardRef(function Flex(
@@ -40,13 +93,15 @@ export const Flex = forwardRef(function Flex(
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   const Component = asChild ? Slot : 'div';
+  const responsiveGap = getResponsiveGapStyle(gap);
 
   const classNames = cx(
     styles.base,
-    styles.direction[direction],
-    styles.align[align],
-    styles.justify[justify],
-    styles.wrap[wrap],
+    getResponsiveClassNames(direction, 'row', styles.direction),
+    getResponsiveClassNames(align, 'normal', styles.align),
+    getResponsiveClassNames(justify, 'normal', styles.justify),
+    getResponsiveClassNames(wrap, 'nowrap', styles.wrap),
+    responsiveGap.className,
     inline ? styles.display['inline-flex'] : styles.display.flex,
     className,
   );
@@ -55,7 +110,7 @@ export const Flex = forwardRef(function Flex(
     flexBasis: basis,
     flexGrow: grow,
     flexShrink: shrink,
-    gap,
+    ...responsiveGap.style,
     ...style,
   };
 

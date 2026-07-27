@@ -51,7 +51,7 @@
           "default": "./dist/index.cjs"
         }
       },
-      "./reset.css": "./dist/reset.css"
+      "./reset.css": "./dist/index.css"
     }
   },
   "sideEffects": [

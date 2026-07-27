@@ -10,6 +10,14 @@ export const root = style({
   overflow: 'hidden',
 });
 
+// Declared before `size` so that when `asChild` merges both onto one <img>, the later `size`
+// rule wins the width/height tie and the avatar keeps its dimensions instead of filling its parent.
+export const image = style({
+  height: '100%',
+  objectFit: 'cover',
+  width: '100%',
+});
+
 export const size = styleVariants({
   [AvatarSize.xs]: {
     height: 24,
@@ -43,12 +51,6 @@ export const shape = styleVariants({
   [AvatarShape.square]: {
     borderRadius: 0,
   },
-});
-
-export const image = style({
-  height: '100%',
-  objectFit: 'cover',
-  width: '100%',
 });
 
 export const fallback = style({

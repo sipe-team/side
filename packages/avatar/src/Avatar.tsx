@@ -44,7 +44,12 @@ export const Avatar = forwardRef(function Avatar(
           src={src}
           alt={alt}
           onError={(e) => {
-            if (fallback) e.currentTarget.src = fallback;
+            if (fallback) {
+              // Clear the handler before swapping so a failing fallback can't re-trigger onError
+              // and reassign the same broken URL in an endless loop.
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = fallback;
+            }
           }}
           className={styles.image}
         />

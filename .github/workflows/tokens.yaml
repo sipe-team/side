@@ -41,7 +41,7 @@ jobs:
         continue-on-error: true
         run: |
           git checkout origin/${{ github.base_ref }} -- tokens
-          pnpm --filter @sipe-team/tokens build:tokens
+          pnpm --filter @sipe-team/tokens build
           mkdir -p /tmp/base-css
           cp packages/tokens/dist/css/*.css /tmp/base-css/
 
@@ -50,7 +50,7 @@ jobs:
         run: git checkout ${{ github.event.pull_request.head.sha }} -- tokens
 
       - name: Build tokens
-        run: pnpm --filter @sipe-team/tokens build:tokens
+        run: pnpm --filter @sipe-team/tokens build
 
       - name: Typecheck
         run: pnpm --filter @sipe-team/tokens typecheck
