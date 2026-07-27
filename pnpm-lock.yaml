@@ -1254,6 +1254,9 @@ importers:
       '@sipe-team/checkbox':
         specifier: workspace:*
         version: link:../packages/checkbox
+      '@sipe-team/chip':
+        specifier: workspace:*
+        version: link:../packages/chip
       '@sipe-team/divider':
         specifier: workspace:*
         version: link:../packages/divider
