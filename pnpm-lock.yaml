@@ -1199,6 +1199,9 @@ importers:
       '@sipe-team/checkbox':
         specifier: workspace:*
         version: link:../packages/checkbox
+      '@sipe-team/divider':
+        specifier: workspace:*
+        version: link:../packages/divider
       '@sipe-team/icon':
         specifier: workspace:*
         version: link:../packages/icon

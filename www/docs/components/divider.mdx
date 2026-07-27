@@ -1,0 +1,103 @@
+---
+sidebar_label: Divider
+---
+
+import { Divider } from '@sipe-team/divider';
+
+# Divider
+
+A thin rule that separates content, horizontally or vertically.
+
+## Installation
+
+```sh
+npm install @sipe-team/divider
+```
+
+```ts
+import '@sipe-team/divider/styles.css';
+```
+
+## Usage
+
+A horizontal divider fills the width of its container.
+
+<Preview
+  code={`<Divider />`}
+>
+  <div style={{ width: '100%' }}>
+    <Divider />
+  </div>
+</Preview>
+
+## Examples
+
+### Orientation
+
+`horizontal` (default) is a full-width line; `vertical` is a full-height line, so place it inside a
+container that has a height (for example, a flex row).
+
+<Preview
+  code={`<div style={{ height: 40, display: 'flex', alignItems: 'center' }}>
+  <span>Left</span>
+  <Divider orientation="vertical" style={{ margin: '0 16px' }} />
+  <span>Right</span>
+</div>`}
+>
+  <div style={{ height: 40, display: 'flex', alignItems: 'center' }}>
+    <span>Left</span>
+    <Divider orientation="vertical" style={{ margin: '0 16px' }} />
+    <span>Right</span>
+  </div>
+</Preview>
+
+### Color
+
+`default` is a subtle gray; `primary` uses the brand cyan; `dark` is a strong near-black.
+
+Because `dark` is near-black, it is intended for light surfaces — on a dark background it blends
+in. The panel below is kept light so all three colors stay visible regardless of the page theme.
+
+<Preview
+  code={`<Divider color="default" />
+<Divider color="primary" />
+<Divider color="dark" />`}
+>
+  <div
+    style={{
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '1rem',
+      background: '#fff',
+      padding: '1.5rem',
+      borderRadius: '8px',
+    }}
+  >
+    <Divider color="default" />
+    <Divider color="primary" />
+    <Divider color="dark" />
+  </div>
+</Preview>
+
+## Anatomy
+
+```tsx
+import { Divider } from '@sipe-team/divider';
+
+export default () => <Divider orientation="horizontal" color="default" />;
+```
+
+Renders a single `<hr>` with `aria-orientation` set to match `orientation`.
+
+## API Reference
+
+Renders an `<hr>` and forwards its `ref`.
+
+| Prop          | Type                          | Default        | Description                                                      |
+| ------------- | ----------------------------- | -------------- | ---------------------------------------------------------------- |
+| `orientation` | `'horizontal' \| 'vertical'`  | `'horizontal'` | Line direction. `horizontal` is full-width; `vertical` is full-height. |
+| `color`       | `'default' \| 'primary' \| 'dark'` | `'default'` | Line color.                                                      |
+
+Also accepts every `ComponentProps<'hr'>` (`className`, `style`, …), forwarded to the `<hr>`.
+Override `style` for custom thickness, dashes, or color.
