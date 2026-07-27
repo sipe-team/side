@@ -1,0 +1,89 @@
+---
+sidebar_label: Badge
+---
+
+import { Badge } from '@sipe-team/badge';
+
+# Badge
+
+A small inline label for statuses, counts, or short pieces of metadata.
+
+## Installation
+
+```sh
+npm install @sipe-team/badge
+```
+
+```ts
+import '@sipe-team/badge/styles.css';
+```
+
+## Usage
+
+Wrap the text you want to label. The badge sizes itself to its content.
+
+<Preview
+  code={`<Badge>사이프</Badge>`}
+>
+  <Badge>사이프</Badge>
+</Preview>
+
+## Examples
+
+### Variant
+
+`filled` (default) is the solid emphasis look; `outline` keeps only a border for a lighter touch;
+`weak` uses a muted neutral background.
+
+<Preview
+  code={`<Badge variant="filled">filled</Badge>
+<Badge variant="outline">outline</Badge>
+<Badge variant="weak">weak</Badge>`}
+>
+  <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+    <Badge variant="filled">filled</Badge>
+    <Badge variant="outline">outline</Badge>
+    <Badge variant="weak">weak</Badge>
+  </div>
+</Preview>
+
+### Size
+
+`medium` (default) suits most inline uses; step up to `large` for emphasis, down to `small` for
+dense layouts. The text size scales with the badge (12 / 14 / 18 px).
+
+<Preview
+  code={`<Badge size="small">small</Badge>
+<Badge size="medium">medium</Badge>
+<Badge size="large">large</Badge>`}
+>
+  <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+    <Badge size="small">small</Badge>
+    <Badge size="medium">medium</Badge>
+    <Badge size="large">large</Badge>
+  </div>
+</Preview>
+
+## Anatomy
+
+```tsx
+import { Badge } from '@sipe-team/badge';
+
+export default () => <Badge size="medium" variant="filled">New</Badge>;
+```
+
+Renders a `<div role="status">` wrapping the `children` in a `Typography` `<span>`.
+
+## API Reference
+
+Renders a `<div>` and forwards its `ref`.
+
+| Prop       | Type                                  | Default    | Description                          |
+| ---------- | ------------------------------------- | ---------- | ------------------------------------ |
+| `children` | `ReactNode`                           | —          | The badge's content, rendered as text. |
+| `size`     | `'small' \| 'medium' \| 'large'`      | `'medium'` | Padding and text size.               |
+| `variant`  | `'filled' \| 'outline' \| 'weak'`     | `'filled'` | Visual emphasis.                     |
+
+Also accepts every `ComponentProps<'div'>` (`className`, `onClick`, …), forwarded to the rendered
+`<div>`. The `<div>` carries `role="status"`, so screen readers announce its content as a live
+status message.
