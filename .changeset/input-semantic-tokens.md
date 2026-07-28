@@ -1,5 +1,5 @@
 ---
-"@sipe-team/input": patch
+"@sipe-team/input": minor
 ---
 
 Apply semantic design tokens and field API updates to Input
