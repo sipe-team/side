@@ -1,0 +1,203 @@
+---
+sidebar_label: Skeleton
+---
+
+import { useState } from 'react';
+import { Skeleton } from '@sipe-team/skeleton';
+
+export const ToggleSkeleton = () => {
+  const [loading, setLoading] = useState(true);
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'flex-start' }}>
+      <button type="button" onClick={() => setLoading((value) => !value)}>
+        {loading ? 'Show content' : 'Show loading'}
+      </button>
+      <Skeleton loading={loading} variant="rounded" width={240} height={80}>
+        <div
+          style={{
+            width: 240,
+            height: 80,
+            borderRadius: 8,
+            background: '#3B82F6',
+            color: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          Loaded content
+        </div>
+      </Skeleton>
+    </div>
+  );
+};
+
+# Skeleton
+
+A loading placeholder that swaps between a pulsing/shimmering shape and its `children`, based on a
+`loading` flag.
+
+## Installation
+
+```sh
+npm install @sipe-team/skeleton
+```
+
+```ts
+import '@sipe-team/skeleton/styles.css';
+```
+
+## Usage
+
+`Skeleton` needs an explicit `loading` value plus a `width`/`height` — without them, the placeholder
+(`rectangular` by default) has no intrinsic size and renders as an empty box.
+
+<Preview
+  code={`<Skeleton loading width={200} height={100} />`}
+>
+  <Skeleton loading width={200} height={100} />
+</Preview>
+
+## Examples
+
+### Loading vs. loaded
+
+While `loading` is `true`, `children` are not rendered — only the placeholder shape is shown. Once
+`loading` is `false`, `Skeleton` renders `children` in its place.
+
+<Preview
+  code={`const [loading, setLoading] = useState(true);
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'flex-start' }}>
+  <button type="button" onClick={() => setLoading((value) => !value)}>
+    {loading ? 'Show content' : 'Show loading'}
+  </button>
+  <Skeleton loading={loading} variant="rounded" width={240} height={80}>
+    <div style={{ width: 240, height: 80, borderRadius: 8, background: '#3B82F6', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      Loaded content
+    </div>
+  </Skeleton>
+</div>`}
+>
+  <ToggleSkeleton />
+</Preview>
+
+### Variants
+
+`rectangular` (default), `circle`, `text`, and `rounded` control the placeholder's border radius —
+`circle` also forces a 1:1 aspect ratio, and `text` defaults its height to `1em` when no `height` is
+given.
+
+<Preview
+  code={`<Skeleton loading variant="rectangular" width={140} height={80} />
+<Skeleton loading variant="rounded" width={140} height={80} />
+<Skeleton loading variant="circle" width={80} height={80} />
+<Skeleton loading variant="text" width={140} />`}
+>
+  <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+    <Skeleton loading variant="rectangular" width={140} height={80} />
+    <Skeleton loading variant="rounded" width={140} height={80} />
+    <Skeleton loading variant="circle" width={80} height={80} />
+    <Skeleton loading variant="text" width={140} />
+  </div>
+</Preview>
+
+### Multiple text lines
+
+`lines` (only meaningful with `variant="text"`) renders that many stacked line placeholders instead
+of one; the last line is narrower (75% width) to read like a paragraph's ragged end.
+
+<Preview
+  code={`<Skeleton loading variant="text" lines={3} width={240} />`}
+>
+  <Skeleton loading variant="text" lines={3} width={240} />
+</Preview>
+
+### Pulse and shimmer
+
+`pulse` (default `true`) fades the placeholder in and out. `shimmer` (default `false`) adds a
+lighter sweep across it; the two can be combined.
+
+<Preview
+  code={`<Skeleton loading pulse={false} width={140} height={80} />
+<Skeleton loading shimmer width={140} height={80} />
+<Skeleton loading shimmer pulse={false} width={140} height={80} />`}
+>
+  <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+    <Skeleton loading pulse={false} width={140} height={80} />
+    <Skeleton loading shimmer width={140} height={80} />
+    <Skeleton loading shimmer pulse={false} width={140} height={80} />
+  </div>
+</Preview>
+
+### `asChild`
+
+Merges the placeholder styling onto the element you provide instead of wrapping it in a `div`, and —
+unlike the default mode — renders `children` while `loading` is `true`. Use it to keep a real
+element's exact box shaped correctly under the shimmer.
+
+<Preview
+  code={`<Skeleton asChild loading variant="rounded">
+  <div style={{ width: 200, height: 100, borderRadius: 8 }} />
+</Skeleton>`}
+>
+  <Skeleton asChild loading variant="rounded">
+    <div style={{ width: 200, height: 100, borderRadius: 8 }} />
+  </Skeleton>
+</Preview>
+
+## Anatomy
+
+```tsx
+import { Skeleton } from '@sipe-team/skeleton';
+
+export default () => (
+  <Skeleton loading={isLoading} variant="rounded" width={200} height={100}>
+    <RealContent />
+  </Skeleton>
+);
+```
+
+When `loading` is `true` (and it is not the multi-line `text` case below), renders a single `<div>`
+(or the child element when `asChild` is set). When `loading` is `false`, renders `children` directly
+with no wrapper at all. When `variant="text"` and `lines > 1`, always renders a wrapping `<div>` of
+`lines` individual line placeholders, ignoring `asChild`.
+
+## API Reference
+
+Forwards its `ref` to the rendered placeholder element — except when `loading` is `false`, where
+`children` is returned as-is and there is no ref target.
+
+| Prop       | Type                                                | Default         | Description                                                                                    |
+| ---------- | ----------------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------------- |
+| `loading`  | `boolean`                                             | — (required)    | Shows the placeholder when `true`; renders `children` as-is when `false`.                          |
+| `children` | `ReactNode`                                           | —               | Content to render once `loading` is `false` (and, with `asChild`, while loading too).              |
+| `variant`  | `'rectangular' \| 'circle' \| 'text' \| 'rounded'`    | `'rectangular'` | Placeholder shape.                                                                                  |
+| `width`    | `number \| string`                                    | —               | Placeholder width. Numbers are treated as pixels.                                                   |
+| `height`   | `number \| string`                                    | —               | Placeholder height. Numbers are treated as pixels. Defaults to `1em` when `variant="text"`.         |
+| `lines`    | `number`                                              | `1`             | Number of stacked line placeholders, used when `variant="text"` and `lines > 1`.                    |
+| `pulse`    | `boolean`                                             | `true`          | Fade in/out animation.                                                                               |
+| `shimmer`  | `boolean`                                             | `false`         | Adds a lighter sweep animation, layered with `pulse`.                                               |
+| `asChild`  | `boolean`                                             | `false`         | Merge placeholder styling onto the child instead of rendering a `div`. Ignored when `variant="text"` and `lines > 1`. |
+
+Also accepts every `ComponentProps<'div'>` (`className`, `style`, `onClick`, …), forwarded to the
+rendered element.
+
+## Accessibility
+
+- The single-placeholder render path (everything except multi-line `text`) sets `aria-busy="true"`
+  and, unless a custom `aria-label` is passed, a default `aria-label="Loading content"` while
+  `loading` is `true`.
+- The multi-line `text` case (`variant="text"` with `lines > 1`) does **not** set `aria-busy` or a
+  default `aria-label` on its wrapper — pass an explicit `aria-label` if it needs to be announced.
+
+## Known limitations
+
+- Without an explicit `width`/`height` (or, for `text`, at least a `width`), the `rectangular`,
+  `circle`, and `rounded` variants have no intrinsic size and render as an empty box unless their
+  parent constrains it.
+- When `loading` is `false`, `Skeleton` returns `children` directly — `className`, `style`,
+  `asChild`, and `ref` are all dropped in that render. `Skeleton` cannot be used as a stable wrapper
+  element across the loading/loaded transition.
+- `asChild` is ignored when `variant="text"` and `lines > 1`; that case always renders a plain
+  `<div>` of line placeholders regardless of `asChild`.
