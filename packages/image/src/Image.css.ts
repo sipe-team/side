@@ -17,12 +17,12 @@ export const fit = styleVariants({
 });
 
 export const radius = styleVariants({
-  none: { borderRadius: vars.radius.none },
-  sm: { borderRadius: vars.radius.sm },
-  md: { borderRadius: vars.radius.md },
-  lg: { borderRadius: vars.radius.lg },
-  xl: { borderRadius: vars.radius.xl },
-  full: { borderRadius: vars.radius.full },
+  none: { borderRadius: 0 },
+  sm: { borderRadius: vars.radius.component.sm },
+  md: { borderRadius: vars.radius.component.md },
+  lg: { borderRadius: vars.radius.component.lg },
+  xl: { borderRadius: vars.radius.component.xl },
+  full: { borderRadius: vars.radius.component.full },
 });
 
 export const fill = style({
