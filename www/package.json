@@ -33,6 +33,7 @@
     "@sipe-team/radio": "workspace:*",
     "@sipe-team/switch": "workspace:*",
     "@sipe-team/tokens": "workspace:*",
+    "@sipe-team/tooltip": "workspace:*",
     "@sipe-team/typography": "workspace:*",
     "clsx": "^2.0.0",
     "pretendard": "^1.3.9",
