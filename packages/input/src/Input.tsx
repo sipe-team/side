@@ -37,7 +37,7 @@ const Input = forwardRef<InputFieldElement, InputProps>((props, forwardedRef) =>
     name,
     ...inputProps
   } = props;
-  const hasAction = Children.count(children) > 0;
+  const hasAction = Children.toArray(children).length > 0;
 
   return (
     <span role="presentation" className={cx(inputWrapper, className)}>

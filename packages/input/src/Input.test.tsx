@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, test } from 'vitest';
 
 import { Action, Input } from './Input';
-import { defaultFontSize } from './Input.css';
+import { defaultFontSize, inputFieldWithAction } from './Input.css';
 
 function ruleForClass(className: string): string {
   const target = `.${className}`;
@@ -128,6 +128,20 @@ describe('Input 컴포넌트', () => {
         </Input>,
       );
       expect(screen.getByRole('button')).toBeInTheDocument();
+    });
+
+    test('Action이 있으면 trailing padding 클래스가 적용된다', () => {
+      render(
+        <Input>
+          <Action>버튼</Action>
+        </Input>,
+      );
+      expect(screen.getByRole('textbox')).toHaveClass(inputFieldWithAction);
+    });
+
+    test('falsy children이면 trailing padding 클래스가 적용되지 않는다', () => {
+      render(<Input>{false}</Input>);
+      expect(screen.getByRole('textbox')).not.toHaveClass(inputFieldWithAction);
     });
 
     test('Action 버튼에 커스텀 클래스가 적용된다', () => {
