@@ -5,8 +5,10 @@ import {
   type ForwardedRef,
   forwardRef,
   type ReactNode,
+  useEffect,
   useId,
   useImperativeHandle,
+  useState,
 } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -93,10 +95,13 @@ export const Tooltip = forwardRef(function Tooltip(
 
   useImperativeHandle(ref, () => wrapperRef.current as HTMLElement);
 
-  if (!tooltipContent) {
-    return <>{children}</>;
-  }
+  // document.body doesn't exist during SSR, so defer the portal until after mount.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
+  const hasContent = Boolean(tooltipContent);
   const Component = asChild ? Slot : 'div';
 
   return (
@@ -104,7 +109,7 @@ export const Tooltip = forwardRef(function Tooltip(
       <Component
         {...rest}
         ref={wrapperRef}
-        aria-describedby={isVisible ? tooltipId : undefined}
+        aria-describedby={hasContent && isVisible ? tooltipId : undefined}
         className={clsx(asChild ? undefined : styles.button, className)}
         onMouseEnter={composeHandlers(onMouseEnter, triggerHandlers.onMouseEnter)}
         onMouseLeave={composeHandlers(onMouseLeave, triggerHandlers.onMouseLeave)}
@@ -115,7 +120,9 @@ export const Tooltip = forwardRef(function Tooltip(
       >
         {children}
       </Component>
-      {isVisible &&
+      {hasContent &&
+        mounted &&
+        isVisible &&
         createPortal(
           <div
             id={tooltipId}
