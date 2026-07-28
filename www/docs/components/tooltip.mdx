@@ -249,8 +249,11 @@ the trigger element.
 ## Known limitations
 
 - The tooltip is rendered via `createPortal` into `document.body`, so it escapes any container's
-  `overflow`/`z-index`, but it also means nothing renders until the component mounts on the client.
-- If `tooltipContent` is falsy (`null`, `undefined`, `false`, `''`), `Tooltip` renders only
-  `children` — no wrapper element, no `aria-describedby`, no tooltip markup, even while hovered.
+  `overflow`/`z-index`. The portal is deferred until after the component mounts on the client, so it
+  never renders during SSR.
+- If `tooltipContent` is falsy (`null`, `undefined`, `false`, `''`), `Tooltip` renders only the
+  trigger — no `aria-describedby`, no tooltip markup, even while hovered. The trigger's `ref` and
+  event handlers are still attached as usual.
 - Position is recalculated on scroll and resize (via `requestAnimationFrame`) only while the tooltip
-  is visible; it does not observe unrelated layout shifts.
+  is visible; it does not observe unrelated layout shifts (for example, a sibling element resizing
+  and pushing the trigger to a new position).
