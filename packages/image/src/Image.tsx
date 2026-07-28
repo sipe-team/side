@@ -49,7 +49,7 @@ export const Image = forwardRef(function Image(
     loading = 'lazy',
     onLoad,
     onError,
-    className: _className,
+    className,
     style,
     ...props
   }: ImageProps,
@@ -88,7 +88,7 @@ export const Image = forwardRef(function Image(
           fill && styles.fill,
           useSized && styles.sized,
           isHidden && styles.hidden,
-          _className,
+          className,
         )}
         src={imgSrc}
         alt={alt}

@@ -74,6 +74,49 @@ describe('Image', () => {
     expect(img).toHaveAttribute('src', 'https://dummyimage.com/400x300/e5e7eb/111827&text=FALLBACK');
   });
 
+  it('moves to error state and hides image when both src and fallbackSrc fail', () => {
+    render(<Image src="이미지없음" fallbackSrc="이것도없음" alt="무한실패" />);
+
+    const img = screen.getByRole('img', { name: '무한실패' });
+    fireEvent.error(img);
+
+    expect(img).toHaveAttribute('src', '이것도없음');
+
+    fireEvent.error(img);
+
+    expect(img).toHaveAttribute('src', '이것도없음');
+    expect(img).toHaveStyle({ visibility: 'hidden' });
+  });
+
+  it('does not retry fallback after fallbackSrc fails once', () => {
+    const onError = vi.fn();
+    render(
+      <Image
+        src="https://invalid-url.com/broken.jpg"
+        fallbackSrc="https://invalid-url.com/broken-fallback.jpg"
+        alt="no infinite fallback"
+        onError={onError}
+      />,
+    );
+
+    const img = screen.getByRole('img', { name: 'no infinite fallback' });
+    fireEvent.error(img);
+
+    expect(img).toHaveAttribute('src', 'https://invalid-url.com/broken-fallback.jpg');
+    expect(onError).toHaveBeenCalledTimes(1);
+
+    fireEvent.error(img);
+
+    expect(img).toHaveAttribute('src', 'https://invalid-url.com/broken-fallback.jpg');
+    expect(onError).toHaveBeenCalledTimes(2);
+    expect(img).toHaveStyle({ visibility: 'hidden' });
+
+    fireEvent.error(img);
+
+    expect(img).toHaveAttribute('src', 'https://invalid-url.com/broken-fallback.jpg');
+    expect(onError).toHaveBeenCalledTimes(3);
+  });
+
   it('moves to error state and hides image when fallback is unavailable', () => {
     render(<Image src="https://invalid-url.com/broken.jpg" alt="error test" width={400} height={300} />);
 

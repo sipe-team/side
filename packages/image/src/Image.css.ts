@@ -1,4 +1,4 @@
-import { radius as radiusToken } from '@sipe-team/tokens';
+import { vars } from '@sipe-team/tokens';
 
 import { createVar, fallbackVar, style, styleVariants } from '@vanilla-extract/css';
 
@@ -17,12 +17,12 @@ export const fit = styleVariants({
 });
 
 export const radius = styleVariants({
-  none: { borderRadius: radiusToken.none },
-  sm: { borderRadius: radiusToken.sm },
-  md: { borderRadius: radiusToken.md },
-  lg: { borderRadius: radiusToken.lg },
-  xl: { borderRadius: radiusToken.xl },
-  full: { borderRadius: radiusToken.full },
+  none: { borderRadius: vars.radius.none },
+  sm: { borderRadius: vars.radius.sm },
+  md: { borderRadius: vars.radius.md },
+  lg: { borderRadius: vars.radius.lg },
+  xl: { borderRadius: vars.radius.xl },
+  full: { borderRadius: vars.radius.full },
 });
 
 export const fill = style({
