@@ -8,12 +8,13 @@ import type { InputFontSize, InputValidation } from './Input';
 export const defaultFontSize: InputFontSize = 16;
 export const defaultValidation: InputValidation = 'default';
 
-/** Positioning context only — no chrome, so clicks can't land in a dead gap. */
 export const inputWrapper = style({
   position: 'relative',
   display: 'block',
   flex: 1,
   minWidth: 0,
+  cursor: 'default',
+  userSelect: 'none',
 });
 
 export const inputField = recipe({
@@ -35,6 +36,7 @@ export const inputField = recipe({
     paddingBlock: vars.spacing.component.sm,
     paddingInline: vars.spacing.component.md,
     outline: 'none',
+    cursor: 'text',
 
     selectors: {
       '&::-webkit-search-cancel-button': {
