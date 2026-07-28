@@ -46,11 +46,6 @@ export const inputField = recipe({
       '&:hover:not(:disabled):not(:focus):not(:read-only)': {
         borderColor: vars.color.border.strong,
       },
-      '&:focus': {
-        borderColor: vars.color.border.focus,
-        outline: `2px solid ${vars.color.border.focus}`,
-        outlineOffset: '-1px',
-      },
       '&:read-only:not(:disabled)': {
         backgroundColor: vars.color.background.muted,
         borderColor: vars.color.border.default,
@@ -83,7 +78,17 @@ export const inputField = recipe({
       48: { fontSize: vars.typography.fontSize['900'] },
     },
     validation: {
-      default: {},
+      default: {
+        selectors: {
+          '&:focus': {
+            borderColor: vars.color.border.focus,
+            outlineWidth: '2px',
+            outlineStyle: 'solid',
+            outlineColor: vars.color.border.focus,
+            outlineOffset: '-1px',
+          },
+        },
+      },
       error: {
         borderColor: vars.color.status.danger.border,
         selectors: {

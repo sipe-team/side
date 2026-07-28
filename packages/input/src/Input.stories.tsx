@@ -9,7 +9,7 @@ import { Action, Input } from './Input';
 const DarkSurface = ({ children }: { children: ReactNode }) => (
   <div
     style={{
-      backgroundColor: vars.color.background.base,
+      backgroundColor: vars.color.background.subtle,
       padding: 24,
       minWidth: 320,
       borderRadius: vars.radius.component.lg,
