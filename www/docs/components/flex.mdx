@@ -1,0 +1,273 @@
+---
+sidebar_label: Flex
+---
+
+import { Flex } from '@sipe-team/flex';
+
+{/* Flex's layout demos need visible blocks to show alignment/spacing; this placeholder box is
+    presentational only and is intentionally left out of the `code` strings below. */}
+export const Box = ({ children, style }) => (
+  <div
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minWidth: '4rem',
+      minHeight: '4rem',
+      borderRadius: '8px',
+      border: '1px dashed currentColor',
+      background: 'rgba(128, 128, 128, 0.15)',
+      boxSizing: 'border-box',
+      padding: '0.5rem',
+      ...style,
+    }}
+  >
+    {children}
+  </div>
+);
+
+# Flex
+
+A `<div>` (or polymorphic element) that lays out its children with CSS flexbox, with per-breakpoint
+responsive values for `direction`, `align`, `justify`, `wrap`, and `gap`.
+
+## Installation
+
+```sh
+npm install @sipe-team/flex
+```
+
+```ts
+import '@sipe-team/flex/styles.css';
+```
+
+## Usage
+
+Flex defaults to `direction="row"` with `nowrap`. Give it a `gap` to space children out.
+
+<Preview
+  code={`<Flex gap="1rem">
+  <Box>1</Box>
+  <Box>2</Box>
+  <Box>3</Box>
+</Flex>`}
+>
+  <Flex gap="1rem">
+    <Box>1</Box>
+    <Box>2</Box>
+    <Box>3</Box>
+  </Flex>
+</Preview>
+
+## Examples
+
+### Direction
+
+`row` (default), `column`, `row-reverse`, `column-reverse` — maps to `flex-direction`.
+
+<Preview
+  code={`<Flex direction="row" gap="0.75rem"><Box>1</Box><Box>2</Box><Box>3</Box></Flex>
+<Flex direction="column" gap="0.75rem"><Box>1</Box><Box>2</Box><Box>3</Box></Flex>
+<Flex direction="row-reverse" gap="0.75rem"><Box>1</Box><Box>2</Box><Box>3</Box></Flex>`}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <Flex direction="row" gap="0.75rem"><Box>1</Box><Box>2</Box><Box>3</Box></Flex>
+    <Flex direction="column" gap="0.75rem"><Box>1</Box><Box>2</Box><Box>3</Box></Flex>
+    <Flex direction="row-reverse" gap="0.75rem"><Box>1</Box><Box>2</Box><Box>3</Box></Flex>
+  </div>
+</Preview>
+
+### Align
+
+`align` maps to `align-items`. Items below have different heights to make the effect visible.
+
+<Preview
+  code={`<Flex align="center" gap="0.75rem">
+  <Box style={{ height: '3rem' }}>A</Box>
+  <Box style={{ height: '5rem' }}>B</Box>
+  <Box style={{ height: '7rem' }}>C</Box>
+</Flex>`}
+>
+  <Flex align="center" gap="0.75rem">
+    <Box style={{ height: '3rem' }}>A</Box>
+    <Box style={{ height: '5rem' }}>B</Box>
+    <Box style={{ height: '7rem' }}>C</Box>
+  </Flex>
+</Preview>
+
+### Justify
+
+`justify` maps to `justify-content`.
+
+<Preview
+  code={`<Flex justify="space-between" style={{ width: '100%' }}>
+  <Box>1</Box>
+  <Box>2</Box>
+  <Box>3</Box>
+</Flex>`}
+>
+  <Flex justify="space-between" style={{ width: '100%' }}>
+    <Box>1</Box>
+    <Box>2</Box>
+    <Box>3</Box>
+  </Flex>
+</Preview>
+
+### Wrap
+
+`wrap` maps to `flex-wrap`; constrain the container's width to see items wrap onto new lines.
+
+<Preview
+  code={`<Flex wrap="wrap" gap="0.75rem" style={{ maxWidth: '260px' }}>
+  <Box style={{ width: '120px' }}>1</Box>
+  <Box style={{ width: '120px' }}>2</Box>
+  <Box style={{ width: '120px' }}>3</Box>
+</Flex>`}
+>
+  <Flex wrap="wrap" gap="0.75rem" style={{ maxWidth: '260px' }}>
+    <Box style={{ width: '120px' }}>1</Box>
+    <Box style={{ width: '120px' }}>2</Box>
+    <Box style={{ width: '120px' }}>3</Box>
+  </Flex>
+</Preview>
+
+### Item sizing — `basis`, `grow`, `shrink`
+
+`basis`, `grow`, and `shrink` apply to the `Flex` element itself (not to its children) — use them
+when a `Flex` is nested as an item inside a parent flex container.
+
+<Preview
+  code={`<Flex gap="0.75rem" style={{ width: '100%' }}>
+  <Flex grow={0} shrink={0} basis="80px" style={{ padding: '0.5rem', border: '1px dashed currentColor', borderRadius: '8px' }}>fixed 80px</Flex>
+  <Flex grow={1} style={{ padding: '0.5rem', border: '1px dashed currentColor', borderRadius: '8px' }}>grow 1</Flex>
+  <Flex grow={2} style={{ padding: '0.5rem', border: '1px dashed currentColor', borderRadius: '8px' }}>grow 2</Flex>
+</Flex>`}
+>
+  <Flex gap="0.75rem" style={{ width: '100%' }}>
+    <Flex grow={0} shrink={0} basis="80px" style={{ padding: '0.5rem', border: '1px dashed currentColor', borderRadius: '8px' }}>fixed 80px</Flex>
+    <Flex grow={1} style={{ padding: '0.5rem', border: '1px dashed currentColor', borderRadius: '8px' }}>grow 1</Flex>
+    <Flex grow={2} style={{ padding: '0.5rem', border: '1px dashed currentColor', borderRadius: '8px' }}>grow 2</Flex>
+  </Flex>
+</Preview>
+
+### Inline
+
+`inline` switches `display` from `flex` to `inline-flex`, so the container sits inline with
+surrounding text instead of taking a full line.
+
+<Preview
+  code={`<p>
+  Text before
+  <Flex inline gap="0.5rem" style={{ margin: '0 0.5rem' }}>
+    <Box style={{ minWidth: '2rem', minHeight: '2rem' }}>1</Box>
+    <Box style={{ minWidth: '2rem', minHeight: '2rem' }}>2</Box>
+  </Flex>
+  text after
+</p>`}
+>
+  <p>
+    Text before
+    <Flex inline gap="0.5rem" style={{ margin: '0 0.5rem' }}>
+      <Box style={{ minWidth: '2rem', minHeight: '2rem' }}>1</Box>
+      <Box style={{ minWidth: '2rem', minHeight: '2rem' }}>2</Box>
+    </Flex>
+    text after
+  </p>
+</Preview>
+
+### Responsive values
+
+`direction`, `align`, `justify`, `wrap`, and `gap` each accept either a single value or an object
+keyed by breakpoint — `sm` (the default, no media query), `md` (`min-width: 780px`), `lg`
+(`min-width: 1060px`). Each breakpoint falls back to the previous one when omitted, so only the
+values that change need to be set. Resize the browser past 780px/1060px to see this example switch
+from a stacked column to a row.
+
+<Preview
+  code={`<Flex
+  direction={{ sm: 'column', lg: 'row' }}
+  gap={{ sm: '0.5rem', md: '1rem', lg: '2rem' }}
+  style={{ width: '100%' }}
+>
+  <Box>1</Box>
+  <Box>2</Box>
+  <Box>3</Box>
+</Flex>`}
+>
+  <Flex
+    direction={{ sm: 'column', lg: 'row' }}
+    gap={{ sm: '0.5rem', md: '1rem', lg: '2rem' }}
+    style={{ width: '100%' }}
+  >
+    <Box>1</Box>
+    <Box>2</Box>
+    <Box>3</Box>
+  </Flex>
+</Preview>
+
+### `asChild`
+
+Drops the wrapping `<div>` and merges the flex layout onto the element you provide.
+
+<Preview
+  code={`<Flex asChild gap="0.75rem">
+  <nav style={{ padding: '0.5rem' }}>
+    <a href="#flex">Link 1</a>
+    <a href="#flex">Link 2</a>
+  </nav>
+</Flex>`}
+>
+  <Flex asChild gap="0.75rem">
+    <nav style={{ padding: '0.5rem' }}>
+      <a href="#flex">Link 1</a>
+      <a href="#flex">Link 2</a>
+    </nav>
+  </Flex>
+</Preview>
+
+## Anatomy
+
+```tsx
+import { Flex } from '@sipe-team/flex';
+
+export default () => (
+  <Flex direction="row" align="center" justify="space-between" gap="1rem">
+    <div>Item</div>
+    <div>Item</div>
+  </Flex>
+);
+```
+
+Renders a single `<div>` (or the child element when `asChild` is set) and forwards its `ref`.
+
+## API Reference
+
+Renders a `<div>` (or the child element when `asChild` is set) and forwards its `ref` to that
+underlying element.
+
+| Prop        | Type                                                                                                                          | Default    | Description                                                               |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------- | -------------------------------------------------------------------------- |
+| `direction` | `ResponsiveValue<'row' \| 'column' \| 'row-reverse' \| 'column-reverse'>`                                                     | `'row'`    | `flex-direction`.                                                          |
+| `align`     | `ResponsiveValue<'flex-start' \| 'flex-end' \| 'center' \| 'stretch' \| 'baseline' \| 'normal'>`                              | `'normal'` | `align-items`.                                                             |
+| `justify`   | `ResponsiveValue<'flex-start' \| 'flex-end' \| 'center' \| 'space-between' \| 'space-around' \| 'space-evenly' \| 'normal'>`  | `'normal'` | `justify-content`.                                                         |
+| `wrap`      | `ResponsiveValue<'nowrap' \| 'wrap' \| 'wrap-reverse'>`                                                                       | `'nowrap'` | `flex-wrap`.                                                               |
+| `gap`       | `ResponsiveValue<CSSProperties['gap']>`                                                                                       | —          | Gap between items. Accepts any CSS `gap` value or a number (px).          |
+| `basis`     | `CSSProperties['flexBasis']`                                                                                                   | —          | `flex-basis` of the `Flex` element itself, as an item in its own parent.  |
+| `grow`      | `CSSProperties['flexGrow']`                                                                                                    | —          | `flex-grow` of the `Flex` element itself.                                 |
+| `shrink`    | `CSSProperties['flexShrink']`                                                                                                  | —          | `flex-shrink` of the `Flex` element itself.                               |
+| `inline`    | `boolean`                                                                                                                       | `false`    | Uses `inline-flex` instead of `flex`.                                     |
+| `asChild`   | `boolean`                                                                                                                       | `false`    | Merge props onto the child instead of rendering a `div`.                  |
+
+`ResponsiveValue<T>` is `T | Partial<Record<'sm' | 'md' | 'lg', T>>`, exported from
+`@sipe-team/flex` along with `FlexBreakpoint` (`'sm' | 'md' | 'lg'`).
+
+Also accepts every `ComponentProps<'div'>` (`className`, `style`, `onClick`, …), forwarded to the
+rendered element. `style` is merged after the computed layout styles, so it can override them.
+
+## Known limitations
+
+- The `md`/`lg` breakpoints (`780px`/`1060px`) are hardcoded locally rather than sourced from
+  `@sipe-team/tokens` — the token package's layout breakpoints are deprecated, and `Flex` keeps
+  these values in place until replacement tokens ship. They may change in a future version.
+- Only `direction`, `align`, `justify`, `wrap`, and `gap` are responsive. `basis`, `grow`, `shrink`,
+  and `inline` apply the same value at every breakpoint.

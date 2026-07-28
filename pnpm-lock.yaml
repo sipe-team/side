@@ -1260,6 +1260,12 @@ importers:
       '@sipe-team/divider':
         specifier: workspace:*
         version: link:../packages/divider
+      '@sipe-team/flex':
+        specifier: workspace:*
+        version: link:../packages/flex
+      '@sipe-team/grid':
+        specifier: workspace:*
+        version: link:../packages/grid
       '@sipe-team/icon':
         specifier: workspace:*
         version: link:../packages/icon
@@ -1269,6 +1275,9 @@ importers:
       '@sipe-team/radio':
         specifier: workspace:*
         version: link:../packages/radio
+      '@sipe-team/skeleton':
+        specifier: workspace:*
+        version: link:../packages/skeleton
       '@sipe-team/switch':
         specifier: workspace:*
         version: link:../packages/switch
