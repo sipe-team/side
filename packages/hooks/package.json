@@ -1,6 +1,6 @@
 {
-  "name": "@sipe-team/react-id",
-  "description": "Prefixed useId hook for Sipe Design System",
+  "name": "@sipe-team/hooks",
+  "description": "Shared React hooks for Sipe Design System",
   "version": "0.1.0",
   "license": "MIT",
   "repository": {
