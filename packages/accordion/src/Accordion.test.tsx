@@ -224,6 +224,64 @@ describe('Accordion single mode', () => {
   });
 });
 
+describe('Accordion accessibility wiring', () => {
+  test('Trigger and Content are linked via aria-controls/id and aria-labelledby/id', () => {
+    render(
+      <Accordion.Root>
+        <Accordion.Item>
+          <Accordion.Trigger>Test Trigger</Accordion.Trigger>
+          <Accordion.Content>Test Content</Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>,
+    );
+
+    const trigger = screen.getByRole('button');
+    const content = screen.getByText('Test Content').closest('[class*="accordionContentWrapper"]');
+
+    expect(trigger).toHaveAttribute('id');
+    expect(content).toHaveAttribute('id');
+    expect(trigger.getAttribute('aria-controls')).toBe(content?.getAttribute('id'));
+    expect(content?.getAttribute('aria-labelledby')).toBe(trigger.getAttribute('id'));
+  });
+
+  test('Content panel exposes an accessible region name via the Trigger label', () => {
+    render(
+      <Accordion.Root>
+        <Accordion.Item defaultOpen>
+          <Accordion.Trigger>Section Title</Accordion.Trigger>
+          <Accordion.Content>Section Body</Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>,
+    );
+
+    expect(screen.getByRole('region', { name: 'Section Title' })).toBeInTheDocument();
+  });
+
+  test('closed panel is inert so its focusable descendants leave the tab order', () => {
+    render(
+      <Accordion.Root>
+        <Accordion.Item>
+          <Accordion.Trigger>Test Trigger</Accordion.Trigger>
+          <Accordion.Content>
+            <a href="#hidden-link">Hidden link</a>
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>,
+    );
+
+    const trigger = screen.getByRole('button');
+    const wrapper = screen.getByText('Hidden link').closest('[class*="accordionContentWrapper"]') as HTMLElement;
+
+    expect(wrapper.inert).toBe(true);
+
+    fireEvent.click(trigger);
+    expect(wrapper.inert).toBe(false);
+
+    fireEvent.click(trigger);
+    expect(wrapper.inert).toBe(true);
+  });
+});
+
 describe('Accordion structure', () => {
   test('renders children passed to Accordion correctly', () => {
     render(

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { type ComponentProps, type ForwardedRef, forwardRef, useState } from 'react';
+import { type ComponentProps, type ForwardedRef, forwardRef, useId, useState } from 'react';
 
 import { AccordionArrowIcon } from '@sipe-team/icon';
 
@@ -92,7 +92,11 @@ export const AccordionItem = forwardRef(function AccordionItem(
     }
   };
 
-  const contextValue = { isOpen, toggleAccordion };
+  const uid = useId();
+  const triggerId = `${uid}-trigger`;
+  const contentId = `${uid}-content`;
+
+  const contextValue = { isOpen, toggleAccordion, triggerId, contentId };
 
   return (
     <AccordionItemContext.Provider value={contextValue}>
@@ -107,7 +111,7 @@ export const AccordionTrigger = forwardRef(function AccordionTrigger(
   { children, className, asChild, ...props }: AccordionTriggerProps,
   ref: ForwardedRef<HTMLButtonElement>,
 ) {
-  const { isOpen, toggleAccordion } = useAccordionItemContext();
+  const { isOpen, toggleAccordion, triggerId, contentId } = useAccordionItemContext();
   const Component = asChild ? Slot : 'button';
   const buttonProps = asChild ? {} : { type: 'button' as const };
 
@@ -115,6 +119,8 @@ export const AccordionTrigger = forwardRef(function AccordionTrigger(
     <Component
       ref={ref}
       {...buttonProps}
+      id={triggerId}
+      aria-controls={contentId}
       className={cx(styles.accordionTrigger, className)}
       onClick={toggleAccordion}
       aria-expanded={isOpen}
@@ -131,14 +137,16 @@ export const AccordionIndicator = () => {
 };
 
 export const AccordionContent = ({ children, asChild, className, ...props }: AccordionContentProps) => {
-  const { isOpen } = useAccordionItemContext();
+  const { isOpen, triggerId, contentId } = useAccordionItemContext();
   const { ref, height, shouldTransition } = useAccordionAnimation(isOpen);
 
   const Component = asChild ? Slot : 'div';
 
   return (
-    <div
+    <section
       ref={ref}
+      id={contentId}
+      aria-labelledby={triggerId}
       className={cx(styles.accordionContentWrapper({ shouldTransition }))}
       style={{
         height,
@@ -148,7 +156,7 @@ export const AccordionContent = ({ children, asChild, className, ...props }: Acc
       <Component className={cx(styles.accordionContentInner, className)} {...props}>
         {children}
       </Component>
-    </div>
+    </section>
   );
 };
 
