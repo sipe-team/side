@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
-import { type ComponentProps, type ForwardedRef, forwardRef, useId, useState } from 'react';
+import { type ComponentProps, type ForwardedRef, forwardRef, useState } from 'react';
 
+import { useId } from '@sipe-team/hooks';
 import { AccordionArrowIcon } from '@sipe-team/icon';
 
 import { Slot } from '@radix-ui/react-slot';
