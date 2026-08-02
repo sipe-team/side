@@ -280,6 +280,27 @@ describe('Accordion accessibility wiring', () => {
     fireEvent.click(trigger);
     expect(wrapper.inert).toBe(true);
   });
+
+  test('user-supplied id/aria-controls on Trigger do not desync from Content', () => {
+    render(
+      <Accordion.Root>
+        <Accordion.Item>
+          <Accordion.Trigger id="custom-id" aria-controls="custom-aria-controls">
+            Test Trigger
+          </Accordion.Trigger>
+          <Accordion.Content>Test Content</Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>,
+    );
+
+    const trigger = screen.getByRole('button');
+    const content = screen.getByText('Test Content').closest('[class*="accordionContentWrapper"]');
+
+    expect(trigger.getAttribute('id')).not.toBe('custom-id');
+    expect(trigger.getAttribute('aria-controls')).not.toBe('custom-aria-controls');
+    expect(trigger.getAttribute('aria-controls')).toBe(content?.getAttribute('id'));
+    expect(content?.getAttribute('aria-labelledby')).toBe(trigger.getAttribute('id'));
+  });
 });
 
 describe('Accordion structure', () => {

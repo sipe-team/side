@@ -119,12 +119,12 @@ export const AccordionTrigger = forwardRef(function AccordionTrigger(
     <Component
       ref={ref}
       {...buttonProps}
-      id={triggerId}
-      aria-controls={contentId}
       className={cx(styles.accordionTrigger, className)}
       onClick={toggleAccordion}
       aria-expanded={isOpen}
       {...props}
+      id={triggerId}
+      aria-controls={contentId}
     >
       {children}
     </Component>
