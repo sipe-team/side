@@ -3,6 +3,8 @@ import { createContext, useContext } from 'react';
 interface AccordionItemContextValue {
   isOpen: boolean;
   toggleAccordion: () => void;
+  triggerId: string;
+  contentId: string;
 }
 
 export const AccordionItemContext = createContext<AccordionItemContextValue | null>(null);

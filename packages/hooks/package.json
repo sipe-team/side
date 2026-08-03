@@ -1,6 +1,6 @@
 {
-  "name": "@sipe-team/accordion",
-  "description": "Accordion for Sipe Design System",
+  "name": "@sipe-team/hooks",
+  "description": "Shared React hooks for Sipe Design System",
   "version": "0.1.0",
   "license": "MIT",
   "repository": {
@@ -20,17 +20,7 @@
     "prepack": "pnpm run build",
     "clean": "rm -rf node_modules dist"
   },
-  "dependencies": {
-    "@radix-ui/react-slot": "catalog:",
-    "@sipe-team/hooks": "workspace:*",
-    "@sipe-team/tokens": "workspace:*",
-    "@vanilla-extract/css": "catalog:",
-    "@vanilla-extract/recipes": "catalog:",
-    "clsx": "catalog:",
-    "@sipe-team/icon": "workspace:*"
-  },
   "devDependencies": {
-    "@sipe-team/typography": "workspace:*",
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
     "@types/react": "catalog:react",
@@ -42,8 +32,7 @@
     "vitest": "catalog:"
   },
   "peerDependencies": {
-    "react": ">= 18",
-    "react-dom": ">= 18"
+    "react": ">= 18"
   },
   "publishConfig": {
     "access": "public",
@@ -58,11 +47,7 @@
           "types": "./dist/index.d.cts",
           "default": "./dist/index.cjs"
         }
-      },
-      "./styles.css": "./dist/index.css"
+      }
     }
-  },
-  "sideEffects": [
-    "**/*.css"
-  ]
+  }
 }
