@@ -892,6 +892,9 @@ importers:
 
   packages/radio:
     dependencies:
+      '@sipe-team/hooks':
+        specifier: workspace:*
+        version: link:../hooks
       '@sipe-team/tokens':
         specifier: workspace:*
         version: link:../tokens
