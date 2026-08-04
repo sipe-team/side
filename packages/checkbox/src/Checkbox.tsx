@@ -1,12 +1,6 @@
-import {
-  type ChangeEventHandler,
-  type ComponentProps,
-  createContext,
-  forwardRef,
-  type Ref,
-  useContext,
-  useId,
-} from 'react';
+import { type ChangeEventHandler, type ComponentProps, createContext, forwardRef, type Ref, useContext } from 'react';
+
+import { useId } from '@sipe-team/hooks';
 
 import clsx from 'clsx';
 
@@ -54,8 +48,7 @@ const Root = forwardRef<HTMLInputElement, CheckBoxRootBaseProps>(
     },
     ref,
   ) => {
-    const internalId = useId();
-    const id = props.id ?? internalId;
+    const id = useId(props.id);
 
     const [checkedState, setCheckedState] = useControllableState<boolean | undefined>({
       prop: checked,

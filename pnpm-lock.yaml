@@ -452,6 +452,9 @@ importers:
 
   packages/checkbox:
     dependencies:
+      '@sipe-team/hooks':
+        specifier: workspace:*
+        version: link:../hooks
       '@sipe-team/tokens':
         specifier: workspace:*
         version: link:../tokens
