@@ -1,4 +1,6 @@
-import { createContext, type PropsWithChildren, useId } from 'react';
+import { createContext, type PropsWithChildren } from 'react';
+
+import { useId } from '@sipe-team/hooks';
 
 import clsx from 'clsx';
 
