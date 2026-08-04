@@ -11,8 +11,8 @@
 ## 빌드, 테스트, 개발 명령어
 
 ```bash
-mise install                        # Node v22.22.2 + pnpm 10.33.0 설치 (.mise.toml 기반)
-pnpm install                        # 의존성 설치 (pnpm 10.33.0, Node v22.22.2)
+mise install                        # Node v24.19.0 + pnpm 10.33.0 설치 (.mise.toml 기반)
+pnpm install                        # 의존성 설치 (pnpm 10.33.0, Node v24.19.0)
 pnpm dev:storybook                  # Storybook 개발 서버 실행 (:6006)
 pnpm build:storybook                # Storybook 빌드
 pnpm lint                           # Biome 린트 + 수정 (변경된 패키지)
