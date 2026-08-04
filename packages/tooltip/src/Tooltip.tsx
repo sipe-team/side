@@ -6,11 +6,12 @@ import {
   forwardRef,
   type ReactNode,
   useEffect,
-  useId,
   useImperativeHandle,
   useState,
 } from 'react';
 import { createPortal } from 'react-dom';
+
+import { useId } from '@sipe-team/hooks';
 
 import { Slot } from '@radix-ui/react-slot';
 
