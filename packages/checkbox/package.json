@@ -21,6 +21,7 @@
     "clean": "rm -rf node_modules dist"
   },
   "dependencies": {
+    "@sipe-team/hooks": "workspace:*",
     "@sipe-team/tokens": "workspace:*",
     "clsx": "catalog:",
     "@vanilla-extract/recipes": "catalog:"
