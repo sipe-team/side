@@ -28,7 +28,7 @@ function HomepageHeader() {
         <Heading as="h1" className={styles.heroTitle}>
           Side
         </Heading>
-        <p className={styles.heroSubtitle}>Sipe 제품을 만드는 사람들을 위한 디자인 시스템</p>
+        <p className={styles.heroSubtitle}>The design system for Sipe products</p>
       </div>
     </header>
   );

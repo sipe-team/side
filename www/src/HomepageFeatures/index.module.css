@@ -5,6 +5,13 @@
   width: 100%;
 }
 
+/* Infima's grid columns carry horizontal padding but no vertical spacing, so the cards sit flush
+   against each other once they wrap into a single column. Matches the 32px the columns already
+   put between cards side by side; inert while they fit on one row. */
+.features :global(.row) {
+  row-gap: var(--side-spacing-layout-sm);
+}
+
 .card {
   height: 100%;
   padding: var(--side-spacing-component-xl);

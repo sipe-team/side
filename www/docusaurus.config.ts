@@ -13,6 +13,14 @@ const r = (p: string) => path.resolve(__dirname, '..', 'packages', p);
 // components that read `vars` resolve against it. Built once for the whole site, not per component.
 const tokensCss = r('tokens/dist/styles.css');
 
+const sideCodeTheme = {
+  ...prismThemes.vsDark,
+  plain: {
+    ...prismThemes.vsDark.plain,
+    backgroundColor: 'var(--side-color-background-subtle)',
+  },
+};
+
 const pretendardCss = require.resolve('pretendard/dist/web/static/pretendard-dynamic-subset.css');
 
 export default {
@@ -112,8 +120,11 @@ export default {
       copyright: `All rights reserved ⓒ SIPE ${new Date().getFullYear()}`,
     },
     prism: {
-      theme: prismThemes.vsDark,
-      darkTheme: prismThemes.vsDark,
+      // Docusaurus applies `plain.backgroundColor` as an inline style on the code block
+      // container, which outranks `--ifm-pre-background`. Feeding the token through the theme
+      // keeps the code surface on the design system instead of vsDark's hardcoded #1e1e1e.
+      theme: sideCodeTheme,
+      darkTheme: sideCodeTheme,
     },
   } satisfies Preset.ThemeConfig,
 } satisfies Config;
