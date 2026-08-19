@@ -1,5 +1,37 @@
 # @sipe-team/side
 
+## 0.2.7
+
+### Patch Changes
+
+- 0b02738: Extend Flex props to accept responsive breakpoint values for direction, align, justify, wrap, and gap.
+- 1e7bb22: Align existing `@sipe-team/*` `package.json` metadata with the canonical shape. Adds `publishConfig.registry` to divider/radio/side/switch, unifies `lint` scripts on `pnpm exec biome lint`, normalizes `workspace:^` → `workspace:*` in avatar/switch/typography, and moves accordion/theme/checkbox direct `react`, `@types/react`, `react-dom`, and `@vanilla-extract/css` specifiers to the pnpm catalog.
+- 1e7bb22: Preserve CSS imports in `sideEffects` so consumer bundlers don't tree-shake `./styles.css`.
+- Updated dependencies [1e7bb22]
+- Updated dependencies [1e7bb22]
+- Updated dependencies [0b02738]
+- Updated dependencies [1e7bb22]
+- Updated dependencies [0b02738]
+- Updated dependencies [1e7bb22]
+- Updated dependencies [1e7bb22]
+- Updated dependencies [1e7bb22]
+- Updated dependencies [1e7bb22]
+- Updated dependencies [0b02738]
+- Updated dependencies [1e7bb22]
+  - @sipe-team/card@0.2.0
+  - @sipe-team/tooltip@1.0.0
+  - @sipe-team/flex@0.2.0
+  - @sipe-team/button@1.0.0
+  - @sipe-team/tokens@1.0.0
+  - @sipe-team/divider@0.0.4
+  - @sipe-team/radio@0.1.1
+  - @sipe-team/switch@0.0.4
+  - @sipe-team/theme@1.0.0
+  - @sipe-team/typography@0.0.6
+  - @sipe-team/skeleton@0.0.4
+  - @sipe-team/badge@0.0.5
+  - @sipe-team/input@0.0.5
+
 ## 0.2.6
 
 ### Patch Changes

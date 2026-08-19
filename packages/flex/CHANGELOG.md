@@ -1,5 +1,15 @@
 # @sipe-team/flex
 
+## 0.2.0
+
+### Minor Changes
+
+- 0b02738: Extend Flex props to accept responsive breakpoint values for direction, align, justify, wrap, and gap.
+
+### Patch Changes
+
+- 1e7bb22: Preserve CSS imports in `sideEffects` so consumer bundlers don't tree-shake `./styles.css`.
+
 ## 0.1.4
 
 ### Patch Changes
