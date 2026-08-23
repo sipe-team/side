@@ -34,6 +34,17 @@
       "reason": "design tokens only, no tests"
     },
     {
+      "packageName": "@sipe-team/tokens",
+      "rule": "scripts.build",
+      "reason": "tokens build runs tsup before generating Style Dictionary artifacts"
+    },
+    {
+      "packageName": "@sipe-team/tokens",
+      "rule": "extraScript",
+      "fieldPath": "scripts.build:tokens",
+      "reason": "token-specific Style Dictionary generation invoked by the package build"
+    },
+    {
       "packageName": "@sipe-team/side",
       "rule": "scripts.test",
       "reason": "aggregator package, no tests"
