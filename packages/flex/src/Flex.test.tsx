@@ -293,6 +293,20 @@ describe('Flex', () => {
       expect(flexContainer.style.getPropertyValue('--side-flex-gap-lg')).toBe('24px');
     });
 
+    it('adds pixel units to non-zero numeric responsive gap values', () => {
+      render(
+        <Flex data-testid="flex-container" gap={{ sm: 8, md: 16, lg: 0 }}>
+          <div>item 1</div>
+          <div>item 2</div>
+        </Flex>,
+      );
+
+      const flexContainer = screen.getByTestId('flex-container');
+      expect(flexContainer.style.getPropertyValue('--side-flex-gap-sm')).toBe('8px');
+      expect(flexContainer.style.getPropertyValue('--side-flex-gap-md')).toBe('16px');
+      expect(flexContainer.style.getPropertyValue('--side-flex-gap-lg')).toBe('0');
+    });
+
     it('keeps nested responsive gap values independent from the parent Flex', () => {
       render(
         <Flex data-testid="parent-flex" gap={{ sm: '8px' }}>

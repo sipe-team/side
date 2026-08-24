@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -27,6 +27,24 @@ describe('Tooltip basic behavior', () => {
 
     expect(screen.queryByText('Hover me')).toBeInTheDocument();
     expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+  });
+
+  test('ref still forwards to the trigger element when tooltipContent is falsy.', () => {
+    const capturedRef: { current: HTMLElement | null } = { current: null };
+    const TooltipWithRef = () => {
+      const ref = useRef<HTMLElement>(null);
+      useEffect(() => {
+        capturedRef.current = ref.current;
+      });
+      return (
+        <Tooltip ref={ref} tooltipContent={null}>
+          <button type="button">Hover me</button>
+        </Tooltip>
+      );
+    };
+
+    render(<TooltipWithRef />);
+    expect(capturedRef.current).toBe(screen.getByText('Hover me'));
   });
 
   test('Tooltip appears on mouse enter and disappears on mouse leave.', async () => {

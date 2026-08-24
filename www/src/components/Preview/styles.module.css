@@ -9,16 +9,10 @@
 .stage {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 0.75rem;
   padding: 1.5rem;
   background: var(--ifm-color-emphasis-100);
-}
-
-/* Dark-only components (hardcoded dark colors) opt into an intentional dark canvas via
-   <Preview theme="dark">, so they read as a deliberate example rather than a dark card
-   floating on a light frame. */
-.stageDark {
-  background: #0d1117;
 }
 
 .toolbar {

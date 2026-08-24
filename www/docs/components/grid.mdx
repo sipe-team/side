@@ -1,0 +1,258 @@
+---
+sidebar_label: Grid
+---
+
+import { Grid, GridItem } from '@sipe-team/grid';
+
+{/* Grid's layout demos need visible blocks to show placement; this placeholder box is presentational
+    only and is intentionally left out of the `code` strings below. */}
+export const Box = ({ children, style }) => (
+  <div
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: '4rem',
+      borderRadius: '8px',
+      border: '1px dashed currentColor',
+      background: 'rgba(128, 128, 128, 0.15)',
+      boxSizing: 'border-box',
+      padding: '0.5rem',
+      ...style,
+    }}
+  >
+    {children}
+  </div>
+);
+
+# Grid
+
+A `<div>` that lays out its children with CSS grid, plus a `GridItem` for per-item placement
+(column/row span or start/end, named areas, and self-alignment).
+
+## Installation
+
+```sh
+npm install @sipe-team/grid
+```
+
+```ts
+import '@sipe-team/grid/styles.css';
+```
+
+## Usage
+
+Give `Grid` a `templateColumns` and `gap`; children fill the implicit grid in source order.
+
+<Preview
+  code={`<Grid templateColumns="repeat(3, 1fr)" gap="1rem">
+  <Box>1</Box>
+  <Box>2</Box>
+  <Box>3</Box>
+</Grid>`}
+>
+  <Grid templateColumns="repeat(3, 1fr)" gap="1rem">
+    <Box>1</Box>
+    <Box>2</Box>
+    <Box>3</Box>
+  </Grid>
+</Preview>
+
+## Examples
+
+### Named areas
+
+`templateAreas` names regions of the grid; each `GridItem` claims one with a matching `area`.
+
+<Preview
+  code={`<Grid
+  templateAreas='"header header" "sidebar main" "footer footer"'
+  templateColumns="160px 1fr"
+  gap="0.75rem"
+>
+  <GridItem area="header"><Box>Header</Box></GridItem>
+  <GridItem area="sidebar"><Box>Sidebar</Box></GridItem>
+  <GridItem area="main"><Box>Main</Box></GridItem>
+  <GridItem area="footer"><Box>Footer</Box></GridItem>
+</Grid>`}
+>
+  <Grid
+    templateAreas='"header header" "sidebar main" "footer footer"'
+    templateColumns="160px 1fr"
+    gap="0.75rem"
+  >
+    <GridItem area="header"><Box>Header</Box></GridItem>
+    <GridItem area="sidebar"><Box>Sidebar</Box></GridItem>
+    <GridItem area="main"><Box>Main</Box></GridItem>
+    <GridItem area="footer"><Box>Footer</Box></GridItem>
+  </Grid>
+</Preview>
+
+### Spanning columns and rows
+
+`colSpan`/`rowSpan` are shorthand for `grid-column`/`grid-row: span N`.
+
+<Preview
+  code={`<Grid templateColumns="repeat(4, 1fr)" templateRows="repeat(2, 1fr)" gap="0.75rem">
+  <GridItem rowSpan={2}><Box>rowSpan 2</Box></GridItem>
+  <GridItem colSpan={2}><Box>colSpan 2</Box></GridItem>
+  <GridItem colSpan={1}><Box>colSpan 1</Box></GridItem>
+  <GridItem colSpan={3}><Box>colSpan 3</Box></GridItem>
+</Grid>`}
+>
+  <Grid templateColumns="repeat(4, 1fr)" templateRows="repeat(2, 1fr)" gap="0.75rem">
+    <GridItem rowSpan={2}><Box>rowSpan 2</Box></GridItem>
+    <GridItem colSpan={2}><Box>colSpan 2</Box></GridItem>
+    <GridItem colSpan={1}><Box>colSpan 1</Box></GridItem>
+    <GridItem colSpan={3}><Box>colSpan 3</Box></GridItem>
+  </Grid>
+</Preview>
+
+### Explicit start/end
+
+`colStart`/`colEnd` and `rowStart`/`rowEnd` build a `start / end` line range (each defaults to
+`auto`). They only take effect when `column`/`row` and `colSpan`/`rowSpan` are unset — see
+[GridItem](#griditem) for the full priority order.
+
+<Preview
+  code={`<Grid templateColumns="repeat(4, 1fr)" gap="0.75rem">
+  <GridItem colStart={2} colEnd={4}><Box>col 2 → 4</Box></GridItem>
+</Grid>`}
+>
+  <Grid templateColumns="repeat(4, 1fr)" gap="0.75rem">
+    <GridItem colStart={2} colEnd={4}><Box>col 2 → 4</Box></GridItem>
+  </Grid>
+</Preview>
+
+### Item self-alignment
+
+`justifySelf`/`alignSelf` on a `GridItem` position it within its own cell.
+
+<Preview
+  code={`<Grid templateColumns="repeat(3, 1fr)" gap="0.75rem" style={{ height: '8rem' }}>
+  <GridItem alignSelf="start" justifySelf="start"><Box style={{ minWidth: '3rem' }}>start</Box></GridItem>
+  <GridItem alignSelf="center" justifySelf="center"><Box style={{ minWidth: '3rem' }}>center</Box></GridItem>
+  <GridItem alignSelf="end" justifySelf="end"><Box style={{ minWidth: '3rem' }}>end</Box></GridItem>
+</Grid>`}
+>
+  <Grid templateColumns="repeat(3, 1fr)" gap="0.75rem" style={{ height: '8rem' }}>
+    <GridItem alignSelf="start" justifySelf="start"><Box style={{ minWidth: '3rem' }}>start</Box></GridItem>
+    <GridItem alignSelf="center" justifySelf="center"><Box style={{ minWidth: '3rem' }}>center</Box></GridItem>
+    <GridItem alignSelf="end" justifySelf="end"><Box style={{ minWidth: '3rem' }}>end</Box></GridItem>
+  </Grid>
+</Preview>
+
+### Nested grids
+
+`Grid` nests freely — an inner `Grid` lays out independently of its parent.
+
+<Preview
+  code={`<Grid templateColumns="repeat(2, 1fr)" gap="0.75rem">
+  <Box>Outer</Box>
+  <Grid templateColumns="repeat(2, 1fr)" gap="0.5rem">
+    <Box>Inner 1</Box>
+    <Box>Inner 2</Box>
+  </Grid>
+</Grid>`}
+>
+  <Grid templateColumns="repeat(2, 1fr)" gap="0.75rem">
+    <Box>Outer</Box>
+    <Grid templateColumns="repeat(2, 1fr)" gap="0.5rem">
+      <Box>Inner 1</Box>
+      <Box>Inner 2</Box>
+    </Grid>
+  </Grid>
+</Preview>
+
+### `asChild`
+
+Both `Grid` and `GridItem` support `asChild` to drop their wrapping `<div>` and merge onto the
+element you provide.
+
+<Preview
+  code={`<Grid asChild templateColumns="repeat(2, 1fr)" gap="0.75rem">
+  <section>
+    <Box>1</Box>
+    <Box>2</Box>
+  </section>
+</Grid>`}
+>
+  <Grid asChild templateColumns="repeat(2, 1fr)" gap="0.75rem">
+    <section>
+      <Box>1</Box>
+      <Box>2</Box>
+    </section>
+  </Grid>
+</Preview>
+
+## Anatomy
+
+```tsx
+import { Grid, GridItem } from '@sipe-team/grid';
+
+export default () => (
+  <Grid templateColumns="repeat(3, 1fr)" gap="1rem">
+    <GridItem colSpan={2}>Item</GridItem>
+    <GridItem>Item</GridItem>
+  </Grid>
+);
+```
+
+`Grid` renders a single `<div>` (or the child element when `asChild` is set). `GridItem` is not
+required — any element works as a grid child — it only adds per-item placement props.
+`@sipe-team/grid` also exports `Root` and `Item` as aliases for `Grid` and `GridItem`, for a
+`<Grid.Root>`/`<Grid.Item>` compound-component import style (`import * as Grid from '@sipe-team/grid'`).
+
+## API Reference
+
+### `Grid`
+
+Renders a `<div>` (or the child element when `asChild` is set) and forwards its `ref`.
+
+| Prop              | Type                                    | Default | Description                                               |
+| ----------------- | ---------------------------------------- | ------- | ------------------------------------------------------------ |
+| `templateColumns` | `CSSProperties['gridTemplateColumns']`  | —       | `grid-template-columns`.                                      |
+| `templateRows`    | `CSSProperties['gridTemplateRows']`     | —       | `grid-template-rows`.                                         |
+| `templateAreas`   | `CSSProperties['gridTemplateAreas']`    | —       | `grid-template-areas`.                                        |
+| `gap`             | `CSSProperties['gap']`                  | `'0'`   | `gap`.                                                         |
+| `autoFlow`        | `CSSProperties['gridAutoFlow']`         | `'row'` | `grid-auto-flow`.                                              |
+| `inline`          | `boolean`                                | `false` | Uses `inline-grid` instead of `grid`.                          |
+| `asChild`         | `boolean`                                | `false` | Merge props onto the child instead of rendering a `div`.       |
+
+Also accepts every `ComponentProps<'div'>` (`className`, `style`, `onClick`, …), forwarded to the
+rendered element. `Grid` also declares `autoRows`/`autoColumns` props
+(`CSSProperties['gridAutoRows']`/`CSSProperties['gridAutoColumns']`), but see
+[Known limitations](#known-limitations) — they currently have no visual effect.
+
+### `GridItem`
+
+Renders a `<div>` (or the child element when `asChild` is set) and forwards its `ref`.
+
+| Prop          | Type                            | Default | Description                                                                    |
+| ------------- | --------------------------------- | ------- | ----------------------------------------------------------------------------------- |
+| `column`      | `CSSProperties['gridColumn']`    | —       | `grid-column`. Takes priority over `colSpan` and `colStart`/`colEnd`.               |
+| `row`         | `CSSProperties['gridRow']`       | —       | `grid-row`. Takes priority over `rowSpan` and `rowStart`/`rowEnd`.                   |
+| `area`        | `CSSProperties['gridArea']`      | —       | `grid-area`, for placing into a named `templateAreas` region.                       |
+| `colSpan`     | `number`                         | —       | Shorthand for `grid-column: span N`. Used only when `column` is unset.              |
+| `rowSpan`     | `number`                         | —       | Shorthand for `grid-row: span N`. Used only when `row` is unset.                    |
+| `colStart`    | `number \| 'auto'`               | —       | Start line of `grid-column`. Used only when `column` and `colSpan` are unset.       |
+| `colEnd`      | `number \| 'auto'`               | —       | End line of `grid-column`. Used only when `column` and `colSpan` are unset.         |
+| `rowStart`    | `number \| 'auto'`               | —       | Start line of `grid-row`. Used only when `row` and `rowSpan` are unset.             |
+| `rowEnd`      | `number \| 'auto'`               | —       | End line of `grid-row`. Used only when `row` and `rowSpan` are unset.               |
+| `justifySelf` | `CSSProperties['justifySelf']`   | —       | `justify-self`.                                                                      |
+| `alignSelf`   | `CSSProperties['alignSelf']`     | —       | `align-self`.                                                                        |
+| `asChild`     | `boolean`                        | `false` | Merge props onto the child instead of rendering a `div`.                            |
+
+Also accepts every `ComponentProps<'div'>` (`className`, `style`, `onClick`, …), forwarded to the
+rendered element.
+
+## Known limitations
+
+- `Grid`'s `autoRows` and `autoColumns` props set internal CSS custom properties, but the compiled
+  stylesheet never reads them back into `grid-auto-rows`/`grid-auto-columns` — passing either prop
+  currently has no visual effect. Use `style={{ gridAutoRows: ... }}` / `style={{ gridAutoColumns: ... }}`
+  as a workaround.
+- `Grid` has no `alignItems`/`justifyItems`/`alignContent`/`justifyContent` props for container-level
+  alignment, even though the stylesheet has unwired hooks for them internally. Use
+  `style={{ alignItems: ... }}` etc. on `Grid`, or align individual children with `GridItem`'s
+  `alignSelf`/`justifySelf`.

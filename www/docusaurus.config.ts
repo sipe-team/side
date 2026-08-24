@@ -13,6 +13,16 @@ const r = (p: string) => path.resolve(__dirname, '..', 'packages', p);
 // components that read `vars` resolve against it. Built once for the whole site, not per component.
 const tokensCss = r('tokens/dist/styles.css');
 
+const sideCodeTheme = {
+  ...prismThemes.vsDark,
+  plain: {
+    ...prismThemes.vsDark.plain,
+    backgroundColor: 'var(--side-color-background-subtle)',
+  },
+};
+
+const pretendardCss = require.resolve('pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
 export default {
   title: 'Side',
   tagline: 'Sipe Design System',
@@ -23,6 +33,12 @@ export default {
   projectName: 'side',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
+  headTags: [
+    { tagName: 'link', attributes: { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/img/favicon-32x32.png' } },
+    { tagName: 'link', attributes: { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/img/favicon-16x16.png' } },
+    { tagName: 'link', attributes: { rel: 'apple-touch-icon', sizes: '180x180', href: '/img/apple-icon.png' } },
+    { tagName: 'link', attributes: { rel: 'mask-icon', href: '/img/safari-pinned-tab.svg', color: '#ffb24d' } },
+  ],
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -37,7 +53,7 @@ export default {
         },
         blog: false,
         theme: {
-          customCss: [tokensCss, './src/custom.css'],
+          customCss: [tokensCss, pretendardCss, './src/custom.css'],
         },
       } satisfies Preset.Options,
     ],
@@ -67,11 +83,13 @@ export default {
   ],
 
   themeConfig: {
-    image: 'img/docusaurus-social-card.jpg',
+    colorMode: {
+      defaultMode: 'dark',
+      disableSwitch: true,
+    },
     navbar: {
-      title: 'Side',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Sipe',
         src: 'img/logo.svg',
       },
       items: [
@@ -95,31 +113,18 @@ export default {
       ],
     },
     footer: {
-      style: 'dark',
       links: [
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
-            },
-          ],
-        },
+        { label: 'GitHub', href: 'https://github.com/sipe-team/side' },
+        { label: 'sipe.team', href: 'https://sipe.team' },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Sipe Team, Inc. Built with Docusaurus.`,
+      copyright: `All rights reserved ⓒ SIPE ${new Date().getFullYear()}`,
     },
     prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      // Docusaurus applies `plain.backgroundColor` as an inline style on the code block
+      // container, which outranks `--ifm-pre-background`. Feeding the token through the theme
+      // keeps the code surface on the design system instead of vsDark's hardcoded #1e1e1e.
+      theme: sideCodeTheme,
+      darkTheme: sideCodeTheme,
     },
   } satisfies Preset.ThemeConfig,
 } satisfies Config;

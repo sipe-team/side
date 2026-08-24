@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "catalog:",
+    "@sipe-team/hooks": "workspace:*",
     "@sipe-team/tokens": "workspace:*",
     "@vanilla-extract/css": "catalog:",
     "@vanilla-extract/recipes": "catalog:",

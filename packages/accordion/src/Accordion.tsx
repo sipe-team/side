@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { type ComponentProps, type ForwardedRef, forwardRef, useState } from 'react';
 
+import { useId } from '@sipe-team/hooks';
 import { AccordionArrowIcon } from '@sipe-team/icon';
 
 import { Slot } from '@radix-ui/react-slot';
@@ -92,7 +93,11 @@ export const AccordionItem = forwardRef(function AccordionItem(
     }
   };
 
-  const contextValue = { isOpen, toggleAccordion };
+  const uid = useId();
+  const triggerId = `${uid}-trigger`;
+  const contentId = `${uid}-content`;
+
+  const contextValue = { isOpen, toggleAccordion, triggerId, contentId };
 
   return (
     <AccordionItemContext.Provider value={contextValue}>
@@ -107,7 +112,7 @@ export const AccordionTrigger = forwardRef(function AccordionTrigger(
   { children, className, asChild, ...props }: AccordionTriggerProps,
   ref: ForwardedRef<HTMLButtonElement>,
 ) {
-  const { isOpen, toggleAccordion } = useAccordionItemContext();
+  const { isOpen, toggleAccordion, triggerId, contentId } = useAccordionItemContext();
   const Component = asChild ? Slot : 'button';
   const buttonProps = asChild ? {} : { type: 'button' as const };
 
@@ -119,6 +124,8 @@ export const AccordionTrigger = forwardRef(function AccordionTrigger(
       onClick={toggleAccordion}
       aria-expanded={isOpen}
       {...props}
+      id={triggerId}
+      aria-controls={contentId}
     >
       {children}
     </Component>
@@ -131,14 +138,16 @@ export const AccordionIndicator = () => {
 };
 
 export const AccordionContent = ({ children, asChild, className, ...props }: AccordionContentProps) => {
-  const { isOpen } = useAccordionItemContext();
+  const { isOpen, triggerId, contentId } = useAccordionItemContext();
   const { ref, height, shouldTransition } = useAccordionAnimation(isOpen);
 
   const Component = asChild ? Slot : 'div';
 
   return (
-    <div
+    <section
       ref={ref}
+      id={contentId}
+      aria-labelledby={triggerId}
       className={cx(styles.accordionContentWrapper({ shouldTransition }))}
       style={{
         height,
@@ -148,7 +157,7 @@ export const AccordionContent = ({ children, asChild, className, ...props }: Acc
       <Component className={cx(styles.accordionContentInner, className)} {...props}>
         {children}
       </Component>
-    </div>
+    </section>
   );
 };
 

@@ -1,4 +1,4 @@
-import { color } from '@sipe-team/tokens';
+import { vars } from '@sipe-team/tokens';
 
 import { recipe } from '@vanilla-extract/recipes';
 
@@ -24,22 +24,26 @@ export const card = recipe({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: '12px',
-    padding: '20px',
+    borderRadius: vars.radius.component.lg,
+    padding: vars.spacing.component.lg,
   },
   variants: {
     variant: {
       [CardVariant.filled]: {
-        backgroundColor: color.gray100,
-        border: `1px solid ${color.gray200}`,
+        backgroundColor: vars.color.background.subtle,
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderColor: vars.color.border.default,
       },
       [CardVariant.outline]: {
-        backgroundColor: color.gray50,
-        border: `1px solid ${color.cyan300}`,
+        backgroundColor: vars.color.background.default,
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderColor: vars.color.border.strong,
       },
       [CardVariant.ghost]: {
         backgroundColor: 'transparent',
-        border: 'none',
+        borderStyle: 'none',
         padding: 0,
       },
     },

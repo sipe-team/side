@@ -1,0 +1,259 @@
+---
+sidebar_label: Tooltip
+---
+
+import { useState } from 'react';
+import { Tooltip } from '@sipe-team/tooltip';
+
+export const ClickToggleTooltip = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <Tooltip
+      tooltipContent="Click to toggle this tooltip"
+      placement="bottom"
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      disableHoverListener
+      disableFocusListener
+    >
+      <button type="button" style={{ padding: '8px 12px', cursor: 'pointer' }} onClick={() => setOpen((v) => !v)}>Click me</button>
+    </Tooltip>
+  );
+};
+
+# Tooltip
+
+A floating label that appears near a trigger element on hover or focus, positioned automatically
+relative to it.
+
+## Installation
+
+```sh
+npm install @sipe-team/tooltip
+```
+
+```ts
+import '@sipe-team/tooltip/styles.css';
+```
+
+## Usage
+
+Wrap a trigger with `Tooltip` and give it `tooltipContent`. By default (`asChild`), the trigger
+behavior is merged onto the child element itself rather than wrapping it in an extra `div`.
+
+<Preview
+  code={`<Tooltip tooltipContent="Helpful text">
+  <button type="button">Hover me</button>
+</Tooltip>`}
+>
+  <Tooltip tooltipContent="Helpful text">
+    <button type="button" style={{ padding: '8px 12px', cursor: 'pointer' }}>Hover me</button>
+  </Tooltip>
+</Preview>
+
+## Examples
+
+### Placement
+
+`placement` sets where the tooltip appears relative to the trigger: `top` (default), `top-left`,
+`top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, or `right`.
+
+<Preview
+  code={`<Tooltip tooltipContent="Top Left" placement="top-left">
+  <button type="button">Top Left</button>
+</Tooltip>
+<Tooltip tooltipContent="Top" placement="top">
+  <button type="button">Top</button>
+</Tooltip>
+<Tooltip tooltipContent="Top Right" placement="top-right">
+  <button type="button">Top Right</button>
+</Tooltip>
+<Tooltip tooltipContent="Left" placement="left">
+  <button type="button">Left</button>
+</Tooltip>
+<Tooltip tooltipContent="Right" placement="right">
+  <button type="button">Right</button>
+</Tooltip>
+<Tooltip tooltipContent="Bottom Left" placement="bottom-left">
+  <button type="button">Bottom Left</button>
+</Tooltip>
+<Tooltip tooltipContent="Bottom" placement="bottom">
+  <button type="button">Bottom</button>
+</Tooltip>
+<Tooltip tooltipContent="Bottom Right" placement="bottom-right">
+  <button type="button">Bottom Right</button>
+</Tooltip>`}
+>
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', justifyItems: 'center', alignItems: 'center', width: '100%' }}>
+    <Tooltip tooltipContent="Top Left" placement="top-left">
+      <button type="button" style={{ padding: '8px 12px', cursor: 'pointer' }}>Top Left</button>
+    </Tooltip>
+    <Tooltip tooltipContent="Top" placement="top">
+      <button type="button" style={{ padding: '8px 12px', cursor: 'pointer' }}>Top</button>
+    </Tooltip>
+    <Tooltip tooltipContent="Top Right" placement="top-right">
+      <button type="button" style={{ padding: '8px 12px', cursor: 'pointer' }}>Top Right</button>
+    </Tooltip>
+    <Tooltip tooltipContent="Left" placement="left">
+      <button type="button" style={{ padding: '8px 12px', cursor: 'pointer' }}>Left</button>
+    </Tooltip>
+    <div />
+    <Tooltip tooltipContent="Right" placement="right">
+      <button type="button" style={{ padding: '8px 12px', cursor: 'pointer' }}>Right</button>
+    </Tooltip>
+    <Tooltip tooltipContent="Bottom Left" placement="bottom-left">
+      <button type="button" style={{ padding: '8px 12px', cursor: 'pointer' }}>Bottom Left</button>
+    </Tooltip>
+    <Tooltip tooltipContent="Bottom" placement="bottom">
+      <button type="button" style={{ padding: '8px 12px', cursor: 'pointer' }}>Bottom</button>
+    </Tooltip>
+    <Tooltip tooltipContent="Bottom Right" placement="bottom-right">
+      <button type="button" style={{ padding: '8px 12px', cursor: 'pointer' }}>Bottom Right</button>
+    </Tooltip>
+  </div>
+</Preview>
+
+### Controlled visibility
+
+Pass `open` with `onOpen`/`onClose` to drive visibility from the parent. Combine with
+`disableHoverListener` and `disableFocusListener` to fully replace hover/focus triggering — here, a
+click toggles the tooltip instead.
+
+<Preview
+  code={`const [open, setOpen] = useState(false);
+
+<Tooltip
+  tooltipContent="Click to toggle this tooltip"
+  placement="bottom"
+  open={open}
+  onOpen={() => setOpen(true)}
+  onClose={() => setOpen(false)}
+  disableHoverListener
+  disableFocusListener
+>
+  <button type="button" onClick={() => setOpen((v) => !v)}>
+    Click me
+  </button>
+</Tooltip>`}
+>
+  <ClickToggleTooltip />
+</Preview>
+
+### Custom styling
+
+`tooltipStyle` and `tooltipClassName` customize the floating element; `gap` controls the pixel
+distance from the trigger. The arrow follows `tooltipStyle.backgroundColor` automatically.
+
+<Preview
+  code={`<Tooltip
+  tooltipContent="Custom styled tooltip"
+  placement="right"
+  gap={12}
+  tooltipStyle={{
+    backgroundColor: '#005f73',
+    color: '#e0fbfc',
+    padding: '12px 16px',
+    borderRadius: '8px',
+  }}
+>
+  <button type="button">Hover me</button>
+</Tooltip>`}
+>
+  <Tooltip
+    tooltipContent="Custom styled tooltip"
+    placement="right"
+    gap={12}
+    tooltipStyle={{
+      backgroundColor: '#005f73',
+      color: '#e0fbfc',
+      padding: '12px 16px',
+      borderRadius: '8px',
+    }}
+  >
+    <button type="button" style={{ padding: '8px 12px', cursor: 'pointer' }}>Hover me</button>
+  </Tooltip>
+</Preview>
+
+### `asChild`
+
+`asChild` defaults to `true` and merges the trigger behavior onto the child element, preserving its
+tag (here, an `<h1>`) instead of wrapping it in a `div`. Set `asChild={false}` to wrap the child in a
+plain `div`.
+
+<Preview
+  code={`<Tooltip tooltipContent="This is a tooltip" placement="top">
+  <h1>Hover me (h1 element)</h1>
+</Tooltip>
+<Tooltip tooltipContent="Wrapped in a div" placement="top" asChild={false}>
+  <button type="button">Hover me (wrapped)</button>
+</Tooltip>`}
+>
+  <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+    <Tooltip tooltipContent="This is a tooltip" placement="top">
+      <h1 style={{ margin: 0, fontSize: '1.25rem' }}>Hover me (h1 element)</h1>
+    </Tooltip>
+    <Tooltip tooltipContent="Wrapped in a div" placement="top" asChild={false}>
+      <button type="button" style={{ padding: '8px 12px', cursor: 'pointer' }}>Hover me (wrapped)</button>
+    </Tooltip>
+  </div>
+</Preview>
+
+## Anatomy
+
+```tsx
+import { Tooltip } from '@sipe-team/tooltip';
+
+export default () => (
+  <Tooltip tooltipContent="Helpful text" placement="top">
+    <button type="button">Hover me</button>
+  </Tooltip>
+);
+```
+
+Renders `children` as the trigger (merging props onto it when `asChild`, or wrapping it in a `div`
+otherwise). While visible, a `<div role="tooltip">` is portaled into `document.body` alongside it.
+
+## API Reference
+
+Renders the child element directly when `asChild` is `true` (default) or wraps it in a `<div>`
+otherwise, and forwards its `ref` to that trigger element. While open, also portals a
+`<div role="tooltip">` into `document.body`.
+
+| Prop                   | Type                                                                                                       | Default | Description                                                                                     |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------ | ------- | ------------------------------------------------------------------------------------------------- |
+| `tooltipContent`       | `ReactNode`                                                                                                 | —       | Content shown inside the tooltip. If falsy, `Tooltip` renders only `children` — no tooltip markup at all. |
+| `placement`            | `'top' \| 'top-left' \| 'top-right' \| 'bottom' \| 'bottom-left' \| 'bottom-right' \| 'left' \| 'right'` | `'top'` | Where the tooltip appears relative to the trigger.                                                |
+| `asChild`              | `boolean`                                                                                                    | `true`  | Merge trigger behavior onto the child element instead of wrapping it in a `div`.                  |
+| `gap`                  | `number`                                                                                                     | `8`     | Pixel distance between the trigger and the tooltip.                                               |
+| `open`                 | `boolean`                                                                                                    | —       | Controls visibility externally. When set, pair it with `onOpen`/`onClose`.                        |
+| `onOpen`               | `() => void`                                                                                                 | —       | Called when the tooltip requests to open (hover, focus, or click when listeners are disabled).    |
+| `onClose`              | `() => void`                                                                                                 | —       | Called when the tooltip requests to close. Hover/focus closes are delayed 150ms; outside click and Escape close immediately. |
+| `disableHoverListener` | `boolean`                                                                                                    | `false` | Disable opening/closing on mouse hover.                                                           |
+| `disableFocusListener` | `boolean`                                                                                                    | `false` | Disable opening/closing on keyboard focus/blur.                                                   |
+| `tooltipStyle`         | `CSSProperties`                                                                                              | —       | Inline style applied to the tooltip element. `backgroundColor` also drives the arrow color.       |
+| `tooltipClassName`     | `string`                                                                                                     | —       | Additional class name applied to the tooltip element.                                             |
+
+Also accepts every other `ComponentProps<'div'>` (`className`, `style`, `onClick`, …), spread onto
+the trigger element.
+
+## Accessibility
+
+- The floating element has `role="tooltip"`, and the trigger gets `aria-describedby` pointing to it
+  while visible.
+- Opens on keyboard focus and closes on blur unless `disableFocusListener` is set, so it is reachable
+  by <kbd>Tab</kbd>.
+- Closes on outside click and on <kbd>Escape</kbd>, regardless of `disableHoverListener` /
+  `disableFocusListener`.
+
+## Known limitations
+
+- The tooltip is rendered via `createPortal` into `document.body`, so it escapes any container's
+  `overflow`/`z-index`. The portal is deferred until after the component mounts on the client, so it
+  never renders during SSR.
+- If `tooltipContent` is falsy (`null`, `undefined`, `false`, `''`), `Tooltip` renders only the
+  trigger — no `aria-describedby`, no tooltip markup, even while hovered. The trigger's `ref` and
+  event handlers are still attached as usual.
+- Position is recalculated on scroll and resize (via `requestAnimationFrame`) only while the tooltip
+  is visible; it does not observe unrelated layout shifts (for example, a sibling element resizing
+  and pushing the trigger to a new position).

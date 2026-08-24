@@ -1,11 +1,34 @@
 .features {
   display: flex;
-  align-items: center;
-  padding: 2rem 0;
+  align-items: stretch;
+  padding: var(--side-spacing-layout-lg) 0;
   width: 100%;
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
+/* Infima's grid columns carry horizontal padding but no vertical spacing, so the cards sit flush
+   against each other once they wrap into a single column. Matches the 32px the columns already
+   put between cards side by side; inert while they fit on one row. */
+.features :global(.row) {
+  row-gap: var(--side-spacing-layout-sm);
+}
+
+.card {
+  height: 100%;
+  padding: var(--side-spacing-component-xl);
+  border: 1px solid var(--side-color-border-default);
+  border-radius: var(--side-radius-component-xl);
+  background: var(--side-color-background-muted);
+}
+
+.cardTitle {
+  margin-bottom: var(--side-spacing-component-md);
+  font-size: var(--side-font-size-400);
+  font-weight: var(--side-font-weight-semi-bold);
+}
+
+.cardBody {
+  margin: 0;
+  color: var(--side-color-foreground-subtle);
+  font-size: var(--side-font-size-200);
+  line-height: var(--side-line-height-regular);
 }

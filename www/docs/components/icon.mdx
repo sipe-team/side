@@ -1,0 +1,237 @@
+---
+sidebar_label: Icon
+---
+
+import { useState } from 'react';
+import {
+  AccordionArrowIcon,
+  CheckCircleIcon,
+  EmailIcon,
+  GithubIcon,
+  InstagramIcon,
+  KakaoIcon,
+  LinkedinIcon,
+  LinkIcon,
+  OrganizerIcon,
+  UserIcon,
+  YoutubeIcon,
+} from '@sipe-team/icon';
+
+export const ALL_ICONS = [
+  ['AccordionArrowIcon', AccordionArrowIcon],
+  ['CheckCircleIcon', CheckCircleIcon],
+  ['EmailIcon', EmailIcon],
+  ['GithubIcon', GithubIcon],
+  ['InstagramIcon', InstagramIcon],
+  ['KakaoIcon', KakaoIcon],
+  ['LinkedinIcon', LinkedinIcon],
+  ['LinkIcon', LinkIcon],
+  ['OrganizerIcon', OrganizerIcon],
+  ['UserIcon', UserIcon],
+  ['YoutubeIcon', YoutubeIcon],
+];
+
+{/* Demonstrates the `onClick` pass-through without a native `alert()`; presentational only and left
+    out of the `code` string below. */}
+export const ClickableIcon = () => {
+  const [clicked, setClicked] = useState(false);
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      <GithubIcon
+        role="button"
+        aria-label="GitHub"
+        onClick={() => setClicked((value) => !value)}
+        style={{ cursor: 'pointer' }}
+      />
+      <span>{clicked ? 'Clicked!' : 'Click the icon'}</span>
+    </div>
+  );
+};
+
+# Icon
+
+A set of pre-built SVG icon components, each a `forwardRef` wrapper around fixed artwork with
+configurable `size` and `color`.
+
+## Installation
+
+```sh
+npm install @sipe-team/icon
+```
+
+Icon components render inline SVG and ship no separate stylesheet — there is no `styles.css` to
+import.
+
+## Usage
+
+Every icon is a named export. Render one directly; it defaults to 24×24.
+
+<Preview
+  code={`<GithubIcon />`}
+>
+  <GithubIcon />
+</Preview>
+
+## Examples
+
+### All icons
+
+<Preview
+  code={`const icons = {
+  AccordionArrowIcon,
+  CheckCircleIcon,
+  EmailIcon,
+  GithubIcon,
+  InstagramIcon,
+  KakaoIcon,
+  LinkedinIcon,
+  LinkIcon,
+  OrganizerIcon,
+  UserIcon,
+  YoutubeIcon,
+};
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem' }}>
+  {Object.entries(icons).map(([name, Icon]) => (
+    <div key={name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+      <Icon size={28} />
+      <span style={{ fontSize: '0.75rem' }}>{name}</span>
+    </div>
+  ))}
+</div>`}
+>
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem' }}>
+    {ALL_ICONS.map(([name, Icon]) => (
+      <div key={name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+        <Icon size={28} />
+        <span style={{ fontSize: '0.75rem' }}>{name}</span>
+      </div>
+    ))}
+  </div>
+</Preview>
+
+### Size
+
+`size` sets both `width` and `height` in pixels. Default is `24`. To override `width`/`height`
+independently of `size`, pass them directly — they are spread after `size`'s and take priority.
+
+<Preview
+  code={`<GithubIcon size={16} />
+<GithubIcon size={24} />
+<GithubIcon size={32} />
+<GithubIcon size={48} />`}
+>
+  <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+    <GithubIcon size={16} />
+    <GithubIcon size={24} />
+    <GithubIcon size={32} />
+    <GithubIcon size={48} />
+  </div>
+</Preview>
+
+### Color
+
+`color` sets the fill of the icon's paths. When omitted, each icon falls back to its own hardcoded
+default — see [Known limitations](#known-limitations).
+
+<Preview
+  code={`<UserIcon color="#EC4899" />
+<UserIcon color="#22C55E" />
+<UserIcon color="#3B82F6" />`}
+>
+  <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+    <UserIcon color="#EC4899" />
+    <UserIcon color="#22C55E" />
+    <UserIcon color="#3B82F6" />
+  </div>
+</Preview>
+
+### Two-tone icons
+
+`KakaoIcon` draws its badge background and face glyph as two separate paths with different default
+fill colors. Passing `color` overrides every path to the same color, which loses the two-tone look —
+compare the default (left) with a custom color (right).
+
+<Preview
+  code={`<KakaoIcon size={32} />
+<KakaoIcon size={32} color="#8B5CF6" />`}
+>
+  <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+    <KakaoIcon size={32} />
+    <KakaoIcon size={32} color="#8B5CF6" />
+  </div>
+</Preview>
+
+### SVG props
+
+Every unlisted prop is spread onto the `<svg>` element — pass `className`, `onClick`, `aria-label`,
+or any other SVG attribute.
+
+<Preview
+  code={`const [clicked, setClicked] = useState(false);
+
+<GithubIcon
+  role="button"
+  aria-label="GitHub"
+  onClick={() => setClicked((value) => !value)}
+  style={{ cursor: 'pointer' }}
+/>`}
+>
+  <ClickableIcon />
+</Preview>
+
+## Anatomy
+
+```tsx
+import { GithubIcon } from '@sipe-team/icon';
+
+export default () => <GithubIcon size={24} color="currentColor" />;
+```
+
+Each icon renders a single `<svg>` with fixed artwork (a set `viewBox` and one or more `<path>`
+elements), sized by `size` (`width`/`height`) and colored by `color` (`fill`). Every icon component
+shares this same shape and forwards its `ref` to the `<svg>`.
+
+## API Reference
+
+### `IconProps`
+
+Shared prop type for every icon component, extending `SVGProps<SVGSVGElement>`.
+
+| Prop    | Type     | Default | Description                                                                    |
+| ------- | -------- | ------- | ---------------------------------------------------------------------------------- |
+| `size`  | `number` | `24`    | Sets both `width` and `height`, in pixels.                                          |
+| `color` | `string` | —       | Fill color for the icon's paths. No shared default — see [Known limitations](#known-limitations). |
+
+Also accepts every `SVGProps<SVGSVGElement>` (`className`, `style`, `onClick`, `aria-label`, …),
+spread onto the `<svg>`.
+
+### Available icons
+
+| Component             | Source SVG              |
+| ---------------------- | ------------------------- |
+| `AccordionArrowIcon`   | `accordion-arrow.svg`     |
+| `CheckCircleIcon`      | `check-circle.svg`        |
+| `EmailIcon`            | `email.svg`               |
+| `GithubIcon`           | `github.svg`               |
+| `InstagramIcon`        | `instagram.svg`            |
+| `KakaoIcon`            | `kakao.svg`                 |
+| `LinkedinIcon`         | `linkedin.svg`              |
+| `LinkIcon`             | `link.svg`                  |
+| `OrganizerIcon`        | `organizer.svg`             |
+| `UserIcon`             | `user.svg`                  |
+| `YoutubeIcon`          | `youtube.svg`               |
+
+New icons are generated from SVG files in the package's `icons/` directory — see the package's
+`README.md` (`packages/icon/README.md`) for the naming convention and the generation script.
+
+## Known limitations
+
+- `IconProps.color`'s type doc says it "Defaults to currentColor", but no icon actually does this —
+  each hardcodes its own literal fallback fill when `color` is omitted. Most icons default to
+  `white`; `CheckCircleIcon` and `OrganizerIcon` default to cyan (`#00ffff`); `KakaoIcon` defaults to
+  `white` (badge) and `#1A202C` (face); `LinkIcon` defaults to `#CBD5E0`. Icons do not automatically
+  inherit surrounding text color — pass `color` explicitly if a specific color is needed.
+- `KakaoIcon` is the only icon with more than one visible fill color by default. Passing `color`
+  recolors every path to that single color, so its two-tone look cannot be kept while overriding the
+  color.

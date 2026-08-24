@@ -21,7 +21,6 @@ import '@sipe-team/accordion/styles.css';
 ## Usage
 
 <Preview
-  theme="dark"
   code={`<Accordion>
   <Accordion.Item>
     <Accordion.Trigger>
@@ -52,7 +51,6 @@ import '@sipe-team/accordion/styles.css';
 Independent items — any number open at once, no `value` needed.
 
 <Preview
-  theme="dark"
   code={`<Accordion>
   <Accordion.Item>
     <Accordion.Trigger>
@@ -93,7 +91,6 @@ Independent items — any number open at once, no `value` needed.
 Mutually exclusive — each item needs a `value`.
 
 <Preview
-  theme="dark"
   code={`<Accordion type="single">
   <Accordion.Item value="one">
     <Accordion.Trigger>
@@ -134,7 +131,6 @@ Mutually exclusive — each item needs a `value`.
 `initialValue` opens an item in single mode; `defaultOpen` does the same per-item in multiple mode.
 
 <Preview
-  theme="dark"
   code={`<Accordion type="single" initialValue="shipping">
   <Accordion.Item value="shipping">
     <Accordion.Trigger>
@@ -175,7 +171,6 @@ Mutually exclusive — each item needs a `value`.
 `Root`, `Trigger`, and `Content` merge their props onto the child instead of rendering a `div` / `button` / `div`. With `asChild` on `Trigger`, pass a genuinely focusable element — the default `type="button"` is not applied.
 
 <Preview
-  theme="dark"
   code={`<Accordion asChild>
   <section>
     <Accordion.Item>
