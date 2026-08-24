@@ -106,6 +106,11 @@ export default {
           position: 'left',
         },
         {
+          href: 'https://side.storybook.sipe.team',
+          label: 'Storybook',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/sipe-team/side',
           label: 'GitHub',
           position: 'right',
@@ -114,6 +119,7 @@ export default {
     },
     footer: {
       links: [
+        { label: 'Storybook', href: 'https://side.storybook.sipe.team' },
         { label: 'GitHub', href: 'https://github.com/sipe-team/side' },
         { label: 'sipe.team', href: 'https://sipe.team' },
       ],
