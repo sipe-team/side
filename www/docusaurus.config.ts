@@ -27,7 +27,7 @@ export default {
   title: 'Side',
   tagline: 'Sipe Design System',
   favicon: 'img/favicon.ico',
-  url: 'https://sipe.team',
+  url: 'https://side.sipe.team',
   baseUrl: '/',
   organizationName: 'sipe-team',
   projectName: 'side',
